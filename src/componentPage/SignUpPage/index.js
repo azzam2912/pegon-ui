@@ -2,15 +2,11 @@ import {
   Flex,
   Heading,
   Button,
-  Divider,
   Text,
   HStack,
   useToast,
 } from "@chakra-ui/react";
 import { TextInput } from "src/components/Input";
-import NextLink from "next/link";
-import { OAuthButtonGroup } from "./Fragments/OAuthButtonGroup";
-import { useSignInMutation } from "src/hooks/fetchers/mutations/useSignInMutation";
 import React from "react";
 import { useRouter } from "next/router";
 
@@ -145,4 +141,4 @@ const SignUpPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
