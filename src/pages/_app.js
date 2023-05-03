@@ -6,7 +6,7 @@ import { colors } from "src/theme";
 
 // 2. Add your color mode config
 const config = {
-  initialColorMode: "light",
+  initialColorMode: "dark",
   useSystemColorMode: false,
 };
 

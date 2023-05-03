@@ -1,36 +1,23 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { Box, Flex} from "@chakra-ui/react";
 import React from "react";
+import { useUserInfoQuery } from "src/hooks/fetchers/queries/useUserInfoQuery";
+import Sidebar from "src/components/Sidebar";
 
 const DashboardPage = () => {
-  const router = useRouter();
-  const [token, setToken] = React.useState();
-
-  React.useEffect(()=>{
-    setToken(localStorage.getItem("token"))
-  }, [token])
+  const { data, status } = useUserInfoQuery({
+    config: {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    },
+  });
 
   return (
-    <Flex
-      width="100vw"
-      height="100vh"
-      alignItems="center"
-      justifyContent="center"
-      direction="column"
-    >
-      <Heading textAlign="center" mb={3}>
-        Logged In {
-          token
-        }
-      </Heading>
-      <Button
-        onClick={() => {
-          localStorage.removeItem("token");
-          router.push("/");
-        }}
-      >
-        Log Out
-      </Button>
+    <Flex width="100vw" height="100vh" direction="row">
+      <Sidebar/>
+      <Box Flex={1} height="100%">
+
+      </Box>
     </Flex>
   );
 };
