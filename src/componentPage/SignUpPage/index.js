@@ -9,6 +9,8 @@ import {
 import { TextInput } from "src/components/Input";
 import React from "react";
 import { useRouter } from "next/router";
+import { useSignUpMutation } from "src/hooks/fetchers/mutations/useSignUpMutation";
+import Link from "next/link";
 
 const SignUpPage = () => {
   const [username, setUsername] = React.useState("");
@@ -72,9 +74,11 @@ const SignUpPage = () => {
         </Heading>
         <HStack spacing="1" justify="center" mb={5}>
           <Text color="muted">Already have an account?</Text>
+          <Link href="/">
           <Button variant="link" colorScheme="primary">
             Sign In
           </Button>
+          </Link>
         </HStack>
         <Flex direction="column" width="full">
           <TextInput
@@ -99,14 +103,16 @@ const SignUpPage = () => {
             label="Password"
             placeholder="Password"
             type="password"
+            mb={5}
             isRequired
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <TextInput
             label="Confirm Password"
-            placeholder="Password"
+            placeholder="Confirm Password"
             type="password"
+            mb={5}
             isRequired
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

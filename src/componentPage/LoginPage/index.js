@@ -13,6 +13,7 @@ import { OAuthButtonGroup } from "./Fragments/OAuthButtonGroup";
 import { useSignInMutation } from "src/hooks/fetchers/mutations/useSignInMutation";
 import React from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const LoginPage = () => {
   const [email, setEmail] = React.useState("");
@@ -74,9 +75,11 @@ const LoginPage = () => {
         </Heading>
         <HStack spacing="1" justify="center" mb={5}>
           <Text color="muted">Don't have an account?</Text>
+          <Link href="/register">
           <Button variant="link" colorScheme="primary">
             Sign up
           </Button>
+          </Link>
         </HStack>
         <Flex direction="column" width="full">
           <TextInput

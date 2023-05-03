@@ -1,8 +1,15 @@
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import React from "react";
 
 const DashboardPage = () => {
   const router = useRouter();
+  const [token, setToken] = React.useState();
+
+  React.useEffect(()=>{
+    setToken(localStorage.getItem("token"))
+  }, [token])
+
   return (
     <Flex
       width="100vw"
@@ -12,7 +19,9 @@ const DashboardPage = () => {
       direction="column"
     >
       <Heading textAlign="center" mb={3}>
-        Logged In
+        Logged In {
+          token
+        }
       </Heading>
       <Button
         onClick={() => {
