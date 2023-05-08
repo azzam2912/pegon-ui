@@ -1,14 +1,13 @@
 import axios from "axios";
 import { useFetchQuery } from "../reactQueryHooks";
-import { useRouter } from "next/router";
 
 export const useUserInfoQuery = ({ config }) => {
-  const router = useRouter();
-  const _userInfoQuery = async ({ identifier, password }) => {
+  const _userInfoQuery = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:1337/api/users/me`, {
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "ngrok-skip-browser-warning":"any"
         },
       });
       return data;

@@ -17,6 +17,7 @@ import {
   MdQuestionAnswer,
   MdInfo,
 } from "react-icons/md";
+import { NavigationButton } from "./fragments/NavigationButton";
 
 const Sidebar = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(false);
@@ -37,107 +38,31 @@ const Sidebar = () => {
       <Flex alignItems="center">
         <Image width="56px" src="logo.png" alt="Pegon Logo" />
         <Flex flex={1} ml={3} overflowX="hidden" direction="column">
-          <Heading size="md" noOfLines={1}>PegonDocs</Heading>
-          <Text textColor="gray.400" fontSize="sm" noOfLines={1}>Digital Library</Text>
+          <Heading size="md" noOfLines={1}>
+            PegonDocs
+          </Heading>
+          <Text textColor="gray.400" fontSize="sm" noOfLines={1}>
+            Digital Library
+          </Text>
         </Flex>
       </Flex>
       <Divider my={2} />
-      <Button
-        iconSpacing={isSidebarExpanded ? 3 : 0}
-        leftIcon={<MdHome />}
-        justifyContent="left"
-        variant="ghost"
-        mb={1}
-        width="100%"
-        textColor="gray.400"
-        sx={{
-          "& svg": {
-            fontSize: "1.25rem",
-            textColor: "gray.300",
-          },
-        }}
-        fontWeight="normal"
-        fontSize="sm"
-      >
-        {isSidebarExpanded ? "Home" : null}
-      </Button>
-      <Button
-        iconSpacing={isSidebarExpanded ? 3 : 0}
-        leftIcon={<MdLibraryBooks />}
-        justifyContent="left"
-        variant="ghost"
-        mb={1}
-        width="100%"
-        textColor="gray.400"
-        fontWeight="normal"
-        fontSize="sm"
-        sx={{
-          "& svg": {
-            fontSize: "1.25rem",
-            textColor: "gray.300",
-          },
-        }}
-      >
-        {isSidebarExpanded ? "All Documents" : null}
-      </Button>
-      <Button
-        iconSpacing={isSidebarExpanded ? 3 : 0}
-        leftIcon={<MdBookmark />}
-        justifyContent="left"
-        variant="ghost"
-        mb={1}
-        width="100%"
-        textColor="gray.400"
-        fontWeight="normal"
-        fontSize="sm"
-        sx={{
-          "& svg": {
-            fontSize: "1.25rem",
-            textColor: "gray.300",
-          },
-        }}
-      >
-        {isSidebarExpanded ? "Bookmarks" : null}
-      </Button>
+      <NavigationButton icon={<MdHome />} isSidebarExpanded={isSidebarExpanded}>
+        Home
+      </NavigationButton>
+      <NavigationButton icon={<MdLibraryBooks />} isSidebarExpanded={isSidebarExpanded}>
+        All Documents
+      </NavigationButton>
+      <NavigationButton icon={<MdBookmark />} isSidebarExpanded={isSidebarExpanded}>
+        Bookmarks
+      </NavigationButton>
       <Divider my={3} />
-      <Button
-        iconSpacing={isSidebarExpanded ? 3 : 0}
-        leftIcon={<MdQuestionAnswer />}
-        justifyContent="left"
-        variant="ghost"
-        mb={1}
-        width="100%"
-        textColor="gray.400"
-        fontWeight="normal"
-        fontSize="sm"
-        sx={{
-          "& svg": {
-            fontSize: "1.25rem",
-            textColor: "gray.300",
-          },
-        }}
-      >
-        {isSidebarExpanded ? "FAQ" : null}
-      </Button>
-      <Button
-        iconSpacing={isSidebarExpanded ? 3 : 0}
-        leftIcon={<MdInfo />}
-        justifyContent="left"
-        variant="ghost"
-        mb={1}
-        width="100%"
-        textColor="gray.400"
-        fontWeight="normal"
-        fontSize="sm"
-        sx={{
-          "& svg": {
-            fontSize: "1.25rem",
-            textColor: "gray.300",
-          },
-        }}
-      >
-        {isSidebarExpanded ? "About" : null}
-      </Button>
+      <NavigationButton icon={<MdQuestionAnswer />} isSidebarExpanded={isSidebarExpanded}>
+        FAQ
+      </NavigationButton>
+      <NavigationButton icon={<MdInfo />} isSidebarExpanded={isSidebarExpanded}>
+        About
+      </NavigationButton>
       <Spacer />
       <Divider my={1} />
       <Button

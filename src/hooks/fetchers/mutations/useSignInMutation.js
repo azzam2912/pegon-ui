@@ -5,7 +5,7 @@ export const useSignInMutation = ({ config }) => {
   const _signIn = async ({ identifier, password }) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:1337/api/auth/local`,
+        `${process.env.NEXT_PUBLIC_API_HOST}/auth/local`,
         {
           identifier,
           password,
@@ -13,7 +13,7 @@ export const useSignInMutation = ({ config }) => {
       );
       return data;
     } catch (error) {
-      throw new Error(error.message);
+      throw error;
     }
   };
 

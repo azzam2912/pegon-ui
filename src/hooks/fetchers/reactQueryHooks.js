@@ -9,9 +9,6 @@ export const useFetchQuery = (key, fetcher, options) => {
     queryKey: key,
     queryFn: fetcher,
     onError: (error) => {
-      if (error.response.status === 401) {
-        router.push("/");
-      }
       createToast({
         title: "Error",
         description: error.message,

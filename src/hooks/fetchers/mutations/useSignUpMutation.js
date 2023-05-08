@@ -5,7 +5,7 @@ export const useSignUpMutation = ({ config }) => {
   const _signUp = async ({ username, email, password }) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:1337/api/auth/local/register`,
+        `${process.env.NEXT_PUBLIC_API_HOST}/auth/local/register`,
         {
           username,
           email,
@@ -14,7 +14,7 @@ export const useSignUpMutation = ({ config }) => {
       );
       return data;
     } catch (error) {
-      throw new Error(error.message);
+      throw error;
     }
   };
 
