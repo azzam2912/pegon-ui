@@ -1,10 +1,27 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useToast } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 
-const Page = ({ pageComponent: Page, requireAuth }) => {
+export const ModelSidebarContext = React.createContext();
+
+const ModalSidebarContextProvider = ({ children }) => {
+  const modalSidebar = useDisclosure();
+  return (
+    <ModelSidebarContext.Provider value={modalSidebar}>
+      {children}
+    </ModelSidebarContext.Provider>
+  );
+};
+
+export const useModalSidebar = () => {
+  const context = React.useContext(ModelSidebarContext);
+  return context;
+};
+
+export const Page = ({ pageComponent: Page, requireAuth }) => {
   const router = useRouter();
   const createToast = useToast();
+  const modalSidebar = useDisclosure()
   React.useEffect(() => {
     // check if jwt is present
     const token = localStorage?.getItem("token");
@@ -12,14 +29,16 @@ const Page = ({ pageComponent: Page, requireAuth }) => {
       createToast({
         title: "Error",
         description: "You need to be logged in to access this page",
-        position: "top-right",
+        position: "bottom-right",
         status: "error",
         isClosable: true,
       });
       router.push("/");
     }
   }, []);
-  return <Page />;
+  return (
+    <ModalSidebarContextProvider>
+      <Page />
+    </ModalSidebarContextProvider>
+  );
 };
-
-export default Page;

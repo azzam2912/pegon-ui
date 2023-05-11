@@ -13,7 +13,7 @@ export const useFetchQuery = (key, fetcher, options) => {
         title: "Error",
         description: error.message,
         status: "error",
-        position: "top-right",
+        position: "bottom-right",
         isClosable: true,
       });
     },
@@ -33,7 +33,7 @@ export const useFetchMutation = (fetcher, options) => {
       createToast({
         title: "Error",
         description: error.message,
-        position: "top-right",
+        position: "bottom-right",
         status: "error",
         isClosable: true,
       });

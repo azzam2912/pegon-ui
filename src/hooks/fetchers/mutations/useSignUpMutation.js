@@ -2,14 +2,22 @@ import axios from "axios";
 import { useFetchMutation } from "../reactQueryHooks";
 
 export const useSignUpMutation = ({ config }) => {
-  const _signUp = async ({ username, email, password }) => {
+  const _signUp = async ({
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+  }) => {
     try {
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_HOST}/auth/local/register`,
         {
+          firstName,
+          lastName,
           username,
           email,
-          password
+          password,
         }
       );
       return data;

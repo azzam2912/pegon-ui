@@ -29,7 +29,7 @@ const LoginPage = () => {
           title: "Success",
           description: "You have successfully logged in",
           status: "success",
-          position: "top-right",
+          position: "bottom-right",
           isClosable: true,
         });
         localStorage.setItem("token", data.jwt);
@@ -37,6 +37,14 @@ const LoginPage = () => {
       },
     },
   });
+
+  React.useEffect(() => {
+    // check if jwt is present
+    const token = localStorage?.getItem("token");
+    if (token) {
+      router.push("/app");
+    }
+  })
 
   return (
     <Flex
@@ -58,7 +66,7 @@ const LoginPage = () => {
         }}
         bg={{
           base: "transparent",
-          sm: "bg-surface",
+          sm: "gray.700",
         }}
         boxShadow={{
           base: "none",
@@ -66,7 +74,7 @@ const LoginPage = () => {
         }}
         borderRadius={{
           base: "none",
-          sm: "xl",
+          sm: "md",
         }}
         w="100%"
         maxW="lg"

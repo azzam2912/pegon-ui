@@ -17,6 +17,8 @@ const SignUpPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const router = useRouter();
   const createToast = useToast();
 
@@ -27,7 +29,7 @@ const SignUpPage = () => {
           title: "Success",
           description: "You have successfully signed up",
           status: "success",
-          position: "top-right",
+          position: "bottom-right",
           isClosable: true,
         });
         localStorage.setItem("token", data.jwt);
@@ -36,6 +38,14 @@ const SignUpPage = () => {
     },
   });
 
+  React.useEffect(() => {
+    // check if jwt is present
+    const token = localStorage?.getItem("token");
+    if (token) {
+      router.push("/app");
+    }
+  })
+
   return (
     <Flex
       width="100vw"
@@ -43,6 +53,7 @@ const SignUpPage = () => {
       alignItems="center"
       justifyContent="center"
       direction="column"
+      overflowY="auto"
     >
       <Flex
         direction="column"
@@ -56,7 +67,7 @@ const SignUpPage = () => {
         }}
         bg={{
           base: "transparent",
-          sm: "bg-surface",
+          sm: "gray.700",
         }}
         boxShadow={{
           base: "none",
@@ -64,23 +75,41 @@ const SignUpPage = () => {
         }}
         borderRadius={{
           base: "none",
-          sm: "xl",
+          sm: "md",
         }}
         w="100%"
         maxW="lg"
       >
-        <Heading textAlign="center" mb={3}>
+        <Heading size="lg" textAlign="center" mb={3}>
           Sign up your new account
         </Heading>
         <HStack spacing="1" justify="center" mb={5}>
           <Text color="muted">Already have an account?</Text>
           <Link href="/">
-          <Button variant="link" colorScheme="primary">
-            Sign In
-          </Button>
+            <Button variant="link" colorScheme="primary">
+              Sign In
+            </Button>
           </Link>
         </HStack>
-        <Flex direction="column" width="full">
+        <Flex direction="column" w="100%">
+          <HStack mb={5}>
+            <TextInput
+              label="First Name"
+              placeholder="First Name"
+              type="text"
+              isRequired
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <TextInput
+              label="Last Name"
+              placeholder="Last Name"
+              type="text"
+              isRequired
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </HStack>
           <TextInput
             label="Username"
             placeholder="abc"
@@ -124,6 +153,8 @@ const SignUpPage = () => {
           mt="5"
           onClick={() => {
             signUp({
+              firstName,
+              lastName,
               username,
               email,
               password,

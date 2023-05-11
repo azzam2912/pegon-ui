@@ -1,6 +1,9 @@
 import {
   Button,
   Divider,
+  Drawer,
+  DrawerContent,
+  DrawerOverlay,
   Flex,
   Heading,
   Image,
@@ -18,69 +21,139 @@ import {
   MdInfo,
 } from "react-icons/md";
 import { NavigationButton } from "./fragments/NavigationButton";
+import { useModalSidebar } from "src/componentPage/Page";
 
 const Sidebar = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(false);
+  const { isOpen, onOpen, onClose } = useModalSidebar();
 
   return (
-    <Flex
-      style={{
-        width: isSidebarExpanded ? "250px" : "64px",
-        transition: "width 0.25s",
-      }}
-      height="100%"
-      bgColor="gray.700"
-      direction="column"
-      alignItems="start"
-      overflow="hidden"
-      p={1}
-    >
-      <Flex alignItems="center">
-        <Image width="56px" src="logo.png" alt="Pegon Logo" />
-        <Flex flex={1} ml={3} overflowX="hidden" direction="column">
-          <Heading size="md" noOfLines={1}>
-            PegonDocs
-          </Heading>
-          <Text textColor="gray.400" fontSize="sm" noOfLines={1}>
-            Digital Library
-          </Text>
-        </Flex>
-      </Flex>
-      <Divider my={2} />
-      <NavigationButton icon={<MdHome />} isSidebarExpanded={isSidebarExpanded}>
-        Home
-      </NavigationButton>
-      <NavigationButton icon={<MdLibraryBooks />} isSidebarExpanded={isSidebarExpanded}>
-        All Documents
-      </NavigationButton>
-      <NavigationButton icon={<MdBookmark />} isSidebarExpanded={isSidebarExpanded}>
-        Bookmarks
-      </NavigationButton>
-      <Divider my={3} />
-      <NavigationButton icon={<MdQuestionAnswer />} isSidebarExpanded={isSidebarExpanded}>
-        FAQ
-      </NavigationButton>
-      <NavigationButton icon={<MdInfo />} isSidebarExpanded={isSidebarExpanded}>
-        About
-      </NavigationButton>
-      <Spacer />
-      <Divider my={1} />
-      <Button
-        iconSpacing={isSidebarExpanded ? 2 : 0}
-        leftIcon={isSidebarExpanded ? null : <MdMenu />}
-        rightIcon={isSidebarExpanded ? <MdArrowBack /> : null}
-        variant="ghost"
-        justifyContent={isSidebarExpanded ? "right" : "center"}
-        width="100%"
-        sx={{
-          "& svg": {
-            fontSize: "1.25rem",
-          },
+    <>
+      <Flex
+        style={{
+          width: isSidebarExpanded ? "250px" : "64px",
         }}
-        textColor="gray.300"
-        onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
-      />
-    </Flex>
+        display={{
+          base: "none",
+          md: "block",
+        }}
+        height="100%"
+        bgColor="gray.700"
+        direction="column"
+        alignItems="start"
+        overflow="hidden"
+        p={1}
+      >
+        <Button
+          iconSpacing={isSidebarExpanded ? 2 : 0}
+          leftIcon={isSidebarExpanded ? null : <MdMenu />}
+          rightIcon={isSidebarExpanded ? <MdArrowBack /> : null}
+          variant="ghost"
+          justifyContent={isSidebarExpanded ? "right" : "center"}
+          width="100%"
+          sx={{
+            "& svg": {
+              fontSize: "1.25rem",
+            },
+          }}
+          textColor="gray.300"
+          onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
+        />
+        <Divider my={2} />
+        <NavigationButton
+          icon={<MdHome />}
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          Home
+        </NavigationButton>
+        <NavigationButton
+          icon={<MdLibraryBooks />}
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          All Documents
+        </NavigationButton>
+        <NavigationButton
+          icon={<MdBookmark />}
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          Bookmarks
+        </NavigationButton>
+        <Divider my={3} />
+        <NavigationButton
+          icon={<MdQuestionAnswer />}
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          FAQ
+        </NavigationButton>
+        <NavigationButton
+          icon={<MdInfo />}
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          About
+        </NavigationButton>
+      </Flex>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <Flex
+            w="100%"
+            height="100%"
+            bgColor="gray.700"
+            direction="column"
+            alignItems="start"
+            overflow="hidden"
+            p={1}
+          >
+            <Button
+              iconSpacing={2}
+              rightIcon={<MdArrowBack />}
+              variant="ghost"
+              justifyContent="right"
+              width="100%"
+              sx={{
+                "& svg": {
+                  fontSize: "1.25rem",
+                },
+              }}
+              textColor="gray.300"
+              onClick={onClose}
+            />
+            <Divider my={2} />
+            <NavigationButton
+              icon={<MdHome />}
+              isSidebarExpanded
+            >
+              Home
+            </NavigationButton>
+            <NavigationButton
+              icon={<MdLibraryBooks />}
+              isSidebarExpanded
+            >
+              All Documents
+            </NavigationButton>
+            <NavigationButton
+              icon={<MdBookmark />}
+              isSidebarExpanded
+            >
+              Bookmarks
+            </NavigationButton>
+            <Divider my={3} />
+            <NavigationButton
+              icon={<MdQuestionAnswer />}
+              isSidebarExpanded
+            >
+              FAQ
+            </NavigationButton>
+            <NavigationButton
+              icon={<MdInfo />}
+              isSidebarExpanded
+            >
+              About
+            </NavigationButton>
+          </Flex>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 
