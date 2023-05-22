@@ -118,11 +118,6 @@ const AppLayout = ({ children }) => {
           w="100%"
           h="100%"
           overflowY="auto"
-          sx={{
-            "::-webkit-scrollbar": {
-              display: "none",
-            },
-          }}
         >
           {children}
         </Box>

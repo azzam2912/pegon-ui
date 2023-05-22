@@ -21,6 +21,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  Skeleton,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
@@ -56,6 +57,8 @@ const DashboardPage = () => {
           console.log(data);
         },
       },
+      page: 1,
+      pageSize: 4,
     });
 
   return (
@@ -103,14 +106,19 @@ const DashboardPage = () => {
               borderRadius="md"
             >
               <Heading size="md" color="white">
-                Welcome, {user?.firstName}!
+                Welcome, {userStatus === "success" ? user?.firstName : "..."}!
               </Heading>
               <Text>
                 Let's explore Pegon together and contribute to the community!
               </Text>
               <Spacer />
               <HStack justify="end" width="100%">
-                <Button as={NextLink} href="/app/documents" colorScheme="primary" variant="outline">
+                <Button
+                  as={NextLink}
+                  href="/app/documents"
+                  colorScheme="primary"
+                  variant="outline"
+                >
                   Contribute
                 </Button>
                 <Button colorScheme="primary">Explore</Button>
@@ -127,7 +135,9 @@ const DashboardPage = () => {
                 </CardHeader>
                 <Spacer />
                 <CardBody>
-                  <Text fontSize="2xl">20</Text>
+                  <Text fontSize="2xl">
+                    ...
+                  </Text>
                 </CardBody>
               </Card>
               <Card borderWidth="1px" borderColor="gray.600">
@@ -136,16 +146,20 @@ const DashboardPage = () => {
                 </CardHeader>
                 <Spacer />
                 <CardBody>
-                  <Text fontSize="2xl">69</Text>
+                  <Text fontSize="2xl">
+                    ...
+                  </Text>
                 </CardBody>
               </Card>
               <Card borderWidth="1px" borderColor="gray.600">
                 <CardHeader>
-                  <Heading size="sm">Users</Heading>
+                  <Heading size="sm">Viewed Documents</Heading>
                 </CardHeader>
                 <Spacer />
                 <CardBody>
-                  <Text fontSize="2xl">8</Text>
+                  <Text fontSize="2xl">
+                    ...
+                  </Text>
                 </CardBody>
               </Card>
               <Card borderWidth="1px" borderColor="gray.600">
@@ -154,7 +168,9 @@ const DashboardPage = () => {
                 </CardHeader>
                 <Spacer />
                 <CardBody>
-                  <Text fontSize="2xl">7</Text>
+                  <Text fontSize="2xl">
+                    ...
+                  </Text>
                 </CardBody>
               </Card>
             </SimpleGrid>
@@ -170,10 +186,26 @@ const DashboardPage = () => {
             width="100%"
             spacing={3}
           >
-            <NewDocument />
-            <NewDocument />
-            <NewDocument />
-            <NewDocument />
+            {latestDocumentsStatus === "success" ? (
+              latestDocuments.data?.map(({ attributes }) => (
+                <NewDocument {...attributes} />
+              ))
+            ) : (
+              <>
+                <Skeleton borderRadius="md">
+                  <NewDocument />
+                </Skeleton>
+                <Skeleton borderRadius="md">
+                  <NewDocument />
+                </Skeleton>
+                <Skeleton borderRadius="md">
+                  <NewDocument />
+                </Skeleton>
+                <Skeleton borderRadius="md">
+                  <NewDocument />
+                </Skeleton>
+              </>
+            )}
           </SimpleGrid>
         </VStack>
       </VStack>
@@ -182,17 +214,60 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-const NewDocument = () => {
+const NewDocument = ({ thumbnail, title, publishedAt, author }) => {
+  // from published at into string like 2 hours ago or something
+  const [date, setDate] = React.useState("Just now");
+  const timeAgo = (date) => {
+    const seconds = Math.floor((new Date() - date) / 1000);
+
+    const intervals = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+      second: 1,
+    };
+
+    for (let interval in intervals) {
+      const count = Math.floor(seconds / intervals[interval]);
+      if (count >= 1) {
+        return count === 1
+          ? `${count} ${interval} ago`
+          : `${count} ${interval}s ago`;
+      }
+    }
+
+    return "Just now";
+  };
+
+  React.useEffect(() => {
+    setDate(timeAgo(new Date(publishedAt)));
+  }, [publishedAt]);
+
   return (
-    <HStack align="stretch" borderRadius="md" p={3} bgColor="gray.700" borderWidth="1px">
-      <Image
-        objectFit="cover"
-        src="https://892f-152-118-231-115.ngrok-free.app/uploads/thumbnail_111_3b06423791.png"
-        alt="Tarikhul Auliya"
-        borderRadius="lg"
-        boxSize="96px"
-        fallbackSrc="96.png"
-      />
+    <HStack
+      align="stretch"
+      borderRadius="md"
+      p={3}
+      bgColor="gray.700"
+      borderWidth="1px"
+    >
+      <Flex width="128px">
+        <Image
+          fit="cover"
+          src={
+            thumbnail
+              ? `${process.env.NEXT_PUBLIC_HOST}${thumbnail.data.attributes.url}`
+              : null
+          }
+          alt={title}
+          borderRadius="lg"
+          boxSize="96px"
+          fallbackSrc="96.png"
+        />
+      </Flex>
       <VStack spacing={0} align="left" width="100%" p={3}>
         <HStack justify="space-between">
           <Link
@@ -203,14 +278,14 @@ const NewDocument = () => {
             fontWeight="bold"
             width="60%"
           >
-            Tarikhul Auliya
+            {title}
           </Link>
           <Text fontSize="xs" noOfLines={1} color="gray.400" textAlign="right">
-            2 hours ago
+            {date}
           </Text>
         </HStack>
         <Text fontSize="xs" color="gray.400">
-          by Surya Murya
+          by {author}
         </Text>
         <HStack justify="right" pt={3}>
           <IconButton icon={<MdBookmarkAdd />} size="sm" />
