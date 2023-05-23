@@ -4,7 +4,7 @@ import { headers } from "next/dist/client/components/headers";
 export default async function handle(req, res) {
   const { method } = req;
 
-  if (method === "POST") {
+  if (method === "POST" || method === "DELETE") {
     return await handlePostRequest(req, res);
   }
   return res.status(400).json({ message: "Bad request" });
@@ -27,12 +27,40 @@ async function handlePostRequest(req, res) {
     }
   );
 
+  if (req.method === "POST") {
+    return await handlePost(req, res, data);
+  } else if (req.method === "DELETE") {
+    return await handleDelete(req, res, data);
+  }
+}
+
+async function handlePost(req, res, data) {
   const resp = await axios.put(
     `${process.env.NEXT_PUBLIC_API_HOST}/documents/${req.query.id}`,
     {
       data: {
         bookmarkBy: {
           connect: [data.id],
+        },
+      },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
+      },
+    }
+  );
+
+  return res.status(200).json(resp.data);
+}
+
+async function handleDelete(req, res, data) {
+  const resp = await axios.put(
+    `${process.env.NEXT_PUBLIC_API_HOST}/documents/${req.query.id}`,
+    {
+      data: {
+        bookmarkBy: {
+          disconnect: [data.id],
         },
       },
     },
