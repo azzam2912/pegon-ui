@@ -27,9 +27,6 @@ async function handlePostRequest(req, res) {
     }
   );
 
-  console.log(req.query.id);
-  console.log(data.id);
-
   const resp = await axios.put(
     `${process.env.NEXT_PUBLIC_API_HOST}/documents/${req.query.id}`,
     {
