@@ -5,11 +5,10 @@ export const useAddDocumentMutation = ({ config }) => {
   const _addDocument = async (documentInfo) => {
     try {
       const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_HOST}/documents`,
+        "/api/contribute",
         documentInfo,{
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
           }
         }
       );

@@ -69,7 +69,7 @@ const NewDocumentPage = () => {
         title,
         author,
         collector,
-        type: documentType,
+        documentType,
         language,
         yearWritten,
         locationWritten,
