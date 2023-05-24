@@ -9,7 +9,7 @@ export const useFetchQuery = (key, fetcher, options) => {
     queryKey: key,
     queryFn: fetcher,
     onError: (error) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         localStorage?.removeItem("token");
         router.push("/");
       }
@@ -31,7 +31,7 @@ export const useFetchMutation = (fetcher, options) => {
   return useMutation({
     mutationFn: fetcher,
     onError: (error) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         localStorage?.removeItem("token");
         router.push("/");
       }

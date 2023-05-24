@@ -56,6 +56,7 @@ async function handlePostRequest(req, res) {
     const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}/documents`, formData, {
       headers: {
         Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
+        'Content-Type': 'multipart/form-data'
       }
     });
 
