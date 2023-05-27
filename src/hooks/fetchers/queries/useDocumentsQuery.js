@@ -12,6 +12,7 @@ export const useDocumentsQuery = ({ config, page, pageSize, queries }) => {
         params: {
           "pagination[page]": page ? page : 1,
           "pagination[pageSize]": pageSize ? pageSize : 10,
+          "sort[0]" : "publishedAt:desc",
           ...queries
         }
       });

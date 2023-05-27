@@ -18,7 +18,7 @@ export const useModalSidebar = () => {
   return context;
 };
 
-export const Page = ({ pageComponent: Page, requireAuth }) => {
+export const Page = ({ pageComponent: Page, requireAuth, ...props }) => {
   const router = useRouter();
   const createToast = useToast();
   const modalSidebar = useDisclosure()
@@ -38,7 +38,7 @@ export const Page = ({ pageComponent: Page, requireAuth }) => {
   }, []);
   return (
     <ModalSidebarContextProvider>
-      <Page />
+      <Page/>
     </ModalSidebarContextProvider>
   );
 };

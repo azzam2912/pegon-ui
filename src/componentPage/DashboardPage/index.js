@@ -6,16 +6,10 @@ import {
   Heading,
   Image,
   SimpleGrid,
-  StackDivider,
   Text,
   VStack,
-  Stack,
   Link,
   Divider,
-  Avatar,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Button,
   Spacer,
   Card,
@@ -23,19 +17,12 @@ import {
   CardBody,
   Skeleton,
 } from "@chakra-ui/react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
 import NextLink from "next/link";
 import { useUserInfoQuery } from "src/hooks/fetchers/queries/useUserInfoQuery";
-import Sidebar from "src/components/Sidebar";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import {
-  MdAccountCircle,
   MdBookmarkAdd,
-  MdOutlineExpandMore,
-  MdLogout,
-  MdSearch,
-  MdMenu,
 } from "react-icons/md";
 import { useRouter } from "next/router";
 import AppLayout from "../Page/AppLayout";
@@ -182,7 +169,8 @@ const DashboardPage = () => {
                 >
                   Contribute
                 </Button>
-                <Button colorScheme="primary">Explore</Button>
+                <Button as={NextLink}
+                  href="/app/documents" colorScheme="primary">Explore</Button>
               </HStack>
             </VStack>
           </SimpleGrid>
@@ -256,8 +244,8 @@ const DashboardPage = () => {
             spacing={3}
           >
             {latestDocumentsStatus === "success" ? (
-              latestDocuments.data?.map(({ attributes }) => (
-                <NewDocument {...attributes} />
+              latestDocuments.data?.map(({ id, attributes }) => (
+                <NewDocument id={id} {...attributes} />
               ))
             ) : (
               <>
@@ -283,7 +271,7 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-const NewDocument = ({ thumbnail, title, publishedAt, contributor }) => {
+const NewDocument = ({ thumbnail, title, publishedAt, contributor, id }) => {
   // from published at into string like 2 hours ago or something
   const [date, setDate] = React.useState("Just now");
   const timeAgo = (date) => {
@@ -341,7 +329,7 @@ const NewDocument = ({ thumbnail, title, publishedAt, contributor }) => {
         <HStack justify="space-between">
           <Link
             as={NextLink}
-            href="/app"
+            href={`/app/documents/${id}`}
             fontSize="sm"
             noOfLines={1}
             fontWeight="bold"
