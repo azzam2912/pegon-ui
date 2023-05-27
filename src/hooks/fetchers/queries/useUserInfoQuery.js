@@ -6,8 +6,7 @@ export const useUserInfoQuery = ({ config }) => {
     try {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "ngrok-skip-browser-warning":"any"
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         },
       });
       return data;

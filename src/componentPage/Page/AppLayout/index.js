@@ -39,6 +39,8 @@ import {
 } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useModalSidebar } from "..";
+import { MeiliSearch } from "meilisearch";
+import SearchBar from "src/components/SearchBar";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
@@ -51,6 +53,21 @@ const AppLayout = ({ children }) => {
   });
 
   const { onOpen } = useModalSidebar();
+
+  const client = new MeiliSearch({
+    host: "http://localhost:7700",
+    apiKey: "fcdd5c1f70d82374c0a04e49ebfa236733207aa74c6f36f91f844701b007",
+  });
+
+  const searchDocuments = async (query) => {
+    try {
+      const index = await client.getIndex("document");
+      const searchResults = await index.search(query);
+      console.log(searchResults.hits); // Process the search results
+    } catch (error) {
+      console.error("Error performing search:", error);
+    }
+  };
 
   return (
     <VStack h="100vh" w="100vw" align="stretch" spacing="0">
@@ -81,10 +98,7 @@ const AppLayout = ({ children }) => {
             md: "auto",
           }}
         >
-          <InputGroup mr={3}>
-            <InputLeftElement pointerEvents="none" children={<MdSearch />} />
-            <Input type="text" placeholder="Search Here" />
-          </InputGroup>
+          <SearchBar searchDocuments={searchDocuments} />
           <Avatar size="sm" name={user?.firstName + " " + user?.lastName} />
           <Menu>
             <MenuButton
@@ -114,11 +128,7 @@ const AppLayout = ({ children }) => {
         }}
       >
         <Sidebar />
-        <Box
-          w="100%"
-          h="100%"
-          overflowY="auto"
-        >
+        <Box w="100%" h="100%" overflowY="auto">
           {children}
         </Box>
       </Flex>
