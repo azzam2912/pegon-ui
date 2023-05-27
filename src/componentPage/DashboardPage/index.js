@@ -187,8 +187,8 @@ const DashboardPage = () => {
             spacing={3}
           >
             {latestDocumentsStatus === "success" ? (
-              latestDocuments.data?.map(({ attributes }) => (
-                <NewDocument {...attributes} />
+              latestDocuments.data?.map((obj) => (
+                <NewDocument key={obj.id} {...obj} />
               ))
             ) : (
               <>
@@ -214,7 +214,8 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-const NewDocument = ({ thumbnail, title, publishedAt, author }) => {
+const NewDocument = ({ id, attributes }) => {
+  const { thumbnail, title, publishedAt, author } = attributes || {}
   // from published at into string like 2 hours ago or something
   const [date, setDate] = React.useState("Just now");
   const timeAgo = (date) => {
@@ -272,7 +273,7 @@ const NewDocument = ({ thumbnail, title, publishedAt, author }) => {
         <HStack justify="space-between">
           <Link
             as={NextLink}
-            href="/app"
+            href={"/app/documents/" + id}
             fontSize="sm"
             noOfLines={1}
             fontWeight="bold"
