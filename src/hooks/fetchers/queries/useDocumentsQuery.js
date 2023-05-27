@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useFetchQuery } from "../reactQueryHooks";
 
-export const useDocumentsQuery = ({ config, page, pageSize }) => {
+export const useDocumentsQuery = ({ config, page, pageSize, queries }) => {
   const _documentsQuery = async () => {
     try {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/documents`, {
@@ -12,7 +12,7 @@ export const useDocumentsQuery = ({ config, page, pageSize }) => {
         params: {
           "pagination[page]": page ? page : 1,
           "pagination[pageSize]": pageSize ? pageSize : 10,
-          "populate": "*"
+          ...queries
         }
       });
       return data;
@@ -21,5 +21,5 @@ export const useDocumentsQuery = ({ config, page, pageSize }) => {
     }
   };
 
-  return useFetchQuery(["userInfo", {page, pageSize}], _documentsQuery, config);
+  return useFetchQuery(["userInfo", {page, pageSize, queries}], _documentsQuery, config);
 };

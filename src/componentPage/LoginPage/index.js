@@ -79,8 +79,8 @@ const LoginPage = () => {
         w="100%"
         maxW="lg"
       >
-        <Flex direction="column" w="100%" alignItems="center" mb={3}>
-          <Image width="96px" src="logo.png" alt="Pegon Logo"/>
+        <Flex direction="column" w="100%" alignItems="center" p={3} mb={3}>
+          <Image width="64px" src="logo.png" alt="Pegon Logo"/>
         </Flex>
         <Heading textAlign="center" mb={3}>
           Log in to your account

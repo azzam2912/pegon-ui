@@ -65,7 +65,7 @@ const AppLayout = ({ children }) => {
         justify="space-between"
       >
         <Flex display={{ base: "none", md: "flex" }} alignItems="center">
-          <Image width="48px" src="/logo.png" alt="Pegon Logo" />
+          <Image p={2} width="48px" src="/logo.png" alt="Pegon Logo" />
           <Heading size="sm" ml={3}>
             PegonDocs
           </Heading>

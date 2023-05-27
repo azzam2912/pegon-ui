@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
-export const NavigationButton= ({isSidebarExpanded, icon, children}) => {
+export const NavigationButton= ({isSidebarExpanded, icon, children, ...props}) => {
     return <Button
       iconSpacing={isSidebarExpanded ? 3 : 0}
       leftIcon={icon}
@@ -17,6 +17,7 @@ export const NavigationButton= ({isSidebarExpanded, icon, children}) => {
       }}
       fontWeight="normal"
       fontSize="sm"
+      {...props}
     >
       {isSidebarExpanded ? children : null}
     </Button>;

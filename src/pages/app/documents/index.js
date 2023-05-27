@@ -1,6 +1,6 @@
-import NewDocumentPage from "src/componentPage/NewDocumentPage";
+import DocumentsPage from "src/componentPage/DocumentsPage";
 import { Page } from "src/componentPage/Page";
 
 export default function NewDocument() {
-  return <Page pageComponent={NewDocumentPage} requireAuth />;
+  return <Page pageComponent={DocumentsPage} requireAuth />;
 }

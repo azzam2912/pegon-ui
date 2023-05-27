@@ -22,10 +22,12 @@ import {
 } from "react-icons/md";
 import { NavigationButton } from "./fragments/NavigationButton";
 import { useModalSidebar } from "src/componentPage/Page";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(false);
   const { isOpen, onOpen, onClose } = useModalSidebar();
+  const router = useRouter();
 
   return (
     <>
@@ -62,31 +64,29 @@ const Sidebar = () => {
         <Divider my={2} />
         <NavigationButton
           icon={<MdHome />}
+          onClick={() => router.push("/app")}
           isSidebarExpanded={isSidebarExpanded}
         >
           Home
         </NavigationButton>
         <NavigationButton
           icon={<MdLibraryBooks />}
+          onClick={() => router.push("/app/documents")}
           isSidebarExpanded={isSidebarExpanded}
         >
           All Documents
         </NavigationButton>
         <NavigationButton
           icon={<MdBookmark />}
+          onClick={() => router.push("/app/bookmarks")}
           isSidebarExpanded={isSidebarExpanded}
         >
           Bookmarks
         </NavigationButton>
         <Divider my={3} />
         <NavigationButton
-          icon={<MdQuestionAnswer />}
-          isSidebarExpanded={isSidebarExpanded}
-        >
-          FAQ
-        </NavigationButton>
-        <NavigationButton
           icon={<MdInfo />}
+          onClick={() => router.push("/app/about")}
           isSidebarExpanded={isSidebarExpanded}
         >
           About
@@ -121,31 +121,29 @@ const Sidebar = () => {
             <Divider my={2} />
             <NavigationButton
               icon={<MdHome />}
+              onClick={() => router.push("/app")}
               isSidebarExpanded
             >
               Home
             </NavigationButton>
             <NavigationButton
               icon={<MdLibraryBooks />}
+              onClick={() => router.push("/app/documents")}
               isSidebarExpanded
             >
               All Documents
             </NavigationButton>
             <NavigationButton
               icon={<MdBookmark />}
+              onClick={() => router.push("/app/bookmarks")}
               isSidebarExpanded
             >
               Bookmarks
             </NavigationButton>
             <Divider my={3} />
             <NavigationButton
-              icon={<MdQuestionAnswer />}
-              isSidebarExpanded
-            >
-              FAQ
-            </NavigationButton>
-            <NavigationButton
               icon={<MdInfo />}
+              onClick={() => router.push("/app/about")}
               isSidebarExpanded
             >
               About

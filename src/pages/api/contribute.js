@@ -50,7 +50,7 @@ async function handlePostRequest(req, res) {
     const fs = require("fs");
 
     for (const key in files) {
-      formData.append(key, fs.createReadStream(files[key].filepath));
+      formData.append(key, fs.createReadStream(files[key].filepath), files[key].originalFilename);
     }
     
     const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}/documents`, formData, {

@@ -59,7 +59,68 @@ const DashboardPage = () => {
       },
       page: 1,
       pageSize: 4,
+      queries: {
+        "populate": "*"
+      }
     });
+
+  const { data: publishedDocuments, status: publishedDocumentsStatus } =
+    useDocumentsQuery({
+      config: {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+      },
+      page: 1,
+      pageSize: 4,
+      queries: {
+        "filters[contributor][id][$eq]": user?.id,
+      }
+    });
+
+    const { data: unpublishedDocuments, status: unpublishedDocumentsStatus } =
+    useDocumentsQuery({
+      config: {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+      },
+      page: 1,
+      pageSize: 4,
+      queries: {
+        "filters[contributor][id][$eq]": user?.id,
+        "filters[publishedAt][$null]": "true"
+      }
+    });
+
+    const { data: bookmarkedDocuments, status: bookmarkedDocumentsStatus } =
+    useDocumentsQuery({
+      config: {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+      },
+      page: 1,
+      pageSize: 4,
+      queries: {
+        "filters[bookmarkBy][id][$in]": user?.id,
+      }
+    });
+
+    const { data: viewedDocuments, status: viewedDocumentsStatus } =
+    useDocumentsQuery({
+      config: {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+      },
+      page: 1,
+      pageSize: 4,
+      queries: {
+        "filters[viewedBy][id][$in]": user?.id,
+      }
+    });
+
 
   return (
     <AppLayout>
@@ -77,7 +138,7 @@ const DashboardPage = () => {
           <SimpleGrid
             minChildWidth="300px"
             flex={1}
-            bg="purple.500"
+            bg="primary.500"
             borderRadius="md"
             mb={{
               base: 5,
@@ -102,7 +163,7 @@ const DashboardPage = () => {
               }}
               width="100%"
               p={3}
-              bgColor="purple.800"
+              bgColor="primary.800"
               borderRadius="md"
             >
               <Heading size="md" color="white">
@@ -115,7 +176,7 @@ const DashboardPage = () => {
               <HStack justify="end" width="100%">
                 <Button
                   as={NextLink}
-                  href="/app/documents"
+                  href="/app/documents/new"
                   colorScheme="primary"
                   variant="outline"
                 >
@@ -127,7 +188,7 @@ const DashboardPage = () => {
           </SimpleGrid>
           <Divider orientation="vertical" mx="3" />
           <VStack height="100%" spacing={2} flex={1} align="left">
-            <Heading size="sm">Current Status</Heading>
+            <Heading size="sm">Current User Status</Heading>
             <SimpleGrid flex={1} minChildWidth="128px" spacing={3}>
               <Card borderWidth="1px" borderColor="gray.600">
                 <CardHeader>
@@ -136,7 +197,9 @@ const DashboardPage = () => {
                 <Spacer />
                 <CardBody>
                   <Text fontSize="2xl">
-                    ...
+                    {
+                      publishedDocumentsStatus === "success" ? publishedDocuments.meta?.pagination.total : "..."
+                    }
                   </Text>
                 </CardBody>
               </Card>
@@ -147,7 +210,9 @@ const DashboardPage = () => {
                 <Spacer />
                 <CardBody>
                   <Text fontSize="2xl">
-                    ...
+                    {
+                      unpublishedDocumentsStatus === "success" ? unpublishedDocuments.meta?.pagination.total : "..."
+                    }
                   </Text>
                 </CardBody>
               </Card>
@@ -158,7 +223,9 @@ const DashboardPage = () => {
                 <Spacer />
                 <CardBody>
                   <Text fontSize="2xl">
-                    ...
+                    {
+                      viewedDocumentsStatus === "success" ? viewedDocuments.meta?.pagination.total : "..."
+                    }
                   </Text>
                 </CardBody>
               </Card>
@@ -169,7 +236,9 @@ const DashboardPage = () => {
                 <Spacer />
                 <CardBody>
                   <Text fontSize="2xl">
-                    ...
+                    {
+                      bookmarkedDocumentsStatus === "success" ? bookmarkedDocuments.meta?.pagination.total : "..."
+                    }
                   </Text>
                 </CardBody>
               </Card>
@@ -214,7 +283,7 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-const NewDocument = ({ thumbnail, title, publishedAt, author }) => {
+const NewDocument = ({ thumbnail, title, publishedAt, contributor }) => {
   // from published at into string like 2 hours ago or something
   const [date, setDate] = React.useState("Just now");
   const timeAgo = (date) => {
@@ -285,7 +354,7 @@ const NewDocument = ({ thumbnail, title, publishedAt, author }) => {
           </Text>
         </HStack>
         <Text fontSize="xs" color="gray.400">
-          by {author}
+          by {contributor?.data.attributes.firstName} {contributor?.data.attributes.lastName}
         </Text>
         <HStack justify="right" pt={3}>
           <IconButton icon={<MdBookmarkAdd />} size="sm" />
