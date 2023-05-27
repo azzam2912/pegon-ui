@@ -39,6 +39,7 @@ const Sidebar = () => {
           base: "none",
           md: "block",
         }}
+        borderRightWidth="1px"
         height="100%"
         bgColor="gray.700"
         direction="column"

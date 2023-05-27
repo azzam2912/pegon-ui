@@ -1,51 +1,377 @@
 import React from "react";
 import AppLayout from "../Page/AppLayout";
 import {
+  Badge,
+  Box,
   Button,
-  Divider,
+  Flex,
   HStack,
   Heading,
+  IconButton,
+  Image,
   Input,
-  InputGroup,
-  InputLeftElement,
   Select,
+  SkeletonCircle,
+  SkeletonText,
   Spacer,
   Stack,
+  Text,
   VStack,
 } from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaSearch,
+  FaShare,
+} from "react-icons/fa";
+import { MdBookmarkAdd } from "react-icons/md";
+import Link from "next/link";
+import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 
 const DocumentsPage = () => {
   return (
     <AppLayout>
-      <VStack w="100%" align="left" p={5}>
-        <Heading size="lg">Documents</Heading>
-        <Stack direction={{
-            base: "column",
-            md: "row",
-        }} w="100%" justify="space-between">
-          <InputGroup w={{
-                base: "100%",
-                md: "50%",
-          }}>
-            <InputLeftElement pointerEvents="none">
-              <FaSearch color="gray.300" />
-            </InputLeftElement>
-            <Input type="text" placeholder="Search Documents" />
-          </InputGroup>
-          <Divider orientation="vertical" />
-          <HStack flex={1}>
-            <Select w="50%" placeholder="Document Language">
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
-            <Spacer/>
-            <Button w="20%">Search</Button>
-          </HStack>
-        </Stack>
+      <VStack w="100%" align="stretch" p={8}>
+        <VStack align="left" mb={5}>
+          <Heading size="lg">Explore Documents</Heading>
+          <Text color="gray.500">7 entries found</Text>
+        </VStack>
+        <DataComponent />
       </VStack>
     </AppLayout>
+  );
+};
+
+const DataComponent = () => {
+  const [itemsPerPage, setItemsPerPage] = React.useState(5); // Number of items to display per page
+  const [currentPage, setCurrentPage] = React.useState(1); // Current page number (can be dynamic)
+
+  const [filter, setFilter] = React.useState({
+    documentType: "",
+    inkType: "",
+    illumination: "",
+    language: "",
+  });
+
+  const [documentType, setDocumentType] = React.useState("");
+  const [inkType, setInkType] = React.useState("");
+  const [illumination, setIllumination] = React.useState("");
+  const [language, setLanguage] = React.useState("");
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const { data, status } = useDocumentsQuery({
+    config: {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    },
+    page: currentPage,
+    pageSize: itemsPerPage,
+    queries: {
+      populate: "*",
+      "filters[language][$containsi]": filter.language,
+      "filters[documentType][$containsi]": filter.documentType,
+      "filters[ink][$containsi]": filter.inkType,
+      "filters[illumination][$containsi]": filter.illumination,
+    },
+  });
+
+  const currentData = data?.data;
+
+  const handleFilter = () => {
+    setFilter({
+      documentType: documentType,
+      inkType: inkType,
+      illumination: illumination,
+      language: language,
+    });
+    setCurrentPage(1);
+  };
+
+  const shareLink = (link) => {
+    const shareData = {
+      title: "PegonDocs",
+      text: "Check out this Pegon document!",
+      url: link,
+    };
+    navigator.share(shareData);
+  };
+
+  return (
+    <>
+      <Stack
+        mt={5}
+        direction={{
+          base: "column",
+          lg: "row",
+        }}
+        align="stretch"
+        w="100%"
+      >
+        <IconButton
+          icon={<FaSearch />}
+          aria-label="Search database"
+          variant="outline"
+          />
+        <HStack>
+          <Select
+            flex={{
+              base: "1",
+              md: "auto",
+            }}
+            width="auto"
+            htmlSize={10}
+            defaultValue=""
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="">All Languages</option>
+            <option value="Javanese">Javanese</option>
+            <option value="Sundanese">Sundanese</option>
+            <option value="Madurese">Madurese</option>
+            <option value="Indonesian">Indonesian</option>
+            <option value="Others">Others</option>
+          </Select>
+          <Input
+            flex={{
+              base: "1",
+              md: "auto",
+            }}
+            htmlSize={10}
+            width="auto"
+            type="text"
+            placeholder="Document Type"
+            onChange={(e) => setDocumentType(e.target.value)}
+          />
+        </HStack>
+        <HStack>
+          <Input
+            flex={{
+              base: "1",
+              md: "auto",
+            }}
+            htmlSize={10}
+            width="auto"
+            type="text"
+            placeholder="Ink Type"
+            onChange={(e) => setInkType(e.target.value)}
+          />
+          <Input
+            flex={{
+              base: "1",
+              md: "auto",
+            }}
+            htmlSize={10}
+            width="auto"
+            type="text"
+            placeholder="Illumination"
+            onChange={(e) => setIllumination(e.target.value)}
+          />
+        </HStack>
+        <Spacer />
+        <Button onClick={handleFilter} colorScheme="primary" htmlSize={10} width="auto">
+          Filter
+        </Button>
+      </Stack>
+      <VStack pt={3} align="stretch">
+        <Box width="100%">
+          <VStack
+            bg="gray.700"
+            borderWidth="1px"
+            borderRadius="md"
+            spacing={0}
+            align="stretch"
+            overflowX="auto"
+            width="100%"
+          >
+            {currentData?.map(({ id, attributes: item }, index) => (
+              <Flex
+                key={index}
+                align="center"
+                justify="space-between"
+                p="4"
+                minWidth="max-content"
+                borderBottomWidth="1px"
+                _hover={{
+                  bg: "gray.800",
+                }}
+              >
+                <Flex
+                  width="240px"
+                  align="center"
+                  as={Link}
+                  href="/"
+                  flexShrink={0}
+                >
+                  <Image
+                    src={item?.thumbnail}
+                    fallbackSrc="https://via.placeholder.com/48"
+                    alt="Thumbnail"
+                    objectFit="cover"
+                    boxSize="48px"
+                    borderRadius="full"
+                  />
+                  <Text noOfLines={1} fontSize="sm" ml={4}>
+                    {item?.title}
+                  </Text>
+                </Flex>
+                <Text
+                  width="160px"
+                  noOfLines={1}
+                  fontSize="sm"
+                  color="gray.500"
+                  ml="4"
+                >
+                  By {item?.contributor.data.attributes.firstName}{" "}
+                  {item?.contributor.data.attributes.lastName}
+                </Text>
+                <Text
+                  color="gray.500"
+                  width="80px"
+                  noOfLines={1}
+                  fontSize="sm"
+                  ml="4"
+                >
+                  {item?.documentType}
+                </Text>
+                <Text width="100px" noOfLines={1} fontSize="sm" ml="4">
+                  <Badge colorScheme="blue">{item?.language}</Badge>
+                </Text>
+                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
+                  {item?.ink ? item.ink : "unknown ink"}
+                </Text>
+                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
+                  {item?.illumination
+                    ? item.illumination
+                    : "unknown illumination"}
+                </Text>
+                <Text width="100px" fontSize="sm" ml="4" color="gray.500">
+                  {item?.publishedAt ? item.publishedAt : "unknown date"}
+                </Text>
+                <Flex ml="4" zIndex="10">
+                  <IconButton mr="3" icon={<MdBookmarkAdd />} size="sm" />
+                  <IconButton
+                    icon={<FaShare />}
+                    size="sm"
+                    onClick={shareLink}
+                  />
+                </Flex>
+              </Flex>
+            ))}
+            {status === "loading" && (
+              <>
+                <DocumentSkeleton />
+                <DocumentSkeleton />
+                <DocumentSkeleton />
+                <DocumentSkeleton />
+                <DocumentSkeleton />
+              </>
+            )}
+          </VStack>
+          {/* Pagination */}
+          <Flex align="center" pt={4}>
+            <Select
+              width="fit-content"
+              value={itemsPerPage}
+              onChange={(e) => {
+                setItemsPerPage(
+                  parseInt(e.target.value)
+                );
+                setCurrentPage(1);
+              }}
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+            </Select>
+            <Text mx="3" fontSize="sm" color="gray.500">
+              Items per page
+            </Text>
+            <Spacer />
+            <Flex align="center" justify="flex-end">
+              <IconButton
+                aria-label="Previous Page"
+                icon={<FaChevronLeft />}
+                size="sm"
+                variant="ghost"
+                onClick={() => setCurrentPage(currentPage - 1)}
+                isDisabled={currentPage === 1}
+              />
+              <Text mx="3" fontSize="sm" color="gray.500">
+                {startIndex + 1} - {endIndex} of {data?.meta.pagination.total}
+              </Text>
+              <IconButton
+                aria-label="Next Page"
+                icon={<FaChevronRight />}
+                size="sm"
+                variant="ghost"
+                onClick={() => setCurrentPage(currentPage + 1)}
+                isDisabled={endIndex >= data?.meta.pagination.total}
+              />
+            </Flex>
+          </Flex>
+        </Box>
+      </VStack>
+    </>
+  );
+};
+
+const DocumentSkeleton = () => {
+  return (
+    <Flex
+      align="center"
+      justify="space-between"
+      p="4"
+      minWidth="max-content"
+      borderBottomWidth="1px"
+    >
+      <Flex width="240px" align="center" as={Link} href="/" flexShrink={0}>
+        <SkeletonCircle size="48px" />
+        <SkeletonText noOfLines={1} fontSize="sm" ml={4} />
+      </Flex>
+      <SkeletonText
+        width="160px"
+        noOfLines={1}
+        fontSize="sm"
+        color="gray.500"
+        ml="4"
+      />
+      <SkeletonText
+        color="gray.500"
+        noOfLines={1}
+        width="80px"
+        fontSize="sm"
+        ml="4"
+      />
+      <SkeletonText width="100px" noOfLines={1} fontSize="sm" ml="4" />
+      <SkeletonText
+        color="gray.500"
+        noOfLines={1}
+        width="100px"
+        fontSize="sm"
+        ml="4"
+      />
+      <SkeletonText
+        color="gray.500"
+        noOfLines={1}
+        width="100px"
+        fontSize="sm"
+        ml="4"
+      />
+      <SkeletonText
+        width="100px"
+        fontSize="sm"
+        noOfLines={1}
+        ml="4"
+        color="gray.500"
+      >
+        2023-05-24T07:35:16.900Z
+      </SkeletonText>
+      <Flex ml="4" zIndex="10">
+        <IconButton mr="3" icon={<MdBookmarkAdd />} size="sm" />
+        <IconButton icon={<FaShare />} size="sm" />
+      </Flex>
+    </Flex>
   );
 };
 

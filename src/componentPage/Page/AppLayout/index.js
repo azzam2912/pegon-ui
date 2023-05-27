@@ -2,40 +2,24 @@ import {
   Box,
   IconButton,
   Flex,
-  HStack,
   Heading,
   Image,
-  SimpleGrid,
-  StackDivider,
-  Text,
   VStack,
-  Stack,
-  Link,
-  Divider,
   Avatar,
   Input,
   InputGroup,
   InputLeftElement,
-  Button,
-  Spacer,
-  Card,
-  CardHeader,
-  CardBody,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
-import NextLink from "next/link";
 import { useUserInfoQuery } from "src/hooks/fetchers/queries/useUserInfoQuery";
 import Sidebar from "src/components/Sidebar";
-import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import {
   MdAccountCircle,
-  MdBookmarkAdd,
   MdOutlineExpandMore,
   MdLogout,
   MdSearch,
   MdMenu,
-  MdPassword,
 } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useModalSidebar } from "..";
