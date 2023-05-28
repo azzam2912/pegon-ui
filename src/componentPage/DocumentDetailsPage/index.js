@@ -8,6 +8,7 @@ import {
   Flex,
   HStack,
   Heading,
+  Image,
   Link,
   SimpleGrid,
   Spacer,
@@ -30,27 +31,15 @@ import { MdBookmarkAdd, MdDownload, MdShare } from "react-icons/md";
 import axios from "axios";
 import { useBookmarkMutation } from "src/hooks/fetchers/mutations/useBookmarkMutation";
 import { useViewDocumentQuery } from "src/hooks/fetchers/queries/useViewDocumentQuery";
+import Head from "next/head";
 
-const DocumentDetailsPage = () => {
+const DocumentDetailsPage = ({ data: documentDetails }) => {
   const router = useRouter();
   const createToast = useToast();
   const { id } = router.query;
-  const { data: documentDetails, status: documentDetailsStatus } =
-    useDocumentDetailsQuery({
-      config: {
-        onSuccess: (data) => {
-          console.log("Success");
-        },
-        enabled: !!id,
-      },
-      id: id,
-    });
 
   useViewDocumentQuery({
     config: {
-      onSuccess: (data) => {
-        console.log("Success");
-      },
       enabled: !!id,
     },
     id: id,
@@ -70,8 +59,6 @@ const DocumentDetailsPage = () => {
       </Worker>
     );
   };
-
-  let content = null;
 
   const { mutate: bookmark, status: bookmarkStatus } = useBookmarkMutation({
     config: {
@@ -99,23 +86,38 @@ const DocumentDetailsPage = () => {
     });
   };
 
-  if (documentDetailsStatus === "success") {
-    console.log(documentDetails.data.attributes);
-    const url = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data.attributes.file.data.attributes.url}`;
-    const {
-      title,
-      author,
-      collector,
-      documentType,
-      language,
-      yearWritten,
-      locationWritten,
-      ink,
-      illumination,
-      description,
-      contributor,
-    } = documentDetails.data.attributes;
-    content = (
+  const url = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data.attributes.file.data.attributes.url}`;
+  const thumbUrl = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data.attributes.thumbnail.data.attributes.url}`;
+  const {
+    title,
+    author,
+    collector,
+    documentType,
+    language,
+    yearWritten,
+    locationWritten,
+    ink,
+    illumination,
+    description,
+    contributor,
+  } = documentDetails.data.attributes;
+  return (
+    <>
+      <Head>
+        <title>{title} - PegonDocs</title>
+        <meta name="description" content={description} />
+        <meta
+          property="og:title"
+          content={`${title} - PegonDocs`}
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content={description}
+          key="description"
+        />
+        <meta property="og:image" content={thumbUrl} key="image" />
+      </Head>
       <AppLayout>
         <Flex
           w="100%"
@@ -136,6 +138,16 @@ const DocumentDetailsPage = () => {
                   <strong>{author ? author : "Unknown Author"}</strong>
                 </Text>
               </HStack>
+              <Image
+                src={thumbUrl}
+                alt="Document Thumbnail"
+                fallbackSrc="https://via.placeholder.com/150"
+                borderRadius="md"
+                w="100%"
+                h="200px"
+                objectFit="cover"
+                display={{ base: "block", lg: "none" }}
+              />
               <Divider />
               <Text color="gray.300">{description ? description : "-"}</Text>
               <ButtonGroup isAttached variant="outline">
@@ -151,7 +163,7 @@ const DocumentDetailsPage = () => {
                   Share
                 </Button>
                 <Spacer />
-                <Button as={Link} href={url} leftIcon={<MdDownload/>}>
+                <Button as={Link} href={url} leftIcon={<MdDownload />}>
                   Download
                 </Button>
               </ButtonGroup>
@@ -230,12 +242,8 @@ const DocumentDetailsPage = () => {
           </Flex>
         </Flex>
       </AppLayout>
-    );
-  } else {
-    content = <AppLayout></AppLayout>;
-  }
-
-  return content;
+    </>
+  );
 };
 
 export default DocumentDetailsPage;

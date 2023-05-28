@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppLayout from "../Page/AppLayout";
 import {
   Badge,
@@ -10,27 +10,41 @@ import {
   IconButton,
   Image,
   Input,
+  InputGroup,
+  InputLeftElement,
   Select,
   SkeletonCircle,
   SkeletonText,
   Spacer,
   Stack,
+  Tab,
+  TabList,
+  Tabs,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
-import { FaChevronLeft, FaChevronRight, FaFolderOpen, FaSearch } from "react-icons/fa";
+import {
+  FaBookmark,
+  FaChevronLeft,
+  FaChevronRight,
+  FaFolderOpen,
+  FaHistory,
+  FaPenSquare,
+  FaSearch,
+} from "react-icons/fa";
 import Link from "next/link";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import Head from "next/head";
+import { useUserInfoQuery } from "src/hooks/fetchers/queries/useUserInfoQuery";
+import { MdDelete } from "react-icons/md";
+import { useRemoveBookmarkMutation } from "src/hooks/fetchers/mutations/useRemoveBookmarkMutation";
+import { useQueryClient } from "@tanstack/react-query";
 
-const DocumentsPage = () => {
+const LibraryPage = () => {
   return (
     <AppLayout>
       <VStack w="100%" align="stretch" p={8}>
-        <VStack align="left" mb={5}>
-          <Heading size="lg">Explore Documents</Heading>
-          <Text color="gray.500">7 entries found</Text>
-        </VStack>
         <DataComponent />
       </VStack>
     </AppLayout>
@@ -38,6 +52,7 @@ const DocumentsPage = () => {
 };
 
 const DataComponent = () => {
+  const [library, setLibrary] = React.useState(0); // 0 = History, 1 = Bookmark, 2 = My Document
   const [itemsPerPage, setItemsPerPage] = React.useState(5); // Number of items to display per page
   const [currentPage, setCurrentPage] = React.useState(1); // Current page number (can be dynamic)
 
@@ -46,8 +61,10 @@ const DataComponent = () => {
     Author: "",
     Collector: "",
     language: "",
+    title: "",
   });
 
+  const [title, setTitle] = React.useState("");
   const [documentType, setDocumentType] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [collector, setCollector] = React.useState("");
@@ -55,11 +72,44 @@ const DataComponent = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
+  const { data: user } = useUserInfoQuery({});
+
+  const pageFilter = [
+    {
+      "filters[bookmarkBy][id][$in]": user?.id,
+    },
+    {
+      "filters[viewedBy][id][$in]": user?.id,
+    },
+    {
+      "filters[contributor][id][$eq]": user?.id,
+      publicationState: "preview",
+    },
+  ];
+  const createToast = useToast();
+  const queryClient = useQueryClient();
+  const { mutate: removeBookmark, status: removeBookmarkStatus } =
+    useRemoveBookmarkMutation({
+      config: {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({ queryKey: ["documents"] });
+          createToast({
+            title: "Success",
+            description: "You have successfully removed a bookmark",
+            status: "success",
+            position: "bottom-right",
+            isClosable: true,
+          });
+        },
+      },
+    });
+
   const { data, status } = useDocumentsQuery({
     config: {
       onSuccess: (data) => {
         console.log(data);
       },
+      enabled: !!user?.id,
     },
     page: currentPage,
     pageSize: itemsPerPage,
@@ -69,6 +119,8 @@ const DataComponent = () => {
       "filters[documentType][$containsi]": filter.documentType,
       "filters[author][$containsi]": filter.author,
       "filters[collector][$containsi]": filter.collector,
+      "filters[title][$containsi]": filter.title,
+      ...pageFilter[library],
     },
   });
 
@@ -80,9 +132,13 @@ const DataComponent = () => {
       author: author,
       collector: collector,
       language: language,
+      title: title,
     });
-    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter, library]);
 
   return (
     <>
@@ -102,6 +158,70 @@ const DataComponent = () => {
         <meta property="og:image" content="96.png" key="image" />
       </Head>
       <Stack
+        direction={{
+          base: "column",
+          lg: "row",
+        }}
+        align="left"
+        mb={{
+          base: "0",
+          lg: "5",
+        }}
+      >
+        <Heading size="lg">My Library</Heading>
+        <Spacer />
+        <Tabs
+          onChange={(e) => {
+            setLibrary(e);
+          }}
+          colorScheme="primary"
+          variant="soft-rounded"
+          display={{ base: "none", lg: "block" }}
+          index={library}
+          align="end"
+        >
+          <TabList>
+            <Tab>
+              <FaBookmark />
+              &nbsp;My Bookmarks
+            </Tab>
+            <Tab>
+              <FaHistory />
+              &nbsp;Viewed
+            </Tab>
+            <Tab>
+              <FaPenSquare />
+              &nbsp;Contributions
+            </Tab>
+          </TabList>
+        </Tabs>
+        <Tabs
+          onChange={(e) => {
+            setLibrary(e);
+          }}
+          colorScheme="primary"
+          variant="soft-rounded"
+          display={{ base: "block", lg: "none" }}
+          index={library}
+          align="end"
+        >
+          <TabList>
+            <Tab>
+              <FaBookmark />
+              {library !== 0 ? null : <>&nbsp;Bookmarks</>}
+            </Tab>
+            <Tab>
+              <FaHistory />
+              {library !== 1 ? null : <>&nbsp;Viewed</>}
+            </Tab>
+            <Tab>
+              <FaPenSquare />
+              {library !== 2 ? null : <>&nbsp;Contributions</>}
+            </Tab>
+          </TabList>
+        </Tabs>
+      </Stack>
+      <Stack
         mt={5}
         direction={{
           base: "column",
@@ -110,12 +230,17 @@ const DataComponent = () => {
         align="stretch"
         w="100%"
       >
-        <IconButton
-          icon={<FaSearch />}
-          aria-label="Search database"
-          variant="outline"
-          width="min-content"
-        />
+        <InputGroup width="auto">
+          <InputLeftElement pointerEvents="none">
+            <FaSearch />
+          </InputLeftElement>
+          <Input
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            placeholder="Document Title"
+            value={title}
+          />
+        </InputGroup>
         <HStack>
           <Select
             flex={{
@@ -144,6 +269,7 @@ const DataComponent = () => {
             type="text"
             placeholder="Document Type"
             onChange={(e) => setDocumentType(e.target.value)}
+            value={documentType}
           />
         </HStack>
         <HStack>
@@ -157,6 +283,7 @@ const DataComponent = () => {
             type="text"
             placeholder="Author"
             onChange={(e) => setAuthor(e.target.value)}
+            value={author}
           />
           <Input
             flex={{
@@ -168,6 +295,7 @@ const DataComponent = () => {
             type="text"
             placeholder="Collector"
             onChange={(e) => setCollector(e.target.value)}
+            value={collector}
           />
         </HStack>
         <Spacer />
@@ -203,7 +331,11 @@ const DataComponent = () => {
                 borderBottomWidth="1px"
                 _hover={{
                   bg: "gray.800",
+                  "& > button": {
+                    opacity: 1,
+                  },
                 }}
+                position="relative"
               >
                 <Flex width="240px" align="center" flexShrink={0}>
                   <Image
@@ -243,6 +375,24 @@ const DataComponent = () => {
                 <Text width="100px" fontSize="sm" ml="4" color="gray.500">
                   {item?.publishedAt ? item.publishedAt : "unknown date"}
                 </Text>
+                {library === 0 ? (
+                  <IconButton
+                    position="absolute"
+                    left="5"
+                    top="auto"
+                    borderRadius="full"
+                    aria-label="Delete Bookmark"
+                    colorScheme="red"
+                    opacity={0}
+                    icon={<MdDelete />}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      removeBookmark(id);
+                    }}
+                    isDisabled={removeBookmarkStatus === "loading"}
+                    isLoading={removeBookmarkStatus === "loading"}
+                  />
+                ) : null}
               </Flex>
             ))}
             {status === "loading" && (
@@ -365,4 +515,4 @@ const DocumentSkeleton = () => {
   );
 };
 
-export default DocumentsPage;
+export default LibraryPage;

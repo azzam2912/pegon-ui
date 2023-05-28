@@ -25,6 +25,7 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { TextInput } from "src/components/Input";
 import { useAddDocumentMutation } from "src/hooks/fetchers/mutations/useAddDocumentMutation";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const NewDocumentPage = () => {
   const [file, setFile] = React.useState(null);
@@ -86,6 +87,18 @@ const NewDocumentPage = () => {
   };
 
   return (
+    <>
+    <Head>
+        <title>Create New Document - PegonDocs</title>
+        <meta name="description" content="Create a new pegon document" />
+        <meta property="og:title" content="Create New Document - PegonDocs" key="title" />
+        <meta
+          property="og:description"
+          content="Create a new pegon document"
+          key="description"
+        />
+        <meta property="og:image" content="96.png" key="image" />
+      </Head>
     <AppLayout>
       <Flex w="100%" h="100%" direction={{ base: "column-reverse", lg: "row" }}>
         <Flex flex={1} p={5} display={{ base: "none", lg: "block" }}>
@@ -228,6 +241,7 @@ const NewDocumentPage = () => {
         </Flex>
       </Flex>
     </AppLayout>
+    </>
   );
 };
 

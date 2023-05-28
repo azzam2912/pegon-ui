@@ -11,6 +11,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useSignUpMutation } from "src/hooks/fetchers/mutations/useSignUpMutation";
 import Link from "next/link";
+import Head from "next/head";
 
 const SignUpPage = () => {
   const [username, setUsername] = React.useState("");
@@ -44,137 +45,150 @@ const SignUpPage = () => {
     if (token) {
       router.push("/app");
     }
-  })
+  });
 
   return (
-    <Flex
-      width="100vw"
-      height="100vh"
-      alignItems="center"
-      justifyContent="center"
-      direction="column"
-      overflowY="auto"
-    >
+    <>
+      <Head>
+        <title>Sign Up - PegonDocs</title>
+        <meta name="description" content="Join us and contribute to pegon" />
+        <meta property="og:title" content="Sign up - PegonDocs" key="title" />
+        <meta
+          property="og:description"
+          content="Join us and contribute to pegon"
+          key="description"
+        />
+        <meta property="og:image" content="96.png" key="image" />
+      </Head>
       <Flex
+        width="100vw"
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
         direction="column"
-        py={{
-          base: "0",
-          sm: "8",
-        }}
-        px={{
-          base: "4",
-          sm: "10",
-        }}
-        bg={{
-          base: "transparent",
-          sm: "gray.700",
-        }}
-        boxShadow={{
-          base: "none",
-          sm: "md",
-        }}
-        borderRadius={{
-          base: "none",
-          sm: "md",
-        }}
-        w="100%"
-        maxW="lg"
+        overflowY="auto"
       >
-        <Heading size="lg" textAlign="center" mb={3}>
-          Sign up your new account
-        </Heading>
-        <HStack spacing="1" justify="center" mb={5}>
-          <Text color="muted">Already have an account?</Text>
-          <Link href="/">
-            <Button variant="link" colorScheme="primary">
-              Sign In
-            </Button>
-          </Link>
-        </HStack>
-        <Flex direction="column" w="100%">
-          <HStack mb={5}>
-            <TextInput
-              label="First Name"
-              placeholder="First Name"
-              type="text"
-              isRequired
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <TextInput
-              label="Last Name"
-              placeholder="Last Name"
-              type="text"
-              isRequired
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </HStack>
-          <TextInput
-            label="Username"
-            placeholder="abc"
-            type="text"
-            mb={5}
-            isRequired
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextInput
-            label="Email"
-            placeholder="abc@mail.com"
-            type="email"
-            mb={5}
-            isRequired
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextInput
-            label="Password"
-            placeholder="Password"
-            type="password"
-            mb={5}
-            isRequired
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <TextInput
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            type="password"
-            mb={5}
-            isRequired
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </Flex>
-        <Button
-          colorScheme="primary"
-          width="full"
-          mt="5"
-          onClick={() => {
-            signUp({
-              firstName,
-              lastName,
-              username,
-              email,
-              password,
-            });
+        <Flex
+          direction="column"
+          py={{
+            base: "0",
+            sm: "8",
           }}
-          isDisabled={
-            signUpStatus === "loading" ||
-            username === "" ||
-            email === "" ||
-            password === "" ||
-            confirmPassword === "" ||
-            password !== confirmPassword ||
-            signUpStatus === "success"
-          }
-          isLoading={signUpStatus === "loading"}
+          px={{
+            base: "4",
+            sm: "10",
+          }}
+          bg={{
+            base: "transparent",
+            sm: "gray.700",
+          }}
+          boxShadow={{
+            base: "none",
+            sm: "md",
+          }}
+          borderRadius={{
+            base: "none",
+            sm: "md",
+          }}
+          w="100%"
+          maxW="lg"
         >
-          Sign Up
-        </Button>
+          <Heading size="lg" textAlign="center" mb={3}>
+            Sign up your new account
+          </Heading>
+          <HStack spacing="1" justify="center" mb={5}>
+            <Text color="muted">Already have an account?</Text>
+            <Link href="/">
+              <Button variant="link" colorScheme="primary">
+                Sign In
+              </Button>
+            </Link>
+          </HStack>
+          <Flex direction="column" w="100%">
+            <HStack mb={5}>
+              <TextInput
+                label="First Name"
+                placeholder="First Name"
+                type="text"
+                isRequired
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <TextInput
+                label="Last Name"
+                placeholder="Last Name"
+                type="text"
+                isRequired
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </HStack>
+            <TextInput
+              label="Username"
+              placeholder="abc"
+              type="text"
+              mb={5}
+              isRequired
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextInput
+              label="Email"
+              placeholder="abc@mail.com"
+              type="email"
+              mb={5}
+              isRequired
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextInput
+              label="Password"
+              placeholder="Password"
+              type="password"
+              mb={5}
+              isRequired
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextInput
+              label="Confirm Password"
+              placeholder="Confirm Password"
+              type="password"
+              mb={5}
+              isRequired
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </Flex>
+          <Button
+            colorScheme="primary"
+            width="full"
+            mt="5"
+            onClick={() => {
+              signUp({
+                firstName,
+                lastName,
+                username,
+                email,
+                password,
+              });
+            }}
+            isDisabled={
+              signUpStatus === "loading" ||
+              username === "" ||
+              email === "" ||
+              password === "" ||
+              confirmPassword === "" ||
+              password !== confirmPassword ||
+              signUpStatus === "success"
+            }
+            isLoading={signUpStatus === "loading"}
+          >
+            Sign Up
+          </Button>
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
 

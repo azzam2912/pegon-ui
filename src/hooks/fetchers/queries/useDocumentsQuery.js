@@ -22,5 +22,5 @@ export const useDocumentsQuery = ({ config, page, pageSize, queries }) => {
     }
   };
 
-  return useFetchQuery(["userInfo", {page, pageSize, queries}], _documentsQuery, config);
+  return useFetchQuery(["documents", {page, pageSize, queries}], _documentsQuery, config);
 };

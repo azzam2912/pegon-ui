@@ -27,11 +27,6 @@ import { useModalSidebar } from "..";
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const { data: user, status: userStatus } = useUserInfoQuery({
-    config: {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    },
   });
 
   const { onOpen } = useModalSidebar();

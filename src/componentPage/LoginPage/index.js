@@ -15,6 +15,7 @@ import { useSignInMutation } from "src/hooks/fetchers/mutations/useSignInMutatio
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 
 const LoginPage = () => {
   const [email, setEmail] = React.useState("");
@@ -47,6 +48,18 @@ const LoginPage = () => {
   })
 
   return (
+    <>
+    <Head>
+        <title>Login - PegonDocs</title>
+        <meta name="description" content="Please log in to view all of pegon documents here!" />
+        <meta property="og:title" content="Login - PegonDocs" key="title" />
+        <meta
+          property="og:description"
+          content="Please log in to view all of pegon documents here!"
+          key="description"
+        />
+        <meta property="og:image" content="96.png" key="image" />
+      </Head>
     <Flex
       width="100vw"
       height="100vh"
@@ -143,6 +156,7 @@ const LoginPage = () => {
         <OAuthButtonGroup />
       </Flex>
     </Flex>
+    </>
   );
 };
 

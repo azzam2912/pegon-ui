@@ -21,7 +21,7 @@ export const useModalSidebar = () => {
 export const Page = ({ pageComponent: Page, requireAuth, ...props }) => {
   const router = useRouter();
   const createToast = useToast();
-  const modalSidebar = useDisclosure()
+  const modalSidebar = useDisclosure();
   React.useEffect(() => {
     // check if jwt is present
     const token = localStorage?.getItem("token");
@@ -38,7 +38,7 @@ export const Page = ({ pageComponent: Page, requireAuth, ...props }) => {
   }, []);
   return (
     <ModalSidebarContextProvider>
-      <Page/>
+      <Page {...props} />
     </ModalSidebarContextProvider>
   );
 };

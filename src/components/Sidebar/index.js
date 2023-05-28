@@ -17,9 +17,11 @@ import {
   MdHome,
   MdLibraryBooks,
   MdBookmark,
-  MdQuestionAnswer,
   MdInfo,
 } from "react-icons/md";
+import {
+  SiBookstack
+} from "react-icons/si";
 import { NavigationButton } from "./fragments/NavigationButton";
 import { useModalSidebar } from "src/componentPage/Page";
 import { useRouter } from "next/router";
@@ -78,11 +80,11 @@ const Sidebar = () => {
           All Documents
         </NavigationButton>
         <NavigationButton
-          icon={<MdBookmark />}
-          onClick={() => router.push("/app/bookmarks")}
+          icon={<SiBookstack />}
+          onClick={() => router.push("/app/library")}
           isSidebarExpanded={isSidebarExpanded}
         >
-          Bookmarks
+          My Library
         </NavigationButton>
         <Divider my={3} />
         <NavigationButton
@@ -135,11 +137,11 @@ const Sidebar = () => {
               All Documents
             </NavigationButton>
             <NavigationButton
-              icon={<MdBookmark />}
-              onClick={() => router.push("/app/bookmarks")}
+              icon={<SiBookstack />}
+              onClick={() => router.push("/app/library")}
               isSidebarExpanded
             >
-              Bookmarks
+              My Library
             </NavigationButton>
             <Divider my={3} />
             <NavigationButton
