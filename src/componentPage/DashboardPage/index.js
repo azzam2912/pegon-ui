@@ -364,9 +364,6 @@ const NewDocument = ({ thumbnail, title, publishedAt, contributor, id }) => {
           by {contributor?.data.attributes.firstName}{" "}
           {contributor?.data.attributes.lastName}
         </Text>
-        <HStack justify="right" pt={3}>
-          <IconButton icon={<MdBookmarkAdd />} size="sm" />
-        </HStack>
       </VStack>
     </HStack>
   );
