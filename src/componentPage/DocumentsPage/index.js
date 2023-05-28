@@ -27,10 +27,6 @@ const DocumentsPage = () => {
   return (
     <AppLayout>
       <VStack w="100%" align="stretch" p={8}>
-        <VStack align="left" mb={5}>
-          <Heading size="lg">Explore Documents</Heading>
-          <Text color="gray.500">7 entries found</Text>
-        </VStack>
         <DataComponent />
       </VStack>
     </AppLayout>
@@ -101,6 +97,10 @@ const DataComponent = () => {
         />
         <meta property="og:image" content="96.png" key="image" />
       </Head>
+      <VStack align="left" mb={5}>
+          <Heading size="lg">Explore Documents</Heading>
+          <Text color="gray.500">{data?.meta.pagination.total} entries found</Text>
+      </VStack>
       <Stack
         mt={5}
         direction={{
