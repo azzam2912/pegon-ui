@@ -22,6 +22,7 @@ import { FaChevronLeft, FaChevronRight, FaFolderOpen, FaSearch } from "react-ico
 import Link from "next/link";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import Head from "next/head";
+import { useSearchBar } from "../Page";
 
 const DocumentsPage = () => {
   return (
@@ -36,6 +37,7 @@ const DocumentsPage = () => {
 const DataComponent = () => {
   const [itemsPerPage, setItemsPerPage] = React.useState(5); // Number of items to display per page
   const [currentPage, setCurrentPage] = React.useState(1); // Current page number (can be dynamic)
+  const { onOpen } = useSearchBar();
 
   const [filter, setFilter] = React.useState({
     documentType: "",
@@ -112,6 +114,7 @@ const DataComponent = () => {
       >
         <IconButton
           icon={<FaSearch />}
+          onClick={onOpen}
           aria-label="Search database"
           variant="outline"
           width="min-content"
@@ -256,10 +259,9 @@ const DataComponent = () => {
             )}
             {
               status !== "loading" && currentData?.length === 0 && (
-                <Flex p={4} minH="200px" direction="column" align="center" justify="center">
+                <Flex minH="200px" direction="column" align="center" justify="center">
                   <Heading size="4xl" color="gray.600"><FaFolderOpen/></Heading>
                   <Heading size="md" color="gray.500">No documents found</Heading>
-                  <Text color="gray.500">Add documents here or change the filter</Text>
                 </Flex>
               )
             }

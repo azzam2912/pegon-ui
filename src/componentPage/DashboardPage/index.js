@@ -341,7 +341,7 @@ const NewDocument = ({ thumbnail, title, publishedAt, contributor, id }) => {
           alt={title}
           borderRadius="lg"
           boxSize="96px"
-          fallbackSrc="96.png"
+          fallbackSrc="https://via.placeholder.com/96"
         />
       </Flex>
       <VStack spacing={0} align="left" width="100%" p={3}>

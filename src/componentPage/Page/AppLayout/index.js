@@ -9,6 +9,9 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Button,
+  Text,
+  Spacer,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
@@ -22,14 +25,16 @@ import {
   MdMenu,
 } from "react-icons/md";
 import { useRouter } from "next/router";
-import { useModalSidebar } from "..";
+import { useModalSidebar, useSearchBar } from "..";
+import { SearchModal } from "./fragments/SearchModal";
+import { FaSearch } from "react-icons/fa";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const { data: user, status: userStatus } = useUserInfoQuery({
-  });
+  const { data: user, status: userStatus } = useUserInfoQuery({});
 
   const { onOpen } = useModalSidebar();
+  const { onOpen: onOpenSearch } = useSearchBar();
 
   return (
     <VStack h="100vh" w="100vw" align="stretch" spacing="0">
@@ -52,18 +57,24 @@ const AppLayout = ({ children }) => {
         <Flex display={{ md: "none" }} alignItems="center">
           <IconButton icon={<MdMenu />} variant="ghost" onClick={onOpen} />
         </Flex>
+        <Spacer/>
         <Flex
           alignItems="center"
           ml={3}
-          w={{
-            base: "100%",
-            md: "auto",
-          }}
         >
-          <InputGroup mr={3}>
-            <InputLeftElement pointerEvents="none" children={<MdSearch />} />
-            <Input type="text" placeholder="Search Here" />
-          </InputGroup>
+          <Button
+          leftIcon={<FaSearch />}
+          variant="outline"
+          mr={5}
+          onClick={onOpenSearch}
+          justifyContent="start"
+          _hover={{
+            bg: "whiteAlpha.0",
+            borderColor: "whiteAlpha.500",
+          }}
+          >
+            <Text ml="3" fontWeight="normal" color="whiteAlpha.400"> Search Here </Text>
+          </Button>
           <Avatar size="sm" name={user?.firstName + " " + user?.lastName} />
           <Menu>
             <MenuButton
@@ -93,11 +104,8 @@ const AppLayout = ({ children }) => {
         }}
       >
         <Sidebar />
-        <Box
-          w="100%"
-          h="100%"
-          overflowY="auto"
-        >
+        <SearchModal />
+        <Box w="100%" h="100%" overflowY="auto">
           {children}
         </Box>
       </Flex>
