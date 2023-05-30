@@ -86,8 +86,8 @@ const DocumentDetailsPage = ({ data: documentDetails }) => {
     });
   };
 
-  const url = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data.attributes.file.data.attributes.url}`;
-  const thumbUrl = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data.attributes.thumbnail.data.attributes.url}`;
+  const url = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data?.attributes.file.data?.attributes.url}`;
+  const thumbUrl = `${process.env.NEXT_PUBLIC_HOST}${documentDetails.data?.attributes.thumbnail.data?.attributes.url}`;
   const {
     title,
     author,
@@ -100,7 +100,7 @@ const DocumentDetailsPage = ({ data: documentDetails }) => {
     illumination,
     description,
     contributor,
-  } = documentDetails.data.attributes;
+  } = documentDetails.data?.attributes;
   return (
     <>
       <Head>

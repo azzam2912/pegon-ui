@@ -126,7 +126,6 @@ const DataComponent = () => {
               md: "auto",
             }}
             width="auto"
-            htmlSize={10}
             defaultValue=""
             onChange={(e) => setLanguage(e.target.value)}
           >
@@ -142,7 +141,6 @@ const DataComponent = () => {
               base: "1",
               md: "auto",
             }}
-            htmlSize={10}
             width="auto"
             type="text"
             placeholder="Document Type"
@@ -155,7 +153,6 @@ const DataComponent = () => {
               base: "1",
               md: "auto",
             }}
-            htmlSize={10}
             width="auto"
             type="text"
             placeholder="Author"
@@ -166,7 +163,6 @@ const DataComponent = () => {
               base: "1",
               md: "auto",
             }}
-            htmlSize={10}
             width="auto"
             type="text"
             placeholder="Collector"
@@ -177,7 +173,6 @@ const DataComponent = () => {
         <Button
           onClick={handleFilter}
           colorScheme="primary"
-          htmlSize={10}
           width="auto"
         >
           Filter
@@ -210,7 +205,7 @@ const DataComponent = () => {
               >
                 <Flex width="240px" align="center" flexShrink={0}>
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data.attributes.url}`}
+                    src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
                     fallbackSrc="https://via.placeholder.com/48"
                     alt="Thumbnail"
                     objectFit="cover"
@@ -228,8 +223,8 @@ const DataComponent = () => {
                   color="gray.500"
                   ml="4"
                 >
-                  By {item?.contributor.data.attributes.firstName}{" "}
-                  {item?.contributor.data.attributes.lastName}
+                  By {item?.contributor.data?.attributes.firstName}{" "}
+                  {item?.contributor.data?.attributes.lastName}
                 </Text>
                 <Text width="100px" noOfLines={1} fontSize="sm" ml="4">
                   <Badge colorScheme="blue">{item?.language}</Badge>

@@ -40,7 +40,7 @@ async function handlePostRequest(req, res) {
 
     const finalData = {
       ...fieldData,
-      contributor: data.id,
+      contributor: data?.id,
       publishedAt: null,
     }
 

@@ -39,7 +39,7 @@ async function handlePost(req, res, data) {
     {
       data: {
         bookmarkBy: {
-          connect: [data.id],
+          connect: [data?.id],
         },
       },
     },
@@ -59,7 +59,7 @@ async function handleDelete(req, res, data) {
     {
       data: {
         bookmarkBy: {
-          disconnect: [data.id],
+          disconnect: [data?.id],
         },
       },
     },
