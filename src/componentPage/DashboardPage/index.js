@@ -263,7 +263,7 @@ const DashboardPage = () => {
             >
               {latestDocumentsStatus === "success" ? (
                 latestDocuments.data?.map(({ id, attributes }) => (
-                  <NewDocument id={id} {...attributes} />
+                  <NewDocument key={id} id={id} {...attributes} />
                 ))
               ) : (
                 <>
@@ -335,7 +335,7 @@ const NewDocument = ({ thumbnail, title, publishedAt, contributor, id }) => {
           fit="cover"
           src={
             thumbnail
-              ? `${process.env.NEXT_PUBLIC_HOST}${thumbnail.data.attributes.url}`
+              ? `${process.env.NEXT_PUBLIC_HOST}${thumbnail.data?.attributes.url}`
               : null
           }
           alt={title}
@@ -361,8 +361,8 @@ const NewDocument = ({ thumbnail, title, publishedAt, contributor, id }) => {
           </Text>
         </HStack>
         <Text fontSize="xs" color="gray.400">
-          by {contributor?.data.attributes.firstName}{" "}
-          {contributor?.data.attributes.lastName}
+          by {contributor?.data?.attributes.firstName}{" "}
+          {contributor?.data?.attributes.lastName}
         </Text>
       </VStack>
     </HStack>

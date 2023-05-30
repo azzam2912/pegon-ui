@@ -33,7 +33,7 @@ const LoginPage = () => {
           position: "bottom-right",
           isClosable: true,
         });
-        localStorage.setItem("token", data.jwt);
+        localStorage.setItem("token", data?.jwt);
         router.push("/app");
       },
     },

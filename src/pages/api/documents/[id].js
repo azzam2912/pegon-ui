@@ -35,7 +35,7 @@ async function handleGet(req, res, data) {
     {
       data: {
         viewedBy: {
-          connect: [data.id],
+          connect: [data?.id],
         },
       },
     },
