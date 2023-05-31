@@ -18,6 +18,11 @@ export const useSignUpMutation = ({ config }) => {
           username,
           email,
           password,
+        },
+        {
+          headers: {
+            'Bypass-Tunnel-Reminder': 'true'
+          },
         }
       );
       return data;

@@ -7,6 +7,7 @@ export const useBookmarkMutation = ({ config }) => {
       const { data } = await axios.post(`/api/bookmark/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'Bypass-Tunnel-Reminder': 'true'
         },
       });
       return data;

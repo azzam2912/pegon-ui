@@ -18,6 +18,7 @@ export const useChangePasswordMutation = ({ config }) => {
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'Bypass-Tunnel-Reminder': 'true'
           },
         }
       );

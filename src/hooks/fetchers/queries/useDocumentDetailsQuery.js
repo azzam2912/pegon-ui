@@ -9,6 +9,7 @@ export const useDocumentDetailsQuery = ({ config, id }) => {
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'Bypass-Tunnel-Reminder': 'true'
           },
           params: {
             populate: "*",

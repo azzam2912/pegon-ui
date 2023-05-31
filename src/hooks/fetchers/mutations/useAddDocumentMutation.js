@@ -9,7 +9,8 @@ export const useAddDocumentMutation = ({ config }) => {
         documentInfo,{
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Bypass-Tunnel-Reminder': 'true'
           }
         }
       );
