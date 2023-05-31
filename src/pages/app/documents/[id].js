@@ -1,11 +1,10 @@
-import axios from "axios";
 import DocumentDetailsPage from "src/componentPage/DocumentDetailsPage";
 import { Page } from "src/componentPage/Page";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
   try {
-    const { data } = await axios.get(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_HOST}/documents/${id}`,
       {
         headers: {
@@ -16,6 +15,7 @@ export async function getServerSideProps(context) {
         },
       }
     );
+    const data = await response.json();
     return {
       props: {
         data,

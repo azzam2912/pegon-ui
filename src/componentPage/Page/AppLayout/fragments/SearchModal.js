@@ -33,7 +33,7 @@ export const SearchModal = () => {
 
   const client = new MeiliSearch({
     host: "http://localhost:7700",
-    apiKey: "fcdd5c1f70d82374c0a04e49ebfa236733207aa74c6f36f91f844701b007",
+    apiKey: `${process.env.NEXT_PUBLIC_MEILI_KEY}`,
   });
 
   const searchDocuments = async (query) => {
