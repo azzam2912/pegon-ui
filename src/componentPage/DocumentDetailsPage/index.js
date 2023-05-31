@@ -12,6 +12,7 @@ import {
   Link,
   SimpleGrid,
   Spacer,
+  Spinner,
   Text,
   VStack,
   useToast,
@@ -33,7 +34,7 @@ import { useBookmarkMutation } from "src/hooks/fetchers/mutations/useBookmarkMut
 import { useViewDocumentQuery } from "src/hooks/fetchers/queries/useViewDocumentQuery";
 import Head from "next/head";
 
-const DocumentDetailsPage = ({ data: documentDetails }) => {
+const DocumentDetailsPage = () => {
   const router = useRouter();
   const createToast = useToast();
   const { id } = router.query;
@@ -44,6 +45,17 @@ const DocumentDetailsPage = ({ data: documentDetails }) => {
     },
     id: id,
   });
+
+  const { data: documentDetails, status: documentDetailsStatus } =
+    useDocumentDetailsQuery({
+      config: {
+        onSuccess: (data) => {
+          console.log("Success");
+        },
+        enabled: !!id,
+      },
+      id: id,
+    });
 
   const PdfViewer = ({ fileUrl }) => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -124,122 +136,138 @@ const DocumentDetailsPage = ({ data: documentDetails }) => {
           h="100%"
           direction={{ base: "column-reverse", lg: "row" }}
         >
-          <Flex flex={1} p={5} display={{ base: "none", lg: "block" }}>
-            {!url ? null : <PdfViewer fileUrl={url} />}
-          </Flex>
-          <Flex height="100%" flex={1} direction="column">
-            <VStack spacing={3} align="stretch" overflowY="auto" p={5} w="100%">
-              <Heading as="h1" size="lg">
-                {title}
-              </Heading>
-              <HStack justify="space-between" w="100%">
-                <Text noOfLines={1} fontSize="sm" color="gray.400">
-                  Authored by{" "}
-                  <strong>{author ? author : "Unknown Author"}</strong>
-                </Text>
-              </HStack>
-              <Image
-                src={thumbUrl}
-                alt="Document Thumbnail"
-                fallbackSrc="https://via.placeholder.com/150"
-                borderRadius="md"
-                w="100%"
-                h="200px"
-                objectFit="cover"
-                display={{ base: "block", lg: "none" }}
-              />
-              <Divider />
-              <Text color="gray.300">{description ? description : "-"}</Text>
-              <ButtonGroup isAttached variant="outline">
-                <Button
-                  leftIcon={<MdBookmarkAdd />}
-                  isLoading={bookmarkStatus == "loading"}
-                  isDisabled={bookmarkStatus == "loading"}
-                  onClick={handleBookmark}
+          {documentDetailsStatus === "loading" ? (
+            <>
+              <Flex flex={1} p={5} display={{ base: "none", lg: "block" }}>
+                {!url ? null : <PdfViewer fileUrl={url} />}
+              </Flex>
+              <Flex height="100%" flex={1} direction="column">
+                <VStack
+                  spacing={3}
+                  align="stretch"
+                  overflowY="auto"
+                  p={5}
+                  w="100%"
                 >
-                  Bookmark
-                </Button>
-                <Button leftIcon={<MdShare />} onClick={handleShare}>
-                  Share
-                </Button>
-                <Spacer />
-                <Button as={Link} href={url} leftIcon={<MdDownload />}>
-                  Download
-                </Button>
-              </ButtonGroup>
-              <VStack
-                p={5}
-                borderRadius="md"
-                borderWidth="1px"
-                spacing={3}
-                align="stretch"
-                bgColor="gray.700"
-              >
-                <Text fontWeight="bold" fontSize="md" color="gray.300">
-                  Details
-                </Text>
-                <Divider mb={4} />
-                <SimpleGrid columns={2} spacing={3}>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Collector
+                  <Heading as="h1" size="lg">
+                    {title}
+                  </Heading>
+                  <HStack justify="space-between" w="100%">
+                    <Text noOfLines={1} fontSize="sm" color="gray.400">
+                      Authored by{" "}
+                      <strong>{author ? author : "Unknown Author"}</strong>
                     </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {collector ? collector : "Unknown Collector"}
+                  </HStack>
+                  <Image
+                    src={thumbUrl}
+                    alt="Document Thumbnail"
+                    fallbackSrc="https://via.placeholder.com/150"
+                    borderRadius="md"
+                    w="100%"
+                    h="200px"
+                    objectFit="cover"
+                    display={{ base: "block", lg: "none" }}
+                  />
+                  <Divider />
+                  <Text color="gray.300">
+                    {description ? description : "-"}
+                  </Text>
+                  <ButtonGroup isAttached variant="outline">
+                    <Button
+                      leftIcon={<MdBookmarkAdd />}
+                      isLoading={bookmarkStatus == "loading"}
+                      isDisabled={bookmarkStatus == "loading"}
+                      onClick={handleBookmark}
+                    >
+                      Bookmark
+                    </Button>
+                    <Button leftIcon={<MdShare />} onClick={handleShare}>
+                      Share
+                    </Button>
+                    <Spacer />
+                    <Button as={Link} href={url} leftIcon={<MdDownload />}>
+                      Download
+                    </Button>
+                  </ButtonGroup>
+                  <VStack
+                    p={5}
+                    borderRadius="md"
+                    borderWidth="1px"
+                    spacing={3}
+                    align="stretch"
+                    bgColor="gray.700"
+                  >
+                    <Text fontWeight="bold" fontSize="md" color="gray.300">
+                      Details
                     </Text>
+                    <Divider mb={4} />
+                    <SimpleGrid columns={2} spacing={3}>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Collector
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {collector ? collector : "Unknown Collector"}
+                        </Text>
+                      </VStack>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Document Type
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {documentType}
+                        </Text>
+                      </VStack>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Language
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {language}
+                        </Text>
+                      </VStack>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Year Written
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {yearWritten ? yearWritten : "Not Stated"}
+                        </Text>
+                      </VStack>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Location Written
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {locationWritten ? locationWritten : "Not Stated"}
+                        </Text>
+                      </VStack>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Ink
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {ink ? ink : "Not Stated"}
+                        </Text>
+                      </VStack>
+                      <VStack spacing={0} align="left">
+                        <Text fontSize="sm" color="gray.300">
+                          Illumination
+                        </Text>
+                        <Text fontWeight="bold" fontSize="sm" color="gray.400">
+                          {illumination ? illumination : "Not Stated"}
+                        </Text>
+                      </VStack>
+                    </SimpleGrid>
                   </VStack>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Document Type
-                    </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {documentType}
-                    </Text>
-                  </VStack>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Language
-                    </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {language}
-                    </Text>
-                  </VStack>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Year Written
-                    </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {yearWritten ? yearWritten : "Not Stated"}
-                    </Text>
-                  </VStack>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Location Written
-                    </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {locationWritten ? locationWritten : "Not Stated"}
-                    </Text>
-                  </VStack>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Ink
-                    </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {ink ? ink : "Not Stated"}
-                    </Text>
-                  </VStack>
-                  <VStack spacing={0} align="left">
-                    <Text fontSize="sm" color="gray.300">
-                      Illumination
-                    </Text>
-                    <Text fontWeight="bold" fontSize="sm" color="gray.400">
-                      {illumination ? illumination : "Not Stated"}
-                    </Text>
-                  </VStack>
-                </SimpleGrid>
-              </VStack>
-            </VStack>
-          </Flex>
+                </VStack>
+              </Flex>
+            </>
+          ) : (
+            <Flex w="100%" h="100%" align="center" justify="center">
+              <Spinner />
+            </Flex>
+          )}
         </Flex>
       </AppLayout>
     </>
