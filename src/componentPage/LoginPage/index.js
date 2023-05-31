@@ -125,17 +125,6 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Flex>
-        <Flex width="100%" justify="end" mt="1">
-          <Button
-            as={NextLink}
-            colorScheme="primary"
-            variant="link"
-            href="/home"
-            size="sm"
-          >
-            Forgot Password?
-          </Button>
-        </Flex>
         <Button
           colorScheme="primary"
           width="full"
