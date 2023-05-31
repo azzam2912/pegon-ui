@@ -111,8 +111,7 @@ const DocumentDetailsPage = () => {
     ink,
     illumination,
     description,
-    contributor,
-  } = documentDetails?.data?.attributes;
+  } = documentDetails?.data?.attributes ? documentDetails?.data?.attributes : {};
   return (
     <>
       <Head>
