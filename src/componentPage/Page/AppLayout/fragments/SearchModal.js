@@ -32,7 +32,7 @@ export const SearchModal = () => {
   const [loading, setLoading] = React.useState(false);
 
   const client = new MeiliSearch({
-    host: "http://localhost:7700",
+    host: `${process.env.NEXT_PUBLIC_MEILI_HOST}`,
     apiKey: `${process.env.NEXT_PUBLIC_MEILI_KEY}`,
   });
 
