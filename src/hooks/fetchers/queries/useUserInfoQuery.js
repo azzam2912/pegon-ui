@@ -7,8 +7,6 @@ export const useUserInfoQuery = ({ config }) => {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Bypass-Tunnel-Reminder': 'true'
-          // "ngrok-skip-browser-warning":"any"
         },
       });
       return data;

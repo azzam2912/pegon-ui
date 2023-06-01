@@ -6,8 +6,7 @@ export const useRemoveBookmarkMutation = ({ config }) => {
     try {
       const { data } = await axios.delete(`/api/bookmark/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Bypass-Tunnel-Reminder': 'true'
+          Authorization: `Bearer ${localStorage.getItem("token")}`,  
         },
       });
       return data;

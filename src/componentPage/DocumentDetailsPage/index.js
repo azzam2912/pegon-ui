@@ -115,11 +115,11 @@ const DocumentDetailsPage = () => {
   return (
     <>
       <Head>
-        <title>{title} - PegonDocs</title>
+        <title>{title ? title : "Loading"} - PegonDocs</title>
         <meta name="description" content={description} />
         <meta
           property="og:title"
-          content={`${title} - PegonDocs`}
+          content={`${title ? title : "loading"} - PegonDocs`}
           key="title"
         />
         <meta
@@ -135,10 +135,10 @@ const DocumentDetailsPage = () => {
           h="100%"
           direction={{ base: "column-reverse", lg: "row" }}
         >
-          {documentDetailsStatus === "loading" ? (
+          {documentDetailsStatus !== "loading" ? (
             <>
               <Flex flex={1} p={5} display={{ base: "none", lg: "block" }}>
-                {!url ? null : <PdfViewer fileUrl={url} />}
+                {url ? <PdfViewer fileUrl={url} /> : <Spinner />}
               </Flex>
               <Flex height="100%" flex={1} direction="column">
                 <VStack

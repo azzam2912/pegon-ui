@@ -10,11 +10,6 @@ export const useSignInMutation = ({ config }) => {
           identifier,
           password,
         },
-        {
-          headers: {
-            'Bypass-Tunnel-Reminder': 'true'
-          },
-        }
       );
       return data;
     } catch (error) {

@@ -23,6 +23,7 @@ import {
   MdLogout,
   MdSearch,
   MdMenu,
+  MdLock,
 } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useModalSidebar, useSearchBar } from "..";
@@ -84,7 +85,14 @@ const AppLayout = ({ children }) => {
               variant="link"
             />
             <MenuList>
-              <MenuItem icon={<MdAccountCircle />}>Profile</MenuItem>
+            <MenuItem
+                icon={<MdLock />}
+                onClick={() => {
+                  router.push("/app/change-password");
+                }}
+              >
+                Change Password
+              </MenuItem>
               <MenuItem
                 icon={<MdLogout />}
                 onClick={() => {

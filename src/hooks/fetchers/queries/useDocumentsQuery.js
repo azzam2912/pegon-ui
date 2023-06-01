@@ -7,8 +7,6 @@ export const useDocumentsQuery = ({ config, page, pageSize, queries }) => {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/documents`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Bypass-Tunnel-Reminder': 'true'
-          // "ngrok-skip-browser-warning":"any"
         },
         params: {
           "pagination[page]": page ? page : 1,
