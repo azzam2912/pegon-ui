@@ -76,6 +76,7 @@ const DashboardPage = () => {
       queries: {
         "filters[contributor][id][$eq]": user?.id,
         "filters[publishedAt][$null]": "true",
+        "publicationState":"preview",
       },
     });
 
