@@ -367,7 +367,7 @@ const DataComponent = () => {
                   {item?.collector ? item.collector : "Unknown Collector"}
                 </Text>
                 <Text width="100px" fontSize="sm" ml="4" color="gray.500">
-                  {item?.publishedAt ? item.publishedAt : "unknown date"}
+                  {item?.publishedAt ? item.publishedAt : "Unpublished"}
                 </Text>
                 {library === 0 ? (
                   <IconButton
