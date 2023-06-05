@@ -262,7 +262,7 @@ export default NewDocumentPage;
 
 const ImageInput = ({ onChange, value }) => {
   return (
-    <FormControl minH="640px" w="100%" isRequired>
+    <FormControl h="640px" w="100%" isRequired>
       <FormLabel mb={0}>Thumbnail</FormLabel>
       <InputGroup size="md">
         <Flex
@@ -288,7 +288,7 @@ const ImageInput = ({ onChange, value }) => {
               Drag and drop your Thumbnail file here {value && "or"}
             </Text>
             {!value && (
-              <HStack width="256px">
+              <HStack width="100%">
                 <Divider />
                 <Text>or</Text>
                 <Divider />
@@ -353,7 +353,7 @@ const PdfInputSmall = ({ onChange, value, fileUrl, filename }) => {
   }, [fileUrl]);
 
   return (
-    <FormControl minH="640px" w="100%" isRequired display={display}>
+    <FormControl h="640px" w="100%" isRequired display={display}>
       <FormLabel mb={0}>Document</FormLabel>
       <InputGroup size="md">
         <Flex
@@ -383,7 +383,7 @@ const PdfInputSmall = ({ onChange, value, fileUrl, filename }) => {
             ) : (
               <Text>Drag and drop your PDF file here</Text>
             )}
-            <HStack width="256px">
+            <HStack width="100%">
               <Divider />
               <Text>or</Text>
               <Divider />
