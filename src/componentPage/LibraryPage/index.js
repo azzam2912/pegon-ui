@@ -149,7 +149,7 @@ const DataComponent = () => {
           content="My Library - PegonDocs"
           key="title"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
       <Stack
         direction={{

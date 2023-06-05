@@ -29,20 +29,25 @@ async function handlePostRequest(req, res) {
     if (err) {
       return res.status(400).json({ message: err.message });
     }
-    const fieldData = JSON.parse(fields.data)
+    const fieldData = JSON.parse(fields.data);
 
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
-      headers: {
-        Authorization: token,
-        "ngrok-skip-browser-warning":"any"
-      },
-    });
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_HOST}/users/me`,
+      {
+        headers: {
+          Authorization: token,
+          "ngrok-skip-browser-warning": "any",
+        },
+      }
+    );
 
     const finalData = {
       ...fieldData,
+      author : fieldData.author ? fieldData.author : "Anonymous",
+      collector : fieldData.collector ? fieldData.collector : "Not Specified",
       contributor: data?.id,
       publishedAt: null,
-    }
+    };
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(finalData));
@@ -50,15 +55,36 @@ async function handlePostRequest(req, res) {
     const fs = require("fs");
 
     for (const key in files) {
-      formData.append(key, fs.createReadStream(files[key].filepath), files[key].originalFilename);
+      formData.append(
+        key,
+        fs.createReadStream(files[key].filepath),
+        files[key].originalFilename
+      );
     }
-    
-    const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}/documents`, formData, {
-      headers: {
-        Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
-        'Content-Type': 'multipart/form-data'
+
+    // check if title, documentType, language, file, and thumbnail is empty if yes then give appropriate error
+    if (
+      !finalData.title ||
+      !finalData.documentType ||
+      !finalData.language ||
+      !files.file ||
+      !files.thumbnail
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Please fill all the required fields" });
+    }
+
+    const resp = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_HOST}/documents`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
+          "Content-Type": "multipart/form-data",
+        },
       }
-    });
+    );
 
     return res.status(200).json(resp.data);
   });

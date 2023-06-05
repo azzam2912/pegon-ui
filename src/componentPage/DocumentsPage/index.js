@@ -97,7 +97,7 @@ const DataComponent = () => {
           content="View all of pegon documents here!"
           key="description"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
       <VStack align="left" mb={5}>
           <Heading size="lg">Explore Documents</Heading>

@@ -58,7 +58,7 @@ const SignUpPage = () => {
           content="Join us and contribute to pegon"
           key="description"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
       <Flex
         width="100vw"

@@ -58,7 +58,7 @@ const LoginPage = () => {
           content="Please log in to view all of pegon documents here!"
           key="description"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
     <Flex
       width="100vw"

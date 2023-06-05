@@ -4,8 +4,9 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { colors } from "src/theme";
 // Import the styles provided by the react-pdf-viewer packages
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import Head from "next/head";
 
 // 2. Add your color mode config
 const config = {
@@ -26,11 +27,49 @@ function MyApp({ Component, pageProps }) {
   const [queryClient] = React.useState(() => new QueryClient());
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </QueryClientProvider>
+    <>
+      <Head>
+        <meta name="application-name" content="PegonDocs" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="PegonDocs" />
+        <meta
+          name="description"
+          content="A Progressive Web Application for managing Pegon manuscripts"
+        />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        <meta name="msapplication-TileColor" content="#2e3841" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="theme-color" content="#2e3841" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://pegon.works" />
+        <meta name="twitter:title" content="PegonDocs" />
+        <meta
+          name="twitter:description"
+          content="A Progressive Web Application for managing Pegon manuscripts"
+        />
+        <meta name="twitter:image" content="https://pegon.works/logo.png" />
+        <meta name="twitter:creator" content="@YourTwitterHandle" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="PegonDocs" />
+        <meta
+          property="og:description"
+          content="A Progressive Web Application for managing Pegon manuscripts"
+        />
+        <meta property="og:site_name" content="PegonDocs" />
+        <meta property="og:url" content="https://pegon.works" />
+        <meta property="og:image" content="https://pegon.works/logo.png" />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </>
   );
 }
 

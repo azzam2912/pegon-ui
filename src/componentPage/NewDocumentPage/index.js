@@ -48,6 +48,9 @@ const NewDocumentPage = () => {
   const router = useRouter();
   const createToast = useToast();
 
+  const isSubmitDisabled =
+    !file || !title || !documentType || !language || !thumbnail;
+
   // useAddDocumentMutation({
   const { mutate: addDocument, status: addDocumentStatus } =
     useAddDocumentMutation({
@@ -55,7 +58,8 @@ const NewDocumentPage = () => {
         onSuccess: (data) => {
           createToast({
             title: "Success",
-            description: "You have successfully created an entry. please wait until it's published.",
+            description:
+              "You have successfully created an entry. please wait until it's published.",
             status: "success",
             position: "bottom-right",
             isClosable: true,
@@ -67,17 +71,17 @@ const NewDocumentPage = () => {
 
   const handleSubmit = async () => {
     const data = {
-        title,
-        author,
-        collector,
-        documentType,
-        language,
-        yearWritten,
-        locationWritten,
-        ink,
-        illumination,
-        description,
-      }
+      title,
+      author,
+      collector,
+      documentType,
+      language,
+      yearWritten,
+      locationWritten,
+      ink,
+      illumination,
+      description,
+    };
 
     const req = new FormData();
     req.append("files.file", file);
@@ -88,159 +92,168 @@ const NewDocumentPage = () => {
 
   return (
     <>
-    <Head>
+      <Head>
         <title>Create New Document - PegonDocs</title>
         <meta name="description" content="Create a new pegon document" />
-        <meta property="og:title" content="Create New Document - PegonDocs" key="title" />
+        <meta
+          property="og:title"
+          content="Create New Document - PegonDocs"
+          key="title"
+        />
         <meta
           property="og:description"
           content="Create a new pegon document"
           key="description"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
-    <AppLayout>
-      <Flex w="100%" h="100%" direction={{ base: "column-reverse", lg: "row" }}>
-        <Flex flex={1} p={5} display={{ base: "none", lg: "block" }}>
-          {!url ? (
-            <PdfInputBig
-              onChange={(e) => {
-                setUrl(URL.createObjectURL(e.target.files[0]));
-                setFile(e.target.files[0]);
-              }}
-            />
-          ) : (
-            <PdfViewer fileUrl={url} />
-          )}
-        </Flex>
-        <Flex height="100%" flex={1} direction="column">
-          <VStack overflowY="auto" p={5} spacing={5} w="100%">
-            <Heading w="100%">New Document</Heading>
-            <TextInput
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              label="Title"
-              placeholder="Title"
-              type="text"
-              isRequired
-            />
-            <HStack width="100%">
-              <TextInput
-                value={author}
-                onChange={(e) => setAuthor(e.target.value)}
-                label="Author"
-                placeholder="Author"
-                type="text"
+      <AppLayout>
+        <Flex
+          w="100%"
+          h="100%"
+          direction={{ base: "column-reverse", lg: "row" }}
+        >
+          <Flex flex={1} p={5} display={{ base: "none", lg: "block" }}>
+            {!url ? (
+              <PdfInputBig
+                onChange={(e) => {
+                  setUrl(URL.createObjectURL(e.target.files[0]));
+                  setFile(e.target.files[0]);
+                }}
               />
+            ) : (
+              <PdfViewer fileUrl={url} />
+            )}
+          </Flex>
+          <Flex height="100%" flex={1} direction="column">
+            <VStack overflowY="auto" p={5} spacing={5} w="100%">
+              <Heading w="100%">New Document</Heading>
               <TextInput
-                value={collector}
-                onChange={(e) => setCollector(e.target.value)}
-                label="Collector"
-                placeholder="Collector"
-                type="text"
-              />
-            </HStack>
-            <HStack width="100%">
-              <TextInput
-                value={documentType}
-                onChange={(e) => setDocumentType(e.target.value)}
-                label="Document Type"
-                placeholder="Ex: Tassawuf, Fiqh, etc"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                label="Title"
+                placeholder="Title"
                 type="text"
                 isRequired
               />
-              <FormControl isRequired>
-                <FormLabel mb={0}>Language</FormLabel>
-                <InputGroup size="md">
-                  <Select
-                    placeholder="Select One"
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                  >
-                    <option value="Javanese">Javanese</option>
-                    <option value="Sundanese">Sundanese</option>
-                    <option value="Madurese">Madurese</option>
-                    <option value="Indonesian">Indonesian</option>
-                    <option value="Others">Others</option>
-                  </Select>
-                </InputGroup>
-              </FormControl>
-            </HStack>
-            <HStack width="100%">
-              <FormControl>
-                <FormLabel mb={0}>Year Written</FormLabel>
-                <InputGroup size="md">
-                  <Input
-                    value={yearWritten}
-                    onChange={(e) => setYearWritten(e.target.value)}
-                    type="number"
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <FormLabel mb={0}>Location Written</FormLabel>
-                <InputGroup size="md">
-                  <Input
-                    value={locationWritten}
-                    onChange={(e) => setLocationWritten(e.target.value)}
-                    type="text"
-                    placeholder="ex: Central Java, Lombok, etc"
-                  />
-                </InputGroup>
-              </FormControl>
-            </HStack>
-            <HStack width="100%">
-              <TextInput
-                value={ink}
-                onChange={(e) => setInk(e.target.value)}
-                label="Ink"
-                placeholder="ex: masi, etc"
-              />
-              <TextInput
-                value={illumination}
-                onChange={(e) => setIllumination(e.target.value)}
-                label="Illumination"
-                placeholder="ex: Bingkai, etc"
-              />
-            </HStack>
-            <FormControl>
-              <FormLabel mb={0}>Description</FormLabel>
-              <InputGroup size="md">
-                <Textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Insert description here"
+              <HStack width="100%">
+                <TextInput
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  label="Author"
+                  placeholder="Author"
+                  type="text"
                 />
-              </InputGroup>
-            </FormControl>
-            <ImageInput
-              onChange={(e) => {
-                setThumbUrl(URL.createObjectURL(e.target.files[0]));
-                setThumbnail(e.target.files[0]);
-              }}
-              value={thumbUrl}
-            />
-            <PdfInputSmall
-              onChange={(e) => {
-                setUrl(URL.createObjectURL(e.target.files[0]));
-                setFile(e.target.files[0]);
-              }}
-              fileUrl={url}
-              filename={file?.name}
-            />
-          </VStack>
-          <HStack align="center" justify="end" p={5}>
-            <Button
-              onClick={handleSubmit}
-              isLoading={addDocumentStatus === "loading"}
-              colorScheme="primary"
-            >
-              Save Document
-            </Button>
-          </HStack>
+                <TextInput
+                  value={collector}
+                  onChange={(e) => setCollector(e.target.value)}
+                  label="Collector"
+                  placeholder="Collector"
+                  type="text"
+                />
+              </HStack>
+              <HStack width="100%">
+                <TextInput
+                  value={documentType}
+                  onChange={(e) => setDocumentType(e.target.value)}
+                  label="Document Type"
+                  placeholder="Ex: Tassawuf, Fiqh, etc"
+                  type="text"
+                  isRequired
+                />
+                <FormControl isRequired>
+                  <FormLabel mb={0}>Language</FormLabel>
+                  <InputGroup size="md">
+                    <Select
+                      placeholder="Select One"
+                      value={language}
+                      onChange={(e) => setLanguage(e.target.value)}
+                    >
+                      <option value="Javanese">Javanese</option>
+                      <option value="Sundanese">Sundanese</option>
+                      <option value="Madurese">Madurese</option>
+                      <option value="Indonesian">Indonesian</option>
+                      <option value="Others">Others</option>
+                    </Select>
+                  </InputGroup>
+                </FormControl>
+              </HStack>
+              <HStack width="100%">
+                <FormControl>
+                  <FormLabel mb={0}>Year Written</FormLabel>
+                  <InputGroup size="md">
+                    <Input
+                      value={yearWritten}
+                      onChange={(e) => setYearWritten(e.target.value)}
+                      type="number"
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <FormLabel mb={0}>Location Written</FormLabel>
+                  <InputGroup size="md">
+                    <Input
+                      value={locationWritten}
+                      onChange={(e) => setLocationWritten(e.target.value)}
+                      type="text"
+                      placeholder="ex: Central Java, Lombok, etc"
+                    />
+                  </InputGroup>
+                </FormControl>
+              </HStack>
+              <HStack width="100%">
+                <TextInput
+                  value={ink}
+                  onChange={(e) => setInk(e.target.value)}
+                  label="Ink"
+                  placeholder="ex: masi, etc"
+                />
+                <TextInput
+                  value={illumination}
+                  onChange={(e) => setIllumination(e.target.value)}
+                  label="Illumination"
+                  placeholder="ex: Bingkai, etc"
+                />
+              </HStack>
+              <FormControl>
+                <FormLabel mb={0}>Description</FormLabel>
+                <InputGroup size="md">
+                  <Textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Insert description here"
+                  />
+                </InputGroup>
+              </FormControl>
+              <ImageInput
+                onChange={(e) => {
+                  setThumbUrl(URL.createObjectURL(e.target.files[0]));
+                  setThumbnail(e.target.files[0]);
+                }}
+                value={thumbUrl}
+              />
+              <PdfInputSmall
+                onChange={(e) => {
+                  setUrl(URL.createObjectURL(e.target.files[0]));
+                  setFile(e.target.files[0]);
+                }}
+                fileUrl={url}
+                filename={file?.name}
+              />
+            </VStack>
+            <HStack align="center" justify="end" p={5}>
+              <Button
+                onClick={handleSubmit}
+                isLoading={addDocumentStatus === "loading"}
+                isDisabled={isSubmitDisabled || addDocumentStatus === "loading"}
+                colorScheme="primary"
+              >
+                Save Document
+              </Button>
+            </HStack>
+          </Flex>
         </Flex>
-      </Flex>
-    </AppLayout>
+      </AppLayout>
     </>
   );
 };
@@ -249,7 +262,7 @@ export default NewDocumentPage;
 
 const ImageInput = ({ onChange, value }) => {
   return (
-    <FormControl h="640px" w="100%" isRequired>
+    <FormControl minH="640px" w="100%" isRequired>
       <FormLabel mb={0}>Thumbnail</FormLabel>
       <InputGroup size="md">
         <Flex
@@ -340,7 +353,7 @@ const PdfInputSmall = ({ onChange, value, fileUrl, filename }) => {
   }, [fileUrl]);
 
   return (
-    <FormControl h="640px" w="100%" isRequired display={display}>
+    <FormControl minH="640px" w="100%" isRequired display={display}>
       <FormLabel mb={0}>Document</FormLabel>
       <InputGroup size="md">
         <Flex

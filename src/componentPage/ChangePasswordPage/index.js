@@ -58,7 +58,7 @@ const ChangePasswordPage = () => {
           content="Let's explore Pegon together and contribute to the community!"
           key="description"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
       <AppLayout>
         <Flex w="100%" p={5} align="center" justify="center">

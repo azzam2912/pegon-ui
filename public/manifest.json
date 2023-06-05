@@ -1,0 +1,17 @@
+{
+    "name": "PegonDocs",
+    "short_name": "PegonDocs",
+    "description": "A Progressive Web Application for managing Pegon manuscripts",
+    "icons": [
+      {
+        "src": "/logo.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000"
+  }

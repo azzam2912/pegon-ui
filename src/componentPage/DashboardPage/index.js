@@ -121,7 +121,7 @@ const DashboardPage = () => {
           content="Let's explore Pegon together and contribute to the community!"
           key="description"
         />
-        <meta property="og:image" content="96.png" key="image" />
+        <meta property="og:image" content="logo.png" key="image" />
       </Head>
       <AppLayout>
         <VStack w="100%">
