@@ -67,8 +67,8 @@ async function handlePostRequest(req, res) {
       !finalData.title ||
       !finalData.documentType ||
       !finalData.language ||
-      !files.file ||
-      !files.thumbnail
+      !files["files.file"] ||
+      !files["files.thumbnail"]
     ) {
       return res
         .status(400)
