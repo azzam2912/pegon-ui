@@ -69,7 +69,7 @@ const ChangePasswordPage = () => {
             </Text>
             <Divider />
             <TextInput
-              label="Retype your new password"
+              label="Type your current password"
               placeholder="password"
               type="password"
               isRequired
