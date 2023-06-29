@@ -18,10 +18,9 @@ import {
   MdLibraryBooks,
   MdBookmark,
   MdInfo,
+  MdTranslate,
 } from "react-icons/md";
-import {
-  SiBookstack
-} from "react-icons/si";
+import { SiBookstack } from "react-icons/si";
 import { NavigationButton } from "./fragments/NavigationButton";
 import { useModalSidebar } from "src/componentPage/Page";
 import { useRouter } from "next/router";
@@ -86,6 +85,13 @@ const Sidebar = () => {
         >
           My Library
         </NavigationButton>
+        <NavigationButton
+          icon={<MdTranslate />}
+          onClick={() => router.push("/app/transliterator")}
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          Transliterator
+        </NavigationButton>
         <Divider my={3} />
         <NavigationButton
           icon={<MdInfo />}
@@ -142,6 +148,13 @@ const Sidebar = () => {
               isSidebarExpanded
             >
               My Library
+            </NavigationButton>
+            <NavigationButton
+              icon={<MdTranslate />}
+              onClick={() => router.push("/app/transliterator")}
+              isSidebarExpanded
+            >
+              Transliterator
             </NavigationButton>
             <Divider my={3} />
             <NavigationButton

@@ -36,7 +36,6 @@ export const useSearchBar = () => {
 export const Page = ({ pageComponent: Page, requireAuth, ...props }) => {
   const router = useRouter();
   const createToast = useToast();
-  const modalSidebar = useDisclosure();
   React.useEffect(() => {
     // check if jwt is present
     const token = localStorage?.getItem("token");

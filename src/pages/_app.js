@@ -20,6 +20,14 @@ const theme = extendTheme({
     heading: `'Inter', sans-serif`,
     body: `'Inter', sans-serif`,
   },
+  styles: {
+    global: {
+      "html, body": {
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
+      },
+    },
+  },
   config,
 });
 
