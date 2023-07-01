@@ -24,8 +24,6 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { useDocumentDetailsQuery } from "src/hooks/fetchers/queries/useDocumentDetailsQuery";
 import { useRouter } from "next/router";
 import { MdBookmarkAdd, MdDownload, MdShare } from "react-icons/md";
@@ -33,6 +31,8 @@ import axios from "axios";
 import { useBookmarkMutation } from "src/hooks/fetchers/mutations/useBookmarkMutation";
 import { useViewDocumentQuery } from "src/hooks/fetchers/queries/useViewDocumentQuery";
 import Head from "next/head";
+import { PdfViewer } from "./Fragments/PdfViewer";
+
 
 const DocumentDetailsPage = () => {
   const router = useRouter();
@@ -57,21 +57,6 @@ const DocumentDetailsPage = () => {
       id: id,
     });
 
-  const PdfViewer = ({ fileUrl }) => {
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    return (
-      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
-        <div style={{ height: "100%", width: "100%" }}>
-          <Viewer
-            fileUrl={fileUrl}
-            plugins={[defaultLayoutPluginInstance]}
-            theme="dark"
-          />
-        </div>
-      </Worker>
-    );
-  };
-
   const { mutate: bookmark, status: bookmarkStatus } = useBookmarkMutation({
     config: {
       onSuccess: (data) => {
@@ -92,7 +77,7 @@ const DocumentDetailsPage = () => {
 
   const handleShare = () => {
     navigator.share({
-      title: "PegonDocs",
+      title: "Pegonizer",
       text: "Check out this document!",
       url: window.location.href,
     });
@@ -115,11 +100,11 @@ const DocumentDetailsPage = () => {
   return (
     <>
       <Head>
-        <title>{title ? title : "Loading"} - PegonDocs</title>
+        <title>{title ? title : "Loading"} - Pegonizer</title>
         <meta name="description" content={description} />
         <meta
           property="og:title"
-          content={`${title ? title : "loading"} - PegonDocs`}
+          content={`${title ? title : "loading"} - Pegonizer`}
           key="title"
         />
         <meta

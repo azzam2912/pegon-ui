@@ -93,11 +93,11 @@ const NewDocumentPage = () => {
   return (
     <>
       <Head>
-        <title>Create New Document - PegonDocs</title>
+        <title>Create New Document - Pegonizer</title>
         <meta name="description" content="Create a new pegon document" />
         <meta
           property="og:title"
-          content="Create New Document - PegonDocs"
+          content="Create New Document - Pegonizer"
           key="title"
         />
         <meta

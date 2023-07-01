@@ -3,35 +3,45 @@ import AppLayout from "../Page/AppLayout";
 import {
   Card,
   Divider,
-  Flex,
-  Heading,
   IconButton,
-  Select,
-  Button,
   Spacer,
   Stack,
-  Text,
   VStack,
   HStack,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
-import { FaChevronDown, FaExchangeAlt, FaInfo } from "react-icons/fa";
+import { FaInfo } from "react-icons/fa";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
+import { LanguageSelect } from "./Fragments/LanguageSelect";
+import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
+import { TransliterationHeader } from "./Fragments/TransliterationHeader";
+import useTransliterator from "src/hooks/useTransliterator";
 
 const TransliteratePage = () => {
-  const [stemmingType, setStemmingType] = React.useState("Indonesian");
+  const {
+    stemmingType,
+    setStemmingType,
+    leftText,
+    rightText,
+    labels,
+    onChange,
+    onSwitch,
+  } = useTransliterator();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
       <Head>
-        <title>Transliterate Pegon - PegonDocs</title>
+        <title>Transliterate Pegon - Pegonizer</title>
         <meta
           name="description"
           content="Transliterate Pegon to Latin and vice versa!"
         />
         <meta
           property="og:title"
-          content="Transliterate Pegon - PegonDocs"
+          content="Transliterate Pegon - Pegonizer"
           key="title"
         />
         <meta
@@ -50,135 +60,22 @@ const TransliteratePage = () => {
           align={{ base: "stretch", md: "start" }}
         >
           <HStack py={3} w="100%" align="end" justify="end">
-            <Menu>
-              <MenuButton
-                size="sm"
-                as={Button}
-                variant="outline"
-                fontWeight="normal"
-                gap={3}
-                rightIcon={<FaChevronDown />}
-              >
-                {stemmingType}
-              </MenuButton>
-              <MenuList>
-                <MenuItem
-                  onClick={() => {
-                    setStemmingType("Indonesian");
-                  }}
-                >
-                  Indonesian
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setStemmingType("Javanese");
-                  }}
-                >
-                  Javanese
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setStemmingType("Madurese");
-                  }}
-                >
-                  Madurese
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setStemmingType("Sundanese");
-                  }}
-                >
-                  Sundanese
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <LanguageSelect value={stemmingType} onChange={setStemmingType} />
             <Spacer />
             <IconButton
               colorScheme="primary"
               size="sm"
               icon={<FaInfo />}
               ml={3}
+              onClick={onOpen}
             />
+            <CheatSheetDrawer isOpen={isOpen} onClose={onClose} />
           </HStack>
-          <Stack
-            direction={{
-              base: "column",
-              md: "row",
-            }}
-            spacing={0}
-            pt={3}
-            pb={{
-              base: 8,
-              md: 3,
-            }}
-            w="100%"
-            align={{
-              base: "stretch",
-              md: "center",
-            }}
-          >
-            <VStack
-              pl={{
-                base: 3,
-                md: 0,
-              }}
-              spacing={0}
-              align="start"
-              flex={1}
-            >
-              <Text fontSize="xs" textColor="gray.500">
-                Input
-              </Text>
-              <Heading size="lg" textColor="gray.300">
-                Latin
-              </Heading>
-            </VStack>
-            <Flex align="center">
-              <Divider
-                display={{
-                  md: "none",
-                }}
-                flex={1}
-                mr="3"
-              />
-              <IconButton
-                textColor="primary.200"
-                borderRadius="full"
-                transform={{
-                  base: "rotate(90deg)",
-                  md: "none",
-                }}
-                bgColor="gray.700"
-                icon={<FaExchangeAlt />}
-              />
-            </Flex>
-            <VStack
-              align={{
-                base: "start",
-                md: "end",
-              }}
-              pl={{
-                base: 3,
-                md: 0,
-              }}
-              spacing={0}
-              flex={1}
-            >
-              <Text fontSize="xs" textColor="gray.500">
-                Result
-              </Text>
-              <Heading
-                size="lg"
-                textAlign={{
-                  base: "start",
-                  md: "end",
-                }}
-                textColor="gray.300"
-              >
-                Pegon
-              </Heading>
-            </VStack>
-          </Stack>
+          <TransliterationHeader
+            leftLabel={labels.left}
+            rightLabel={labels.right}
+            onSwitchClicked={onSwitch}
+          />
           <Card
             height={{
               base: "300px",
@@ -207,11 +104,16 @@ const TransliteratePage = () => {
               spacing={0}
               w="100%"
             >
-              <TransliterateInput placeholder="Enter Text" label="Pegon" />
+              <TransliterateInput
+                placeholder="Enter Text"
+                value={leftText}
+                onChange={onChange}
+              />
               <TransliterateInput
                 placeholder="Transliteration"
-                label="Latin"
+                isPegon={labels.right === "Pegon"}
                 isReadOnly
+                value={rightText}
               />
             </Stack>
           </Card>

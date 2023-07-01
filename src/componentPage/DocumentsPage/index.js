@@ -1,32 +1,49 @@
 import React from "react";
 import AppLayout from "../Page/AppLayout";
 import {
-  Badge,
   Box,
   Button,
   Flex,
   HStack,
   Heading,
   IconButton,
-  Image,
   Input,
   Select,
-  SkeletonCircle,
-  SkeletonText,
   Spacer,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FaChevronLeft, FaChevronRight, FaFolderOpen, FaSearch } from "react-icons/fa";
-import Link from "next/link";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaFolderOpen,
+  FaSearch,
+} from "react-icons/fa";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import Head from "next/head";
 import { useSearchBar } from "../Page";
+import { DocumentSkeleton } from "./Fragments/DocumentSkeleton";
+import { DocumentData } from "./Fragments/DocumentData";
 
 const DocumentsPage = () => {
   return (
     <AppLayout>
+      <Head>
+        <title>Document List - Pegonizer</title>
+        <meta name="description" content="View all of pegon documents here!" />
+        <meta
+          property="og:title"
+          content="Document List - Pegonizer"
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content="View all of pegon documents here!"
+          key="description"
+        />
+        <meta property="og:image" content="logo.png" key="image" />
+      </Head>
       <VStack w="100%" align="stretch" p={8}>
         <DataComponent />
       </VStack>
@@ -84,24 +101,11 @@ const DataComponent = () => {
 
   return (
     <>
-      <Head>
-        <title>Document List - PegonDocs</title>
-        <meta name="description" content="View all of pegon documents here!" />
-        <meta
-          property="og:title"
-          content="Document List - PegonDocs"
-          key="title"
-        />
-        <meta
-          property="og:description"
-          content="View all of pegon documents here!"
-          key="description"
-        />
-        <meta property="og:image" content="logo.png" key="image" />
-      </Head>
       <VStack align="left" mb={5}>
-          <Heading size="lg">Explore Documents</Heading>
-          <Text color="gray.500">{data?.meta.pagination.total} entries found</Text>
+        <Heading size="lg">Explore Documents</Heading>
+        <Text color="gray.500">
+          {data?.meta.pagination.total} entries found
+        </Text>
       </VStack>
       <Stack
         mt={5}
@@ -170,11 +174,7 @@ const DataComponent = () => {
           />
         </HStack>
         <Spacer />
-        <Button
-          onClick={handleFilter}
-          colorScheme="primary"
-          width="auto"
-        >
+        <Button onClick={handleFilter} colorScheme="primary" width="auto">
           Filter
         </Button>
       </Stack>
@@ -190,58 +190,7 @@ const DataComponent = () => {
             width="100%"
           >
             {currentData?.map(({ id, attributes: item }, index) => (
-              <Flex
-                key={index}
-                align="center"
-                justify="space-between"
-                p="4"
-                as={Link}
-                href={`/app/documents/${id}`}
-                minWidth="max-content"
-                borderBottomWidth="1px"
-                _hover={{
-                  bg: "gray.800",
-                }}
-              >
-                <Flex width="240px" align="center" flexShrink={0}>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
-                    fallbackSrc="https://via.placeholder.com/48"
-                    alt="Thumbnail"
-                    objectFit="cover"
-                    boxSize="48px"
-                    borderRadius="full"
-                  />
-                  <Text noOfLines={1} fontSize="sm" ml={4}>
-                    {item?.title}
-                  </Text>
-                </Flex>
-                <Text
-                  width="160px"
-                  noOfLines={1}
-                  fontSize="sm"
-                  color="gray.500"
-                  ml="4"
-                >
-                  By {item?.contributor.data?.attributes.firstName}{" "}
-                  {item?.contributor.data?.attributes.lastName}
-                </Text>
-                <Text width="100px" noOfLines={1} fontSize="sm" ml="4">
-                  <Badge colorScheme="blue">{item?.language}</Badge>
-                </Text>
-                <Text color="gray.500" width="80px" fontSize="sm" ml="4">
-                  {item?.documentType}
-                </Text>
-                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
-                  {item?.author ? item.author : "Unknown Author"}
-                </Text>
-                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
-                  {item?.collector ? item.collector : "Unknown Collector"}
-                </Text>
-                <Text width="100px" fontSize="sm" ml="4" color="gray.500">
-                  {item?.publishedAt ? item.publishedAt : "unknown date"}
-                </Text>
-              </Flex>
+              <DocumentData index={index} id={id} item={item} />
             ))}
             {status === "loading" && (
               <>
@@ -252,14 +201,21 @@ const DataComponent = () => {
                 <DocumentSkeleton />
               </>
             )}
-            {
-              status !== "loading" && currentData?.length === 0 && (
-                <Flex minH="200px" direction="column" align="center" justify="center">
-                  <Heading size="4xl" color="gray.600"><FaFolderOpen/></Heading>
-                  <Heading size="md" color="gray.500">No documents found</Heading>
-                </Flex>
-              )
-            }
+            {status !== "loading" && currentData?.length === 0 && (
+              <Flex
+                minH="200px"
+                direction="column"
+                align="center"
+                justify="center"
+              >
+                <Heading size="4xl" color="gray.600">
+                  <FaFolderOpen />
+                </Heading>
+                <Heading size="md" color="gray.500">
+                  No documents found
+                </Heading>
+              </Flex>
+            )}
           </VStack>
           {/* Pagination */}
           <Flex align="center" pt={4}>
@@ -307,59 +263,5 @@ const DataComponent = () => {
   );
 };
 
-const DocumentSkeleton = () => {
-  return (
-    <Flex
-      align="center"
-      justify="space-between"
-      p="4"
-      minWidth="max-content"
-      borderBottomWidth="1px"
-    >
-      <Flex width="240px" align="center" as={Link} href="/" flexShrink={0}>
-        <SkeletonCircle size="48px" />
-        <SkeletonText noOfLines={1} fontSize="sm" ml={4} />
-      </Flex>
-      <SkeletonText
-        width="160px"
-        noOfLines={1}
-        fontSize="sm"
-        color="gray.500"
-        ml="4"
-      />
-      <SkeletonText
-        color="gray.500"
-        noOfLines={1}
-        width="80px"
-        fontSize="sm"
-        ml="4"
-      />
-      <SkeletonText width="100px" noOfLines={1} fontSize="sm" ml="4" />
-      <SkeletonText
-        color="gray.500"
-        noOfLines={1}
-        width="100px"
-        fontSize="sm"
-        ml="4"
-      />
-      <SkeletonText
-        color="gray.500"
-        noOfLines={1}
-        width="100px"
-        fontSize="sm"
-        ml="4"
-      />
-      <SkeletonText
-        width="100px"
-        fontSize="sm"
-        noOfLines={1}
-        ml="4"
-        color="gray.500"
-      >
-        2023-05-24T07:35:16.900Z
-      </SkeletonText>
-    </Flex>
-  );
-};
-
 export default DocumentsPage;
+

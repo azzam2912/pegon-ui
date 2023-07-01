@@ -50,9 +50,9 @@ const LoginPage = () => {
   return (
     <>
     <Head>
-        <title>Login - PegonDocs</title>
+        <title>Login - Pegonizer</title>
         <meta name="description" content="Please log in to view all of pegon documents here!" />
-        <meta property="og:title" content="Login - PegonDocs" key="title" />
+        <meta property="og:title" content="Login - Pegonizer" key="title" />
         <meta
           property="og:description"
           content="Please log in to view all of pegon documents here!"

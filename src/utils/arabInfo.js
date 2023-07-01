@@ -1,0 +1,178 @@
+export const cheatSheetArabHarakat = [
+  {
+    name: "ArabicFatha",
+    pegon: "\u0640\u064E",
+    latin: "a",
+    standard: "a",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicKasra",
+    pegon: "\u0640\u0650",
+    latin: "i",
+    standard: "i",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicDamma",
+    pegon: "\u0640\u064F",
+    latin: "u",
+    standard: "u",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicSuperAlef",
+    pegon: "\u0640\u0670",
+    latin: "^a",
+    standard: "ā",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicSubAlef",
+    pegon: "\u0640\u0656",
+    latin: "^i",
+    standard: "ī",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicInvertedDhamma",
+    pegon: "\u0640\u0657",
+    latin: "^u",
+    standard: "ū",
+    biggerPegonText: true,
+  },
+
+  {
+    name: "ArabicFathatan",
+    pegon: "\u0640\u064B",
+    latin: "an-",
+    standard: "an",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicKasratan",
+    pegon: "\u0640\u064D",
+    latin: "in-",
+    standard: "in",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicDhammatan",
+    pegon: "\u0640\u064C",
+    latin: "un-",
+    standard: "un",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicOpenFathatan",
+    pegon: "\u0640\u08F0",
+    latin: "an_",
+    standard: "an",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicOpenKasratan",
+    pegon: "\u0640\u08F2",
+    latin: "in_",
+    standard: "in",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicOpenDhammatan",
+    pegon: "\u0640\u08F1",
+    latin: "un_",
+    standard: "un",
+    biggerPegonText: true,
+  },
+
+  {
+    name: "ArabicSukun",
+    pegon: "\u0640\u06E1",
+    latin: ".",
+    standard: "",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicSmallYeh",
+    pegon: "\u06E5",
+    latin: "^W",
+    standard: "",
+    biggerPegonText: true,
+  },
+  {
+    name: "ArabicSmallWaw",
+    pegon: "\u06E6",
+    latin: "^Y",
+    standard: "",
+    biggerPegonText: true,
+  },
+  { name: "ArabicEmpty1", pegon: "", latin: "", standard: "", isEmpty: true },
+  {
+    name: "ArabicSmallHighMeem",
+    pegon: "\u0640\u06E2",
+    latin: "^m",
+    standard: "",
+    biggerPegonText: true,
+  },
+  { name: "ArabicEmpty2", pegon: "", latin: "", standard: "", isEmpty: true },
+];
+
+export const cheatSheetArabSpecial = [
+  {
+    name: "ArabicAlifLam",
+    pegon: "\u0627\u0644",
+    latin: "al-",
+    standard: "al",
+  },
+  {
+    name: "ArabicAlifLamWasla",
+    pegon: "\u0671\u0644",
+    latin: "*al-",
+    standard: "al",
+  },
+];
+
+export const cheatSheetArabConsonant = [
+  { name: "ArabicAlef", pegon: "\u0627", latin: "A", standard: "" },
+  { name: "ArabicAlefWaslaAbove", pegon: "\u0671", latin: "*", standard: "" },
+  { name: "ArabicAlefMaddaAbove", pegon: "\u0622", latin: "^A", standard: "" },
+
+  { name: "ArabicBa", pegon: "\u0628", latin: "b", standard: "b" },
+  { name: "ArabicTa", pegon: "\u062A", latin: "t", standard: "t" },
+  { name: "ArabicTha", pegon: "\u062B", latin: "t_s", standard: "ṡ" },
+  { name: "ArabicJeem", pegon: "\u062C", latin: "j", standard: "j" },
+  { name: "ArabicHah", pegon: "\u062D", latin: "h_h", standard: "ḥ" },
+
+  { name: "ArabicKha", pegon: "\u062E", latin: "k_h", standard: "kh" },
+  { name: "ArabicDal", pegon: "\u062F", latin: "d", standard: "d" },
+  { name: "ArabicThal", pegon: "\u0630", latin: "d_z", standard: "ẑ" },
+  { name: "ArabicRa", pegon: "\u0631", latin: "r", standard: "r" },
+  { name: "ArabicZain", pegon: "\u0632", latin: "z", standard: "z" },
+  { name: "ArabicSeen", pegon: "\u0633", latin: "s", standard: "s" },
+
+  { name: "ArabicSheen", pegon: "\u0634", latin: "s_y", standard: "sy" },
+  { name: "ArabicSad", pegon: "\u0635", latin: "s_h", standard: "ṣ" },
+  { name: "ArabicDad", pegon: "\u0636", latin: "d_l", standard: "ḍ" },
+  { name: "ArabicTah", pegon: "\u0637", latin: "t_t", standard: "ṭ" },
+  { name: "ArabicZah", pegon: "\u0638", latin: "z_h", standard: "ẓ" },
+  { name: "ArabicAin", pegon: "\u0639", latin: "'", standard: "'" },
+
+  { name: "ArabicGhain", pegon: "\u063A", latin: "g_h", standard: "g" },
+  { name: "ArabicFa", pegon: "\u0641", latin: "f", standard: "f" },
+  { name: "ArabicQaf", pegon: "\u0642", latin: "q", standard: "q" },
+  { name: "ArabicKaf", pegon: "\u0643", latin: "k", standard: "k" },
+  { name: "ArabicLam", pegon: "\u0644", latin: "l", standard: "l" },
+  { name: "ArabicMeem", pegon: "\u0645", latin: "m", standard: "m" },
+
+  { name: "ArabicNoon", pegon: "\u0646", latin: "n", standard: "n" },
+  { name: "ArabicHa", pegon: "\u0647", latin: "h", standard: "h" },
+  { name: "ArabicWaw", pegon: "\u0648", latin: "w", standard: "w" },
+  { name: "ArabicYeh", pegon: "\u064A", latin: "y", standard: "y" },
+  { name: "ArabicTaMarbutah", pegon: "\u0629", latin: "t-", standard: "t/h" },
+  { name: "ArabicAlefMaksura", pegon: "\u0649", latin: "Y", standard: "" },
+
+  { name: "ArabicHamza", pegon: "\u0621", latin: "`", standard: "" },
+  // { 'name': 'ArabicYehHamzaAbove', 'pegon': '\u0626', 'latin': '\`y', 'standard': '' },
+  // { 'name': 'ArabicWawHamzaAbove', 'pegon': '\u0624', 'latin': '\`w', 'standard': '' },
+  // { 'name': 'ArabicEmpty3', 'pegon': '', 'latin': '', 'standard': '', 'isEmpty': true },
+];

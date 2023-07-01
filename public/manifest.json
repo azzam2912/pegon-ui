@@ -1,6 +1,6 @@
 {
-    "name": "PegonDocs",
-    "short_name": "PegonDocs",
+    "name": "Pegonizer",
+    "short_name": "Pegonizer",
     "description": "A Progressive Web Application for managing Pegon manuscripts",
     "icons": [
       {

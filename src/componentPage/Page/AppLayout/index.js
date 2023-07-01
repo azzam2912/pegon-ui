@@ -52,7 +52,7 @@ const AppLayout = ({ children }) => {
         <Flex display={{ base: "none", md: "flex" }} alignItems="center">
           <Image p={2} width="48px" src="/logo.png" alt="Pegon Logo" />
           <Heading size="sm" ml={3}>
-            PegonDocs
+            Pegonizer
           </Heading>
         </Flex>
         <Flex display={{ md: "none" }} alignItems="center">

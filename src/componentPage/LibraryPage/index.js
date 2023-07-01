@@ -143,10 +143,10 @@ const DataComponent = () => {
   return (
     <>
       <Head>
-        <title>My Library - PegonDocs</title>
+        <title>My Library - Pegonizer</title>
         <meta
           property="og:title"
-          content="My Library - PegonDocs"
+          content="My Library - Pegonizer"
           key="title"
         />
         <meta property="og:image" content="logo.png" key="image" />
