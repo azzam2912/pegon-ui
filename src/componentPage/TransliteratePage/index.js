@@ -53,7 +53,7 @@ const TransliteratePage = () => {
       </Head>
       <AppLayout>
         <VStack
-          p={8}
+          p={5}
           spacing={0}
           w="100%"
           h="100%"
@@ -106,6 +106,7 @@ const TransliteratePage = () => {
             >
               <TransliterateInput
                 placeholder="Enter Text"
+                isPegon={labels.left === "Pegon"}
                 value={leftText}
                 onChange={onChange}
               />

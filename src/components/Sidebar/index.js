@@ -5,10 +5,6 @@ import {
   DrawerContent,
   DrawerOverlay,
   Flex,
-  Heading,
-  Image,
-  Spacer,
-  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -16,19 +12,17 @@ import {
   MdMenu,
   MdHome,
   MdLibraryBooks,
-  MdBookmark,
   MdInfo,
   MdTranslate,
+  MdDocumentScanner,
 } from "react-icons/md";
 import { SiBookstack } from "react-icons/si";
 import { NavigationButton } from "./fragments/NavigationButton";
 import { useModalSidebar } from "src/componentPage/Page";
-import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(false);
-  const { isOpen, onOpen, onClose } = useModalSidebar();
-  const router = useRouter();
+  const { isOpen, onClose } = useModalSidebar();
 
   return (
     <>
@@ -66,36 +60,44 @@ const Sidebar = () => {
         <Divider my={2} />
         <NavigationButton
           icon={<MdHome />}
-          onClick={() => router.push("/app")}
+          href="/app"
           isSidebarExpanded={isSidebarExpanded}
         >
           Home
         </NavigationButton>
         <NavigationButton
           icon={<MdLibraryBooks />}
-          onClick={() => router.push("/app/documents")}
+          href="/app/documents"
           isSidebarExpanded={isSidebarExpanded}
         >
           All Documents
         </NavigationButton>
         <NavigationButton
           icon={<SiBookstack />}
-          onClick={() => router.push("/app/library")}
+          href="/app/library"
           isSidebarExpanded={isSidebarExpanded}
         >
           My Library
         </NavigationButton>
+        <Divider my={3} />
         <NavigationButton
           icon={<MdTranslate />}
-          onClick={() => router.push("/app/transliterator")}
+          href="/app/transliterator"
           isSidebarExpanded={isSidebarExpanded}
         >
           Transliterator
         </NavigationButton>
+        <NavigationButton
+          icon={<MdDocumentScanner />}
+          href="/app/ocr"
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          OCR
+        </NavigationButton>
         <Divider my={3} />
         <NavigationButton
           icon={<MdInfo />}
-          onClick={() => router.push("/app/about")}
+          href="/app/about"
           isSidebarExpanded={isSidebarExpanded}
         >
           About
@@ -130,36 +132,44 @@ const Sidebar = () => {
             <Divider my={2} />
             <NavigationButton
               icon={<MdHome />}
-              onClick={() => router.push("/app")}
+              href="/app"
               isSidebarExpanded
             >
               Home
             </NavigationButton>
             <NavigationButton
               icon={<MdLibraryBooks />}
-              onClick={() => router.push("/app/documents")}
+              href="/app/documents"
               isSidebarExpanded
             >
               All Documents
             </NavigationButton>
             <NavigationButton
               icon={<SiBookstack />}
-              onClick={() => router.push("/app/library")}
+              href="/app/library"
               isSidebarExpanded
             >
               My Library
             </NavigationButton>
+            <Divider my={3} />
             <NavigationButton
               icon={<MdTranslate />}
-              onClick={() => router.push("/app/transliterator")}
+              href="/app/transliterator"
               isSidebarExpanded
             >
               Transliterator
             </NavigationButton>
+            <NavigationButton
+              icon={<MdDocumentScanner />}
+              href="/app/ocr"
+              isSidebarExpanded
+            >
+              OCR
+            </NavigationButton>
             <Divider my={3} />
             <NavigationButton
               icon={<MdInfo />}
-              onClick={() => router.push("/app/about")}
+              href="/app/about"
               isSidebarExpanded
             >
               About

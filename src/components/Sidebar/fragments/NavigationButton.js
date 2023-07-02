@@ -1,9 +1,11 @@
 import { Button } from "@chakra-ui/react";
+import Link from "next/link";
 
 export const NavigationButton= ({isSidebarExpanded, icon, children, ...props}) => {
     return <Button
       iconSpacing={isSidebarExpanded ? 3 : 0}
       leftIcon={icon}
+      as={Link}
       justifyContent="left"
       variant="ghost"
       mb={1}

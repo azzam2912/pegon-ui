@@ -46,7 +46,7 @@ const AppLayout = ({ children }) => {
         borderBottom="1px"
         borderColor="gray.600"
         p={2}
-        px={{ base: 5, md: 2 }}
+        px={{ base: 2, md: 2 }}
         justify="space-between"
       >
         <Flex display={{ base: "none", md: "flex" }} alignItems="center">
@@ -58,7 +58,7 @@ const AppLayout = ({ children }) => {
         <Flex display={{ md: "none" }} alignItems="center">
           <IconButton icon={<MdMenu />} variant="ghost" onClick={onOpen} />
         </Flex>
-        <Spacer/>
+        <Spacer />
         <Flex
           alignItems="center"
           ml={3}

@@ -6,6 +6,7 @@ import { colors } from "src/theme";
 // Import the styles provided by the react-pdf-viewer packages
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import '@fontsource/open-sans';
 import Head from "next/head";
 
 // 2. Add your color mode config
@@ -17,16 +18,8 @@ const config = {
 const theme = extendTheme({
   colors,
   fonts: {
-    heading: `'Inter', sans-serif`,
-    body: `'Inter', sans-serif`,
-  },
-  styles: {
-    global: {
-      "html, body": {
-        WebkitFontSmoothing: "antialiased",
-        MozOsxFontSmoothing: "grayscale",
-      },
-    },
+    heading: `'Open Sans', sans-serif`,
+    body: `'Open Sans', sans-serif`,
   },
   config,
 });
