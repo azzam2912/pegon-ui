@@ -19,8 +19,6 @@ import {
 
 export const OCRPage = () => {
   const status = "idle";
-  const page = 1;
-  const totalPages = 1;
   return (
     <>
       <Head>
@@ -42,12 +40,12 @@ export const OCRPage = () => {
           <Flex flex={1} direction="column" align="stretch">
             <Heading>OCR</Heading>
             <Text color="gray.400">
-              On demand OCR for Pegon script documents! Upload your PDF file and
+              On demand OCR for Pegon script documents! Upload your Image file and
               we will do the rest.
             </Text>
             <Alert
               mt={5}
-              status="warning"
+              status="error"
               variant="subtle"
               flexDirection="column"
               borderWidth="1px"
@@ -62,8 +60,7 @@ export const OCRPage = () => {
             >
               <AlertIcon boxSize="32px" mr={0} />
               <AlertDescription fontSize="sm" maxWidth="sm" mt={3}>
-                Due to the resource intensive nature of this feature,
-                we limit the number of concurrent OCR process, so it may be busy.
+                OCR is unavailable due to server maintenance. Please try again later.
               </AlertDescription>
             </Alert>
             <Divider my={5} />
@@ -197,7 +194,7 @@ export const OCRPage = () => {
                   </>
                 )}
               </Flex>
-              <Text whiteSpace="pre-wrap"></Text>
+              <Text textAlign="right" whiteSpace="pre-wrap"></Text>
             </Flex> 
           </VStack>
         </Flex>

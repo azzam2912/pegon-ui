@@ -34,7 +34,11 @@ export const TransliterateInput = ({
         isReadOnly={isReadOnly}
         value={value}
         {...props} />
-      <IconButton variant="ghost" icon={<MdContentCopy />} />
+      <IconButton onClick={
+        () => {
+          navigator.clipboard.writeText(value);
+        }
+      } variant="ghost" icon={<MdContentCopy />} />
     </Flex>
   );
 };
