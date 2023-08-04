@@ -143,10 +143,10 @@ const DataComponent = () => {
   return (
     <>
       <Head>
-        <title>My Library - Pegonizer</title>
+        <title>My Library - Aksarantara</title>
         <meta
           property="og:title"
-          content="My Library - Pegonizer"
+          content="My Library - Aksarantara"
           key="title"
         />
         <meta property="og:image" content="logo.png" key="image" />

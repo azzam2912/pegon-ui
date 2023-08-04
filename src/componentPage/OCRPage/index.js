@@ -22,12 +22,12 @@ export const OCRPage = () => {
   return (
     <>
       <Head>
-        <title>OCR - Pegonizer</title>
+        <title>OCR - Aksarantara</title>
         <meta
           name="description"
           content="On demand OCR for Pegon script documents!"
         />
-        <meta property="og:title" content="OCR - Pegonizer" key="title" />
+        <meta property="og:title" content="OCR - Aksarantara" key="title" />
         <meta
           property="og:description"
           content="On demand OCR for Pegon script documents!"

@@ -30,11 +30,11 @@ const DocumentsPage = () => {
   return (
     <AppLayout>
       <Head>
-        <title>Document List - Pegonizer</title>
+        <title>Document List - Aksarantara</title>
         <meta name="description" content="View all of pegon documents here!" />
         <meta
           property="og:title"
-          content="Document List - Pegonizer"
+          content="Document List - Aksarantara"
           key="title"
         />
         <meta

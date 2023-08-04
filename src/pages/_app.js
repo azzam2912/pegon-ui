@@ -30,10 +30,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <meta name="application-name" content="Pegonizer" />
+        <meta name="application-name" content="Aksarantara" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Pegonizer" />
+        <meta name="apple-mobile-web-app-title" content="Aksarantara" />
         <meta
           name="description"
           content="A Progressive Web Application for managing Pegon manuscripts"
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://pegon.works" />
-        <meta name="twitter:title" content="Pegonizer" />
+        <meta name="twitter:title" content="Aksarantara" />
         <meta
           name="twitter:description"
           content="A Progressive Web Application for managing Pegon manuscripts"
@@ -56,12 +56,12 @@ function MyApp({ Component, pageProps }) {
         <meta name="twitter:image" content="https://pegon.works/logo.png" />
         <meta name="twitter:creator" content="@YourTwitterHandle" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Pegonizer" />
+        <meta property="og:title" content="Aksarantara" />
         <meta
           property="og:description"
           content="A Progressive Web Application for managing Pegon manuscripts"
         />
-        <meta property="og:site_name" content="Pegonizer" />
+        <meta property="og:site_name" content="Aksarantara" />
         <meta property="og:url" content="https://pegon.works" />
         <meta property="og:image" content="https://pegon.works/logo.png" />
       </Head>

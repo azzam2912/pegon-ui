@@ -47,12 +47,12 @@ const ChangePasswordPage = () => {
   return (
     <>
       <Head>
-        <title>Change Password - Pegonizer</title>
+        <title>Change Password - Aksarantara</title>
         <meta
           name="description"
           content="Let's explore Pegon together and contribute to the community!"
         />
-        <meta property="og:title" content="Dashboard - Pegonizer" key="title" />
+        <meta property="og:title" content="Dashboard - Aksarantara" key="title" />
         <meta
           property="og:description"
           content="Let's explore Pegon together and contribute to the community!"

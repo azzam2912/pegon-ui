@@ -34,14 +34,14 @@ const TransliteratePage = () => {
   return (
     <>
       <Head>
-        <title>Transliterate Pegon - Pegonizer</title>
+        <title>Transliterate Pegon - Aksarantara</title>
         <meta
           name="description"
           content="Transliterate Pegon to Latin and vice versa!"
         />
         <meta
           property="og:title"
-          content="Transliterate Pegon - Pegonizer"
+          content="Transliterate Pegon - Aksarantara"
           key="title"
         />
         <meta
