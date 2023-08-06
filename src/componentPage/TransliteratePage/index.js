@@ -1,123 +1,62 @@
-import Head from "next/head";
-import AppLayout from "../Page/AppLayout";
-import {
-  Card,
-  Divider,
-  IconButton,
-  Spacer,
-  Stack,
-  VStack,
-  HStack,
-  useDisclosure,
-} from "@chakra-ui/react";
 import React from "react";
+import AppLayout from "../Page/AppLayout";
+import TransliteratePegonPage from "./TransliteratePegonPage";
+import Head from "next/head";
+import { HStack, IconButton, VStack, useDisclosure } from "@chakra-ui/react";
+import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
+import TransliterateJawiPage from "./TransilerateJawiPage";
+import TransliterateChamPage from "./TransilterateCham";
 import { FaInfo } from "react-icons/fa";
-import { TransliterateInput } from "./Fragments/TransliterateInput";
-import { LanguageSelect } from "./Fragments/LanguageSelect";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
-import { TransliterationHeader } from "./Fragments/TransliterationHeader";
-import useTransliterator from "src/hooks/useTransliterator";
 
 const TransliteratePage = () => {
-  const {
-    stemmingType,
-    setStemmingType,
-    leftText,
-    rightText,
-    labels,
-    onChange,
-    onSwitch,
-  } = useTransliterator();
+  const [documentScript, setDocumentScript] = React.useState("Pegon");
+  const componentPage = {
+    Pegon: <TransliteratePegonPage />,
+    Jawi: <TransliterateJawiPage />,
+    Cham: <TransliterateChamPage />,
+  };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Head>
-        <title>Transliterate Pegon - Aksarantara</title>
+        <title>Transliterate - Aksarantara</title>
         <meta
           name="description"
-          content="Transliterate Pegon to Latin and vice versa!"
+          content="Transliterate various Southeast Asian scripts to Latin and vice versa!"
         />
         <meta
           property="og:title"
-          content="Transliterate Pegon - Aksarantara"
+          content="Transliterate - Aksarantara"
           key="title"
         />
         <meta
           property="og:description"
-          content="Transliterate Pegon to Latin and vice versa!"
+          content="Transliterate various Southeast Asian scripts to Latin and vice versa!"
           key="description"
         />
         <meta property="og:image" content="logo.png" key="image" />
       </Head>
       <AppLayout>
-        <VStack
-          p={5}
-          spacing={0}
-          w="100%"
-          h="100%"
-          align={{ base: "stretch", md: "start" }}
-        >
-          <HStack py={3} w="100%" align="end" justify="end">
-            <LanguageSelect value={stemmingType} onChange={setStemmingType} />
-            <Spacer />
-            <IconButton
-              colorScheme="primary"
-              size="sm"
-              icon={<FaInfo />}
-              ml={3}
-              onClick={onOpen}
-            />
-            <CheatSheetDrawer isOpen={isOpen} onClose={onClose} />
-          </HStack>
-          <TransliterationHeader
-            leftLabel={labels.left}
-            rightLabel={labels.right}
-            onSwitchClicked={onSwitch}
+        <VStack pt={3} align="start">
+          <HStack p={3} w="100%" align="end" justify="end">
+          <ScriptTypeSelect
+            value={documentScript}
+            onChange={setDocumentScript}
+            ml={4}
           />
-          <Card
-            height={{
-              base: "300px",
-              md: "200px",
-            }}
-            width="100%"
-          >
-            <Stack
-              height="100%"
-              direction={{
-                base: "column",
-                md: "row",
-              }}
-              divider={
-                <Divider
-                  orientation={{
-                    base: "horizontal",
-                    md: "vertical",
-                  }}
-                  height={{
-                    base: "1px",
-                    md: "auto",
-                  }}
-                />
-              }
-              spacing={0}
-              w="100%"
-            >
-              <TransliterateInput
-                placeholder="Enter Text"
-                isPegon={labels.left === "Pegon"}
-                value={leftText}
-                onChange={onChange}
-              />
-              <TransliterateInput
-                placeholder="Transliteration"
-                isPegon={labels.right === "Pegon"}
-                isReadOnly
-                value={rightText}
-              />
-            </Stack>
-          </Card>
+          <IconButton
+            colorScheme="primary"
+            size="sm"
+            icon={<FaInfo />}
+            ml={5}
+            onClick={onOpen}
+          />
+            </HStack>
+          <CheatSheetDrawer isOpen={isOpen} onClose={onClose} documentScript={documentScript}/>
+          {componentPage[documentScript]}
         </VStack>
       </AppLayout>
     </>

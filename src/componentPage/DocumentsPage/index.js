@@ -30,16 +30,16 @@ const DocumentsPage = () => {
   return (
     <AppLayout>
       <Head>
-        <title>Document List - Aksarantara</title>
-        <meta name="description" content="View all of pegon documents here!" />
+        <title>Documents and Manuscripts - Aksarantara</title>
+        <meta name="description" content="View all of available documents and manuscripts here!" />
         <meta
           property="og:title"
-          content="Document List - Aksarantara"
+          content="Documents and Manuscripts - Aksarantara"
           key="title"
         />
         <meta
           property="og:description"
-          content="View all of pegon documents here!"
+          content="View all of available documents and manuscripts here!"
           key="description"
         />
         <meta property="og:image" content="logo.png" key="image" />
@@ -138,6 +138,8 @@ const DataComponent = () => {
             <option value="Sundanese">Sundanese</option>
             <option value="Madurese">Madurese</option>
             <option value="Indonesian">Indonesian</option>
+            <option value="Malay">Malay</option>
+            <option value="Cham">Cham</option>
             <option value="Others">Others</option>
           </Select>
           <Input

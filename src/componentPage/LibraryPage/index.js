@@ -251,6 +251,8 @@ const DataComponent = () => {
             <option value="Sundanese">Sundanese</option>
             <option value="Madurese">Madurese</option>
             <option value="Indonesian">Indonesian</option>
+            <option value="Malay">Malay</option>
+            <option value="Cham">Cham</option>
             <option value="Others">Others</option>
           </Select>
           <Input
