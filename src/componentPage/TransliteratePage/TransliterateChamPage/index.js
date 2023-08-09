@@ -11,6 +11,8 @@ import useChamTransliterator from "src/hooks/useChamTransliterator";
 
 const TransliterateChamPage = () => {
   const {
+    stemmingType,
+    setStemmingType,
     leftText,
     rightText,
     labels,

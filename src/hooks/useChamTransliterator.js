@@ -25,14 +25,14 @@ const useChamTransliterator = () => {
   }
 
   const funcLatin = () => {
-    const transliterateResult = toLatin(leftText);
+    const transliterateResult = fromLatin(leftText);
     setRightText(transliterateResult);
     setStandardLatin(toStandardLatin(transliterateResult));
   };
 
   const funcNonLatin = () => {
     setLeftText(inputMethodEdit(leftText));
-    const transliterateResult = fromLatin(leftText);
+    const transliterateResult = toLatin(leftText);
     setRightText(transliterateResult);
     setStandardLatin(toStandardLatin(transliterateResult));
   };

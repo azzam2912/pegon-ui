@@ -7,7 +7,7 @@ import { initIME,
 
 // TODO: Replace with jawi cham transliterator
 const useJawiChamTransliterator = () => {
-    const [stemmingType, setStemmingType] = useState("Indonesia");
+  const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
@@ -25,21 +25,21 @@ const useJawiChamTransliterator = () => {
   }
 
   const funcLatin = () => {
-    const transliterateResult = toLatin(leftText);
+    const transliterateResult = fromLatin(leftText);
     setRightText(transliterateResult);
     setStandardLatin(toStandardLatin(transliterateResult));
   };
 
   const funcNonLatin = () => {
     setLeftText(inputMethodEdit(leftText));
-    const transliterateResult = fromLatin(leftText);
+    const transliterateResult = toLatin(leftText);
     setRightText(transliterateResult);
     setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-    const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
+  const usedFunc = labels.left === "Latin" ? funcLatin : funcNonLatin;
 
-    const onChange = (e) => {
+  const onChange = (e) => {
     setLeftText(e.target.value);
   };
 
