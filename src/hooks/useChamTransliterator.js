@@ -7,6 +7,7 @@ import { initIME,
 
 // TODO: Replace with cham transliterator
 const useChamTransliterator = () => {
+  const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
