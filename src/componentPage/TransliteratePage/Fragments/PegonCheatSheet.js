@@ -7,6 +7,7 @@ import {
   cheatSheetPegonVocalSundanese,
 } from "src/utils/pegonInfo";
 
+// ga harus ngikut ginian
 export const PegonCheatSheet = () => {
   return (
     <>

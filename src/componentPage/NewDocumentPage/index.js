@@ -44,12 +44,18 @@ const NewDocumentPage = () => {
   const [ink, setInk] = React.useState("");
   const [illumination, setIllumination] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [documentScript, setDocumentScript] = React.useState("");
 
   const router = useRouter();
   const createToast = useToast();
 
   const isSubmitDisabled =
-    !file || !title || !documentType || !language || !thumbnail;
+    !file ||
+    !title ||
+    !documentType ||
+    !language ||
+    !thumbnail ||
+    documentScript;
 
   // useAddDocumentMutation({
   const { mutate: addDocument, status: addDocumentStatus } =
@@ -81,6 +87,7 @@ const NewDocumentPage = () => {
       ink,
       illumination,
       description,
+      documentScript,
     };
 
     const req = new FormData();
@@ -93,16 +100,16 @@ const NewDocumentPage = () => {
   return (
     <>
       <Head>
-        <title>Create New Document - Pegonizer</title>
-        <meta name="description" content="Create a new pegon document" />
+        <title>Create New Document - Aksarantara</title>
+        <meta name="description" content="Create a new document" />
         <meta
           property="og:title"
-          content="Create New Document - Pegonizer"
+          content="Create New Document - Aksarantara"
           key="title"
         />
         <meta
           property="og:description"
-          content="Create a new pegon document"
+          content="Create a new document"
           key="description"
         />
         <meta property="og:image" content="logo.png" key="image" />
@@ -173,7 +180,23 @@ const NewDocumentPage = () => {
                       <option value="Sundanese">Sundanese</option>
                       <option value="Madurese">Madurese</option>
                       <option value="Indonesian">Indonesian</option>
+                      <option value="Malay">Malay</option>
+                      <option value="Cham">Cham</option>
                       <option value="Others">Others</option>
+                    </Select>
+                  </InputGroup>
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel mb={0}>Document Script</FormLabel>
+                  <InputGroup size="md">
+                    <Select
+                      placeholder="Select One"
+                      value={documentScript}
+                      onChange={(e) => setDocumentScript(e.target.value)}
+                    >
+                      <option value="Pegon">Pegon</option>
+                      <option value="Jawi">Jawi</option>
+                      <option value="Cham">Cham</option>
                     </Select>
                   </InputGroup>
                 </FormControl>

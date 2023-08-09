@@ -15,6 +15,7 @@ import {
   MdInfo,
   MdTranslate,
   MdDocumentScanner,
+  MdLightbulb,
 } from "react-icons/md";
 import { SiBookstack } from "react-icons/si";
 import { NavigationButton } from "./fragments/NavigationButton";
@@ -102,6 +103,13 @@ const Sidebar = () => {
         >
           About
         </NavigationButton>
+        <NavigationButton
+          icon={<MdLightbulb />}
+          href="/app/wiki"
+          isSidebarExpanded={isSidebarExpanded}
+        >
+          Wiki
+        </NavigationButton>
       </Flex>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
@@ -173,6 +181,13 @@ const Sidebar = () => {
               isSidebarExpanded
             >
               About
+            </NavigationButton>
+            <NavigationButton
+              icon={<MdLightbulb />}
+              href="/app/wiki"
+              isSidebarExpanded
+            >
+              Wiki
             </NavigationButton>
           </Flex>
         </DrawerContent>

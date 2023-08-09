@@ -108,15 +108,15 @@ const DashboardPage = () => {
   return (
     <>
       <Head>
-        <title>Dashboard - Pegonizer</title>
+        <title>Dashboard - Aksarantara</title>
         <meta
           name="description"
-          content="Let's explore Pegon together and contribute to the community!"
+          content="Let's explore Southeast Asian scripts together and contribute to the community!"
         />
-        <meta property="og:title" content="Dashboard - Pegonizer" key="title" />
+        <meta property="og:title" content="Dashboard - Aksarantara" key="title" />
         <meta
           property="og:description"
-          content="Let's explore Pegon together and contribute to the community!"
+          content="Let's explore Southeast Asian scripts together and contribute to the community!"
           key="description"
         />
         <meta property="og:image" content="logo.png" key="image" />
@@ -168,7 +168,7 @@ const DashboardPage = () => {
                   Welcome, {userStatus === "success" ? user?.firstName : "..."}!
                 </Heading>
                 <Text>
-                  Let's explore Pegon together and contribute to the community!
+                  Let's explore Southeast Asian scripts together and contribute to the community!
                 </Text>
                 <Spacer />
                 <HStack justify="end" width="100%">

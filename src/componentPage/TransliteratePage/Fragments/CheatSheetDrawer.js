@@ -15,11 +15,10 @@ import {
 } from "@chakra-ui/react";
 import { Tfoot, TableCaption } from "@chakra-ui/react";
 import React from "react";
-import { AboutTransliterator } from "./AboutTransliterator";
 import { PegonCheatSheet } from "./PegonCheatSheet";
 import { ArabCheatSheet } from "./ArabCheatSheet";
 
-export const CheatSheetDrawer = ({ isOpen, onClose }) => {
+export const CheatSheetDrawer = ({ isOpen, onClose, documentScript }) => {
   return (
     <Drawer size="md" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -43,24 +42,40 @@ export const CheatSheetDrawer = ({ isOpen, onClose }) => {
         >
           <Tabs colorScheme="green">
             <TabList>
-              <Tab>About Transliterator</Tab>
-              <Tab>Pegon</Tab>
-              <Tab>Arab</Tab>
+              {documentScript == "Pegon" && (
+                <>
+                  <Tab>Pegon</Tab>
+                  <Tab>Arab</Tab>
+                </>
+              )}
+              {/* kalo mau nambah2 sini */}
+              {documentScript == "Jawi" && (
+                <>
+                  <Tab>Jawi</Tab>
+                </>
+              )}
+              {documentScript == "Cham" && (
+                <>
+                  <Tab>Cham</Tab>
+                </>
+              )}
             </TabList>
             <TabPanels
               borderLeftWidth="1px"
               borderBottomWidth="1px"
               borderRightWidth="1px"
             >
-              <TabPanel>
-                <AboutTransliterator />
-              </TabPanel>
-              <TabPanel>
-                <PegonCheatSheet />
-              </TabPanel>
-              <TabPanel>
-                <ArabCheatSheet />
-              </TabPanel>
+              {documentScript == "Pegon" && (
+                <>
+                  <TabPanel>
+                    <PegonCheatSheet />
+                  </TabPanel>
+                  <TabPanel>
+                    <ArabCheatSheet />
+                  </TabPanel>
+                </>
+              )}
+              {/* jangan lupa tambah kasus jawi sama cham disini, contoh line atas ini */}
             </TabPanels>
           </Tabs>
         </DrawerBody>

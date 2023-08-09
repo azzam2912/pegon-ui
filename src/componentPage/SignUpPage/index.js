@@ -50,9 +50,9 @@ const SignUpPage = () => {
   return (
     <>
       <Head>
-        <title>Sign Up - Pegonizer</title>
+        <title>Sign Up - Aksarantara</title>
         <meta name="description" content="Join us and contribute to pegon" />
-        <meta property="og:title" content="Sign up - Pegonizer" key="title" />
+        <meta property="og:title" content="Sign up - Aksarantara" key="title" />
         <meta
           property="og:description"
           content="Join us and contribute to pegon"

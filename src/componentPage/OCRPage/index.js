@@ -22,15 +22,15 @@ export const OCRPage = () => {
   return (
     <>
       <Head>
-        <title>OCR - Pegonizer</title>
+        <title>OCR - Aksarantara</title>
         <meta
           name="description"
-          content="On demand OCR for Pegon script documents!"
+          content="On demand OCR for manuscripts!"
         />
-        <meta property="og:title" content="OCR - Pegonizer" key="title" />
+        <meta property="og:title" content="OCR - Aksarantara" key="title" />
         <meta
           property="og:description"
-          content="On demand OCR for Pegon script documents!"
+          content="On demand OCR for manuscripts!"
           key="description"
         />
         <meta property="og:image" content="logo.png" key="image" />
@@ -40,7 +40,7 @@ export const OCRPage = () => {
           <Flex flex={1} direction="column" align="stretch">
             <Heading>OCR</Heading>
             <Text color="gray.400">
-              On demand OCR for Pegon script documents! Upload your Image file and
+              On demand OCR for manuscripts written in supported sripts! Upload your Image file and
               we will do the rest.
             </Text>
             <Alert

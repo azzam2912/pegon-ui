@@ -1,6 +1,8 @@
 import { Heading, Text } from "@chakra-ui/react";
 import React from "react";
 
+
+// ini bisa jadi bahan FAQ (Pindah ajah ke FAQ aja)
 export const AboutTransliterator = () => {
   return (
     <>

@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { FaBookOpen, FaPencilAlt } from "react-icons/fa";
 
-
+// mempermudah buat cheatsheet (tabel transliterasi)
 export const CheatItem = ({ pegon, latin, standard }) => {
   return (
     <TableContainer rounded="md" borderWidth="1px" height="56px">

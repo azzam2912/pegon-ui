@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { initIME } from "src/utils/transliterator/pegon/transliterate";
-import { transliterateFromView } from "src/utils/transliterator/pegon/transliterateMain";
+import { initIME } from "src/utils/transliterator/transliterate";
+import { transliterateFromView } from "src/utils/transliterator/transliterateMain";
 
-const useTransliterator = () => {
+
+// TODO: Replace with jawi cham transliterator
+const useJawiChamTransliterator = () => {
   const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
   const [labels, setLabels] = useState({
     left: "Latin",
-    right: "Pegon",
+    right: "Jawi Cham",
   });
 
   const ime = initIME();
@@ -73,4 +75,4 @@ const useTransliterator = () => {
   };
 };
 
-export default useTransliterator;
+export default useJawiChamTransliterator;

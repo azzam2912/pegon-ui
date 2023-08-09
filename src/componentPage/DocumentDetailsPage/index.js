@@ -77,7 +77,7 @@ const DocumentDetailsPage = () => {
 
   const handleShare = () => {
     navigator.share({
-      title: "Pegonizer",
+      title: "Aksarantara",
       text: "Check out this document!",
       url: window.location.href,
     });
@@ -100,11 +100,11 @@ const DocumentDetailsPage = () => {
   return (
     <>
       <Head>
-        <title>{title ? title : "Loading"} - Pegonizer</title>
+        <title>{title ? title : "Loading"} - Aksarantara</title>
         <meta name="description" content={description} />
         <meta
           property="og:title"
-          content={`${title ? title : "loading"} - Pegonizer`}
+          content={`${title ? title : "loading"} - Aksarantara`}
           key="title"
         />
         <meta
