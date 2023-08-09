@@ -172,7 +172,7 @@ const ChamJawiToLatinScheme: Rule[] =
         asInverse(digraphVowels),
         asInverse(digraphConsonants),
         asInverse(monographTargetMonographVowels),
-        asInverse(monographConsonants)
+        asInverse(monographConsonants),
         asInverse(numbers),
     ))
 
