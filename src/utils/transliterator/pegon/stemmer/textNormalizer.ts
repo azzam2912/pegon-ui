@@ -1,8 +1,8 @@
-import type { PlainTransliteration } from '../transliterator/transliterate'
-import { transliterate } from '../transliterator/transliterate'
-import { prepareRules } from '../transliterator/transliterate'
+import type { PlainRule } from '../../core'
+import { transliterate } from '../../core'
+import { prepareRules } from '../../core'
 
-const textNormalizingRules: PlainTransliteration[] = [
+const textNormalizingRules: PlainRule[] = [
     ["t_h", "th"],
     ["T_h", "th"],
     ["t_s", "ts"],

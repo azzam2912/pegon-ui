@@ -14,6 +14,7 @@ import { prepareRules,
          asWordEnding,
          asNotWordBeginning,
          asNotWordEnding,
+         asSingleWord,
          asInverse
        } from "../core"
 

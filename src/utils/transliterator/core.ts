@@ -43,11 +43,11 @@ export const asWordBeginning = (rules: PlainRule[]): RegexRule[] =>
     prepareRules(rules).map<RegexRule>(([key, val]) =>
         [new RegExp(`(^|[${wordDelimitingPatterns}])(${key})`), `$1${val}`])
 
-const asNotWordBeginning = (rules: PlainRule[]): RegexRule[] =>
+export const asNotWordBeginning = (rules: PlainRule[]): RegexRule[] =>
     prepareRules(rules).map<RegexRule>(([key, val]) =>
         [new RegExp(`([^${wordDelimitingPatterns}])(${key})`), `$1${val}`])
 
-const asNotWordEnding = (rules: Rule[]): RegexRule[] =>
+export const asNotWordEnding = (rules: Rule[]): RegexRule[] =>
     prepareRules(rules).map<RegexRule>(([key, val]) =>
         [new RegExp(`(${key})([^${wordDelimitingPatterns}])`), `${val}$2`])
 

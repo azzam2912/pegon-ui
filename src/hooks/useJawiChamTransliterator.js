@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { initIME } from "src/utils/transliterator/transliterate";
-import { transliterateFromView } from "src/utils/transliterator/transliterateMain";
+import { initIME,
+         transliterateLatinToChamJawi as fromLatin,
+         transliterateChamJawiToLatin as toLatin,
+         transliterateReversibleLatinToStandardLatin as toStandardLatin } from "src/utils/transliterator/jawi-cham/transliterate";
 
 
 // TODO: Replace with jawi cham transliterator
 const useJawiChamTransliterator = () => {
-  const [stemmingType, setStemmingType] = useState("Indonesia");
+    const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
@@ -23,29 +25,21 @@ const useJawiChamTransliterator = () => {
   }
 
   const funcLatin = () => {
-    const transliterateResult = transliterateFromView(
-      leftText,
-      true,
-      stemmingType
-    );
-    setRightText(transliterateResult.translitrateResult);
-    setStandardLatin(transliterateResult.standardLatin);
+    const transliterateResult = toLatin(leftText);
+    setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const funcPegon = () => {
+  const funcNonLatin = () => {
     setLeftText(inputMethodEdit(leftText));
-    const transliterateResult = transliterateFromView(
-      leftText,
-      false,
-      stemmingType
-    );
-    setRightText(transliterateResult.translitrateResult);
-    setStandardLatin(transliterateResult.standardLatin);
+    const transliterateResult = fromLatin(leftText);
+    setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
+    const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
 
-  const onChange = (e) => {
+    const onChange = (e) => {
     setLeftText(e.target.value);
   };
 
