@@ -29,7 +29,8 @@ export const chainRule = <T extends Rule>(...chainOfRules: T[][]): T[] =>
                              [] as T[])
 
 export const wordDelimitingPatterns: string =
-    escape([" ", ".", ",", "?", "!", "\"", "(", ")", "-", "،", "؛", "؛"]
+    escape([" ", ".", ",", "?", "!", "\"", "(", ")", "-", ":", ";",
+            "،", "؛", "؛", "؟"]
             .join(""))
 
 // \b would fail when the characters are from different
