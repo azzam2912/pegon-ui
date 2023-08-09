@@ -63,13 +63,13 @@ const TransliterateChamPage = () => {
         >
           <TransliterateInput
             placeholder="Enter Text"
-            rtl=false
+            rtl={false}
             value={leftText}
             onChange={onChange}
           />
           <TransliterateInput
             placeholder="Transliteration"
-            rtl=false
+            rtl={false}
             isReadOnly
             value={rightText}
           />
