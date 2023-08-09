@@ -11,36 +11,18 @@ import {
 import React from "react";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
+import useJawiMalayTransliterator from "src/hooks/useJawiMalayTransliterator";
 
 const JawiMalay = () => {
-  const [labels, setLabels] = React.useState({
-    left: "Latin",
-    right: "Jawi Malay",
-  });
-
-  const [leftText, setLeftText] = React.useState("");
-  const [rightText, setRightText] = React.useState("");
-
-  // TODO: Transliteration logic using api
-
-  const switchLabels = () => {
-    const tempLeft = labels.left;
-    setLabels({
-      left: labels.right,
-      right: tempLeft,
-    });
-
-    const tempText = leftText;
-    setLeftText(rightText);
-    setRightText(tempText);
-  };
+  const { leftText, rightText, labels, onChange, onSwitch, loading } =
+    useJawiMalayTransliterator();
 
   return (
     <>
       <TransliterationHeader
         leftLabel={labels.left}
         rightLabel={labels.right}
-        onSwitchClicked={switchLabels}
+        onSwitchClicked={onSwitch}
       />
       <Card
         height={{
@@ -74,17 +56,23 @@ const JawiMalay = () => {
             placeholder="Enter Text"
             isJawiMalay={labels.left === "Jawi Malay"}
             value={leftText}
-            onChange={(e) => {
-              setLeftText(e.target.value);
-              setRightText(e.target.value);
-            }}
+            onChange={onChange}
           />
-          <TransliterateInput
-            placeholder="Transliteration"
-            isJawiMalay={labels.right === "Jawi Malay"}
-            isReadOnly
-            value={rightText}
-          />
+          {loading ? (
+            <TransliterateInput
+              placeholder="Transliteration"
+              isJawiMalay={labels.right === "Jawi Malay"}
+              isReadOnly
+              value={"Loading..."}
+            />
+          ) : (
+            <TransliterateInput
+              placeholder="Transliteration"
+              isJawiMalay={labels.right === "Jawi Malay"}
+              isReadOnly
+              value={rightText}
+            />
+          )}
         </Stack>
       </Card>
     </>

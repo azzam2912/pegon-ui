@@ -14,7 +14,7 @@ import JawiCham from "./JawiCham";
 import JawiMalay from "./JawiMalay";
 
 const TransliterateJawiPage = () => {
-  const [languageVariant, setLanguageVariant] = React.useState("Cham");
+  const [languageVariant, setLanguageVariant] = React.useState("Malay");
 
   const languageVariantMap = {
     Malay: <JawiMalay/>,
