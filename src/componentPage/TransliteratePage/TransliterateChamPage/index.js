@@ -63,13 +63,13 @@ const TransliterateChamPage = () => {
         >
           <TransliterateInput
             placeholder="Enter Text"
-            isJawiCham={labels.left === "Cham"}
+            rtl=false
             value={leftText}
             onChange={onChange}
           />
           <TransliterateInput
             placeholder="Transliteration"
-            isJawiCham={labels.right === "Cham"}
+            rtl=false
             isReadOnly
             value={rightText}
           />
