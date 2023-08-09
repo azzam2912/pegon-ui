@@ -25,12 +25,13 @@ const TransliteratePegonPage = () => {
 
   return (
     <VStack
-      p={5}
+      px={5}
       spacing={0}
       w="100%"
       h="100%"
       align={{ base: "stretch", md: "start" }}
     >
+      <LanguageSelect value={stemmingType} onChange={setStemmingType} />
       <TransliterationHeader
         leftLabel={labels.left}
         rightLabel={labels.right}
@@ -79,10 +80,6 @@ const TransliteratePegonPage = () => {
           />
         </Stack>
       </Card>
-      <HStack py={3} w="100%" align="end" justify="end">
-        <LanguageSelect value={stemmingType} onChange={setStemmingType} />
-        <Spacer />
-      </HStack>
     </VStack>
   );
 };

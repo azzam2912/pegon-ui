@@ -2,7 +2,13 @@ import React from "react";
 import AppLayout from "../Page/AppLayout";
 import TransliteratePegonPage from "./TransliteratePegonPage";
 import Head from "next/head";
-import { HStack, IconButton, VStack, useDisclosure } from "@chakra-ui/react";
+import {
+  HStack,
+  IconButton,
+  Spacer,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
 import TransliterateJawiPage from "./TransilerateJawiPage";
 import TransliterateChamPage from "./TransilterateCham";
@@ -41,12 +47,13 @@ const TransliteratePage = () => {
       </Head>
       <AppLayout>
         <VStack pt={3} align="start">
-          <HStack p={3} w="100%" align="end" justify="end">
+          <HStack px={5} w="100%">
           <ScriptTypeSelect
             value={documentScript}
             onChange={setDocumentScript}
             ml={4}
           />
+          <Spacer />
           <IconButton
             colorScheme="primary"
             size="sm"
