@@ -1,4 +1,21 @@
 import type { StemResult } from "../stemmer/stemmer";
+import type { PlainRule, RegexRule, Rule, InputMethodEditor } from "../core"
+import { Arab } from "../arab-common"
+import { prepareRules,
+         chainRule,
+         ruleProduct,
+         makeTransitive,
+         transliterate,
+         debugTransliterate,
+         escape,
+         isPlain,
+         wordDelimitingPatterns,
+         asWordBeginning,
+         asWordEnding,
+         asNotWordBeginning,
+         asNotWordEnding,
+         asInverse
+       } from "../core"
 
 const enum Pegon {
     Alif = "\u0627",
@@ -85,59 +102,14 @@ const enum Pegon {
     Hamza = "\u0621"
 }
 
-export type PlainTransliteration = [string, string]
-export type RegexTransliteration = [RegExp, string]
-
-export type Transliteration = PlainTransliteration | RegexTransliteration
-
-// from https://stackoverflow.com/a/6969486
-// escapes any control sequences
-const escape = (toEscape: string) => toEscape
-    .replace(/[.*+?^${}()|[\]\\\-]/g, '\\$&')
-
-const isPlain = (rule: Transliteration): rule is PlainTransliteration =>
-    typeof rule[0] === "string"
-
-export const prepareRules = (rules: Transliteration[]): Transliteration[] =>
-    rules.map<Transliteration>((rule) =>
-        (isPlain(rule) ? [escape(rule[0]), rule[1]] : rule))
-
-const debugTransliterate = (stringToTransliterate: string,
-                       translationMap: Transliteration[]): string =>
-    translationMap.reduce<string>((acc, [key, val]) => {
-        if (new RegExp(key, 'g').test(acc)) {
-            console.log(`acc: ${acc}\nkey: ${key}\nval: ${val}\n`)
-        }
-        return acc.replace(new RegExp(key, 'g'), val)},
-                                  stringToTransliterate.slice())
-
-export const transliterate = (stringToTransliterate: string,
-                       translationMap: Transliteration[]): string =>
-    translationMap.reduce<string>((acc, [key, val]) =>
-        acc.replace(new RegExp(key, 'g'), val),
-                                  stringToTransliterate.slice());
-
-// like a cartesian product but for tl rules
-// https://rosettacode.org/wiki/Cartesian_product_of_two_or_more_lists#Functional
-export const ruleProduct =
-    (leftRules: PlainTransliteration[],
-     rightRules: PlainTransliteration[]): PlainTransliteration[] =>
-    leftRules.flatMap<PlainTransliteration>(([leftKey, leftVal]) =>
-        rightRules.map<PlainTransliteration>(([rightKey, rightVal]) =>
-            [leftKey.concat(rightKey), leftVal.concat(rightVal)]));
-
-export const chainRule = <T extends Transliteration>(...chainOfRules: T[][]): T[] =>
-    chainOfRules.reduce<T[]>((acc, rules) => acc.concat(rules),
-                                           [] as T[])
-
-const punctuationRules: PlainTransliteration[] = [
+const punctuationRules: PlainRule[] = [
     [",", Pegon.Comma]
 ]
-const marbutahRules: PlainTransliteration[] = [
+const marbutahRules: PlainRule[] = [
     ["t_", Pegon.TaMarbuta]
 ]
 
-const monographVowelRules: PlainTransliteration[] = [
+const monographVowelRules: PlainRule[] = [
     ["a", Pegon.Alif],
     // asumsi semua e tanpa diakritik taling
 	["e", Pegon.Fatha + Pegon.Ya],
@@ -150,12 +122,12 @@ const monographVowelRules: PlainTransliteration[] = [
     ['Y', Pegon.Ya]
 ]
 
-const digraphVowelRules: PlainTransliteration[] = [
+const digraphVowelRules: PlainRule[] = [
     ["^e", Pegon.MaddaAbove],
     ["`a", Pegon.YaWithHamzaAbove + Pegon.Alif]
 ]
 
-const monographVowelHarakatAtFirstAbjadRules: PlainTransliteration[] = [
+const monographVowelHarakatAtFirstAbjadRules: PlainRule[] = [
     ["a", Pegon.Alif],
     ["e", Pegon.Ya + Pegon.Fatha + Pegon.Sukun],
     ["o", Pegon.Waw + Pegon.Fatha + Pegon.Sukun],
@@ -163,42 +135,23 @@ const monographVowelHarakatAtFirstAbjadRules: PlainTransliteration[] = [
     ["u", Pegon.Waw + Pegon.Damma + Pegon.Sukun],    
 ]
     
-const singleVowelRules: PlainTransliteration[] =
+const singleVowelRules: PlainRule[] =
     chainRule(
         digraphVowelRules,
         monographVowelHarakatAtFirstAbjadRules)
 
-const singleEndingVowelRules: PlainTransliteration[] = [
+const singleEndingVowelRules: PlainRule[] = [
     ["i", Pegon.Ya]
 ]
 
-export const wordDelimitingPatterns: string =
-    escape([" ", ".", ",", "?", "!", "\"", "(", ")", "-", Pegon.Comma]
-            .join(""))
-
-// \b would fail when the characters are from different
-// encoding blocks
-export const asWordEnding = (rules: PlainTransliteration[]): RegexTransliteration[] =>
-    prepareRules(rules).map<RegexTransliteration>(([key, val]) =>
-        [new RegExp(`(${key})($|[${wordDelimitingPatterns}])`), `${val}$2`])
-
-export const asWordBeginning = (rules: PlainTransliteration[]): RegexTransliteration[] =>
-    prepareRules(rules).map<RegexTransliteration>(([key, val]) =>
-        [new RegExp(`(^|[${wordDelimitingPatterns}])(${key})`), `$1${val}`])
-
-export const asSingleWord = (rules: PlainTransliteration[]): RegexTransliteration[] =>
-    prepareRules(rules).map<RegexTransliteration>(([key, val]) =>
-        [new RegExp(`(^|[${wordDelimitingPatterns}])(${key})($|[${wordDelimitingPatterns}])`),
-         `$1${val}$3`])
-
-const singleVowelAsWordEndingRules: RegexTransliteration[] =
+const singleVowelAsWordEndingRules: RegexRule[] =
     asWordEnding(singleEndingVowelRules);
 
-const beginningDigraphVowelRules: PlainTransliteration[] = [
+const beginningDigraphVowelRules: PlainRule[] = [
     ["^e", Pegon.Alif + Pegon.MaddaAbove],
 ]
 
-const beginningMonographVowelRules: PlainTransliteration[] = [
+const beginningMonographVowelRules: PlainRule[] = [
     ["a", Pegon.AlifWithHamzaAbove],
     ["e", Pegon.Alif + Pegon.Fatha + Pegon.Ya],
     ["i", Pegon.Alif + Pegon.Ya ],
@@ -206,20 +159,20 @@ const beginningMonographVowelRules: PlainTransliteration[] = [
     ["u", Pegon.Alif + Pegon.Waw],
 ]
 
-const beginningSingleVowelRules: PlainTransliteration[] =
+const beginningSingleVowelRules: PlainRule[] =
     chainRule(
         beginningDigraphVowelRules,
         beginningMonographVowelRules)
 
-const beginningIForDeadConsonantRules: PlainTransliteration[] = [
+const beginningIForDeadConsonantRules: PlainRule[] = [
     ["i", Pegon.AlifWithHamzaBelow]
 ]
 
-const beginningIForOpenConsonantRules: PlainTransliteration[] = [
+const beginningIForOpenConsonantRules: PlainRule[] = [
     ["i", Pegon.Alif + Pegon.Ya]
 ]
 
-const doubleDigraphVowelRules: PlainTransliteration[] = [
+const doubleDigraphVowelRules: PlainRule[] = [
     ["a^e", Pegon.Alif +
         Pegon.YaWithHamzaAbove + Pegon.MaddaAbove],
     ["i^e", Pegon.Ya + 
@@ -233,7 +186,7 @@ const doubleDigraphVowelRules: PlainTransliteration[] = [
 
 ]
 
-const doubleMonographVowelRules: PlainTransliteration[] = [
+const doubleMonographVowelRules: PlainRule[] = [
     ["ae", Pegon.Alif +
         Pegon.Ha +
         Pegon.Fatha + Pegon.Ya],
@@ -308,7 +261,7 @@ const doubleMonographVowelRules: PlainTransliteration[] = [
 
 ]
 
-const doubleMonographBeginningSyllableVowelRules: PlainTransliteration[] = [
+const doubleMonographBeginningSyllableVowelRules: PlainRule[] = [
     ["iu",Pegon.Ya +
         Pegon.Ya +
         Pegon.Waw],
@@ -327,7 +280,7 @@ const doubleMonographBeginningSyllableVowelRules: PlainTransliteration[] = [
         Pegon.Fatha + Pegon.Waw],    
 ]
 
-const alternateDoubleMonographVowelRules: PlainTransliteration[] = [
+const alternateDoubleMonographVowelRules: PlainRule[] = [
     ["ae", Pegon.Fatha + Pegon.Alif +
         Pegon.YaWithHamzaAbove +
         Pegon.Fatha + Pegon.Ya + Pegon.Sukun],
@@ -351,7 +304,7 @@ const alternateDoubleMonographVowelRules: PlainTransliteration[] = [
         Pegon.Fatha + Pegon.Waw],
 ]
 
-const alternateDoubleMonographBeginningSyllableVowelRules: PlainTransliteration[] = [
+const alternateDoubleMonographBeginningSyllableVowelRules: PlainRule[] = [
     ["iu", Pegon.Kasra +
         Pegon.YaWithHamzaAbove +
         Pegon.Damma + Pegon.Waw + Pegon.Sukun],
@@ -360,12 +313,12 @@ const alternateDoubleMonographBeginningSyllableVowelRules: PlainTransliteration[
         Pegon.Fatha + Pegon.Alif],
 ]
 
-const doubleVowelRules: PlainTransliteration[] =
+const doubleVowelRules: PlainRule[] =
     chainRule(
         doubleDigraphVowelRules,
         doubleMonographVowelRules)
 
-const doubleEndingVowelRules: PlainTransliteration[] = [
+const doubleEndingVowelRules: PlainRule[] = [
     ["ae", Pegon.Alif +
         Pegon.Ha +
         Pegon.Fatha + Pegon.Ya],
@@ -392,7 +345,7 @@ const doubleEndingVowelRules: PlainTransliteration[] = [
         Pegon.Alif],
 ]
 
-const alternateDoubleEndingVowelRules: PlainTransliteration[] = [
+const alternateDoubleEndingVowelRules: PlainRule[] = [
     ["ae", Pegon.Fatha + Pegon.Alif +
         Pegon.YaWithHamzaAbove +
         Pegon.Fatha + Pegon.Maksura + Pegon.Sukun],
@@ -401,13 +354,13 @@ const alternateDoubleEndingVowelRules: PlainTransliteration[] = [
         Pegon.Kasra + Pegon.Maksura + Pegon.Sukun],
 ]
 
-const doubleVowelAsWordEndingRules: RegexTransliteration [] =
+const doubleVowelAsWordEndingRules: RegexRule [] =
     asWordEnding(doubleEndingVowelRules);
 
-const beginningSingleVowelAsWordBeginningRules: RegexTransliteration[] =
+const beginningSingleVowelAsWordBeginningRules: RegexRule[] =
     asWordBeginning(beginningSingleVowelRules);
 
-const monographConsonantRules: PlainTransliteration[] = [
+const monographConsonantRules: PlainRule[] = [
     ["b", Pegon.Ba],
     ["t", Pegon.Ta],
     ["c", Pegon.Ca],
@@ -434,7 +387,7 @@ const monographConsonantRules: PlainTransliteration[] = [
     ["'`", Pegon.Hamza]
 ]
 
-const digraphConsonantRules: PlainTransliteration[] = [
+const digraphConsonantRules: PlainRule[] = [
     // special combination using diacritics, may drop
     // ["t_h", Pegon.ThaWithOneDotBelow],
     // the one in id.wikipedia/wiki/Abjad_Pegon
@@ -454,43 +407,43 @@ const digraphConsonantRules: PlainTransliteration[] = [
     ["n_y", Pegon.Nya],
 ];
 
-const consonantRules: PlainTransliteration[] = chainRule(
+const consonantRules: PlainRule[] = chainRule(
     digraphConsonantRules,
     monographConsonantRules)
 
-const withSukun = (rules: PlainTransliteration[]): PlainTransliteration[] =>
-    rules.map<PlainTransliteration>(([key, val]) => [key, val.concat(Pegon.Sukun)])
+const withSukun = (rules: PlainRule[]): PlainRule[] =>
+    rules.map<PlainRule>(([key, val]) => [key, val.concat(Pegon.Sukun)])
 
-const deadDigraphConsonantRules: PlainTransliteration[] =
+const deadDigraphConsonantRules: PlainRule[] =
     digraphConsonantRules
 
-const deadMonographConsonantRules: PlainTransliteration[] =
+const deadMonographConsonantRules: PlainRule[] =
     monographConsonantRules
 
-const deadConsonantRules: PlainTransliteration[] = consonantRules
+const deadConsonantRules: PlainRule[] = consonantRules
 
-const singleVowelSyllableRules: PlainTransliteration[] =
+const singleVowelSyllableRules: PlainRule[] =
     chainRule(
         ruleProduct(consonantRules, digraphVowelRules),
         ruleProduct(consonantRules, monographVowelRules))
 
-const doubleVowelSyllableRules: PlainTransliteration[] =
+const doubleVowelSyllableRules: PlainRule[] =
     ruleProduct(consonantRules, doubleVowelRules)
 
-const beginningIWithDeadConsonantRules: PlainTransliteration[] =
+const beginningIWithDeadConsonantRules: PlainRule[] =
     chainRule(
         ruleProduct(beginningIForDeadConsonantRules, deadDigraphConsonantRules),
         ruleProduct(beginningIForOpenConsonantRules, deadMonographConsonantRules))
 
-const beginningIWithDeadConsonantAsWordBeginningRules: RegexTransliteration[] =
+const beginningIWithDeadConsonantAsWordBeginningRules: RegexRule[] =
     asWordBeginning(beginningIWithDeadConsonantRules)
 
-const beginningIWithOpenConsonantRules: PlainTransliteration[] =
+const beginningIWithOpenConsonantRules: PlainRule[] =
     chainRule(
         ruleProduct(beginningIForOpenConsonantRules, doubleVowelSyllableRules),
         ruleProduct(beginningIForOpenConsonantRules, singleVowelSyllableRules))
 
-const beginningIWithOpenConsonantAsSingleWordRules: Transliteration[] =
+const beginningIWithOpenConsonantAsSingleWordRules: Rule[] =
     // avoids the nesting problem
     chainRule(
         // single ending vowel
@@ -502,44 +455,44 @@ const beginningIWithOpenConsonantAsSingleWordRules: Transliteration[] =
                                              consonantRules),
                                  doubleEndingVowelRules)))
 
-const singleVowelSyllableAsWordEndingRules: RegexTransliteration[] =
+const singleVowelSyllableAsWordEndingRules: RegexRule[] =
     asWordEnding(ruleProduct(consonantRules, singleEndingVowelRules))
 
-const doubleVowelSyllableAsWordEndingRules: RegexTransliteration[] = 
+const doubleVowelSyllableAsWordEndingRules: RegexRule[] = 
     asWordEnding(ruleProduct(consonantRules, doubleEndingVowelRules))
 
-const beginningIWithOpenConsonantAsWordBeginningRules: Transliteration[] =
+const beginningIWithOpenConsonantAsWordBeginningRules: Rule[] =
     chainRule(
         beginningIWithOpenConsonantAsSingleWordRules,
         asWordBeginning(beginningIWithOpenConsonantRules))
 
-const prefixRules: PlainTransliteration[] = [
+const prefixRules: PlainRule[] = [
     ["dak", Pegon.Dal + Pegon.Fatha + Pegon.Alif + Pegon.Kaf + Pegon.Sukun],
     ["di", Pegon.Dal + Pegon.Kasra + Pegon.Ya + Pegon.Sukun]
 ]
 
-const specialPrepositionRules: PlainTransliteration[] = [
+const specialPrepositionRules: PlainRule[] = [
     ["di", Pegon.Dal + Pegon.Kasra + Pegon.Maksura + Pegon.Sukun]
 ]
 
-const prefixWithSpaceRules: PlainTransliteration[] =
+const prefixWithSpaceRules: PlainRule[] =
     prefixRules.map(([key, val]) => [key, val.concat(" ")])
 
-const specialRaWithPepetRules: PlainTransliteration[] = [
+const specialRaWithPepetRules: PlainRule[] = [
     ["r^e", Pegon.Ra + Pegon.Fatha + Pegon.Ya]
 ]
 
-const specialPrepositionAsSingleWordsRule: RegexTransliteration[] =
+const specialPrepositionAsSingleWordsRule: RegexRule[] =
     asSingleWord(specialPrepositionRules)
 
-const prefixWithBeginningVowelRules: PlainTransliteration[] =
+const prefixWithBeginningVowelRules: PlainRule[] =
     ruleProduct(prefixWithSpaceRules,
                 beginningSingleVowelRules)
 
-const prefixWithBeginningVowelAsWordBeginningRules: RegexTransliteration[] =
+const prefixWithBeginningVowelAsWordBeginningRules: RegexRule[] =
     asWordBeginning(prefixWithBeginningVowelRules)
 
-const prefixAsWordBeginningRules: RegexTransliteration[] = asWordBeginning(prefixRules)
+const prefixAsWordBeginningRules: RegexRule[] = asWordBeginning(prefixRules)
 
 const latinConsonants: string[] = consonantRules.map<string>(([key, val]) => key)
 const pegonConsonants: string[] = consonantRules.map<string>(([key, val]) => val)
@@ -548,35 +501,35 @@ const latinVowels: string[] = singleVowelRules.map<string>(([key, val]) => key)
 const consonantExceptions: string[] = []
 
 const asWordBeginningFollowedByOpenConsonant =
-    (rules: PlainTransliteration[]): RegexTransliteration[] =>
+    (rules: PlainRule[]): RegexRule[] =>
     rules.map(([key, val]) =>
             [new RegExp(`(^|[${wordDelimitingPatterns}])(${key})($latinConsonants.join("|")($latinVowels.join("|")`),
              `$1${val}$2$3`])
 
-const doubleMonographVowelBeginningSyllableRules: PlainTransliteration[] =
+const doubleMonographVowelBeginningSyllableRules: PlainRule[] =
     ruleProduct(consonantRules,
                 doubleMonographBeginningSyllableVowelRules)
 
-const alternateDoubleMonographVowelBeginningSyllableRules: PlainTransliteration[] =
+const alternateDoubleMonographVowelBeginningSyllableRules: PlainRule[] =
     ruleProduct(consonantRules,
                 alternateDoubleMonographBeginningSyllableVowelRules)
 
-const doubleMonographVowelAsBeginningSyllableRules: RegexTransliteration[] =
+const doubleMonographVowelAsBeginningSyllableRules: RegexRule[] =
     asWordBeginning(doubleMonographVowelBeginningSyllableRules)
 
-const aWithFatha: PlainTransliteration[] = [
+const aWithFatha: PlainRule[] = [
     ["a", Pegon.Fatha],
 ]   
 
-const closedSyllable = (rules: PlainTransliteration[]): RegexTransliteration[] =>
-    prepareRules(rules).map<RegexTransliteration>(([key, val]) =>
+const closedSyllable = (rules: PlainRule[]): RegexRule[] =>
+    prepareRules(rules).map<RegexRule>(([key, val]) =>
         [new RegExp(`(${key})(?![_aiueo^\`WAIUEOY])`), `${val}`])
 
-const closedSyllableWithSoundARules: RegexTransliteration[] =
+const closedSyllableWithSoundARules: RegexRule[] =
     closedSyllable(ruleProduct(ruleProduct(consonantRules,aWithFatha), consonantRules))
 
 
-const indonesianPrefixesRules: PlainTransliteration[] = [
+const indonesianPrefixesRules: PlainRule[] = [
     ["di", Pegon.Dal + Pegon.Ya],
     ["k^e", Pegon.Kaf + Pegon.MaddaAbove],
     ["s^e", Pegon.Sin + Pegon.MaddaAbove],
@@ -599,7 +552,7 @@ const transliterateIndonesianPrefixes =
     (prefix: string): string =>
         transliterate(prefix, prepareRules(indonesianPrefixesRules));
 
-const indonesianSuffixes: PlainTransliteration[] = [
+const indonesianSuffixes: PlainRule[] = [
     ["ku", Pegon.Kaf + Pegon.Waw],
     ["mu", Pegon.Mim + Pegon.Waw],
     ["n_ya", Pegon.Nya + Pegon.Alif],
@@ -609,20 +562,20 @@ const indonesianSuffixes: PlainTransliteration[] = [
     ["pun", Pegon.Peh + Pegon.Waw + Pegon.Nun],
     ["kan", Pegon.Kaf + Pegon.Fatha + Pegon.Nun],
 ]
-const suffixAnForBaseWordWithEndingA: PlainTransliteration[] = [
+const suffixAnForBaseWordWithEndingA: PlainRule[] = [
     
     ["an", Pegon.AlifWithHamzaAbove + Pegon.Nun],
 ]
 
-const suffixAn: PlainTransliteration[] = [
+const suffixAn: PlainRule[] = [
     ["an", Pegon.Alif + Pegon.Nun],
 ]
 
-const indonesianSuffixesForBaseWordWithEndingA: PlainTransliteration[] =
+const indonesianSuffixesForBaseWordWithEndingA: PlainRule[] =
     chainRule(indonesianSuffixes, 
         suffixAnForBaseWordWithEndingA)
 
-const indonesianSuffixesForRegularBaseWord: PlainTransliteration[] =
+const indonesianSuffixesForRegularBaseWord: PlainRule[] =
     chainRule(indonesianSuffixes, 
         suffixAn)
 
@@ -641,7 +594,7 @@ const transliterateISuffix = (baseWord: string) => {
             return Pegon.Ya
 }
 
-const baseWordLastLetterVowel: PlainTransliteration[] = [
+const baseWordLastLetterVowel: PlainRule[] = [
     ["a", ""],
     ["i", ""],
     ["u", ""],
@@ -652,24 +605,24 @@ const baseWordLastLetterVowel: PlainTransliteration[] = [
     ["Y", ""],
 ]
 
-const suffixFirstLetterVowel: PlainTransliteration[] = [
+const suffixFirstLetterVowel: PlainRule[] = [
     ["a", Pegon.Alif],
     ["i", Pegon.Ya],
     ["e", Pegon.Alif + Pegon.Fatha + Pegon.Ya],
 ]
 
-const doubleVowelForSuffixRules: PlainTransliteration [] = [
+const doubleVowelForSuffixRules: PlainRule [] = [
     ["ae", Pegon.Ha + Pegon.Fatha + Pegon.Ya],
     ["ai", Pegon.Ha + Pegon.Ya],
     ["Ya", Pegon.Ya + Pegon.Alif],
     ["aa", Pegon.AlifWithHamzaAbove],
 ]
 
-const baseWordLastLetterVowelSuffixFirstLetterVowel: PlainTransliteration[] = 
+const baseWordLastLetterVowelSuffixFirstLetterVowel: PlainRule[] = 
     chainRule(doubleVowelForSuffixRules,
         ruleProduct(baseWordLastLetterVowel, suffixFirstLetterVowel))
 
-const doubleEndingVowelForSuffixRules: PlainTransliteration[] = [
+const doubleEndingVowelForSuffixRules: PlainRule[] = [
     ["ae", Pegon.Ha + Pegon.Fatha + Pegon.Ya],
     ["ai", Pegon.Ha + Pegon.Ya],
     ["ea", Pegon.Ya + Pegon.Fatha + Pegon.Alif],
@@ -680,7 +633,7 @@ const doubleEndingVowelForSuffixRules: PlainTransliteration[] = [
     ["ia", Pegon.Ya + Pegon.Alif],
 ]
 
-const jawaPrefixesRules: PlainTransliteration[] = [
+const jawaPrefixesRules: PlainRule[] = [
     ["di", Pegon.Dal + Pegon.Ya],
     ["su", Pegon.Sin + Pegon.Waw],
     ["pri", Pegon.Peh + Pegon.Ra + Pegon.Ya],
@@ -720,7 +673,7 @@ const jawaPrefixesRules: PlainTransliteration[] = [
     ["a", Pegon.Ha + Pegon.Fatha],
 ]
 
-const jawaSuffixesRules: PlainTransliteration[] = [
+const jawaSuffixesRules: PlainRule[] = [
     ["i", Pegon.Ya],
     ["ake", Pegon.Alif + Pegon.Kaf + Pegon.Fatha + Pegon.Ya],
     ["en", Pegon.Fatha + Pegon.Ya + Pegon.Nun],
@@ -736,13 +689,13 @@ const transliterateJawaPrefixes =
         transliterate(prefix, prepareRules(jawaPrefixesRules));
 
 const transliterateJawaSuffixesVowel = (suffix: string, baseWord: string): string => {
-    const jawaSuffixesRulesAlt: PlainTransliteration[] = [
+    const jawaSuffixesRulesAlt: PlainRule[] = [
         ["na", Pegon.Nun + Pegon.Alif],
         ["ke", Pegon.Kaf + Pegon.Fatha + Pegon.Ya],
         ["n", Pegon.Nun],
     ]
 
-    const jawaSuffixesVowelRules: Transliteration[] =
+    const jawaSuffixesVowelRules: Rule[] =
             prepareRules(chainRule(
                 ruleProduct(baseWordLastLetterVowelSuffixFirstLetterVowel, jawaSuffixesRulesAlt),
                 doubleEndingVowelForSuffixRules,
@@ -803,7 +756,7 @@ const transliterateJawaAffixes = (affixes: string[], baseWord: string): string[]
     return [prefixResult, suffixResult]
 }
 
-const firstSyllableWithSoundA: RegexTransliteration[] =
+const firstSyllableWithSoundA: RegexRule[] =
     asWordBeginning(ruleProduct(consonantRules, aWithFatha));
 
 const countSyllable = (word: string): number => {
@@ -813,58 +766,75 @@ const countSyllable = (word: string): number => {
     return 0
 }
 
-const latinToPegonScheme: Transliteration[] =
-    prepareRules(chainRule(specialPrepositionAsSingleWordsRule,
-                specialRaWithPepetRules,
-                closedSyllableWithSoundARules,
-                prefixWithBeginningVowelAsWordBeginningRules,
+const numbers : PlainRule[] = [
+    ["0", Arab.Shifr],
+    ["1", Arab.Wahid],
+    ["2", Arab.Itsnan],
+    ["3", Arab.Tsalatsah],
+    ["4", Arab.Arbaah],
+    ["5", Arab.Khamsah],
+    ["6", Arab.Sittah],
+    ["7", Arab.Sabaah],
+    ["8", Arab.Tsamaniyah],
+    ["9", Arab.Tisah]
+]
 
-                doubleVowelSyllableAsWordEndingRules,
-
-                doubleMonographVowelAsBeginningSyllableRules,
-
-                beginningIWithOpenConsonantAsWordBeginningRules,
-                beginningIWithDeadConsonantAsWordBeginningRules,
-
-
-                beginningSingleVowelAsWordBeginningRules,
-
-                singleVowelSyllableAsWordEndingRules,
-                doubleVowelSyllableRules,
-                singleVowelSyllableRules,
-
-                singleVowelRules,
-                deadConsonantRules,
-                marbutahRules,
-                punctuationRules))
-
-const latinToPegonSchemeForMoreThanTwoSyllables: Transliteration[] =
-    prepareRules(chainRule(specialPrepositionAsSingleWordsRule,
-                specialRaWithPepetRules,
-                closedSyllableWithSoundARules,
-                prefixWithBeginningVowelAsWordBeginningRules,
-
-                doubleVowelSyllableAsWordEndingRules,
-
-                doubleMonographVowelAsBeginningSyllableRules,
-
-                beginningIWithOpenConsonantAsWordBeginningRules,
-                beginningIWithDeadConsonantAsWordBeginningRules,
+const latinToPegonScheme: Rule[] =
+    prepareRules(chainRule(
+        specialPrepositionAsSingleWordsRule,
+        specialRaWithPepetRules,
+        closedSyllableWithSoundARules,
+        prefixWithBeginningVowelAsWordBeginningRules,
+        
+        doubleVowelSyllableAsWordEndingRules,
+        
+        doubleMonographVowelAsBeginningSyllableRules,
+        
+        beginningIWithOpenConsonantAsWordBeginningRules,
+        beginningIWithDeadConsonantAsWordBeginningRules,
 
 
-                beginningSingleVowelAsWordBeginningRules,
+        beginningSingleVowelAsWordBeginningRules,
 
-                singleVowelSyllableAsWordEndingRules,
-                doubleVowelSyllableRules,
+        singleVowelSyllableAsWordEndingRules,
+        doubleVowelSyllableRules,
+        singleVowelSyllableRules,
+        
+        singleVowelRules,
+        deadConsonantRules,
+        marbutahRules,
+        punctuationRules,
+        numbers))
 
-                firstSyllableWithSoundA,
+const latinToPegonSchemeForMoreThanTwoSyllables: Rule[] =
+    prepareRules(chainRule(
+        specialPrepositionAsSingleWordsRule,
+        specialRaWithPepetRules,
+        closedSyllableWithSoundARules,
+        prefixWithBeginningVowelAsWordBeginningRules,
+        
+        doubleVowelSyllableAsWordEndingRules,
 
-                singleVowelSyllableRules,
+        doubleMonographVowelAsBeginningSyllableRules,
+        
+        beginningIWithOpenConsonantAsWordBeginningRules,
+        beginningIWithDeadConsonantAsWordBeginningRules,
+        
 
-                singleVowelRules,
-                deadConsonantRules,
-                marbutahRules,
-                punctuationRules))
+        beginningSingleVowelAsWordBeginningRules,
+
+        singleVowelSyllableAsWordEndingRules,
+        doubleVowelSyllableRules,
+        
+        firstSyllableWithSoundA,
+        
+        singleVowelSyllableRules,
+
+        singleVowelRules,
+        deadConsonantRules,
+        marbutahRules,
+        punctuationRules,
+        numbers))
 
 export const transliterateLatinToPegon = (latinString: string): string =>
     countSyllable(latinString) > 2 ? 
@@ -896,75 +866,72 @@ export const transliterateLatinToPegonStemResult = (stemResult: StemResult, lang
     }
 }
 
-export const asInverse = (rules: PlainTransliteration[]): PlainTransliteration[] =>
-    rules.map<PlainTransliteration>(([key, val]) => [val, key])
-
-const inverseSpecialPrepositionAsSingleWordsRules: RegexTransliteration[] =
+const inverseSpecialPrepositionAsSingleWordsRules: RegexRule[] =
     asSingleWord(asInverse(specialPrepositionRules))
 
-const inversePrefixWithSpaceRules: PlainTransliteration[] =
+const inversePrefixWithSpaceRules: PlainRule[] =
     asInverse(prefixWithSpaceRules)
 
-const inversePrefixWithSpaceAsWordBeginningRules: RegexTransliteration[] =
+const inversePrefixWithSpaceAsWordBeginningRules: RegexRule[] =
     asWordBeginning(inversePrefixWithSpaceRules)
 
-const inverseDeadDigraphConsonantRules: PlainTransliteration[] =
+const inverseDeadDigraphConsonantRules: PlainRule[] =
     asInverse(deadDigraphConsonantRules)
 
-const inverseDeadMonographConsonantRules: PlainTransliteration[] =
+const inverseDeadMonographConsonantRules: PlainRule[] =
     asInverse(deadMonographConsonantRules)
 
-const inverseDeadConsonantRules: PlainTransliteration[] =
+const inverseDeadConsonantRules: PlainRule[] =
     asInverse(deadConsonantRules)
 
-const inverseDigraphVowelRules: PlainTransliteration[] =
+const inverseDigraphVowelRules: PlainRule[] =
     asInverse(digraphVowelRules)
 
-const inverseMonographVowelRules: PlainTransliteration[] =
+const inverseMonographVowelRules: PlainRule[] =
     asInverse(monographVowelRules)
 
-const inverseSingleVowelRules: PlainTransliteration[] =
+const inverseSingleVowelRules: PlainRule[] =
     asInverse(singleVowelRules)
 
-const inverseSingleEndingVowelRules: PlainTransliteration[] =
+const inverseSingleEndingVowelRules: PlainRule[] =
     asInverse(singleEndingVowelRules)
 
-const inverseSingleEndingVowelAsWordEndingRules: RegexTransliteration[] =
+const inverseSingleEndingVowelAsWordEndingRules: RegexRule[] =
     asWordEnding(inverseSingleEndingVowelRules)
 
-const inverseDoubleEndingVowelRules: PlainTransliteration[] =
+const inverseDoubleEndingVowelRules: PlainRule[] =
     asInverse(chainRule(doubleEndingVowelRules,
                         alternateDoubleEndingVowelRules))
 
-const inverseDoubleEndingVowelAsWordEndingRules: RegexTransliteration[] =
+const inverseDoubleEndingVowelAsWordEndingRules: RegexRule[] =
     asWordEnding(inverseDoubleEndingVowelRules)
 
-const inverseEndingVowelAsWordEndingRules: RegexTransliteration[] =
+const inverseEndingVowelAsWordEndingRules: RegexRule[] =
     chainRule(
         inverseDoubleEndingVowelAsWordEndingRules,
         inverseSingleEndingVowelAsWordEndingRules)
 
-const inverseDoubleVowelRules: PlainTransliteration[] =
+const inverseDoubleVowelRules: PlainRule[] =
     asInverse(chainRule(doubleVowelRules,
                         alternateDoubleMonographVowelRules))
 
-const inverseBeginningDigraphVowelRules: PlainTransliteration[] =
+const inverseBeginningDigraphVowelRules: PlainRule[] =
     asInverse(beginningDigraphVowelRules)
 
-const inverseBeginningMonographVowelRules: PlainTransliteration[] =
+const inverseBeginningMonographVowelRules: PlainRule[] =
     asInverse(beginningMonographVowelRules)
 
-const inverseBeginningVowelAsWordBeginningRules: RegexTransliteration[] =
+const inverseBeginningVowelAsWordBeginningRules: RegexRule[] =
     asWordBeginning(chainRule(inverseBeginningDigraphVowelRules,
                               inverseBeginningMonographVowelRules))
 
-const inverseBeginningIForOpenConsonantRules: PlainTransliteration[] =
+const inverseBeginningIForOpenConsonantRules: PlainRule[] =
     asInverse(beginningIForOpenConsonantRules)
 
-const inverseBeginningIForDeadConsonantRules: PlainTransliteration[] =
+const inverseBeginningIForDeadConsonantRules: PlainRule[] =
     asInverse(beginningIForDeadConsonantRules)
 
-const inversePrefixWithBeginningVowelsRules: PlainTransliteration[] =
+const inversePrefixWithBeginningVowelsRules: PlainRule[] =
     chainRule(
         ruleProduct(inversePrefixWithSpaceRules,
                     inverseBeginningDigraphVowelRules),
@@ -973,66 +940,66 @@ const inversePrefixWithBeginningVowelsRules: PlainTransliteration[] =
         ruleProduct(inversePrefixWithSpaceRules,
                     inverseBeginningIForDeadConsonantRules))
 
-const inversePrefixWithBeginningVowelsAsWordBeginningRules: RegexTransliteration[] =
+const inversePrefixWithBeginningVowelsAsWordBeginningRules: RegexRule[] =
     asWordBeginning(inversePrefixWithBeginningVowelsRules)
 
-const inverseMarbutahRules: PlainTransliteration[] =
+const inverseMarbutahRules: PlainRule[] =
     asInverse(marbutahRules)
 
-const inverseOpenConsonantRules: PlainTransliteration[] =
+const inverseOpenConsonantRules: PlainRule[] =
     asInverse(consonantRules)
 
-const inverseSpecialRaWithPepetRules: PlainTransliteration[] =
+const inverseSpecialRaWithPepetRules: PlainRule[] =
     asInverse(specialRaWithPepetRules)
 
-const inverseConsonantRules: PlainTransliteration[] =
+const inverseConsonantRules: PlainRule[] =
     chainRule(
         inverseMarbutahRules,
         inverseDeadDigraphConsonantRules,
         inverseDeadMonographConsonantRules,
         inverseOpenConsonantRules)
 
-const inverseVowelRules: Transliteration[] =
-    chainRule<Transliteration>(
+const inverseVowelRules: Rule[] =
+    chainRule<Rule>(
         inverseBeginningVowelAsWordBeginningRules,
         inverseEndingVowelAsWordEndingRules,
         inverseDoubleVowelRules,
         inverseSingleVowelRules,
         inverseBeginningIForDeadConsonantRules)
 
-const inversePunctuationRules: PlainTransliteration[] =
+const inversePunctuationRules: PlainRule[] =
     asInverse(punctuationRules)
 
-const inverseSingleVowelSyllableRules: Transliteration[] =
-    chainRule<Transliteration>(
+const inverseSingleVowelSyllableRules: Rule[] =
+    chainRule<Rule>(
         asWordEnding(ruleProduct(inverseOpenConsonantRules,
                                  inverseSingleEndingVowelRules)),
         ruleProduct(inverseOpenConsonantRules, inverseDigraphVowelRules),
         ruleProduct(inverseOpenConsonantRules, inverseMonographVowelRules))
 
-const inverseDoubleVowelSyllableRules: Transliteration[] =
-    chainRule<Transliteration>(
+const inverseDoubleVowelSyllableRules: Rule[] =
+    chainRule<Rule>(
         asWordEnding(ruleProduct(inverseOpenConsonantRules,
                                  inverseDoubleEndingVowelRules)),
         ruleProduct(inverseOpenConsonantRules,
                     inverseDoubleVowelRules))
 
-const inverseSyllableRules: Transliteration[] =
+const inverseSyllableRules: Rule[] =
     chainRule(
         inverseDoubleVowelSyllableRules,
         inverseSingleVowelSyllableRules)
 
-const inverseDoubleMonographVowelAsBeginningSyllableRules: RegexTransliteration[] =
+const inverseDoubleMonographVowelAsBeginningSyllableRules: RegexRule[] =
     asWordBeginning(chainRule(
         asInverse(doubleMonographVowelBeginningSyllableRules),
         asInverse(alternateDoubleMonographVowelBeginningSyllableRules)
     ))
 
-const inverseAWithFatha: PlainTransliteration[] = 
+const inverseAWithFatha: PlainRule[] = 
     asInverse(aWithFatha)
 
-const pegonToLatinScheme: Transliteration[] =
-    prepareRules(chainRule<Transliteration>(
+const pegonToLatinScheme: Rule[] =
+    prepareRules(chainRule<Rule>(
         inverseSpecialPrepositionAsSingleWordsRules,
         inverseSpecialRaWithPepetRules,
         inversePrefixWithBeginningVowelsAsWordBeginningRules,
@@ -1043,13 +1010,14 @@ const pegonToLatinScheme: Transliteration[] =
         inverseVowelRules,
         inverseConsonantRules,
         inversePunctuationRules,
-        inverseAWithFatha))
+        inverseAWithFatha,
+        asInverse(numbers)))
 
 export const transliteratePegonToLatin = (pegonString: string): string =>
     transliterate(pegonString,
                   pegonToLatinScheme)
                             
-const standardLatinRules: PlainTransliteration[] = [
+const standardLatinRules: PlainRule[] = [
     ["t_h", "th"],
     ["T_h", "th"],
     ["t_s", "ṡ"],
@@ -1088,41 +1056,6 @@ export const transliterateReversibleLatinToStandardLatin =
     transliterate(reversibleString, prepareRules(standardLatinRules));
 
 /*
-  The basic idea for this function is to take several
-  lists of transliteration rules and make it so that
-  if a tl key on the nth list is the prefix of a key
-  on the n+1th list, then the key of the n+1th list
-  has that prefix replaced by the value of the
-  key from the nth list, and that this propagates
-  To see why you would want to do this, take a look at
-  github.com/wikimedia/jquery.ime
-*/
-
-export const makeTransitive = (...transliterationRules: PlainTransliteration[][]): PlainTransliteration[] =>
-    transliterationRules.reduceRight((acc, left) => {
-        let newAcc: PlainTransliteration[] = [];
-        for (const [rightKey, rightVal] of acc) {
-            let foundMatch = false;
-            for (const [leftKey, leftVal] of left) {
-                if (rightKey.startsWith(leftKey)) {
-                    foundMatch = true;
-                    newAcc
-                        .push([leftVal
-                        .concat(rightKey.slice(leftKey.length)),
-                               rightVal])
-                }
-            }
-            if (!foundMatch) newAcc.push([rightKey, rightVal]);
-        }
-        return newAcc.concat(left);
-    });
-
-export interface InputMethodEditor {
-    readonly rules: Transliteration[];
-    readonly inputEdit: (inputString: string) => string;
-}
-
-/*
   Transitive rules necessities:
   monograph vowels -> digraph vowels
   dead consonants -> open consonants + vowels
@@ -1132,15 +1065,7 @@ export interface InputMethodEditor {
   -> product(i for open consonants, transitive syllables)
 */
 
-const asNotWordBeginning = (rules: PlainTransliteration[]): RegexTransliteration[] =>
-    prepareRules(rules).map<RegexTransliteration>(([key, val]) =>
-        [new RegExp(`([^${wordDelimitingPatterns}])(${key})`), `$1${val}`])
-
-const asNotWordEnding = (rules: Transliteration[]): RegexTransliteration[] =>
-    prepareRules(rules).map<RegexTransliteration>(([key, val]) =>
-        [new RegExp(`(${key})([^${wordDelimitingPatterns}])`), `${val}$2`])
-
-const IMEPrefixRules: Transliteration[] =
+const IMEPrefixRules: Rule[] =
     asWordBeginning(
         makeTransitive(
             prefixRules.map(([key, val]) =>
@@ -1148,8 +1073,8 @@ const IMEPrefixRules: Transliteration[] =
             prefixWithBeginningVowelRules
     ))
 
-const IMESyllableRules: Transliteration[] =
-    chainRule<Transliteration>(
+const IMESyllableRules: Rule[] =
+    chainRule<Rule>(
         asWordEnding(makeTransitive(
             deadMonographConsonantRules,
             marbutahRules,
@@ -1184,7 +1109,7 @@ const IMESyllableRules: Transliteration[] =
                 ruleProduct(consonantRules, doubleMonographVowelRules)
             )))
 
-const IMEBeginningIRules: Transliteration[] =
+const IMEBeginningIRules: Rule[] =
     chainRule(
         asSingleWord(makeTransitive(
             beginningIForDeadConsonantRules,
@@ -1208,8 +1133,8 @@ const IMEBeginningIRules: Transliteration[] =
             ruleProduct(beginningIForOpenConsonantRules,
                         ruleProduct(consonantRules, monographVowelRules)))))
 
-const IMEVowelRules: Transliteration[] =
-    chainRule<Transliteration>(
+const IMEVowelRules: Rule[] =
+    chainRule<Rule>(
         asWordEnding(makeTransitive(
             chainRule(
                 // the only single ending vowel is "i"
@@ -1231,7 +1156,7 @@ const IMEVowelRules: Transliteration[] =
         digraphVowelRules,
         monographVowelRules)
 
-const IMESpecialAsNotWordEndingRules: RegexTransliteration[] =
+const IMESpecialAsNotWordEndingRules: RegexRule[] =
     asNotWordEnding([
         // "i"
         [Pegon.Maksura + Pegon.Sukun, Pegon.Ya + Pegon.Sukun],
@@ -1284,7 +1209,7 @@ const IMESpecialAsNotWordEndingRules: RegexTransliteration[] =
 
 // TODO: make this pass for the ime tests
 // Alternatively, just go ahead and make it all contextual
-const IMERules: Transliteration[] = prepareRules(chainRule<Transliteration>(
+const IMERules: Rule[] = prepareRules(chainRule<Rule>(
     IMEPrefixRules,
     IMEBeginningIRules,
     beginningSingleVowelAsWordBeginningRules,
@@ -1298,6 +1223,6 @@ export function initIME(): InputMethodEditor {
     return {
         "rules": IMERules,
         "inputEdit": (inputString: string): string => 
-            debugTransliterate(inputString, IMERules)
+            transliterate(inputString, IMERules)
     }
 }

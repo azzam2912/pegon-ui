@@ -1,7 +1,7 @@
-import { asWordEnding } from "./transliterate";
+import { asWordEnding } from "../core";
 import { prepareRules, chainRule, ruleProduct, transliterate,
-    asWordBeginning, asInverse, wordDelimitingPatterns } from "./transliterate"
-import type { PlainTransliteration, RegexTransliteration, Transliteration } from "./transliterate";
+    asWordBeginning, asInverse, wordDelimitingPatterns } from "../core"
+import type { PlainRule, RegexRule, Rule } from "../core";
 
 const enum Arabic {
     // Hijaiyah
@@ -85,12 +85,12 @@ const enum Arabic {
 
 ////////// Prefix Rule Section //////////
 
-const prefixLevel1Rules: PlainTransliteration[] = [
+const prefixLevel1Rules: PlainRule[] = [
     ['wa', Arabic.Waw + Arabic.Fatha],
     ['fa', Arabic.Fa + Arabic.Fatha],
 ];
 
-const prefixLevel2Rules: PlainTransliteration[] = [
+const prefixLevel2Rules: PlainRule[] = [
     ['li', Arabic.Lam + Arabic.Kasra],
     ['bi', Arabic.Ba + Arabic.Kasra],
     ['ka', Arabic.Kaf + Arabic.Fatha],
@@ -98,7 +98,7 @@ const prefixLevel2Rules: PlainTransliteration[] = [
 ];
 
 // Prefix Level 3 Rules
-const alifLamRules: PlainTransliteration[] = [
+const alifLamRules: PlainRule[] = [
     ['al-', Arabic.Alif + Arabic.Lam],
     ['al', Arabic.Alif + Arabic.Lam],
 ];
@@ -106,34 +106,34 @@ const alifLamRules: PlainTransliteration[] = [
 ////////// Simple Rule Section //////////
 
 // Harakat Rules
-const sukunRules: PlainTransliteration[] = [
+const sukunRules: PlainRule[] = [
     ['.', Arabic.Sukun]
 ];
 
-const fathaSoundRules: PlainTransliteration[] = [
+const fathaSoundRules: PlainRule[] = [
     ['a', Arabic.Fatha]
 ];
 
-const dammaSoundRules: PlainTransliteration[] = [
+const dammaSoundRules: PlainRule[] = [
     ['u', Arabic.Damma]
 ];
 
-const kasraSoundRules: PlainTransliteration[] = [
+const kasraSoundRules: PlainRule[] = [
     ['i', Arabic.Kasra]
 ];
 
-const oSoundRules: PlainTransliteration[] = [
+const oSoundRules: PlainRule[] = [
     ['o', Arabic.Fatha]
 ];
 
-const shortHarakatRules: PlainTransliteration[] =
+const shortHarakatRules: PlainRule[] =
     chainRule(
         fathaSoundRules,
         dammaSoundRules,
         kasraSoundRules
     );
 
-const tanwinHarakatRules: PlainTransliteration[] = [
+const tanwinHarakatRules: PlainRule[] = [
     ['an-', Arabic.Fathatan],
     ['an_', Arabic.OpenFathatan],
 
@@ -144,7 +144,7 @@ const tanwinHarakatRules: PlainTransliteration[] = [
     ['in_', Arabic.OpenKasratan],
 ];
 
-const longFathaHarakatRules: PlainTransliteration[] = [
+const longFathaHarakatRules: PlainRule[] = [
     // Fatha
     ['aA', Arabic.Fatha + Arabic.Alif],
     ['a^a', Arabic.SuperscriptAlif],
@@ -155,7 +155,7 @@ const longFathaHarakatRules: PlainTransliteration[] = [
     ['aa', Arabic.Fatha + Arabic.Alif],
 ];
 
-const longHarakatRules: PlainTransliteration[] = [
+const longHarakatRules: PlainRule[] = [
     // Fatha
     ['aA', Arabic.Fatha + Arabic.Alif],
     ['a^a', Arabic.SuperscriptAlif],
@@ -191,7 +191,7 @@ const longHarakatRules: PlainTransliteration[] = [
     ['uu', Arabic.Damma + Arabic.Waw],
 ];
 
-const digraphHarakatRules: PlainTransliteration[] = [
+const digraphHarakatRules: PlainRule[] = [
     //ai
     ['ay', Arabic.Fatha + Arabic.Ya + Arabic.Sukun],
     ['ai', Arabic.Fatha + Arabic.Ya + Arabic.Sukun],
@@ -201,12 +201,12 @@ const digraphHarakatRules: PlainTransliteration[] = [
     ['au', Arabic.Fatha + Arabic.Waw + Arabic.Sukun],
 ];
 
-const additionalHarakatRule: PlainTransliteration[] = [
+const additionalHarakatRule: PlainRule[] = [
     ['^m', Arabic.SmallHighMim],
 ];
 
 // Consonant Rules
-const connectedMonographConsonantRules: PlainTransliteration[] = [
+const connectedMonographConsonantRules: PlainRule[] = [
     ['b', Arabic.Ba],
     ['t', Arabic.Ta],
     ['j', Arabic.Jim],
@@ -223,7 +223,7 @@ const connectedMonographConsonantRules: PlainTransliteration[] = [
     ['Y', Arabic.AlefMaksura],
 ];
 
-const connectedDigraphConsonantRules: PlainTransliteration[] = [
+const connectedDigraphConsonantRules: PlainRule[] = [
     ['t_s', Arabic.Tsa],
     ['h_h', Arabic.Hah],
     ['k_h', Arabic.Kho],
@@ -235,7 +235,7 @@ const connectedDigraphConsonantRules: PlainTransliteration[] = [
     ['g_h', Arabic.Ghain],
 ];
 
-const notConnectedMonographConsonantRules: PlainTransliteration[] = [
+const notConnectedMonographConsonantRules: PlainRule[] = [
     ['A', Arabic.Alif],
     ['d', Arabic.Dal],
     ['r', Arabic.Ra],
@@ -243,16 +243,16 @@ const notConnectedMonographConsonantRules: PlainTransliteration[] = [
     ['w', Arabic.Waw],
 ];
 
-const notConnectedDigraphConsonantRules: PlainTransliteration[] =[
+const notConnectedDigraphConsonantRules: PlainRule[] =[
     ['d_z', Arabic.Dzal],
 ];
 
-const taMarbutaRules: PlainTransliteration[] = [
+const taMarbutaRules: PlainRule[] = [
     ['t-', Arabic.TaMarbuta],
     ['h-', Arabic.TaMarbuta],
 ];
 
-const oSoundConsonantRules: PlainTransliteration[] = [
+const oSoundConsonantRules: PlainRule[] = [
     ['r', Arabic.Ra],
     ['k_h', Arabic.Kho],
     ['s_h', Arabic.Shod],
@@ -263,7 +263,7 @@ const oSoundConsonantRules: PlainTransliteration[] = [
     ['q', Arabic.Qaf],
 ];
 
-const allConsonantRules: PlainTransliteration[] =
+const allConsonantRules: PlainRule[] =
     chainRule(
         connectedDigraphConsonantRules,
         notConnectedDigraphConsonantRules,
@@ -273,15 +273,15 @@ const allConsonantRules: PlainTransliteration[] =
     );
 
 
-const alifWawYaConsonantRules: PlainTransliteration[] = [
+const alifWawYaConsonantRules: PlainRule[] = [
     ['A', Arabic.Alif],
     ['w', Arabic.Waw],
     ['y', Arabic.Ya],
     ['Y', Arabic.AlefMaksura],
 ];
 
-const exceptAlifWaYaConsonantFunction = (): PlainTransliteration[] => {
-    let consonant: PlainTransliteration[] = allConsonantRules;
+const exceptAlifWaYaConsonantFunction = (): PlainRule[] => {
+    let consonant: PlainRule[] = allConsonantRules;
 
     let consonantWithoutAlifWaYa = consonant.filter(x => {
         for (let i = 0; i < alifWawYaConsonantRules.length; i++) {
@@ -293,9 +293,9 @@ const exceptAlifWaYaConsonantFunction = (): PlainTransliteration[] => {
     return consonantWithoutAlifWaYa;
 };
 
-const exceptAlifWaYaConsonantRules: PlainTransliteration[] = exceptAlifWaYaConsonantFunction();
+const exceptAlifWaYaConsonantRules: PlainRule[] = exceptAlifWaYaConsonantFunction();
 
-const qomarMonographConsonantRules: PlainTransliteration[] = [
+const qomarMonographConsonantRules: PlainRule[] = [
     ['A', Arabic.Alif],
     ['b', Arabic.Ba],
     ['j', Arabic.Jim],
@@ -310,13 +310,13 @@ const qomarMonographConsonantRules: PlainTransliteration[] = [
     ['Y', Arabic.AlefMaksura],
 ];
 
-const qomarDigraphConsonantRules: PlainTransliteration[] = [
+const qomarDigraphConsonantRules: PlainRule[] = [
     ['h_h', Arabic.Hah],
     ['k_h', Arabic.Kho],
     ['g_h', Arabic.Ghain],
 ];
 
-const syamsiMonographConsonantRules: PlainTransliteration[] = [
+const syamsiMonographConsonantRules: PlainRule[] = [
     ['t', Arabic.Ta],
     ['d', Arabic.Dal],
     ['r', Arabic.Ra],
@@ -326,7 +326,7 @@ const syamsiMonographConsonantRules: PlainTransliteration[] = [
     ['n', Arabic.Nun],
 ];
 
-const syamsiDigraphConsonantRules: PlainTransliteration[] = [
+const syamsiDigraphConsonantRules: PlainRule[] = [
     ['t_s', Arabic.Tsa],
     ['d_z', Arabic.Dzal],
     ['s_y', Arabic.Syin],
@@ -336,13 +336,13 @@ const syamsiDigraphConsonantRules: PlainTransliteration[] = [
     ['z_h', Arabic.Zha],
 ];
 
-const qomarOSoundConsonantRules: PlainTransliteration[] = [
+const qomarOSoundConsonantRules: PlainRule[] = [
     ['k_h', Arabic.Kho],
     ['g_h', Arabic.Ghain],
     ['q', Arabic.Qaf],
 ];
 
-const syamsiOSoundConsonantRules: PlainTransliteration[] = [
+const syamsiOSoundConsonantRules: PlainRule[] = [
     ['r', Arabic.Ra],
     ['s_h', Arabic.Shod],
     ['d_l', Arabic.Dhod],
@@ -352,73 +352,73 @@ const syamsiOSoundConsonantRules: PlainTransliteration[] = [
 
 ////////// Hamza Code Section //////////
 
-const hamzaAloneRules: PlainTransliteration[] = [
+const hamzaAloneRules: PlainRule[] = [
     ['`', Arabic.Hamza],
 ];
 
-const hamzaBeginningRules: PlainTransliteration[] = [
+const hamzaBeginningRules: PlainRule[] = [
     ['`a', Arabic.AlifWithHamzaAbove + Arabic.Fatha],
     ['`u', Arabic.AlifWithHamzaAbove + Arabic.Damma],
     ['`i', Arabic.AlifWithHamzaBelow + Arabic.Kasra],
 ];
 
-const hamzaAboveAlifRules: PlainTransliteration[] = [
+const hamzaAboveAlifRules: PlainRule[] = [
     ['`', Arabic.AlifWithHamzaAbove],
 ];
 
-const hamzaAboveWawRules: PlainTransliteration[] = [
+const hamzaAboveWawRules: PlainRule[] = [
     ['`w', Arabic.WawWithHamzaAbove],
     ['`', Arabic.WawWithHamzaAbove],
 ];
 
-const hamzaAboveYaRules: PlainTransliteration[] = [
+const hamzaAboveYaRules: PlainRule[] = [
     ['`y', Arabic.YaWithHamzaAbove],
     ['`', Arabic.YaWithHamzaAbove],
 ];
 
-const additionalConsonantRule: PlainTransliteration[] = [
+const additionalConsonantRule: PlainRule[] = [
     ['^A', Arabic.AlifWithMaddaAbove],
     ['\*', Arabic.AlifWasla],
 ];
 
 ////////// Util Section //////////
 
-const prefixSyllableRules: PlainTransliteration[] =
+const prefixSyllableRules: PlainRule[] =
     chainRule(
         ruleProduct(prefixLevel1Rules, prefixLevel2Rules),
         prefixLevel1Rules,
         prefixLevel2Rules
     );
 
-const addUntilPrefix2Rules = (rules: PlainTransliteration[]): PlainTransliteration[] => {
+const addUntilPrefix2Rules = (rules: PlainRule[]): PlainRule[] => {
     return chainRule(
         ruleProduct(prefixSyllableRules, rules),
         rules
     )
 };
 
-const addLetterBeforeRules = (rules: PlainTransliteration[], latin: string): PlainTransliteration[] =>
+const addLetterBeforeRules = (rules: PlainRule[], latin: string): PlainRule[] =>
     rules.map(([key, val]) => [latin.concat(key), latin.concat(val)]);
 
-const addAlif = (rules: PlainTransliteration[]): PlainTransliteration[] =>
+const addAlif = (rules: PlainRule[]): PlainRule[] =>
     rules.map(([key, val]) => [key, Arabic.Alif.concat(val)]);
 
-const addTatwil = (rules: PlainTransliteration[]): PlainTransliteration[] =>
+const addTatwil = (rules: PlainRule[]): PlainRule[] =>
     rules.map(([key, val]) => [key, Arabic.Tatwil.concat(val)]);
 
-const addSukun = (rules: PlainTransliteration[]): PlainTransliteration[] =>
+const addSukun = (rules: PlainRule[]): PlainRule[] =>
     rules.map(([key, val]) => [key, val.concat(Arabic.Sukun)]);
 
 ////////// Rule Section //////////
 
-const harakatBeginningRules: Transliteration[] =
+const harakatBeginningRules: Rule[] =
     chainRule(
         asWordBeginning(addAlif(tanwinHarakatRules)),
         asWordBeginning(addAlif(shortHarakatRules)),
         asWordBeginning(addAlif(longHarakatRules))
     );
 
-const commonHarakatRules: PlainTransliteration[] =
+const commonHarakatRules: PlainRule[] =
     chainRule(
         tanwinHarakatRules,
         digraphHarakatRules,
@@ -427,25 +427,25 @@ const commonHarakatRules: PlainTransliteration[] =
         sukunRules
     );
 
-const commonHarakatAfterAlifWawYa: Transliteration[] =
-    prepareRules(alifWawYaConsonantRules).flatMap<RegexTransliteration>(
-        ([awyKey, awyVal]) => prepareRules(commonHarakatRules).map<RegexTransliteration>(
+const commonHarakatAfterAlifWawYa: Rule[] =
+    prepareRules(alifWawYaConsonantRules).flatMap<RegexRule>(
+        ([awyKey, awyVal]) => prepareRules(commonHarakatRules).map<RegexRule>(
             ([latinKey, arabVal]) => [new RegExp(`${awyVal}(${Arabic.Shadda})?${latinKey}`), awyVal + `$1` + arabVal]
         )
     );
 
-const commonHarakatAfterSukunRules: Transliteration[] =
+const commonHarakatAfterSukunRules: Rule[] =
     prepareRules(commonHarakatRules).map(
         ([latinKey, arabVal]) => [new RegExp(`${Arabic.Sukun}${latinKey}`), arabVal]
     );
 
-const commonHarakatElseRules: Transliteration[] =
+const commonHarakatElseRules: Rule[] =
     chainRule(
         addTatwil(commonHarakatRules)
     );
 
 ///// Harakat Only End Rules
-const groupHarakatOnlyRules: Transliteration[] =
+const groupHarakatOnlyRules: Rule[] =
     chainRule(
         harakatBeginningRules,
 
@@ -454,38 +454,38 @@ const groupHarakatOnlyRules: Transliteration[] =
         commonHarakatElseRules
     );
 
-const groupAdditionalHarakatOnlyRules: Transliteration[] =
+const groupAdditionalHarakatOnlyRules: Rule[] =
     // ^m not overlap with consonant only rules
     chainRule(
         additionalHarakatRule
     );
 
 ///// Syllable with O Sound Start Rules
-const doubleOSoundSyllableRules: Transliteration[] =
+const doubleOSoundSyllableRules: Rule[] =
     prepareRules(oSoundConsonantRules).map(
         ([latinKey, arabVal]) => [new RegExp(`${latinKey}${latinKey}o`), arabVal + Arabic.Shadda + Arabic.Fatha]
     );
 
-const singleOSoundSyllableRules: Transliteration[] =
+const singleOSoundSyllableRules: Rule[] =
     prepareRules(oSoundConsonantRules).map(
         ([latinKey, arabVal]) => [new RegExp(`${latinKey}o`), arabVal + Arabic.Fatha]
     );
 
 ///// Syllable With O Sound End Rules
-const groupOSoundSyllableRules: Transliteration[] =
+const groupOSoundSyllableRules: Rule[] =
     chainRule(
         doubleOSoundSyllableRules,
         singleOSoundSyllableRules
     );
 
 // nn not overlap with tanwin (n-)
-const doubleConsonantRules: Transliteration[] =
+const doubleConsonantRules: Rule[] =
     prepareRules(exceptAlifWaYaConsonantRules).map(
         ([latinKey, arabVal]) => [new RegExp(`${latinKey}${latinKey}`), arabVal + Arabic.Shadda + Arabic.Sukun]
     );
 
 // n overlap with tanwin (n-)
-const singleConsonantWithoutNunRules: Transliteration[] =
+const singleConsonantWithoutNunRules: Rule[] =
     prepareRules(exceptAlifWaYaConsonantRules).filter(
         ([latinKey, arabVal]) => {
             if (latinKey === 'n') {
@@ -498,16 +498,16 @@ const singleConsonantWithoutNunRules: Transliteration[] =
         ([latinKey, arabVal]) => [new RegExp(`${latinKey}`), arabVal + Arabic.Sukun]
     );
 
-const nunConsonantRules: Transliteration[] = [
+const nunConsonantRules: Rule[] = [
     [new RegExp(`n(?!-|_)`), Arabic.Nun + Arabic.Sukun]
 ];
 
-const groupNunConsonantDefaultRules: Transliteration[] = [
+const groupNunConsonantDefaultRules: Rule[] = [
     ['n', Arabic.Nun + Arabic.Sukun]
 ];
 
 ///// Consonant Only End Rules
-const groupConsonantOnlyRules: Transliteration[] =
+const groupConsonantOnlyRules: Rule[] =
     chainRule(
         doubleConsonantRules,
         singleConsonantWithoutNunRules,
@@ -518,61 +518,61 @@ const groupConsonantOnlyRules: Transliteration[] =
 ///// Alif Waw Ya Start Rules
 
 // Alif not included, cannot shadda
-const doubleAlifWawYaAsConsonantRules: Transliteration[] = [
+const doubleAlifWawYaAsConsonantRules: Rule[] = [
     [new RegExp(`ww`), Arabic.Waw + Arabic.Shadda],
     [new RegExp(`yy`), Arabic.Ya + Arabic.Shadda],
     [new RegExp(`YY`), Arabic.AlefMaksura + Arabic.Shadda],
 ];
 
 // aiu^ it means, followed by harakat
-const singleAlifWawYaAsConsonantRules: Transliteration[] =
+const singleAlifWawYaAsConsonantRules: Rule[] =
     prepareRules(alifWawYaConsonantRules).map(
         ([latinKey, arabVal]) => [new RegExp(`(?<!_)${latinKey}(?=a|i|u|\\^)`), arabVal]
     );
 
 ///// Alif Waw Ya End Rules
-const groupAlifWawYaAsConsonantRules: Transliteration[] =
+const groupAlifWawYaAsConsonantRules: Rule[] =
     chainRule(
         doubleAlifWawYaAsConsonantRules,
         singleAlifWawYaAsConsonantRules
     );
 
-const groupAlifWawYaOnlyRules: PlainTransliteration[] =
+const groupAlifWawYaOnlyRules: PlainRule[] =
     chainRule(
         alifWawYaConsonantRules
     );
 
 ///// Connected Syllable Start Rules
-const connectedFathaSyllableRules: PlainTransliteration[] =
+const connectedFathaSyllableRules: PlainRule[] =
     chainRule(
         ruleProduct(connectedDigraphConsonantRules, fathaSoundRules),
         ruleProduct(connectedMonographConsonantRules, fathaSoundRules)
     )
 
-const connectedDammaSyllableRules: PlainTransliteration[] =
+const connectedDammaSyllableRules: PlainRule[] =
     chainRule(
         ruleProduct(connectedDigraphConsonantRules, dammaSoundRules),
         ruleProduct(connectedMonographConsonantRules, dammaSoundRules)
     );
 
-const connectedKasraSylableRules: PlainTransliteration[] =
+const connectedKasraSylableRules: PlainRule[] =
     chainRule(
         ruleProduct(connectedDigraphConsonantRules, kasraSoundRules),
         ruleProduct(connectedMonographConsonantRules, kasraSoundRules)
     );
 
 ///// Hamza Syllable Start Rules
-const hamzaAloneOnlyRules: PlainTransliteration[] =
+const hamzaAloneOnlyRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAloneRules)
     );
 
-const hamzaAloneLongFathaHarakatSyllableRules: PlainTransliteration[] =
+const hamzaAloneLongFathaHarakatSyllableRules: PlainRule[] =
     chainRule(
         ruleProduct(hamzaAloneRules, longFathaHarakatRules)
     );
 
-const hamzaBeginningSyllableRules: Transliteration[] =
+const hamzaBeginningSyllableRules: Rule[] =
     chainRule(
         // Special for hamza long fatha harakat, using alone than hamzaAbove
         asWordBeginning(
@@ -584,51 +584,51 @@ const hamzaBeginningSyllableRules: Transliteration[] =
         )
     );
 
-const hamzaAfterAlifWawYaOnlyRules: PlainTransliteration[] =
+const hamzaAfterAlifWawYaOnlyRules: PlainRule[] =
     chainRule(
         addLetterBeforeRules(hamzaAloneOnlyRules, 'A'),
         addLetterBeforeRules(hamzaAloneOnlyRules, 'w'),
         addLetterBeforeRules(hamzaAloneOnlyRules, 'y'),
     );
 
-const hamzaAboveAlifOnlyRules: PlainTransliteration[] =
+const hamzaAboveAlifOnlyRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAboveAlifRules)
     );
 
-const hamzaAboveWawOnlyRules: PlainTransliteration[] =
+const hamzaAboveWawOnlyRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAboveWawRules)
     );
 
-const hamzaAboveYaOnlyRules: PlainTransliteration[] =
+const hamzaAboveYaOnlyRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAboveYaRules)
     );
 
-const hamzaAfterConnectedConstantWithFathaOnlyRules: PlainTransliteration[] =
+const hamzaAfterConnectedConstantWithFathaOnlyRules: PlainRule[] =
     chainRule(
         ruleProduct(connectedFathaSyllableRules, hamzaAboveAlifOnlyRules)
     );
 
-const hamzaAfterConnectedConstantWithDammaOnlyRules: PlainTransliteration[] =
+const hamzaAfterConnectedConstantWithDammaOnlyRules: PlainRule[] =
     chainRule(
         ruleProduct(connectedDammaSyllableRules, hamzaAboveWawOnlyRules)
     );
 
-const hamzaAfterConnectedConstantWithKasraOnlyRules: PlainTransliteration[] =
+const hamzaAfterConnectedConstantWithKasraOnlyRules: PlainRule[] =
     chainRule(
         ruleProduct(connectedKasraSylableRules, hamzaAboveYaOnlyRules)
     );
 
-const hamzaAfterNotConnectedConstantOnlyRules: PlainTransliteration[] =
+const hamzaAfterNotConnectedConstantOnlyRules: PlainRule[] =
     chainRule(
         ruleProduct(notConnectedDigraphConsonantRules, hamzaAloneOnlyRules),
         ruleProduct(notConnectedMonographConsonantRules, hamzaAloneOnlyRules)
     );
 
 ///// Hamza Syllable End Rule
-const groupHamzaRules: Transliteration[] =
+const groupHamzaRules: Rule[] =
     chainRule(
         hamzaBeginningSyllableRules,
         hamzaAfterAlifWawYaOnlyRules,
@@ -643,228 +643,228 @@ const groupHamzaRules: Transliteration[] =
 
 ///// Alif Lam Start Rule
 // Combination [Alif lam, Alif Wasla lam][Qomar, Hamza, Syamsi][Digraph Monograph OSound][With/out Prefix]
-const alifLamLamWithPrefixRules: Transliteration[] =
+const alifLamLamWithPrefixRules: Rule[] =
     prefixSyllableRules.map(
         ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?l(?:l)?`),
             `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + Arabic.Lam + Arabic.Shadda + Arabic.Sukun]
     );
 
-const alifWaslaLamLamWithPrefixRules: Transliteration[] =
+const alifWaslaLamLamWithPrefixRules: Rule[] =
     prefixSyllableRules.map(
         ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?l(?:l)?`),
             `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + Arabic.Lam + Arabic.Shadda + Arabic.Sukun]
     );
 
-const alifLamLamWithoutPrefixRules: Transliteration[] = [
+const alifLamLamWithoutPrefixRules: Rule[] = [
     [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?l(?:l)?`),
         `$1` + Arabic.Alif + Arabic.Lam + Arabic.Lam + Arabic.Shadda + Arabic.Sukun]
 ];
 
-const alifWaslaLamLamWithoutPrefixRules: Transliteration[] = [
+const alifWaslaLamLamWithoutPrefixRules: Rule[] = [
     [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?l(?:l)?`),
         `$1` + Arabic.AlifWasla + Arabic.Lam + Arabic.Lam + Arabic.Shadda + Arabic.Sukun]
 ];
 
 // Qomar
-const alifLamQomarDigraphWithPrefixRules: Transliteration[] =
-    qomarDigraphConsonantRules.flatMap<RegexTransliteration>(
-        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamQomarDigraphWithPrefixRules: Rule[] =
+    qomarDigraphConsonantRules.flatMap<RegexRule>(
+        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinQomar}`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + Arabic.Sukun + latinQomar]
         )
     );
 
-const alifWaslaLamQomarDigraphWithPrefixRules: Transliteration[] =
-    qomarDigraphConsonantRules.flatMap<RegexTransliteration>(
-        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamQomarDigraphWithPrefixRules: Rule[] =
+    qomarDigraphConsonantRules.flatMap<RegexRule>(
+        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinQomar}`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + latinQomar]
         )
     );
 
-const alifLamQomarMonographWithPrefixRules: Transliteration[] =
-    qomarMonographConsonantRules.flatMap<RegexTransliteration>(
-        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamQomarMonographWithPrefixRules: Rule[] =
+    qomarMonographConsonantRules.flatMap<RegexRule>(
+        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinQomar}`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + Arabic.Sukun + latinQomar]
         )
     );
 
-const alifWaslaLamQomarMonographWithPrefixRules: Transliteration[] =
-    qomarMonographConsonantRules.flatMap<RegexTransliteration>(
-        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamQomarMonographWithPrefixRules: Rule[] =
+    qomarMonographConsonantRules.flatMap<RegexRule>(
+        ([latinQomar, arabQomar]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinQomar}`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + latinQomar]
         )
     );
 
-const alifLamQomarDigraphWithoutPrefixRules: Transliteration[] =
+const alifLamQomarDigraphWithoutPrefixRules: Rule[] =
     qomarDigraphConsonantRules.map(
         ([latinQomar, arabQomar]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinQomar}`),
             `$1` + Arabic.Alif + Arabic.Lam + Arabic.Sukun + latinQomar]
     );
 
-const alifWaslaLamQomarDigraphWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamQomarDigraphWithoutPrefixRules: Rule[] =
     qomarDigraphConsonantRules.map(
         ([latinQomar, arabQomar]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinQomar}`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + latinQomar]
     );
 
-const alifLamQomarMonographWithoutPrefixRules: Transliteration[] =
+const alifLamQomarMonographWithoutPrefixRules: Rule[] =
     qomarMonographConsonantRules.map(
         ([latinQomar, arabQomar]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinQomar}`),
             `$1` + Arabic.Alif + Arabic.Lam + Arabic.Sukun + latinQomar]
     );
 
-const alifWaslaLamQomarMonographWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamQomarMonographWithoutPrefixRules: Rule[] =
     qomarMonographConsonantRules.map(
         ([latinQomar, arabQomar]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinQomar}`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + latinQomar]
     );
 
-const alifLamQomarHamzaWithPrefixRules: Transliteration[] =
-    hamzaAboveAlifOnlyRules.flatMap<RegexTransliteration>(
-        ([latinHamza, arabHamza]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamQomarHamzaWithPrefixRules: Rule[] =
+    hamzaAboveAlifOnlyRules.flatMap<RegexRule>(
+        ([latinHamza, arabHamza]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinHamza}`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + Arabic.Sukun + arabHamza + Arabic.Sukun]
         )
     );
 
-const alifWaslaLamQomarHamzaWithPrefixRules: Transliteration[] =
-    hamzaAboveAlifOnlyRules.flatMap<RegexTransliteration>(
-        ([latinHamza, arabHamza]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamQomarHamzaWithPrefixRules: Rule[] =
+    hamzaAboveAlifOnlyRules.flatMap<RegexRule>(
+        ([latinHamza, arabHamza]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinHamza}`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + arabHamza + Arabic.Sukun]
         )
     );
 
-const alifLamQomarHamzaWithoutPrefixRules: Transliteration[] =
+const alifLamQomarHamzaWithoutPrefixRules: Rule[] =
     hamzaAboveAlifOnlyRules.map(
         ([latinHamza, arabHamza]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinHamza}`),
             `$1` + Arabic.Alif + Arabic.Lam + Arabic.Sukun + arabHamza + Arabic.Sukun]
     );
 
-const alifWaslaLamQomarHamzaWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamQomarHamzaWithoutPrefixRules: Rule[] =
     hamzaAboveAlifOnlyRules.map(
         ([latinHamza, arabHamza]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinHamza}`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + arabHamza + Arabic.Sukun]
     );
 
-const alifLamQomarOSoundWithPrefixRules: Transliteration[] =
-    qomarOSoundConsonantRules.flatMap<RegexTransliteration>(
-        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamQomarOSoundWithPrefixRules: Rule[] =
+    qomarOSoundConsonantRules.flatMap<RegexRule>(
+        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinOSound}o`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + Arabic.Sukun + arabOSound + Arabic.Fatha]
         )
     );
 
-const alifWaslaLamQomarOSoundWithPrefixRules: Transliteration[] =
-    qomarOSoundConsonantRules.flatMap<RegexTransliteration>(
-        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamQomarOSoundWithPrefixRules: Rule[] =
+    qomarOSoundConsonantRules.flatMap<RegexRule>(
+        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinOSound}o`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + arabOSound + Arabic.Fatha]
         )
     );
 
-const alifLamQomarOSoundWithoutPrefixRules: Transliteration[] =
+const alifLamQomarOSoundWithoutPrefixRules: Rule[] =
     qomarOSoundConsonantRules.map(
         ([latinOSound, arabOSound]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinOSound}o`),
             `$1` + Arabic.Alif + Arabic.Lam + Arabic.Sukun + arabOSound + Arabic.Fatha]
     );
 
-const alifWaslaLamQomarOSoundWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamQomarOSoundWithoutPrefixRules: Rule[] =
     qomarOSoundConsonantRules.map(
         ([latinOSound, arabOSound]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinOSound}o`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + Arabic.Sukun + arabOSound + Arabic.Fatha]
     );
 
 // Syamsi
-const alifLamSyamsiDigraphWithPrefixRules: Transliteration[] =
-    syamsiDigraphConsonantRules.flatMap<RegexTransliteration>(
-        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamSyamsiDigraphWithPrefixRules: Rule[] =
+    syamsiDigraphConsonantRules.flatMap<RegexRule>(
+        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
         )
     );
 
-const alifWaslaLamSyamsiDigraphWithPrefixRules: Transliteration[] =
-    syamsiDigraphConsonantRules.flatMap<RegexTransliteration>(
-        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamSyamsiDigraphWithPrefixRules: Rule[] =
+    syamsiDigraphConsonantRules.flatMap<RegexRule>(
+        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
         )
     );
 
-const alifLamSyamsiMonographWithPrefixRules: Transliteration[] =
-    syamsiMonographConsonantRules.flatMap<RegexTransliteration>(
-        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamSyamsiMonographWithPrefixRules: Rule[] =
+    syamsiMonographConsonantRules.flatMap<RegexRule>(
+        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
         )
     );
 
-const alifWaslaLamSyamsiMonographWithPrefixRules: Transliteration[] =
-    syamsiMonographConsonantRules.flatMap<RegexTransliteration>(
-        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamSyamsiMonographWithPrefixRules: Rule[] =
+    syamsiMonographConsonantRules.flatMap<RegexRule>(
+        ([latinSyamsi, arabSyamsi]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
         )
     );
 
-const alifLamSyamsiDigraphWithoutPrefixRules: Transliteration[] =
+const alifLamSyamsiDigraphWithoutPrefixRules: Rule[] =
     syamsiDigraphConsonantRules.map(
         ([latinSyamsi, arabSyamsi]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
             `$1` + Arabic.Alif + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
     );
 
-const alifWaslaLamSyamsiDigraphWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamSyamsiDigraphWithoutPrefixRules: Rule[] =
     syamsiDigraphConsonantRules.map(
         ([latinSyamsi, arabSyamsi]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
     );
 
-const alifLamSyamsiMonographWithoutPrefixRules: Transliteration[] =
+const alifLamSyamsiMonographWithoutPrefixRules: Rule[] =
     syamsiMonographConsonantRules.map(
         ([latinSyamsi, arabSyamsi]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
             `$1` + Arabic.Alif + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
     );
 
-const alifWaslaLamSyamsiMonographWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamSyamsiMonographWithoutPrefixRules: Rule[] =
     syamsiMonographConsonantRules.map(
         ([latinSyamsi, arabSyamsi]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinSyamsi}(?:${latinSyamsi})?`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + arabSyamsi + Arabic.Shadda + Arabic.Sukun]
     );
 
-const alifLamSyamsiOSoundWithPrefixRules: Transliteration[] =
-    syamsiOSoundConsonantRules.flatMap<RegexTransliteration>(
-        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifLamSyamsiOSoundWithPrefixRules: Rule[] =
+    syamsiOSoundConsonantRules.flatMap<RegexRule>(
+        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}[aA]l(?:-)?${latinOSound}(?:${latinOSound})?o`),
                 `$1` + arabPrefix + Arabic.Alif + Arabic.Lam + arabOSound + Arabic.Shadda + Arabic.Fatha]
         )
     );
 
-const alifWaslaLamSyamsiOSoundWithPrefixRules: Transliteration[] =
-    syamsiOSoundConsonantRules.flatMap<RegexTransliteration>(
-        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexTransliteration>(
+const alifWaslaLamSyamsiOSoundWithPrefixRules: Rule[] =
+    syamsiOSoundConsonantRules.flatMap<RegexRule>(
+        ([latinOSound, arabOSound]) => prefixSyllableRules.map<RegexRule>(
             ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}\\*(?:a|i|u|A|I|U)?l(?:-)?${latinOSound}(?:${latinOSound})?o`),
                 `$1` + arabPrefix + Arabic.AlifWasla + Arabic.Lam + arabOSound + Arabic.Shadda + Arabic.Fatha]
         )
     );
 
-const alifLamSyamsiOSoundWithoutPrefixRules: Transliteration[] =
+const alifLamSyamsiOSoundWithoutPrefixRules: Rule[] =
     syamsiOSoundConsonantRules.map(
         ([latinOSound, arabOSound]) => [new RegExp(`(^|[${wordDelimitingPatterns}])[aA]l(?:-)?${latinOSound}(?:${latinOSound})?o`),
             `$1` + Arabic.Alif + Arabic.Lam + arabOSound + Arabic.Shadda + Arabic.Fatha]
     );
 
-const alifWaslaLamSyamsiOSoundWithoutPrefixRules: Transliteration[] =
+const alifWaslaLamSyamsiOSoundWithoutPrefixRules: Rule[] =
     syamsiOSoundConsonantRules.map(
         ([latinOSound, arabOSound]) => [new RegExp(`(^|[${wordDelimitingPatterns}])\\*(?:a|i|u|A|I|U)?l(?:-)?${latinOSound}(?:${latinOSound})?o`),
             `$1` + Arabic.AlifWasla + Arabic.Lam + arabOSound + Arabic.Shadda + Arabic.Fatha]
     );
 
 // Alif lam must be in front of word
-const alifLamSyllableRules: Transliteration[] =
+const alifLamSyllableRules: Rule[] =
     chainRule(
         // Alif lam
             // With Prefix
@@ -914,7 +914,7 @@ const alifLamSyllableRules: Transliteration[] =
     );
 
 ///// Alif Lam End Rules
-const groupAlifLamFrontSyllableRules: Transliteration[] =
+const groupAlifLamFrontSyllableRules: Rule[] =
     chainRule(
         alifLamSyllableRules
     );
@@ -936,28 +936,28 @@ const arabicHarakatRules = [
     Arabic.OpenFathatan, Arabic.OpenDhammatan, Arabic.OpenKasratan,
 ]
 
-const changeOrderShadda: RegexTransliteration[] =
+const changeOrderShadda: RegexRule[] =
     arabicHarakatRules.map(
         ([harakat]) => [new RegExp(`${harakat}${Arabic.Shadda}`), Arabic.Shadda.concat(harakat)]
     );
 
 // x(?!y) means match x if not followed by y
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Assertions
-const deleteSpaceAfterPrefixLevel1Rules: Transliteration[] =
-    prefixLevel1Rules.flatMap<RegexTransliteration>(
-        ([keyFirst, valFirst]) => prefixLevel1Rules.map<RegexTransliteration>(
+const deleteSpaceAfterPrefixLevel1Rules: Rule[] =
+    prefixLevel1Rules.flatMap<RegexRule>(
+        ([keyFirst, valFirst]) => prefixLevel1Rules.map<RegexRule>(
             ([keySecond, valSecond]) => [new RegExp(`(^|\\s)${valFirst}\\s(?!${valSecond})`), `$1` + valFirst]
         )
     );
 
-const deleteSpaceAfterPrefixLevel2Rules: Transliteration[] =
-    prefixLevel2Rules.flatMap<RegexTransliteration>(
-        ([keyFirst, valFirst]) => prefixLevel1Rules.concat(prefixLevel2Rules).map<RegexTransliteration>(
+const deleteSpaceAfterPrefixLevel2Rules: Rule[] =
+    prefixLevel2Rules.flatMap<RegexRule>(
+        ([keyFirst, valFirst]) => prefixLevel1Rules.concat(prefixLevel2Rules).map<RegexRule>(
             ([keySecond, valSecond]) => [new RegExp(`(^|\\s)${valFirst}\\s(?!${valSecond})`), `$1` + valFirst]
         )
     );
 
-const deleteSpaceAfterPrefixRules: Transliteration[] =
+const deleteSpaceAfterPrefixRules: Rule[] =
     chainRule(
         deleteSpaceAfterPrefixLevel2Rules,
         deleteSpaceAfterPrefixLevel1Rules
@@ -969,38 +969,38 @@ const deleteSpaceAfterPrefixRules: Transliteration[] =
 const mimNunWawYaLamRa = [Arabic.Mim, Arabic.Nun, Arabic.Waw, Arabic.Ya, Arabic.Lam, Arabic.Ra]
 
     // different or same word applied
-const nunMeetSixRules: Transliteration[] =
+const nunMeetSixRules: Rule[] =
     mimNunWawYaLamRa.map(
         ([letter]) => [new RegExp(`${Arabic.Nun}${Arabic.Sukun}(\\s?)${letter}([^${Arabic.Shadda}]|$)`),
             Arabic.Nun + Arabic.Sukun + `$1` + letter + Arabic.Shadda + `$2`]
     );
 
     // different or same word applied
-const nunMeetBa: Transliteration[] = [
+const nunMeetBa: Rule[] = [
     [new RegExp(`${Arabic.Nun}${Arabic.Sukun}(\\s?)${Arabic.Ba}`),
         Arabic.Nun + Arabic.Sukun + Arabic.SmallHighMim + `$1` + Arabic.Ba],
 ];
 
-const tanwinMeetSixRules: Transliteration[] =
-    tanwinHarakatRules.flatMap<RegexTransliteration>(
-        ([key, val]) => mimNunWawYaLamRa.map<RegexTransliteration>(
+const tanwinMeetSixRules: Rule[] =
+    tanwinHarakatRules.flatMap<RegexRule>(
+        ([key, val]) => mimNunWawYaLamRa.map<RegexRule>(
             ([letter]) => [new RegExp(`${val}\\s${letter}([^${Arabic.Shadda}|$])`), val + ' ' + letter + Arabic.Shadda + `$1`]
         )
     );
 
-const tanwinMeetBa: Transliteration[] =
+const tanwinMeetBa: Rule[] =
     tanwinHarakatRules.map(
         ([key, val]) => [val + ' ' + Arabic.Ba, val + Arabic.SmallHighMim + ' ' + Arabic.Ba]
     );
 
     // different or same word applied
-const mimMeetMim: Transliteration[] = [
+const mimMeetMim: Rule[] = [
     [new RegExp(`${Arabic.Mim}${Arabic.Sukun}(\\s?)${Arabic.Mim}([^${Arabic.Mim}${Arabic.Shadda}]|$)`),
         Arabic.Mim + Arabic.Sukun + `$1` + Arabic.Mim + Arabic.Shadda + `$2`],
 ];
 
 /// Nun Tanwin Mim End Rules
-const groupNunTanwinMimRules: Transliteration[] =
+const groupNunTanwinMimRules: Rule[] =
     chainRule(
         nunMeetSixRules,
         tanwinMeetSixRules,
@@ -1030,34 +1030,34 @@ const idghamMutajanisainConsonantRules = [
 // https://www.khudzilkitab.com/2019/08/idgham-mutajanisain-lengkap.html
 
 // exclude mim too, because conflict with mim meet mim rules
-const idghamMutamatsilainDifferentWordRules: Transliteration[] =
+const idghamMutamatsilainDifferentWordRules: Rule[] =
     exceptAlifWaYaConsonantRules.filter(
             ([key, val]) => val !== Arabic.Mim
         ).map(
             ([key, val]) => [new RegExp(`${val}${Arabic.Sukun}\\s${val}[${Arabic.Shadda}]?`), val + ' ' + val + Arabic.Shadda]
     );
 
-const idghamMutamatsilainSameWordRules: Transliteration[] =
+const idghamMutamatsilainSameWordRules: Rule[] =
     exceptAlifWaYaConsonantRules.filter(
             ([key, val]) => val !== Arabic.Mim
         ).map(
             ([key, val]) => [new RegExp(`${val}${Arabic.Sukun}${val}`), val + val]
     );
 
-const idghamMutaqaribainDifferentWordRules: Transliteration[] =
+const idghamMutaqaribainDifferentWordRules: Rule[] =
     idghamMutaqaribainConsonantRules.map(
         ([precedeLetter, Letter]) => [new RegExp(`${precedeLetter}${Arabic.Sukun}\\s${Letter}[${Arabic.Shadda}]?`),
             precedeLetter + ' ' + Letter + Arabic.Shadda]
     );
 
-const idghamMutaqaribainSameWordRules: Transliteration[] =
+const idghamMutaqaribainSameWordRules: Rule[] =
     idghamMutaqaribainConsonantRules.map(
         ([precedeLetter, Letter]) => [new RegExp(`${precedeLetter}${Arabic.Sukun}${Letter}`),
             precedeLetter + Letter]
     );
-const idghamMutajanisainDifferentWordRules: Transliteration[] =
-    idghamMutajanisainConsonantRules.flatMap<RegexTransliteration>(
-        (groupLetter) => groupLetter.flatMap<RegexTransliteration>(
+const idghamMutajanisainDifferentWordRules: Rule[] =
+    idghamMutajanisainConsonantRules.flatMap<RegexRule>(
+        (groupLetter) => groupLetter.flatMap<RegexRule>(
             ([letterFirst]) => groupLetter.filter(
                 ([letterSecond]) => {
                     if (letterFirst === letterSecond) {
@@ -1066,16 +1066,16 @@ const idghamMutajanisainDifferentWordRules: Transliteration[] =
                         return true;
                     }
                 }
-            ).map<RegexTransliteration>(
+            ).map<RegexRule>(
                 ([letterSecond]) => [new RegExp(`${letterFirst}${Arabic.Sukun}\\s${letterSecond}[${Arabic.Shadda}]?`),
                     letterFirst + ' ' + letterSecond + Arabic.Shadda]
             )
         )
     );
 
-const idghamMutajanisainSameWordRules: Transliteration[] =
-    idghamMutajanisainConsonantRules.flatMap<RegexTransliteration>(
-        (groupLetter) => groupLetter.flatMap<RegexTransliteration>(
+const idghamMutajanisainSameWordRules: Rule[] =
+    idghamMutajanisainConsonantRules.flatMap<RegexRule>(
+        (groupLetter) => groupLetter.flatMap<RegexRule>(
             ([letterFirst]) => groupLetter.filter(
                 ([letterSecond]) => {
                     if (letterFirst === letterSecond) {
@@ -1085,7 +1085,7 @@ const idghamMutajanisainSameWordRules: Transliteration[] =
                         return true;
                     }
                 }
-            ).map<RegexTransliteration>(
+            ).map<RegexRule>(
                 ([letterSecond]) => [new RegExp(`${letterFirst}${Arabic.Sukun}${letterSecond}`),
                     letterFirst + letterSecond]
                 
@@ -1094,14 +1094,14 @@ const idghamMutajanisainSameWordRules: Transliteration[] =
     );
 
 // Dead Consonant Followed by Similar Sound End Rules
-const groupIdghamDifferentWordRules: Transliteration[] =
+const groupIdghamDifferentWordRules: Rule[] =
     chainRule(
         idghamMutamatsilainDifferentWordRules,
         idghamMutaqaribainDifferentWordRules,
         idghamMutajanisainDifferentWordRules
     );
 
-const groupIdghamSameWordRules: Transliteration[] =
+const groupIdghamSameWordRules: Rule[] =
     chainRule(
         idghamMutamatsilainSameWordRules,
         idghamMutaqaribainSameWordRules,
@@ -1109,7 +1109,7 @@ const groupIdghamSameWordRules: Transliteration[] =
     );
 
 ///// Latin to Pegon End Rules
-const latinToArabScheme: Transliteration[] =
+const latinToArabScheme: Rule[] =
     prepareRules(chainRule(
         /// Step 1 Latin to Arabic ///
 
@@ -1150,7 +1150,7 @@ const latinToArabScheme: Transliteration[] =
 // Inverse Normal Consonant End Rules
 // 1. All dead consonant default without . even if sukun is provided
 // 2. Alif, Waw, Ya is optional about . or Sukun
-const ginverseConsonantSyllableRules: PlainTransliteration[] =
+const ginverseConsonantSyllableRules: PlainRule[] =
     chainRule(
         asInverse(addSukun(exceptAlifWaYaConsonantRules)),
         asInverse(exceptAlifWaYaConsonantRules),
@@ -1162,20 +1162,20 @@ const ginverseConsonantSyllableRules: PlainTransliteration[] =
     );
 
 // Inverse Harakat Start Rules
-const inverseShortHarakatRules: PlainTransliteration[] =
+const inverseShortHarakatRules: PlainRule[] =
     chainRule(
         asInverse(shortHarakatRules),
         asInverse(oSoundRules)
     );
 
-const inverseTanwinHarakatRules: PlainTransliteration[] =
+const inverseTanwinHarakatRules: PlainRule[] =
     chainRule(
         asInverse(tanwinHarakatRules)
     );
 
 // For long harakat, only specified the alt part,
 // on normal term, already covered by harakat short and consonant
-const inverseLongHarakatRules: Transliteration[] = [
+const inverseLongHarakatRules: Rule[] = [
     [new RegExp(`(${Arabic.Fatha})?${Arabic.SuperscriptAlif}`), 'a^a'],
     [new RegExp(`(${Arabic.Fatha})?${Arabic.SubAlef}`), 'i^i'],
     [new RegExp(`(${Arabic.Kasra})?${Arabic.SmallYa}`), 'i^Y'],
@@ -1184,22 +1184,22 @@ const inverseLongHarakatRules: Transliteration[] = [
 ];
 
 // Sukun is a must actually, but we never know what our user type
-const inverseDigraphHarakatRules: Transliteration[] = [
+const inverseDigraphHarakatRules: Rule[] = [
     [new RegExp(`${Arabic.Fatha}${Arabic.Ya}(${Arabic.Sukun})?`), 'ay'],
     [new RegExp(`${Arabic.Fatha}${Arabic.Waw}(${Arabic.Sukun})?`), 'aw'],
 ];
 
-const ginverseAdditionalHarakatRules: PlainTransliteration[] =
+const ginverseAdditionalHarakatRules: PlainRule[] =
     chainRule(
         asInverse(additionalHarakatRule)
     );
 
-const vanishingAlifRules: PlainTransliteration[] = [
+const vanishingAlifRules: PlainRule[] = [
     [Arabic.Alif, ''],
 ];
 
-// as word beginning cannot contain RegexTransliteration, so manual add beginning
-const inverseLongHarakatBeginningRules: RegexTransliteration[] = [
+// as word beginning cannot contain RegexRule, so manual add beginning
+const inverseLongHarakatBeginningRules: RegexRule[] = [
     [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.Alif}(${Arabic.Fatha})?${Arabic.SuperscriptAlif}`), `$1` + '^a'],
     [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.Alif}(${Arabic.Fatha})?${Arabic.SubAlef}`), '^i'],
     [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.Alif}(${Arabic.Kasra})?${Arabic.SmallYa}`), `$1` + 'i^Y'],
@@ -1207,7 +1207,7 @@ const inverseLongHarakatBeginningRules: RegexTransliteration[] = [
     [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.Alif}(${Arabic.Damma})?${Arabic.SmallWaw}`), `$1` + 'u^W'],
 ];
 
-const inverseHarakatBeginningRules: Transliteration[] =
+const inverseHarakatBeginningRules: Rule[] =
     chainRule(
         inverseLongHarakatBeginningRules,
         asWordBeginning(
@@ -1215,12 +1215,12 @@ const inverseHarakatBeginningRules: Transliteration[] =
         )
     );
 
-const vanishingTatwilRules: PlainTransliteration[] = [
+const vanishingTatwilRules: PlainRule[] = [
     [Arabic.Tatwil, ''],
 ];
 
 // Inverse Harakat End Rules
-const ginverseHarakatRules: Transliteration[] =
+const ginverseHarakatRules: Rule[] =
     chainRule(
         inverseHarakatBeginningRules,
 
@@ -1233,7 +1233,7 @@ const ginverseHarakatRules: Transliteration[] =
     );
 
 // Inverse Hamza Start Rules
-const inverseHamzaRules: Transliteration[] = [
+const inverseHamzaRules: Rule[] = [
     [new RegExp(`${Arabic.Hamza}(${Arabic.Sukun})?`), '\`'],
     [new RegExp(`${Arabic.AlifWithHamzaAbove}(${Arabic.Sukun})?`), '\`'],
     [new RegExp(`${Arabic.AlifWithHamzaBelow}(${Arabic.Sukun})?`), '\`'],
@@ -1243,37 +1243,37 @@ const inverseHamzaRules: Transliteration[] = [
 
 // Common rules have . to sukun
 // it disturbing the reverse
-const inverseHamzaAboveAlifRules: PlainTransliteration[] =
+const inverseHamzaAboveAlifRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAboveAlifRules),
         hamzaAboveAlifRules
     );
 
-const inverseHamzaAboveWawRules: PlainTransliteration[] =
+const inverseHamzaAboveWawRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAboveWawRules),
         hamzaAboveWawRules
     );
 
-const inverseHamzaAboveYaRules: PlainTransliteration[] =
+const inverseHamzaAboveYaRules: PlainRule[] =
     chainRule(
         addSukun(hamzaAboveYaRules),
         hamzaAboveYaRules
     );
 
-const inverseHamzaAfterConnectedConstantWithFathaRules: PlainTransliteration[] =
+const inverseHamzaAfterConnectedConstantWithFathaRules: PlainRule[] =
     chainRule(
         asInverse(ruleProduct(connectedFathaSyllableRules, inverseHamzaAboveAlifRules)),
         asInverse(addLetterBeforeRules(inverseHamzaAboveAlifRules, Arabic.Fatha))
     )
 
-const inverseHamzaAfterConnectedConstantWithDammaRules: PlainTransliteration[] =
+const inverseHamzaAfterConnectedConstantWithDammaRules: PlainRule[] =
     chainRule(
         asInverse(ruleProduct(connectedDammaSyllableRules, inverseHamzaAboveWawRules)),
         asInverse(addLetterBeforeRules(inverseHamzaAboveWawRules, Arabic.Damma))
     );
 
-const inverseHamzaAfterConnectedConstantWithKasraRules: PlainTransliteration[] =
+const inverseHamzaAfterConnectedConstantWithKasraRules: PlainRule[] =
     chainRule(
         asInverse(ruleProduct(connectedKasraSylableRules, inverseHamzaAboveYaRules)),
         asInverse(addLetterBeforeRules(inverseHamzaAboveWawRules, Arabic.Kasra))
@@ -1283,7 +1283,7 @@ const inverseHamzaAfterConnectedConstantWithKasraRules: PlainTransliteration[] =
 // 1. For hamza after connected constant with specific harakat
 //     --> use additional letter, e.g. `A, `w, `y
 // 2. Else or if input not correct, use default e.g. ` only
-const ginverseHamzaRules: Transliteration[] =
+const ginverseHamzaRules: Rule[] =
     chainRule(
         inverseHamzaAfterConnectedConstantWithFathaRules,
         inverseHamzaAfterConnectedConstantWithDammaRules,
@@ -1292,7 +1292,7 @@ const ginverseHamzaRules: Transliteration[] =
     );
 
 // Inverse Alif Lam Start Rules
-const inverseAlifLamJalalahRules: RegexTransliteration[] = [
+const inverseAlifLamJalalahRules: RegexRule[] = [
     [new RegExp(`${Arabic.Alif}(${Arabic.Fatha})?${Arabic.Lam}${Arabic.Lam}(${Arabic.Shadda})?${Arabic.SuperscriptAlif}${Arabic.Ha}`),
         'alla^ah'],
     [new RegExp(`${Arabic.Alif}(${Arabic.Fatha})?${Arabic.Lam}${Arabic.Lam}(${Arabic.Shadda})?(${Arabic.Fatha})?${Arabic.Ha}`),
@@ -1303,81 +1303,81 @@ const inverseAlifLamJalalahRules: RegexTransliteration[] = [
         '*allah'],
 ];
 
-const inverseQomarConsonantRules: PlainTransliteration[] =
+const inverseQomarConsonantRules: PlainRule[] =
     chainRule(
         asInverse(qomarDigraphConsonantRules),
         asInverse(qomarMonographConsonantRules),
         asInverse(hamzaAboveAlifRules)
     );
 
-const inverseSyamsiConsonantRules: PlainTransliteration[] =
+const inverseSyamsiConsonantRules: PlainRule[] =
     chainRule(
         asInverse(syamsiDigraphConsonantRules),
         asInverse(syamsiMonographConsonantRules)
     );
 
-const inverseAlifLamQomarWithPrefixRules: RegexTransliteration[] =
-    inverseQomarConsonantRules.flatMap<RegexTransliteration>(
-        ([key, val]) => asInverse(prefixSyllableRules).map<RegexTransliteration>(
+const inverseAlifLamQomarWithPrefixRules: RegexRule[] =
+    inverseQomarConsonantRules.flatMap<RegexRule>(
+        ([key, val]) => asInverse(prefixSyllableRules).map<RegexRule>(
             ([arabicPrefix, latinPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${arabicPrefix}${Arabic.Alif}(?:${Arabic.Fatha})?${Arabic.Lam}(?:${Arabic.Sukun})?${key}`),
                 `$1` + latinPrefix + 'al-' + val]
         )
     );
 
-const inverseAlifWaslaLamQomarWithPrefixRules: RegexTransliteration[] =
-    inverseQomarConsonantRules.flatMap<RegexTransliteration>(
-        ([key, val]) => asInverse(prefixSyllableRules).map<RegexTransliteration>(
+const inverseAlifWaslaLamQomarWithPrefixRules: RegexRule[] =
+    inverseQomarConsonantRules.flatMap<RegexRule>(
+        ([key, val]) => asInverse(prefixSyllableRules).map<RegexRule>(
             ([arabicPrefix, latinPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${arabicPrefix}${Arabic.AlifWasla}${Arabic.Lam}(?:${Arabic.Sukun})?${key}`),
                 `$1` + latinPrefix + '*al-' + val]
         )
     );
 
-const inverseAlifLamQomarWithoutPrefixRules: RegexTransliteration[] =
+const inverseAlifLamQomarWithoutPrefixRules: RegexRule[] =
     inverseQomarConsonantRules.map(
         ([key, val]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.Alif}(?:${Arabic.Fatha})?${Arabic.Lam}(?:${Arabic.Sukun})?${key}`),
             `$1` + 'al-' + val]
     );
 
-const inverseAlifWaslaLamQomarWithoutPrefixRules: RegexTransliteration[] =
+const inverseAlifWaslaLamQomarWithoutPrefixRules: RegexRule[] =
     inverseQomarConsonantRules.map(
         ([key, val]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.AlifWasla}${Arabic.Lam}(?:${Arabic.Sukun})?${key}`),
             `$1` + '*al-' + val]
     );
 
-const inverseAlifLamSyamsiWithPrefixRules: RegexTransliteration[] =
-    inverseSyamsiConsonantRules.flatMap<RegexTransliteration>(
-        ([key, val]) => asInverse(prefixSyllableRules).map<RegexTransliteration>(
+const inverseAlifLamSyamsiWithPrefixRules: RegexRule[] =
+    inverseSyamsiConsonantRules.flatMap<RegexRule>(
+        ([key, val]) => asInverse(prefixSyllableRules).map<RegexRule>(
             ([arabicPrefix, latinPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${arabicPrefix}${Arabic.Alif}(?:${Arabic.Fatha})?${Arabic.Lam}${key}(?:${Arabic.Shadda})?`),
                 `$1` + latinPrefix + 'al-' + val + val]
         )
     );
 
-const inverseAlifWaslaLamSyamsiWithPrefixRules: RegexTransliteration[] =
-    inverseSyamsiConsonantRules.flatMap<RegexTransliteration>(
-        ([key, val]) => asInverse(prefixSyllableRules).map<RegexTransliteration>(
+const inverseAlifWaslaLamSyamsiWithPrefixRules: RegexRule[] =
+    inverseSyamsiConsonantRules.flatMap<RegexRule>(
+        ([key, val]) => asInverse(prefixSyllableRules).map<RegexRule>(
             ([arabicPrefix, latinPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${arabicPrefix}${Arabic.AlifWasla}${Arabic.Lam}${key}(?:${Arabic.Shadda})?`),
                 `$1` + latinPrefix + '*al-' + val + val]
         )
     );
 
-const inverseAlifLamSyamsiWithoutPrefixRules: RegexTransliteration[] =
+const inverseAlifLamSyamsiWithoutPrefixRules: RegexRule[] =
     inverseSyamsiConsonantRules.map(
         ([key, val]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.Alif}(?:${Arabic.Fatha})?${Arabic.Lam}${key}(?:${Arabic.Shadda})?`),
             `$1` + 'al-' + val + val]
     );
 
-const inverseAlifWaslaLamSyamsiWithoutPrefixRules: RegexTransliteration[] =
+const inverseAlifWaslaLamSyamsiWithoutPrefixRules: RegexRule[] =
     inverseSyamsiConsonantRules.map(
         ([key, val]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${Arabic.AlifWasla}${Arabic.Lam}${key}(?:${Arabic.Shadda})?`),
             `$1` + '*al-' + val + val]
     );
 
-const inverseShaddaRules: PlainTransliteration[] =
+const inverseShaddaRules: PlainRule[] =
     asInverse(allConsonantRules).map(
         ([key, val]) => [key + Arabic.Shadda, val + val]
     );
 
-const ginverseAlifLamRules: RegexTransliteration[] =
+const ginverseAlifLamRules: RegexRule[] =
     chainRule(
         inverseAlifLamJalalahRules,
         inverseAlifLamQomarWithPrefixRules,
@@ -1391,7 +1391,7 @@ const ginverseAlifLamRules: RegexTransliteration[] =
         inverseAlifWaslaLamSyamsiWithoutPrefixRules
     );
 
-const ginverseShaddaRules: PlainTransliteration[] =
+const ginverseShaddaRules: PlainRule[] =
     chainRule(
         inverseShaddaRules
     );
@@ -1400,7 +1400,7 @@ const ginverseShaddaRules: PlainTransliteration[] =
 
 ////////// Util Section //////////
 
-const changeSukunAltToSukun: PlainTransliteration[] = [
+const changeSukunAltToSukun: PlainRule[] = [
     [Arabic.SukunAlt, Arabic.Sukun],
 ];
 
@@ -1408,7 +1408,7 @@ const changeSukunAltToSukun: PlainTransliteration[] = [
 
     // different or same word applied
 // delete shadda if
-const inverseNunMeetSixRules: Transliteration[] =
+const inverseNunMeetSixRules: Rule[] =
     mimNunWawYaLamRa.map(
         ([letter]) => [new RegExp(`${Arabic.Nun}(?:${Arabic.Sukun})?(\\s)?${letter}${Arabic.Shadda}`),
             Arabic.Nun + Arabic.Sukun + `$1` + letter]
@@ -1416,34 +1416,34 @@ const inverseNunMeetSixRules: Transliteration[] =
 
     // different or same word applied
 // delete high mim if
-const inverseNunMeetBa: Transliteration[] = [
+const inverseNunMeetBa: Rule[] = [
     [new RegExp(`${Arabic.Nun}(?:${Arabic.Sukun})?${Arabic.SmallHighMim}(\\s)?${Arabic.Ba}`),
         Arabic.Nun + Arabic.Sukun + `$1` + Arabic.Ba],
 ];
 
 // delete Shadda if
-const inverseTanwinMeetSixRules: Transliteration[] =
-    tanwinHarakatRules.flatMap<RegexTransliteration>(
-        ([key, val]) => mimNunWawYaLamRa.map<RegexTransliteration>(
+const inverseTanwinMeetSixRules: Rule[] =
+    tanwinHarakatRules.flatMap<RegexRule>(
+        ([key, val]) => mimNunWawYaLamRa.map<RegexRule>(
             ([letter]) => [new RegExp(`${val}\\s${letter}${Arabic.Shadda}`), val + ' ' + letter]
         )
     );
 
 // delete high mim if
-const inverseTanwinMeetBa: Transliteration[] =
+const inverseTanwinMeetBa: Rule[] =
     tanwinHarakatRules.map(
         ([key, val]) => [val + Arabic.SmallHighMim + ' ' + Arabic.Ba, val + ' ' + Arabic.Ba]
     );
 
     // different or same word applied
 // delete shadda if
-const inverseMimMeetMim: Transliteration[] = [
+const inverseMimMeetMim: Rule[] = [
     [new RegExp(`${Arabic.Mim}(?:${Arabic.Sukun})?(\\s)?${Arabic.Mim}${Arabic.Shadda}`),
         Arabic.Mim + Arabic.Sukun + `$1` + Arabic.Mim],
 ];
 
 // Inverse Nun Tanwin Mim End Rules
-const ginverseNunTanwinMimRules: Transliteration[] =
+const ginverseNunTanwinMimRules: Rule[] =
     chainRule(
         inverseNunMeetSixRules,
         inverseTanwinMeetSixRules,
@@ -1453,7 +1453,7 @@ const ginverseNunTanwinMimRules: Transliteration[] =
     );
 
 // Inverse Dead Consonant Followed by Similar Sound Start Rule
-const inverseIdghamMutamatsilainRules: Transliteration[] =
+const inverseIdghamMutamatsilainRules: Rule[] =
     exceptAlifWaYaConsonantRules.filter(
         ([latinKey, arabicVal]) => arabicVal !== Arabic.Mim
     ).map(
@@ -1461,15 +1461,15 @@ const inverseIdghamMutamatsilainRules: Transliteration[] =
             arabicVal + `$1` + `$2` + arabicVal]
     );
 
-const inverseIdghamMutaqaribainRules: Transliteration[] =
+const inverseIdghamMutaqaribainRules: Rule[] =
     idghamMutaqaribainConsonantRules.map(
         ([precedeLetter, Letter]) => [new RegExp(`${precedeLetter}(${Arabic.Sukun})?(\\s)?${Letter}(${Arabic.Shadda})?`),
             precedeLetter + `$1` + `$2` + Letter]
     );
 
-const inverseIdghamMutajanisainRules: Transliteration[] =
-    idghamMutajanisainConsonantRules.flatMap<RegexTransliteration>(
-        (groupLetter) => groupLetter.flatMap<RegexTransliteration>(
+const inverseIdghamMutajanisainRules: Rule[] =
+    idghamMutajanisainConsonantRules.flatMap<RegexRule>(
+        (groupLetter) => groupLetter.flatMap<RegexRule>(
             ([letterFirst]) => groupLetter.filter(
                 ([letterSecond]) => {
                     if (letterFirst === letterSecond) {
@@ -1478,7 +1478,7 @@ const inverseIdghamMutajanisainRules: Transliteration[] =
                         return true;
                     }
                 }
-            ).map<RegexTransliteration>(
+            ).map<RegexRule>(
                 ([letterSecond]) => [new RegExp(`${letterFirst}(${Arabic.Sukun})?(\\s)?${letterSecond}(${Arabic.Shadda})?`),
                     letterFirst + `$1` + `$2` + letterSecond]
             )
@@ -1486,7 +1486,7 @@ const inverseIdghamMutajanisainRules: Transliteration[] =
     );
 
 // Dead Consonant Followed by Similar Sound End Rules
-const ginverseIdghamRules: Transliteration[] =
+const ginverseIdghamRules: Rule[] =
     chainRule(
         inverseIdghamMutamatsilainRules,
         inverseIdghamMutaqaribainRules,
@@ -1494,7 +1494,7 @@ const ginverseIdghamRules: Transliteration[] =
     );
 
 ///// Latin to Pegon End Rules
-const arabToLatinScheme: Transliteration[] = 
+const arabToLatinScheme: Rule[] = 
 prepareRules(chainRule(
     /// Step 2 Arabic to Latin : Special Rule ///
     changeOrderShadda,
@@ -1520,15 +1520,15 @@ prepareRules(chainRule(
 ////////// Simple Rule Section //////////
 
 // Standard Harakat Start Rules
-const standardSukunRules: PlainTransliteration[] = [
+const standardSukunRules: PlainRule[] = [
     ['.', ''],
 ];
 
-const standardOSoundRules: PlainTransliteration[] = [
+const standardOSoundRules: PlainRule[] = [
     ['o', 'a'],
 ];
 
-const standardTanwinHarakatRules: PlainTransliteration[] = [
+const standardTanwinHarakatRules: PlainRule[] = [
     ['an-', 'an'],
     ['an_', 'an'],
 
@@ -1539,7 +1539,7 @@ const standardTanwinHarakatRules: PlainTransliteration[] = [
     ['in_', 'in'],
 ];
 
-const standardLongHarakatRules: PlainTransliteration[] = [
+const standardLongHarakatRules: PlainRule[] = [
     // Fatha
     ['aA', 'ā'],
     ['a^a', 'ā'],
@@ -1564,12 +1564,12 @@ const standardLongHarakatRules: PlainTransliteration[] = [
 ];
 
 // Is y a consonant or as a part of long harakat?
-const standardLongHarakatAmbiguousRules: Transliteration[] = [
+const standardLongHarakatAmbiguousRules: Rule[] = [
     [new RegExp(`iy($|[^aiuy])`), 'ī' + `$1`],
     [new RegExp(`uw($|[^aiuw])`), 'ū' + `$1`],
 ];
 
-const standardDigraphHarakatRules: Transliteration[] = [
+const standardDigraphHarakatRules: Rule[] = [
     // ai
     [new RegExp(`ay($|[^aiuy])`), 'ai' + `$1`],
 
@@ -1578,7 +1578,7 @@ const standardDigraphHarakatRules: Transliteration[] = [
 ];
 
 // Standard Harakat and Consonant End Rules
-const gstandardHarakatRules: Transliteration[] =
+const gstandardHarakatRules: Rule[] =
     chainRule(
         standardDigraphHarakatRules,
         standardTanwinHarakatRules,
@@ -1589,7 +1589,7 @@ const gstandardHarakatRules: Transliteration[] =
     );
 
 // Standard Consonant Start Rules
-const standardConsonantRules: PlainTransliteration[] = [
+const standardConsonantRules: PlainRule[] = [
     // Connected
     ['t_s', 'ṡ'],
     ['h_h', 'ḥ'],
@@ -1609,19 +1609,19 @@ const standardConsonantRules: PlainTransliteration[] = [
     ['h-', 't'],
 ];
 
-const standardAlifWawYaConsonantRules: PlainTransliteration[] = [
+const standardAlifWawYaConsonantRules: PlainRule[] = [
     ['A', 'a'],
     ['W', 'w'],
     ['Y', 'y'],
 ]
 
 // Ta Marbuta
-const standardTaMarbutaEndingRules: PlainTransliteration[] = [
+const standardTaMarbutaEndingRules: PlainRule[] = [
     ['t-', 'h'],
     ['h-', 'h']
 ];
 
-const standardQomarMonographConsonantRules: PlainTransliteration[] = [
+const standardQomarMonographConsonantRules: PlainRule[] = [
     ['`', '`'],
     ['A', 'a'],
     ['b', 'b'],
@@ -1637,13 +1637,13 @@ const standardQomarMonographConsonantRules: PlainTransliteration[] = [
     ['Y', 'y'],
 ]
 
-const standardQomarDigraphConsonantRules: PlainTransliteration[] = [
+const standardQomarDigraphConsonantRules: PlainRule[] = [
     ['h_h', 'ḥ'],
     ['k_h', 'kh'],
     ['g_h', 'g'],
 ];
 
-const standardSyamsiMonographConsonantRules: PlainTransliteration[] = [
+const standardSyamsiMonographConsonantRules: PlainRule[] = [
     ['t', 't'],
     ['d', 'd'],
     ['r', 'r'],
@@ -1653,7 +1653,7 @@ const standardSyamsiMonographConsonantRules: PlainTransliteration[] = [
     ['n', 'n'],
 ];
 
-const standardSyamsiDigraphConsonantRules: PlainTransliteration[] = [
+const standardSyamsiDigraphConsonantRules: PlainRule[] = [
     ['t_s', 'ṡ'],
     ['d_z', 'ẑ'],
     ['s_y', 'sy'],
@@ -1663,35 +1663,35 @@ const standardSyamsiDigraphConsonantRules: PlainTransliteration[] = [
     ['z_h', 'ẓ'],
 ];
 
-const gstandardConsonantRules: Transliteration[] =
+const gstandardConsonantRules: Rule[] =
     chainRule(
         standardConsonantRules
     );
 
-const gstandardAlifWawYaConsonantRules: Transliteration[] =
+const gstandardAlifWawYaConsonantRules: Rule[] =
     chainRule(
         standardAlifWawYaConsonantRules
     );
 
-const gstandardTaMarbutaEndingRules: Transliteration[] =
+const gstandardTaMarbutaEndingRules: Rule[] =
     chainRule(
         asWordEnding(standardTaMarbutaEndingRules)
     );
 
 // Standard Hamza Start Rules
-const standardHamzaBeginningRules: PlainTransliteration[] = [
+const standardHamzaBeginningRules: PlainRule[] = [
     ['`a', 'a'],
     ['`u', 'u'],
     ['`i', 'i'],
 ];
 
-const standardHamzaAfterSpecialHarakatRules: Transliteration[] = [
+const standardHamzaAfterSpecialHarakatRules: Rule[] = [
     ['u`w', 'u`'],
     ['i`y', 'i`'],
 ];
 
 // Standard Hamza End Rules
-const gstandardHamzaRules: Transliteration[] =
+const gstandardHamzaRules: Rule[] =
     chainRule(
         asWordBeginning(standardHamzaBeginningRules),
         standardHamzaAfterSpecialHarakatRules
@@ -1700,68 +1700,68 @@ const gstandardHamzaRules: Transliteration[] =
 // Standard Alif Lam Start Rules
 
 // Alif Lam Jalalah
-const standardAlifLamJalalahWithoutPrefixBeginningRules: RegexTransliteration[] = [
+const standardAlifLamJalalahWithoutPrefixBeginningRules: RegexRule[] = [
     [new RegExp(`(^|[${wordDelimitingPatterns}])(?:\\*)?al(?:-)?l(a|\\^a|a\\^a)h(?!_h)`), `$1` + 'allah'],
 ];
 
-const standardAlifLamJalalahWithoutPrefixContinueRules: RegexTransliteration[] = [
+const standardAlifLamJalalahWithoutPrefixContinueRules: RegexRule[] = [
     [new RegExp(`([aiu])\\s(?:\\*)?all(a|\\^a|a\\^a)h(?!_h)`), `$1` + 'llah']
 ];
 
-const standardAlifLamJalalahWithPrefixRules: RegexTransliteration[] =
-    prefixSyllableRules.map<RegexTransliteration>(
+const standardAlifLamJalalahWithPrefixRules: RegexRule[] =
+    prefixSyllableRules.map<RegexRule>(
         ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}(?:\\*)?all(a|\\^a|a\\^a)h(?!_h)`),
         `$1` + 'llah']
     );
 
 // Combination [Qomar, Syamsi][Digraph, Monograph][With, Without][Beginning, Continue]
 // Qomar
-const standardAlifLamQomarDigraphWithoutPrefixBeginningRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardQomarDigraphConsonantRules.map<RegexTransliteration>(
+const standardAlifLamQomarDigraphWithoutPrefixBeginningRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardQomarDigraphConsonantRules.map<RegexRule>(
             ([latinKeyQomar, latinValQomar]) => [new RegExp(`(^|[${wordDelimitingPatterns}])(?:\\*)?${latinKeyAl}${latinKeyQomar}`),
                 `$1` + 'al-' + latinValQomar]
         )
     );
 
-const standardAlifLamQomarDigraphWithoutPrefixContinueRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardQomarDigraphConsonantRules.map<RegexTransliteration>(
+const standardAlifLamQomarDigraphWithoutPrefixContinueRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardQomarDigraphConsonantRules.map<RegexRule>(
             ([latinKeyQomar, latinValQomar]) => [new RegExp(`([aiu])\\s(?:\\*)?${latinKeyAl}${latinKeyQomar}`),
                 `$1` + 'l-' + latinValQomar]
         )
     );
 
-const standardAlifLamQomarDigraphWithPrefixRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardQomarDigraphConsonantRules.flatMap<RegexTransliteration>(
-            ([latinKeyQomar, latinValQomar]) => prefixSyllableRules.map<RegexTransliteration>(
+const standardAlifLamQomarDigraphWithPrefixRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardQomarDigraphConsonantRules.flatMap<RegexRule>(
+            ([latinKeyQomar, latinValQomar]) => prefixSyllableRules.map<RegexRule>(
                 ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}(?:\\*)?${latinKeyAl}${latinKeyQomar}`),
                 `$1` + 'l-' + latinValQomar]
             )
         )
     );
 
-const standardAlifLamQomarMonographWithoutPrefixBeginningRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardQomarMonographConsonantRules.map<RegexTransliteration>(
+const standardAlifLamQomarMonographWithoutPrefixBeginningRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardQomarMonographConsonantRules.map<RegexRule>(
             ([latinKeyQomar, latinValQomar]) => [new RegExp(`(^|[${wordDelimitingPatterns}])(?:\\*)?${latinKeyAl}${latinKeyQomar}`),
                 `$1` + 'al-' + latinValQomar]
         )
     );
 
-const standardAlifLamQomarMonographWithoutPrefixContinueRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardQomarMonographConsonantRules.map<RegexTransliteration>(
+const standardAlifLamQomarMonographWithoutPrefixContinueRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardQomarMonographConsonantRules.map<RegexRule>(
             ([latinKeyQomar, latinValQomar]) => [new RegExp(`([aiu])\\s(?:\\*)?${latinKeyAl}${latinKeyQomar}`),
                 `$1` + 'l-' + latinValQomar]
         )
     );
 
-const standardAlifLamQomarMonographWithPrefixRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardQomarMonographConsonantRules.flatMap<RegexTransliteration>(
-            ([latinKeyQomar, latinValQomar]) => prefixSyllableRules.map<RegexTransliteration>(
+const standardAlifLamQomarMonographWithPrefixRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardQomarMonographConsonantRules.flatMap<RegexRule>(
+            ([latinKeyQomar, latinValQomar]) => prefixSyllableRules.map<RegexRule>(
                 ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}(?:\\*)?${latinKeyAl}${latinKeyQomar}`),
                 `$1` + 'l-' + latinValQomar]
             )
@@ -1769,52 +1769,52 @@ const standardAlifLamQomarMonographWithPrefixRules: RegexTransliteration[] =
     );
 
 // Syamsi
-const standardAlifLamSyamsiDigraphWithoutPrefixBeginningRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardSyamsiDigraphConsonantRules.map<RegexTransliteration>(
+const standardAlifLamSyamsiDigraphWithoutPrefixBeginningRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardSyamsiDigraphConsonantRules.map<RegexRule>(
             ([latinKeySyamsi, latinValSyamsi]) => [new RegExp(`(^|[${wordDelimitingPatterns}])(?:\\*)?${latinKeyAl}${latinKeySyamsi}(?:${latinKeySyamsi})?`),
                 `$1` + 'a' + latinValSyamsi + '-' + latinValSyamsi]
         )
     );
 
-const standardAlifLamSyamsiDigraphWithoutPrefixContinueRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardSyamsiDigraphConsonantRules.map<RegexTransliteration>(
+const standardAlifLamSyamsiDigraphWithoutPrefixContinueRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardSyamsiDigraphConsonantRules.map<RegexRule>(
             ([latinKeySyamsi, latinValSyamsi]) => [new RegExp(`([aiu])\\s(?:\\*)?${latinKeyAl}${latinKeySyamsi}(?:${latinKeySyamsi})?`),
                 `$1` + latinValSyamsi + '-' + latinValSyamsi]
         )
     );
 
-const standardAlifLamSyamsiDigraphWithPrefixRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardSyamsiDigraphConsonantRules.flatMap<RegexTransliteration>(
-            ([latinKeySyamsi, latinValSyamsi]) => prefixSyllableRules.map<RegexTransliteration>(
+const standardAlifLamSyamsiDigraphWithPrefixRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardSyamsiDigraphConsonantRules.flatMap<RegexRule>(
+            ([latinKeySyamsi, latinValSyamsi]) => prefixSyllableRules.map<RegexRule>(
                 ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}(?:\\*)?${latinKeyAl}${latinKeySyamsi}(?:${latinKeySyamsi})?`),
                 `$1` + latinValSyamsi + '-' + latinValSyamsi]
             )
         )
     );
 
-const standardAlifLamSyamsiMonographWithoutPrefixBeginningRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardSyamsiMonographConsonantRules.map<RegexTransliteration>(
+const standardAlifLamSyamsiMonographWithoutPrefixBeginningRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardSyamsiMonographConsonantRules.map<RegexRule>(
             ([latinKeySyamsi, latinValSyamsi]) => [new RegExp(`(^|[${wordDelimitingPatterns}])(?:\\*)?${latinKeyAl}${latinKeySyamsi}(?:${latinKeySyamsi})?`),
                 `$1` + 'a' + latinValSyamsi + '-' + latinValSyamsi]
         )
     );
 
-const standardAlifLamSyamsiMonographWithoutPrefixContinueRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardSyamsiMonographConsonantRules.map<RegexTransliteration>(
+const standardAlifLamSyamsiMonographWithoutPrefixContinueRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardSyamsiMonographConsonantRules.map<RegexRule>(
             ([latinKeySyamsi, latinValSyamsi]) => [new RegExp(`([aiu])\\s(?:\\*)?${latinKeyAl}${latinKeySyamsi}(?:${latinKeySyamsi})?`),
                 `$1` + latinValSyamsi + '-' + latinValSyamsi]
         )
     );
 
-const standardAlifLamSyamsiMonographWithPrefixRules: RegexTransliteration[] =
-    alifLamRules.flatMap<RegexTransliteration>(
-        ([latinKeyAl, ArabicValAl]) => standardSyamsiMonographConsonantRules.flatMap<RegexTransliteration>(
-            ([latinKeySyamsi, latinValSyamsi]) => prefixSyllableRules.map<RegexTransliteration>(
+const standardAlifLamSyamsiMonographWithPrefixRules: RegexRule[] =
+    alifLamRules.flatMap<RegexRule>(
+        ([latinKeyAl, ArabicValAl]) => standardSyamsiMonographConsonantRules.flatMap<RegexRule>(
+            ([latinKeySyamsi, latinValSyamsi]) => prefixSyllableRules.map<RegexRule>(
                 ([latinPrefix, arabPrefix]) => [new RegExp(`(^|[${wordDelimitingPatterns}])${latinPrefix}(?:\\*)?${latinKeyAl}${latinKeySyamsi}(?:${latinKeySyamsi})?`),
                 `$1` + latinValSyamsi + '-' + latinValSyamsi]
             )
@@ -1822,7 +1822,7 @@ const standardAlifLamSyamsiMonographWithPrefixRules: RegexTransliteration[] =
     );
 
 // Standard Alif Lam End Rules
-const gstandardAlifLamRules: Transliteration[] =
+const gstandardAlifLamRules: Rule[] =
     prepareRules(chainRule(
         // WithoutPrefixBeginning last, because it overlap with rules before,
         standardAlifLamJalalahWithPrefixRules,
@@ -1851,7 +1851,7 @@ const gstandardAlifLamRules: Transliteration[] =
 //////////========== Arab To Pelafalan : Step 2 ==========//////////
 
 ////////// Util Section //////////
-const gstandardDeleteAlifEndingRule: RegexTransliteration[] = [
+const gstandardDeleteAlifEndingRule: RegexRule[] = [
     [new RegExp(`A($|[${wordDelimitingPatterns}])`), `$1`]
 ];
 
@@ -1860,21 +1860,21 @@ const gstandardDeleteAlifEndingRule: RegexTransliteration[] = [
 // Standard Nun Tanwin Mim Start Rules
 const standardMimNunWawYaLamRa = ['m', 'n', 'w', 'y', 'l', 'r'];
 
-const standardNMeetSixRules: RegexTransliteration[] =
+const standardNMeetSixRules: RegexRule[] =
     standardMimNunWawYaLamRa.map(
         ([letter]) => [new RegExp(`n\\s${letter}(?:${letter})?`), letter + ' ' + letter]
     );
 
-const standardNMeetBa: RegexTransliteration[] = [
+const standardNMeetBa: RegexRule[] = [
     [new RegExp(`n\\sb`), 'm' + ' ' + 'b']
 ];
 
-const standardMimMeetMim: RegexTransliteration[] = [
+const standardMimMeetMim: RegexRule[] = [
     [new RegExp(`m\\sm(?:m)?`), 'm m']
 ];
 
 // Standard Nun Tanwin Mim End Rules
-const gstandardNunTanwinMimRules: Transliteration[] =
+const gstandardNunTanwinMimRules: Rule[] =
     chainRule(
         standardNMeetSixRules,
         standardNMeetBa,
@@ -1895,19 +1895,19 @@ const standardIdghamMutajanisainConsonantRules = [
 
 // Mutamatsilain do nothing in standard latin
 
-const standardIdghamMutaqaribainDifferentWordRules: RegexTransliteration[] =
+const standardIdghamMutaqaribainDifferentWordRules: RegexRule[] =
     standardIdghamMutaqaribainConsonantRules.map(
         ([precedeLetter, letter]) => [new RegExp(`${precedeLetter}\\s${letter}`), letter + ' ' + letter]
     );
 
-const standardIdghamMutaqaribainSameWordRules: RegexTransliteration[] =
+const standardIdghamMutaqaribainSameWordRules: RegexRule[] =
     standardIdghamMutaqaribainConsonantRules.map(
         ([precedeLetter, letter]) => [new RegExp(`${precedeLetter}${letter}`), letter]
     );
 
-const standardIdghamMutajanisainDifferentWordRules: RegexTransliteration[] =
-    standardIdghamMutajanisainConsonantRules.flatMap<RegexTransliteration>(
-        (groupLetter) => groupLetter.flatMap<RegexTransliteration>(
+const standardIdghamMutajanisainDifferentWordRules: RegexRule[] =
+    standardIdghamMutajanisainConsonantRules.flatMap<RegexRule>(
+        (groupLetter) => groupLetter.flatMap<RegexRule>(
             ([letterFirst]) => groupLetter.filter(
                 ([letterSecond]) => {
                     if (letterFirst === letterSecond) {
@@ -1916,16 +1916,16 @@ const standardIdghamMutajanisainDifferentWordRules: RegexTransliteration[] =
                         return true;
                     }
                 }
-            ).map<RegexTransliteration>(
+            ).map<RegexRule>(
                 ([letterSecond]) => [new RegExp(`${letterFirst}\\s${letterSecond}`),
                     letterSecond + ' ' + letterSecond]
             )
         )
     );
 
-const standardIdghamMutajanisainSameWordRules: RegexTransliteration[] =
-    standardIdghamMutajanisainConsonantRules.flatMap<RegexTransliteration>(
-        (groupLetter) => groupLetter.flatMap<RegexTransliteration>(
+const standardIdghamMutajanisainSameWordRules: RegexRule[] =
+    standardIdghamMutajanisainConsonantRules.flatMap<RegexRule>(
+        (groupLetter) => groupLetter.flatMap<RegexRule>(
             ([letterFirst]) => groupLetter.filter(
                 ([letterSecond]) => {
                     if (letterFirst === letterSecond) {
@@ -1934,7 +1934,7 @@ const standardIdghamMutajanisainSameWordRules: RegexTransliteration[] =
                         return true;
                     }
                 }
-            ).map<RegexTransliteration>(
+            ).map<RegexRule>(
                 ([letterSecond]) => [new RegExp(`${letterFirst}${letterSecond}`),
                     letterSecond]
             )
@@ -1942,7 +1942,7 @@ const standardIdghamMutajanisainSameWordRules: RegexTransliteration[] =
     );
 
 // Standard Idgham Start Rules
-const gstandardIdghamRules: Transliteration[] =
+const gstandardIdghamRules: Rule[] =
     chainRule(
         standardIdghamMutaqaribainDifferentWordRules,
         standardIdghamMutajanisainDifferentWordRules,
@@ -1952,7 +1952,7 @@ const gstandardIdghamRules: Transliteration[] =
     );
 
 ///// Latin to Pegon End Rules
-const arabToStandardLatinScheme: Transliteration[] = 
+const arabToStandardLatinScheme: Rule[] = 
 prepareRules(chainRule(
     /// Step 1 Arabic to Latin : Normal, Hamza, and AlifLam ///
     // Harakat first, need to eliminate some additional rule like ^a

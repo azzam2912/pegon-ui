@@ -1,4 +1,4 @@
-import { stem, type StemResult } from "../stemmer/stemmer";
+import { stem, type StemResult } from "./stemmer/stemmer";
 import { transliterateLatinToPegon, transliteratePegonToLatin, transliterateLatinToPegonStemResult, transliterateReversibleLatinToStandardLatin } from "./transliterate";
 import { transliterateLatinToArab, transliterateArabToLatin, transliterateLatinArabToStandardLatin } from "./arab";
 
