@@ -13,8 +13,8 @@ const useJawiMalayTransliterator = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const j2rUrl = "https://6b02-34-87-30-209.ngrok.io/j2r";
-  const r2jUrl = "https://6b02-34-87-30-209.ngrok.io/r2j";
+  const j2rUrl = `${process.env.NEXT_PUBLIC_ML_API_HOST}/j2r`;
+  const r2jUrl = `${process.env.NEXT_PUBLIC_ML_API_HOST}/r2j`;
 
   const funcLatin = () => {
     setLoading(true);

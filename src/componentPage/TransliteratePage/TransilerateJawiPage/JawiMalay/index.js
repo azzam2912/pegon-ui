@@ -63,7 +63,7 @@ const JawiMalay = () => {
               placeholder="Transliteration"
               isJawiMalay={labels.right === "Jawi Malay"}
               isReadOnly
-              value={"Loading..."}
+              value={"Transliterating..."}
             />
           ) : (
             <TransliterateInput
