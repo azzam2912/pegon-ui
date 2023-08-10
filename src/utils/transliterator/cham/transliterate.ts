@@ -495,7 +495,12 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
           ["i", "i"],
           ["u", "u"],
           ["e", "e"],
-          ["o", "o"]]),
+          ["o", "o"],
+          ["l", "l"],
+          ["r", "r"],
+          ["y", "y"],
+          ["w", "w"]]),
+    
     ruleProduct(
         asInverse(
             chainRule<Rule>(
@@ -508,7 +513,11 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
          ["i", "i"],
          ["u", "u"],
          ["e", "e"],
-         ["o", "o"]]),
+         ["o", "o"],
+         ["l", "l"],
+         ["r", "r"],
+         ["y", "y"],
+         ["w", "w"]]),
 
     makeTransitive(
         chainRule<Rule>(
@@ -582,10 +591,6 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
     makeTransitive(
         finalMonographNasals,
         syllabicÂConsonants),
-    
-
-    // makeTransitive(        
-    //     finalMonographConsonantLetters
     
     chainRule<Rule>(digraphIndependentVowels,
                     monographIndependentVowels),
