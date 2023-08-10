@@ -5,15 +5,8 @@ import { prepareRules,
          ruleProduct,
          makeTransitive,
          transliterate,
-         debugTransliterate,
-         escape,
-         isPlain,
-         wordDelimitingPatterns,
-         asWordBeginning,
-         asWordEnding,
-         asNotWordBeginning,
-         asNotWordEnding,
-         asInverse
+         asInverse,
+         asWordEnding
        } from "../core";
 
 const enum Toba {
@@ -41,6 +34,10 @@ const MonographConsonants: PlainRule[] = [
     ["y", Batak.Ya],
     ["l", Batak.La],
 ]
+
+const BatakConsonants = chainRule(
+    DigraphConsonants,
+    MonographConsonants).map(([key, val]) => val)
 
 const IndependentVowels: PlainRule[] = [
     ["u", Batak.U],
@@ -91,20 +88,24 @@ const ClosedConsonants: PlainRule[] =
         ClosedDigraphConsonants,
         ClosedMonographConsonants)
 
-const FromLatinScheme: PlainRule[] = prepareRules(
+const FromLatinScheme: Rule[] = prepareRules(
     chainRule(Syllables,
               FinalConsonants,
               ClosedConsonants,
               IndependentVowels,
               Punctuation))
 
-const ToLatinScheme: PlainRule[] = prepareRules(
-    chainRule(
+const ToLatinScheme: Rule[] = prepareRules(
+    chainRule<Rule>(
         asInverse(IndependentVowels),
         asInverse(FinalConsonants),
+        asWordEnding([[Batak.Ha + Batak.Virama, "k"]]),
         asInverse(ClosedConsonants),
         asInverse(Syllables),
-        asInverse(Punctuation)))
+        asInverse(Punctuation),
+        [[Batak.A + Batak._i, "i"],
+         [Batak.A + Batak._u, "u"]]
+    ))
 
 const ReversibleLatinToLatinScheme: Rule[] =
     [
@@ -117,13 +118,27 @@ export const toLatin = (input: string): string => transliterate(input, ToLatinSc
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMEScheme: Rule[] = prepareRules(chainRule(
+const IMEScheme: Rule[] = prepareRules(chainRule<Rule>(
     Punctuation,
+    ruleProduct(asInverse(FinalConsonants),
+                [["a", "a"],
+                 ["i", "i"],
+                 ["u", "u"],
+                 ["e", "e"],
+                 ["o", "o"]]),
+    Syllables,
     makeTransitive(ClosedMonographConsonants,
                    ClosedDigraphConsonants,
                    Syllables),
-    [[Batak.Nga + Batak.Virama, Batak._ng]], // final consonant special
-    IndependentVowels
+    // special rules
+    [[Batak.Nga + Batak.Virama, Batak._ng], 
+     [new RegExp(`${Batak.I}(${BatakConsonants.join("|")})${Batak.Virama}`),
+      `${Batak.A}${Batak._i}$1${Batak.Virama}`],
+     [new RegExp(`${Batak.U}(${BatakConsonants.join("|")})${Batak.Virama}`),
+      `${Batak.A}${Batak._u}$1${Batak.Virama}`],
+    ],
+    IndependentVowels,
+
 ))
 
 export function initIME(): InputMethodEditor {
