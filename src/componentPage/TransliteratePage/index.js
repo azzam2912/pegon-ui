@@ -1,6 +1,8 @@
 import React from "react";
 import AppLayout from "../Page/AppLayout";
 import TransliteratePegonPage from "./TransliteratePegonPage";
+import TransliterateJawiPage from "./TransliterateJawiPage";
+import TransliterateChamPage from "./TransliterateChamPage";
 import Head from "next/head";
 import {
   HStack,
@@ -10,8 +12,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
-import TransliterateJawiPage from "./TransilerateJawiPage";
-import TransliterateChamPage from "./TransilterateCham";
 import { FaInfo } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 
