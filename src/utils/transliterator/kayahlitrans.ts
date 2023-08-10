@@ -5,11 +5,11 @@ const VowelRumKayahli: Kayahli[] = [
     ["o_e" , "\uA923"],
     ["i" , "\uA924"],
     ["o_o" , "\uA925"],
-    ["u_e" , "\uA926"],
-    ["e" , "\uA927"],
-    ["u" , "\uA928"],
-    ["e_e" , "\uA929"],
-    ["o" , "\uA92A"],
+    ["u_e" , "\uA922\uA926"],
+    ["e" , "\uA922\uA927"],
+    ["u" , "\uA922\uA928"],
+    ["e_e" , "\uA922\uA929"],
+    ["o" , "\uA922\uA92A"],
 ]
 
 const TonedRumKayahli: Kayahli[] = VowelRumKayahli.flatMap(([a, b]) => {
