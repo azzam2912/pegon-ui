@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { initIME,
-         transliterateLatinToCham as fromLatin,
-         transliterateChamToLatin as toLatin,
-         transliterateReversibleLatinToStandardLatin as toStandardLatin } from "src/utils/transliterator/cham/transliterate";
+         fromLatin,
+         toLatin,
+         toStandardLatin } from "src/utils/transliterator/cham/transliterate";
 
 
 // TODO: Replace with cham transliterator

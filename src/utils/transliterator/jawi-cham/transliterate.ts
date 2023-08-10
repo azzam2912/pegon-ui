@@ -199,13 +199,13 @@ const ReversibleLatinToLatinScheme: Rule[] =
             ["^a", "â"],
             ["H", "h"]])
 
-export const transliterateLatinToChamJawi = (input: string): string =>
+export const fromLatin = (input: string): string =>
     transliterate(input, LatinToChamJawiScheme)
 
-export const transliterateChamJawiToLatin = (input: string): string =>
+export const toLatin = (input: string): string =>
     transliterate(input, ChamJawiToLatinScheme)
 
-export const transliterateReversibleLatinToStandardLatin = (input: string): string =>
+export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
 const IMERules: Rule[] = prepareRules(chainRule<Rule>(

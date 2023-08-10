@@ -446,8 +446,8 @@ const LatinToChamScheme: Rule[] = prepareRules(chainRule<Rule>(
                     monographIndependentVowels)
 ))
 
-export const transliterateLatinToCham = (input: string): string => transliterate(input, LatinToChamScheme);
-export const transliterateChamToLatin = (input: string): string => transliterate(input, ChamToLatinScheme);
+export const fromLatin = (input: string): string => transliterate(input, LatinToChamScheme);
+export const toLatin = (input: string): string => transliterate(input, ChamToLatinScheme);
 
 const ReversibleLatinToLatinScheme: Rule[] =
     prepareRules(
@@ -472,7 +472,7 @@ const ReversibleLatinToLatinScheme: Rule[] =
             ["aa", "a"],
             ["^a", "â"]])
 
-export const transliterateReversibleLatinToStandardLatin = (input: string): string =>
+export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
 
