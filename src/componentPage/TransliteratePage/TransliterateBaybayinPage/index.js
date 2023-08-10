@@ -13,15 +13,16 @@ import { LanguageVariantSelect } from "./Fragments/LanguageVariantSelect";
 import Baybayin from "./Baybayin";
 import Hanunuo from "./Hanunuo";
 import Buhid from "./Buhid";
+import Tagbanwa from "./Tagbanwa";
 
 const TransliterateBaybayinPage = () => {
     const [languageVariant, setLanguageVariant] = React.useState("Baybayin");
 
   const languageVariantMap = {
-    Baybayin: <Baybayin/>,
-    Hanunuo: <Hanunuo/>,
-    Buhid: <Buhid/>
-
+    Baybayin: <Baybayin />,
+    Hanunuo: <Hanunuo />,
+    Buhid: <Buhid />,
+    Tagbanwa: <Tagbanwa />
   }
 
   return (

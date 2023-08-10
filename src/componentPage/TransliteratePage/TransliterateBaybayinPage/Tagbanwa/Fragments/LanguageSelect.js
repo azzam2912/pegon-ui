@@ -3,7 +3,7 @@ import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-export const LanguageVariantSelect = ({value, onChange = () => {}}) => {
+export const LanguageSelect = ({value, onChange = () => {}}) => {
   return <Menu>
     <MenuButton
       size="sm"
@@ -18,32 +18,25 @@ export const LanguageVariantSelect = ({value, onChange = () => {}}) => {
     <MenuList>
       <MenuItem
         onClick={() => {
-          onChange("Baybayin");
+          onChange("Indonesia");
         }}
       >
-      Baybayin
+        Indonesia
       </MenuItem>
       <MenuItem
         onClick={() => {
-          onChange("Buhid");
+          onChange("Jawa");
         }}
-    >
-    Buhid
-    </MenuItem>
+      >
+        Jawa
+      </MenuItem>
       <MenuItem
         onClick={() => {
-          onChange("Hanunuo");
+          onChange("Madura");
         }}
-    >
-    Hanunu'o
-    </MenuItem>
-    <MenuItem
-        onClick={() => {
-          onChange("Tagbanwa");
-        }}
-    >
-    Tagbanwa
-    </MenuItem>
+      >
+        Madura
+      </MenuItem>
     </MenuList>
-    </Menu>;
+  </Menu>;
 };
