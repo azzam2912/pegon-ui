@@ -3,7 +3,7 @@ import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-export const ScriptTypeSelect = ({value, onChange = () => {}, ...props}) => {
+export const LanguageSelect = ({value, onChange = () => {}}) => {
   return <Menu>
     <MenuButton
       size="sm"
@@ -11,7 +11,6 @@ export const ScriptTypeSelect = ({value, onChange = () => {}, ...props}) => {
       variant="outline"
       fontWeight="normal"
       gap={3}
-      {...props}
       rightIcon={<FaChevronDown />}
     >
       {value}
@@ -19,32 +18,25 @@ export const ScriptTypeSelect = ({value, onChange = () => {}, ...props}) => {
     <MenuList>
       <MenuItem
         onClick={() => {
-          onChange("Pegon");
+          onChange("Indonesia");
         }}
       >
-        Pegon
+        Indonesia
       </MenuItem>
       <MenuItem
         onClick={() => {
-          onChange("Jawi");
+          onChange("Jawa");
         }}
       >
-        Jawi
+        Jawa
       </MenuItem>
       <MenuItem
         onClick={() => {
-          onChange("Cham");
+          onChange("Madura");
         }}
       >
-        Cham
+        Madura
       </MenuItem>
-      <MenuItem
-        onClick={() => {
-          onChange("Baybayin");
-        }}
-      >
-      Baybayin
-    </MenuItem>
     </MenuList>
-    </Menu>;
+  </Menu>;
 };

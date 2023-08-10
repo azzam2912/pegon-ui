@@ -3,6 +3,7 @@ import AppLayout from "../Page/AppLayout";
 import TransliteratePegonPage from "./TransliteratePegonPage";
 import TransliterateJawiPage from "./TransliterateJawiPage";
 import TransliterateChamPage from "./TransliterateChamPage";
+import TransliterateBaybayinPage from "./TransliterateBaybayinPage";
 import Head from "next/head";
 import { HStack, IconButton, VStack, useDisclosure } from "@chakra-ui/react";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
@@ -12,12 +13,13 @@ import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 const TransliteratePage = () => {
   const [documentScript, setDocumentScript] = React.useState("Pegon");
   const componentPage = {
-    Pegon: <TransliteratePegonPage />,
-    Jawi: <TransliterateJawiPage />,
-    Cham: <TransliterateChamPage />,
+      Pegon: <TransliteratePegonPage />,
+      Jawi: <TransliterateJawiPage />,
+      Cham: <TransliterateChamPage />,
+      Baybayin: <TransliterateBaybayinPage />,
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
