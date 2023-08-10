@@ -14,26 +14,26 @@ import JawiCham from "./JawiCham";
 import JawiMalay from "./JawiMalay";
 
 const TransliterateJawiPage = () => {
-  const [languageVariant, setLanguageVariant] = React.useState("Cham");
+  const [languageVariant, setLanguageVariant] = React.useState("Malay");
 
   const languageVariantMap = {
-    Malay: <JawiMalay/>,
-    Cham: <JawiCham/>,
-  }
+    Malay: <JawiMalay />,
+    Cham: <JawiCham />,
+  };
 
   return (
     <VStack
-      p={5}
+      px={5}
       spacing={0}
       w="100%"
       h="100%"
       align={{ base: "stretch", md: "start" }}
     >
+      <LanguageVariantSelect
+        value={languageVariant}
+        onChange={setLanguageVariant}
+      />
       {languageVariantMap[languageVariant]}
-      <HStack py={3} w="100%" align="end" justify="end">
-        <LanguageVariantSelect value={languageVariant} onChange={setLanguageVariant} />
-        <Spacer />
-      </HStack>
     </VStack>
   );
 };

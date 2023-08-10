@@ -12,7 +12,7 @@ export const PegonCheatSheet = () => {
   return (
     <>
       <Heading as="h3" size="md" mb={4}>
-        Vocal Pegon
+        Pegon Vowel
       </Heading>
       <SimpleGrid mb={4} columns={3} spacing={5}>
         {cheatSheetPegonVocal.map((item, index) => {
@@ -24,7 +24,7 @@ export const PegonCheatSheet = () => {
           );
         })}
       </SimpleGrid>
-      <Heading as="h3" size="md" mb={4}>
+      {/* <Heading as="h3" size="md" mb={4}>
         Vocal Sunda Pegon
       </Heading>
       <SimpleGrid mb={4} columns={3} spacing={5}>
@@ -38,9 +38,9 @@ export const PegonCheatSheet = () => {
             );
           }
         )}
-      </SimpleGrid>
+      </SimpleGrid> */}
       <Heading as="h3" size="md" mb={4}>
-        Abjad Pegon
+        Pegon Abjad
       </Heading>
       <SimpleGrid mb={4} columns={3} spacing={5}>
         {cheatSheetPegonConsonant.map((item, index) => {

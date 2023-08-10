@@ -3,7 +3,7 @@ import { initIME } from "src/utils/transliterator/pegon/transliterate";
 import { transliterateFromView } from "src/utils/transliterator/pegon/transliterateMain";
 
 const usePegonTransliterator = () => {
-  const [stemmingType, setStemmingType] = useState("Indonesia");
+  const [stemmingType, setStemmingType] = useState("Indonesian");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");

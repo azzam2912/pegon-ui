@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import AppLayout from "../Page/AppLayout";
 import {
@@ -17,16 +18,58 @@ import {
   AlertTitle,
 } from "@chakra-ui/react";
 
+const axios = require("axios");
+
 export const OCRPage = () => {
-  const status = "idle";
+  const [status, setStatus] = useState("idle");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [file, setFile] = useState(null);
+  const [result, setResult] = useState(null);
+
+  const handleFileInputChange = async (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+
+    if (file) {
+      // Display preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const onSubmit = async () => {
+    setStatus("loading");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_ML_API_HOST}/infer`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+      setStatus("success");
+      setResult(response.data.result);
+      console.log("Upload success:", response.data);
+    } catch (error) {
+      setStatus("error");
+      console.error("Error uploading image:", error);
+    }
+  };
+
   return (
     <>
       <Head>
         <title>OCR - Aksarantara</title>
-        <meta
-          name="description"
-          content="On demand OCR for manuscripts!"
-        />
+        <meta name="description" content="On demand OCR for manuscripts!" />
         <meta property="og:title" content="OCR - Aksarantara" key="title" />
         <meta
           property="og:description"
@@ -40,10 +83,13 @@ export const OCRPage = () => {
           <Flex flex={1} direction="column" align="stretch">
             <Heading>OCR</Heading>
             <Text color="gray.400">
-              On demand OCR for manuscripts written in supported sripts! Upload your Image file and
-              we will do the rest.
+              Experience on-the-fly OCR for manuscripts in supported scripts.
             </Text>
-            <Alert
+            <Text color="gray.400">
+              Simply upload your image, and instantly see the text within it
+              transcribed and displayed.
+            </Text>
+            {/* <Alert
               mt={5}
               status="error"
               variant="subtle"
@@ -62,7 +108,7 @@ export const OCRPage = () => {
               <AlertDescription fontSize="sm" maxWidth="sm" mt={3}>
                 OCR is unavailable due to server maintenance. Please try again later.
               </AlertDescription>
-            </Alert>
+            </Alert> */}
             <Divider my={5} />
             <Flex
               position="relative"
@@ -82,14 +128,28 @@ export const OCRPage = () => {
                 borderStyle="dashed"
                 p={3}
               >
-                <Image boxSize="32px" src="/file.svg" />
-                <Text textAlign="center">Drag and drop your image file here</Text>
-                <HStack width="256px">
-                  <Divider />
-                  <Text>or</Text>
-                  <Divider />
-                </HStack>
-                <Button size="sm">Browse</Button>
+                {imagePreview ? (
+                  <Image
+                    src={imagePreview}
+                    alt="Uploaded image preview"
+                    maxWidth="300px"
+                    maxHeight="400px"
+                    boxSize="100%"
+                  />
+                ) : (
+                  <>
+                    <Image boxSize="32px" src="/file.svg" />
+                    <Text textAlign="center">
+                      Drag and drop your image file here.
+                    </Text>
+                    <HStack width="256px">
+                      <Divider />
+                      <Text>or</Text>
+                      <Divider />
+                    </HStack>
+                    <Button size="sm">Browse</Button>
+                  </>
+                )}
               </VStack>
               <Input
                 type="file"
@@ -101,6 +161,7 @@ export const OCRPage = () => {
                 opacity="0"
                 aria-hidden="true"
                 accept="image/*"
+                onChange={handleFileInputChange}
               />
             </Flex>
             <Button
@@ -110,8 +171,9 @@ export const OCRPage = () => {
                 md: 0,
               }}
               colorScheme="primary"
+              onClick={onSubmit}
             >
-              Start
+              Process
             </Button>
           </Flex>
           <Divider orientation="vertical" mx={3} />
@@ -122,6 +184,7 @@ export const OCRPage = () => {
             }}
             flex={1}
           >
+            <Heading size="md">Detected Text</Heading>
             <Flex
               bgColor="gray.900"
               borderRadius="md"
@@ -158,7 +221,7 @@ export const OCRPage = () => {
                 justify="center"
               >
                 {status == "idle" && (
-                  <Text color="gray.400">No OCR process running</Text>
+                  <Text color="gray.400">No OCR process running.</Text>
                 )}
                 {status == "loading" && (
                   <>
@@ -166,9 +229,10 @@ export const OCRPage = () => {
                     <Text mt={2} fontWeight="bold">
                       Processing OCR...
                     </Text>
-                    <Text color="gray.400">This may take a while</Text>
+                    <Text color="gray.400">This may take a while.</Text>
                   </>
                 )}
+                {status == "success" && <Text fontSize='xl'>{result}</Text>}
                 {status == "error" && (
                   <>
                     <Alert
@@ -184,18 +248,19 @@ export const OCRPage = () => {
                     >
                       <AlertIcon boxSize="40px" mr={0} />
                       <AlertTitle mt={4} mb={1} fontSize="lg">
-                        Error While Processing OCR
+                        We are sorry.
                       </AlertTitle>
                       <AlertDescription maxWidth="sm">
                         An error has occured while processing your OCR request.
-                        This may be due to invalid input, server error, or queue is full.
+                        This may be due to invalid input, server error, or queue
+                        is full.
                       </AlertDescription>
                     </Alert>
                   </>
                 )}
               </Flex>
               <Text textAlign="right" whiteSpace="pre-wrap"></Text>
-            </Flex> 
+            </Flex>
           </VStack>
         </Flex>
       </AppLayout>

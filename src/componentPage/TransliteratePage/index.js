@@ -4,8 +4,15 @@ import TransliteratePegonPage from "./TransliteratePegonPage";
 import TransliterateJawiPage from "./TransliterateJawiPage";
 import TransliterateChamPage from "./TransliterateChamPage";
 import TransliterateBaybayinPage from "./TransliterateBaybayinPage";
+import TransliterateKayahliPage from "./TransliterateKayahliPage";
 import Head from "next/head";
-import { HStack, IconButton, VStack, useDisclosure } from "@chakra-ui/react";
+import {
+  HStack,
+  IconButton,
+  Spacer,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
 import { FaInfo } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
@@ -13,10 +20,11 @@ import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 const TransliteratePage = () => {
   const [documentScript, setDocumentScript] = React.useState("Pegon");
   const componentPage = {
-      Pegon: <TransliteratePegonPage />,
-      Jawi: <TransliterateJawiPage />,
-      Cham: <TransliterateChamPage />,
-      Baybayin: <TransliterateBaybayinPage />,
+    Pegon: <TransliteratePegonPage />,
+    Jawi: <TransliterateJawiPage />,
+    Cham: <TransliterateChamPage />,
+    Baybayin: <TransliterateBaybayinPage />,
+    "Kayah Li": <TransliterateKayahliPage />,
   };
 
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,21 +51,26 @@ const TransliteratePage = () => {
       </Head>
       <AppLayout>
         <VStack pt={3} align="start">
-          <HStack p={3} w="100%" align="end" justify="end">
-          <ScriptTypeSelect
-            value={documentScript}
-            onChange={setDocumentScript}
-            ml={4}
+          <HStack px={5} w="100%">
+            <ScriptTypeSelect
+              value={documentScript}
+              onChange={setDocumentScript}
+              ml={4}
+            />
+            <Spacer />
+            <IconButton
+              colorScheme="primary"
+              size="sm"
+              icon={<FaInfo />}
+              ml={5}
+              onClick={onOpen}
+            />
+          </HStack>
+          <CheatSheetDrawer
+            isOpen={isOpen}
+            onClose={onClose}
+            documentScript={documentScript}
           />
-          <IconButton
-            colorScheme="primary"
-            size="sm"
-            icon={<FaInfo />}
-            ml={5}
-            onClick={onOpen}
-          />
-            </HStack>
-          <CheatSheetDrawer isOpen={isOpen} onClose={onClose} documentScript={documentScript}/>
           {componentPage[documentScript]}
         </VStack>
       </AppLayout>
