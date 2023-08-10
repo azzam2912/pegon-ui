@@ -133,9 +133,9 @@ const monographAConsonants: PlainRule[] = [
     ["m", Cham.Ma],
     ["y", Cham.Ya],
     ["r", Cham.Ra],
-    ["l", Cham.Na],
-    ["w", Cham.Na],
-    ["s", Cham.Na],
+    ["l", Cham.La],
+    ["w", Cham.Wa],
+    ["s", Cham.Sa],
     ["h", Cham.Ha],
 ]
 
@@ -143,12 +143,13 @@ const digraphAConsonants: PlainRule[] = [
     ["k_h", Cham.Kha],
     ["g_h", Cham.Gha],
     ["c_h", Cham.Cha],
-    ["j_h", Cham.Gha],
+    ["j_h", Cham.Jha],
     ["p_h", Cham.Pha],
-    ["t_h", Cham.Pha],
-    ["b_h", Cham.Pha],
+    ["t_h", Cham.Tha],
+    ["b_h", Cham.Bha],
     ["m_b", Cham.Mba],
     ["n_d", Cham.Nda],
+    ["n_j", Cham.Nja]
 ]
 
 const monographÂConsonants: PlainRule[] = [
@@ -215,21 +216,23 @@ const finalConsonantDiacritics: PlainRule[] = chainRule<Rule>(finalDigraphConson
                                                               finalMonographConsonantDiacritics)
 
 const medialConsonants: PlainRule[] = [
-    ["i", Cham._i_],
+    ["y", Cham._i_],
     ["r", Cham._r_],
     ["l", Cham._l_],
-    ["u", Cham._u_]
+    ["w", Cham._u_]
 ]
+
+const latinMedialConsonants: string[] = medialConsonants.map(([key, val]) => key)
 
 const syllabicÂConsonantWithMedials: PlainRule[] =
     ruleProduct(syllabicÂConsonants,
                 medialConsonants).map(([key, val]) =>
-                    [key.replace(/([uril])\^a/, /\^a$1/), val])
+                    [key.replace(new RegExp(`([${latinMedialConsonants.join("")}])\^a`), /\^a$1/), val])
 
 const syllabicÂToAConsonantWithMedials: PlainRule[] =
     ruleProduct(syllabicÂToAConsonants,
                 medialConsonants).map(([key, val]) =>
-                    [key.replace(/([uril])a/, /a$1/), val])
+                    [key.replace(new RegExp(`([${latinMedialConsonants.join("")}])a`), /a$1/), val])
 
 const monographIndependentVowels: PlainRule[] = [
     ["a", Cham.A],
@@ -286,6 +289,13 @@ const numbers : PlainRule[] = [
     ["7", Cham.Tajuh],
     ["8", Cham.Dalapan],
     ["9", Cham.Salapan]
+]
+
+const punctuations: PlainRule[] = [
+    ['...', Cham.DandaTriple],
+    ['..', Cham.DandaDouble],
+    ['.', Cham.Danda],
+    
 ]
 
 const dependentVowelsAlwaysDiacritics: Rules[] = chainRule<Rule>(
@@ -369,11 +379,13 @@ const latinVowels: string [] = chainRule<Rule>(
     [["a", ""]]
 ).map(([key, val]) => escape(key))
 
-const asIndependent = (rules: PlainRule[]): RegexRule[] =>rules.map(([key, val]) => [new RegExp(`(?<!(\\^|${openLatinConsonants.join("|")}))${escape(key)}`), val])
+const asIndependent = (rules: PlainRule[]): RegexRule[] => rules.map(([key, val]) => [new RegExp(`(?<!(\\^|${openLatinConsonants.join("|")}))${escape(key)}`), val])
 
-const asDependent = (rules: PlainRule[]): RegexRule[] =>rules.map(([key, val]) => [new RegExp(`(?<=(\\^|${openLatinConsonants.join("|")}))${escape(key)}`), val])
+const asDependent = (rules: PlainRule[]): RegexRule[] => rules.map(([key, val]) => [new RegExp(`(?<=(\\^|${openLatinConsonants.join("|")}))${escape(key)}`), val])
 
-const asDependentCham = (rules: PlainRule[]): RegexRule[] =>rules.map(([key, val]) => [new RegExp(`(?<=(${openChamConsonants.join("|")}))${escape(key)}`), val])
+const toDependentCham = ([key, val]) => [new RegExp(`(?<=(${openChamConsonants.join("|")}))${escape(key)}`), val]
+
+const asDependentCham = (rules: PlainRule[]): RegexRule[] => rules.map(toDependentCham)
 
 const LatinToChamSchemePlain: Rule[] = chainRule<Rule>(
     
@@ -411,26 +423,28 @@ const LatinToChamSchemePlain: Rule[] = chainRule<Rule>(
     ruleProduct(digraphAConsonants, [["a", ""]]),
     ruleProduct(monographAConsonants, [["a", ""]]),
 
-    numbers
+    numbers,
+    punctuations
 )
 
 const ChamToLatinScheme: Rule[] = prepareRules(chainRule<Rule>(
-    asInverse(LatinToChamSchemePlain),
-    asInverse(chainRule<Rule>(digraphIndependentVowels,
-                              monographIndependentVowels)),
-    asInverse(
+    asWordEnding(asInverse(
         chainRule<Rule>(
             finalConsonantDiacritics,
-            finalConsonantLetters))))
+            finalConsonantLetters))),
+    asInverse(LatinToChamSchemePlain),
+    asInverse(chainRule<Rule>(digraphIndependentVowels,
+                              monographIndependentVowels))
+))
 
 const LatinToChamScheme: Rule[] = prepareRules(chainRule<Rule>(
-    
-    LatinToChamSchemePlain,
-    chainRule<Rule>(digraphIndependentVowels,
-                    monographIndependentVowels),
     asWordEnding(chainRule<Rule>(
         finalConsonantDiacritics,
-        finalConsonantLetters))))
+        finalConsonantLetters)),
+    LatinToChamSchemePlain,
+    chainRule<Rule>(digraphIndependentVowels,
+                    monographIndependentVowels)
+))
 
 export const transliterateLatinToCham = (input: string): string => transliterate(input, LatinToChamScheme);
 export const transliterateChamToLatin = (input: string): string => transliterate(input, ChamToLatinScheme);
@@ -466,7 +480,34 @@ const finalConsonantChamLetters = new Set(chainRule<Rule>(
     finalConsonantDiacritics, finalConsonantLetters
 ).map(([key, val]) => val))
 
+const shortenDoubleA = ([key, val]) => [key.replace(new RegExp(`(${openChamConsonants.join("|")})(aa)`), `$1a`), val]
+
 export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
+    ruleProduct(
+        asInverse(
+            chainRule<Rule>(
+                finalDigraphConsonantDiacritics,
+                finalDigraphConsonantLetters)),
+         [["^a", "^a"],
+          ["^e", "^e"],
+          ["a", "a"],
+          ["i", "i"],
+          ["u", "u"],
+          ["e", "e"],
+          ["o", "o"]]),
+    ruleProduct(
+        asInverse(
+            chainRule<Rule>(
+                finalMonographConsonantDiacritics,
+                finalMonographConsonantLetters)),
+        [["_", "_"],
+         ["^a", "^a"],
+         ["^e", "^e"],
+         ["a", "a"],
+         ["i", "i"],
+         ["u", "u"],
+         ["e", "e"],
+         ["o", "o"]]),
 
     makeTransitive(
         chainRule<Rule>(
@@ -478,7 +519,7 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
                         dependentVowelsAlwaysDiacritics),
             ruleProduct(monographÂConsonantWithMedials,
                         dependentVowelsAlwaysDiacritics)))
-    .map(([key, val]) => [key.replace('aa', 'a'), val]),
+    .map(shortenDoubleA),
     
     makeTransitive(
         chainRule<Rule>(
@@ -494,7 +535,7 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
             ruleProduct(monographAConsonantWithMedials, [["^a", Cham.__aˆ]]),
             ruleProduct(digraphAConsonantWithMedials, [["a", ""]]),
             ruleProduct(monographAConsonantWithMedials, [["a", ""]])))
-    .map(([key, val]) => [key.replace('aa', 'a'), val]),
+        .map(shortenDoubleA),
 
     makeTransitive(
         chainRule<Rule>(
@@ -503,7 +544,7 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
                         dependentVowelsAlwaysDiacritics),
             ruleProduct(monographÂConsonants,
                         dependentVowelsAlwaysDiacritics)))
-    .map(([key, val]) => [key.replace('aa', 'a'), val]),
+        .map(shortenDoubleA),
     
     makeTransitive(
         chainRule<Rule>(
@@ -517,7 +558,7 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
                         dependentVowelsAlwaysDiacritics),
             ruleProduct(monographAConsonants,
                         dependentVowelsAlwaysDiacritics)))
-    .map(([key, val]) => [key.replace('aa', 'a'), val]),
+        .map(shortenDoubleA),
 
 
     chainRule<Rule>(
@@ -537,18 +578,18 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
             dependentLongVowels.filter(([key, val]) => key != 'aa'),
             dipthongVowels))),
 
-    chainRule<Rule>(
-        finalMonographConsonantDiacritics,
-        finalMonographConsonantLetters)
-        .map(([key, val]) => [val + "_", key + "_"]),
-
     makeTransitive(
         finalMonographNasals,
         syllabicÂConsonants),
     
+
+    // makeTransitive(        
+    //     finalMonographConsonantLetters
+    
     chainRule<Rule>(digraphIndependentVowels,
                     monographIndependentVowels),
-    numbers
+    numbers,
+    makeTransitive(punctuations)
 ))
 
 export function initIME(): InputMethodEditor {
