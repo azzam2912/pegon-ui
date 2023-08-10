@@ -15,6 +15,8 @@ import useJawiChamTransliterator from "src/hooks/useJawiChamTransliterator";
 
 const JawiCham = () => {
   const {
+    stemmingType,
+    setStemmingType,
     leftText,
     rightText,
     labels,
@@ -22,9 +24,9 @@ const JawiCham = () => {
     onSwitch,
   } = useJawiChamTransliterator();
 
-  return (
-    <>
-      <TransliterationHeader
+    return (
+        <>
+        <TransliterationHeader
         leftLabel={labels.left}
         rightLabel={labels.right}
         onSwitchClicked={onSwitch}

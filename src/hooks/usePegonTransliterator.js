@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { initIME } from "src/utils/transliterator/transliterate";
-import { transliterateFromView } from "src/utils/transliterator/transliterateMain";
+import { initIME } from "src/utils/transliterator/pegon/transliterate";
+import { transliterateFromView } from "src/utils/transliterator/pegon/transliterateMain";
 
 const usePegonTransliterator = () => {
   const [stemmingType, setStemmingType] = useState("Indonesia");

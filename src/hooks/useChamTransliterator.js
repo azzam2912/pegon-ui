@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { initIME } from "src/utils/transliterator/transliterate";
-import { transliterateFromView } from "src/utils/transliterator/transliterateMain";
+import { initIME,
+         transliterateLatinToCham as fromLatin,
+         transliterateChamToLatin as toLatin,
+         transliterateReversibleLatinToStandardLatin as toStandardLatin } from "src/utils/transliterator/cham/transliterate";
 
 
 // TODO: Replace with cham transliterator
@@ -23,27 +25,19 @@ const useChamTransliterator = () => {
   }
 
   const funcLatin = () => {
-    const transliterateResult = transliterateFromView(
-      leftText,
-      true,
-      stemmingType
-    );
-    setRightText(transliterateResult.translitrateResult);
-    setStandardLatin(transliterateResult.standardLatin);
+    const transliterateResult = fromLatin(leftText);
+    setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const funcPegon = () => {
+  const funcNonLatin = () => {
     setLeftText(inputMethodEdit(leftText));
-    const transliterateResult = transliterateFromView(
-      leftText,
-      false,
-      stemmingType
-    );
-    setRightText(transliterateResult.translitrateResult);
-    setStandardLatin(transliterateResult.standardLatin);
+    const transliterateResult = toLatin(leftText);
+    setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
+  const usedFunc = labels.left === "Latin" ? funcLatin : funcNonLatin;
 
   const onChange = (e) => {
     setLeftText(e.target.value);
