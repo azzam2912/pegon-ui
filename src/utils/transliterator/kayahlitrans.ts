@@ -13,10 +13,12 @@ const VowelRumKayahli: Kayahli[] = [
 ]
 
 const TonedRumKayahli: Kayahli[] = VowelRumKayahli.flatMap(([a, b]) => {
+    const vowel = a;
     const vowel_high = a + "_3";
     const vowel_low = a + "_1";
     const vowel_mid = a + "_2";
 
+    const uncod = b;
     const uncod_high = b + "\uA92B";
     const uncod_low = b + "\uA92C";
     const uncod_mid = b + "\uA92D";
@@ -25,6 +27,7 @@ const TonedRumKayahli: Kayahli[] = VowelRumKayahli.flatMap(([a, b]) => {
         [vowel_high, uncod_high],
         [vowel_low, uncod_low],
         [vowel_mid, uncod_mid],
+        [vowel, uncod],
     ];
 });
 
