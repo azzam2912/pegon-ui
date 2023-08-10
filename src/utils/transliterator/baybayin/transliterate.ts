@@ -90,7 +90,7 @@ const Punctuation: PlainRule[] = [
 
 const Syllables: PlainRule[] =
     ruleProduct(
-        chainRule<Rule>(
+        chainRule(
             DigraphConsonants,
             MonographConsonants),
         DependentVowels)
@@ -106,17 +106,17 @@ const ClosedDigraphConsonants: PlainRule[] =
         [["", Baybayin.Virama]])
 
 const ClosedConsonants: PlainRule[] =
-    chainRule<Rule>(
+    chainRule(
         ClosedDigraphConsonants,
         ClosedMonographConsonants)
 
 const FromLatinScheme: PlainRule[] = prepareRules(
-    chainRule<Rule>(Syllables,
+    chainRule(Syllables,
                     ClosedConsonants,
                     IndependentVowels,
                     Punctuation))
 const ToLatinScheme: PlainRule[] = prepareRules(
-    chainRule<Rule>(
+    chainRule(
         asInverse(IndependentVowels.filter(([key, val]) => !(key.includes("o"|| key.includes("e"))))),
         asInverse(ClosedConsonants),
         asInverse(Syllables.filter(([key, val]) => !(key.includes("o") || key.includes("e")))),
@@ -130,7 +130,7 @@ export const toLatin = (input: string): string => transliterate(input, ToLatinSc
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMEScheme: Rule[] = prepareRules(chainRule<Rule>(
+const IMEScheme: Rule[] = prepareRules(chainRule(
     Punctuation,
     makeTransitive(ClosedMonographConsonants,
                    ClosedDigraphConsonants,

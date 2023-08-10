@@ -15,7 +15,7 @@ import { prepareRules,
          asInverse
        } from "../core"
 
-const enum Baybayin {
+const enum Hanunuo {
     Ka = "ᜣ",
     Ga = "ᜤ",
     Nga = "ᜥ",
@@ -47,47 +47,47 @@ const enum Baybayin {
 }
 
 const DigraphConsonants: PlainRule[] = [
-    ["n_g", Baybayin.Nga],
+    ["n_g", Hanunuo.Nga],
 ]
 
 const MonographConsonants: PlainRule[] = [
-    ["k", Baybayin.Ka],
-    ["g", Baybayin.Ga],
-    ["t", Baybayin.Ta],
-    ["d", Baybayin.Da],
-    ["n", Baybayin.Na],
-    ["p", Baybayin.Pa],
-    ["b", Baybayin.Ba],
-    ["m", Baybayin.Ma],
-    ["y", Baybayin.Ya],
-    ["r", Baybayin.Ra],
-    ["l", Baybayin.La],
-    ["w", Baybayin.Wa],
-    ["s", Baybayin.Sa],
-    ["h", Baybayin.Ha],
+    ["k", Hanunuo.Ka],
+    ["g", Hanunuo.Ga],
+    ["t", Hanunuo.Ta],
+    ["d", Hanunuo.Da],
+    ["n", Hanunuo.Na],
+    ["p", Hanunuo.Pa],
+    ["b", Hanunuo.Ba],
+    ["m", Hanunuo.Ma],
+    ["y", Hanunuo.Ya],
+    ["r", Hanunuo.Ra],
+    ["l", Hanunuo.La],
+    ["w", Hanunuo.Wa],
+    ["s", Hanunuo.Sa],
+    ["h", Hanunuo.Ha],
 ]
 
 const IndependentVowels: PlainRule[] = [
-    ["u", Baybayin.U],
-    ["i", Baybayin.I],
-    ["a", Baybayin.A]
+    ["u", Hanunuo.U],
+    ["i", Hanunuo.I],
+    ["a", Hanunuo.A]
 ]
 
 const DependentVowels: PlainRule[] = [
-    ["u", Baybayin._u],
+    ["u", Hanunuo._u],
     ["o", ""],
-    ["i", Baybayin._i],
+    ["i", Hanunuo._i],
     ["a", ""]
 ]
 
 const Punctuation: PlainRule[] = [
-    [",", Baybayin.BantasanSingle],
-    [".", Baybayin.BantasanDouble]
+    [",", Hanunuo.BantasanSingle],
+    [".", Hanunuo.BantasanDouble]
 ]
 
 const Syllables: PlainRule[] =
     ruleProduct(
-        chainRule<Rule>(
+        chainRule(
             DigraphConsonants,
             MonographConsonants),
         DependentVowels)
@@ -95,28 +95,28 @@ const Syllables: PlainRule[] =
 const ClosedMonographConsonants: PlainRule[] =
     ruleProduct(
         MonographConsonants,
-        [["", Baybayin.Virama]])
+        [["", Hanunuo.Virama]])
 
 const ClosedDigraphConsonants: PlainRule[] =
     ruleProduct(
         DigraphConsonants,
-        [["", Baybayin.Virama]])
+        [["", Hanunuo.Virama]])
 
 const ClosedConsonants: PlainRule[] =
-    chainRule<Rule>(
+    chainRule(
         ClosedDigraphConsonants,
         ClosedMonographConsonants)
 
 const FromLatinScheme: PlainRule[] = prepareRules(
-    chainRule<Rule>(Syllables,
+    chainRule(Syllables,
                     ClosedConsonants,
                     IndependentVowels,
                     Punctuation))
 const ToLatinScheme: PlainRule[] = prepareRules(
-    chainRule<Rule>(
-        asInverse(IndependentVowels.filter(([key, val]) => !(key.includes("o"|| key.includes("e"))))),
+    chainRule(
+        asInverse(IndependentVowels.filter(([key, val]) => !(key.includes("o")))),
         asInverse(ClosedConsonants),
-        asInverse(Syllables.filter(([key, val]) => !(key.includes("o") || key.includes("e")))),
+        asInverse(Syllables.filter(([key, val]) => !(key.includes("o")))),
         asInverse(Punctuation)))
 
 const ReversibleLatinToLatinScheme: Rule[] =
@@ -127,7 +127,7 @@ export const toLatin = (input: string): string => transliterate(input, ToLatinSc
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMEScheme: Rule[] = prepareRules(chainRule<Rule>(
+const IMEScheme: Rule[] = prepareRules(chainRule(
     Punctuation,
     makeTransitive(ClosedMonographConsonants,
                    ClosedDigraphConsonants,

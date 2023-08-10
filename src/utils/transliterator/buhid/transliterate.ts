@@ -84,17 +84,17 @@ const Punctuation: PlainRule[] = [
 
 const Syllables: PlainRule[] =
     ruleProduct(
-        chainRule<Rule>(
+        chainRule(
             DigraphConsonants,
             MonographConsonants),
         DependentVowels)
 
 const FromLatinScheme: PlainRule[] = prepareRules(
-    chainRule<Rule>(Syllables,
+    chainRule(Syllables,
                     IndependentVowels,
                     Punctuation))
 const ToLatinScheme: PlainRule[] = prepareRules(
-    chainRule<Rule>(
+    chainRule(
         asInverse(IndependentVowels),
         asInverse(Syllables),
         asInverse(Punctuation)))
@@ -107,7 +107,7 @@ export const toLatin = (input: string): string => transliterate(input, ToLatinSc
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMERules: Rule[] = prepareRules(chainRule<Rule>(
+const IMERules: Rule[] = prepareRules(chainRule(
     Punctuation,
     Syllables,
     IndependentVowels    
