@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { transliterateLatinToKayahli, transliterateKayahliToLatin } from "src/utils/transliterator/kayahlitrans"
+import { transliterateLatinToKayahli, transliterateKayahliToLatin } from "src/utils/transliterator/kayah-li/transliterate"
 
 
 const useKayahliTransliterator = () => {
