@@ -18,9 +18,11 @@ const BaseCases : Baybayin[] = [
 ]
 
 const CompoundRumBaybayin : Baybayin[] = [
-    ["n_ga", "\u1705"],
+    ["n_g", "\u1705\u1714"],
     ["n_gi", "\u1705\u1712"],
     ["n_gu", "\u1705\u1713"],
+    ["n_ga", "\u1705"],
+
 ]
 
 const SyllabelsRumBaybayin: Baybayin[] = BaseCases.flatMap(([a, b]) => {
