@@ -3,7 +3,7 @@ type Baybayin = [string,  string]
 const BaseCases : Baybayin[] = [
     ["ka" , "\u1703"],
     ["ga" , "\u1704"],
-    ["nga" , "\u1705"],
+    ["n_ga" , "\u1705"],
     ["ta" , "\u1706"],
     ["da" , "\u1707"],
     ["na" , "\u1708"],
