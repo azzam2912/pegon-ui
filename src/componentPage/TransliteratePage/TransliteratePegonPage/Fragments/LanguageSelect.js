@@ -23,21 +23,21 @@ export const LanguageSelect = ({ value, onChange = () => {} }) => {
         <MenuList>
           <MenuItem
             onClick={() => {
-              onChange("Indonesia");
+              onChange("Indonesian");
             }}
           >
             Indonesian
           </MenuItem>
           <MenuItem
             onClick={() => {
-              onChange("Jawa");
+              onChange("Javanese");
             }}
           >
             Javanese
           </MenuItem>
           <MenuItem
             onClick={() => {
-              onChange("Madura");
+              onChange("Madurese");
             }}
           >
             Madurese

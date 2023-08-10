@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { initIME } from "src/utils/transliterator/transliterate";
-import { transliterateFromView } from "src/utils/transliterator/transliterateMain";
+import { transliterateFromView } from "src/utils/transliterator/pegon/transliterateMain";
 
 const axios = require("axios");
 

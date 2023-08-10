@@ -50,6 +50,20 @@ export const ScriptTypeSelect = ({ value, onChange = () => {}, ...props }) => {
           >
             Cham
           </MenuItem>
+          <MenuItem
+            onClick={() => {
+              onChange("Baybayin");
+            }}
+          >
+            Baybayin
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              onChange("Kayah Li");
+            }}
+          >
+            Kayah Li
+          </MenuItem>
         </MenuList>
       </Menu>
     </VStack>
