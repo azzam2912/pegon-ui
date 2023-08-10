@@ -21,13 +21,7 @@ const Baybayin = () => {
   } = useBaybayinTransliterator();
 
   return (
-    <VStack
-      p={5}
-      spacing={0}
-      w="100%"
-      h="100%"
-      align={{ base: "stretch", md: "start" }}
-    >
+    <>
       <TransliterationHeader
         leftLabel={labels.left}
         rightLabel={labels.right}
@@ -75,7 +69,7 @@ const Baybayin = () => {
           />
         </Stack>
       </Card>
-      </VStack>
+      </>
   );
 };
 export default Baybayin;

@@ -27,18 +27,17 @@ const TransliterateBaybayinPage = () => {
 
   return (
     <VStack
-      p={5}
+      px={5}
       spacing={0}
       w="100%"
       h="100%"
       align={{ base: "stretch", md: "start" }}
-    >
+      >
+      <LanguageVariantSelect
+        value={languageVariant}
+        onChange={setLanguageVariant} />
       {languageVariantMap[languageVariant]}
-      <HStack py={3} w="100%" align="end" justify="end">
-        <LanguageVariantSelect value={languageVariant} onChange={setLanguageVariant} />
-        <Spacer />
-      </HStack>
-    </VStack>
+      </VStack>
   );
 };
 export default TransliterateBaybayinPage;

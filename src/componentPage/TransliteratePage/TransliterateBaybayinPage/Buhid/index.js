@@ -21,13 +21,7 @@ const Buhid = () => {
   } = useBuhidTransliterator();
 
   return (
-    <VStack
-      p={5}
-      spacing={0}
-      w="100%"
-      h="100%"
-      align={{ base: "stretch", md: "start" }}
-    >
+    <>
       <TransliterationHeader
         leftLabel={labels.left}
         rightLabel={labels.right}
@@ -75,7 +69,7 @@ const Buhid = () => {
           />
         </Stack>
       </Card>
-      </VStack>
+      </>
   );
 };
 export default Buhid;
