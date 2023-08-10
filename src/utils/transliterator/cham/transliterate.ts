@@ -589,7 +589,7 @@ export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
     chainRule<Rule>(digraphIndependentVowels,
                     monographIndependentVowels),
     numbers,
-    makeTransitive(punctuations)
+    makeTransitive(...punctuations.reverse().map(([key, val]) => [[key, val]]))
 ))
 
 export function initIME(): InputMethodEditor {
