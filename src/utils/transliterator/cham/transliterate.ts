@@ -149,7 +149,8 @@ const digraphAConsonants: PlainRule[] = [
     ["b_h", Cham.Bha],
     ["m_b", Cham.Mba],
     ["n_d", Cham.Nda],
-    ["n_j", Cham.Nja]
+    ["n_j", Cham.Nja],
+    ["p_p", Cham.Ppa]
 ]
 
 const monographÂConsonants: PlainRule[] = [
