@@ -55,7 +55,7 @@ const NewDocumentPage = () => {
     !documentType ||
     !language ||
     !thumbnail ||
-    documentScript;
+    !documentScript;
 
   // useAddDocumentMutation({
   const { mutate: addDocument, status: addDocumentStatus } =
@@ -65,7 +65,7 @@ const NewDocumentPage = () => {
           createToast({
             title: "Success",
             description:
-              "You have successfully created an entry. please wait until it's published.",
+              "You have successfully created a document entry. It will be previewed by the admin team before it is published.",
             status: "success",
             position: "bottom-right",
             isClosable: true,
