@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { initIME,
          fromLatin,
          toLatin,
-         toStandardLatin } from "src/utils/transliterator/hanunuo/transliterate";
+         toStandardLatin } from "src/utils/transliterator/hanunoo/transliterate";
 
-const useHanunuoTransliterator = () => {
+const useHanunooTransliterator = () => {
   const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
   const [labels, setLabels] = useState({
     left: "Latin",
-    right: "Hanunu'o",
+    right: "Hanunó'o",
   });
 
-  const ime = initIME();
+    const ime = initIME();
 
   function inputMethodEdit(text) {
     const lastSpaceIndex = text.lastIndexOf(" ") + 1;
@@ -67,4 +67,4 @@ const useHanunuoTransliterator = () => {
   };
 };
 
-export default useHanunuoTransliterator;
+export default useHanunooTransliterator;

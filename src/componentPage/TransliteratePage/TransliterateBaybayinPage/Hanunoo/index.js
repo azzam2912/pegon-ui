@@ -7,9 +7,9 @@ import {
 import React from "react";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
-import useHanunuoTransliterator from "src/hooks/useHanunuoTransliterator";
+import useHanunooTransliterator from "src/hooks/useHanunooTransliterator";
 
-const Hanunuo = () => {
+const Hanunoo = () => {
   const {
     stemmingType,
     setStemmingType,
@@ -18,7 +18,7 @@ const Hanunuo = () => {
     labels,
     onChange,
     onSwitch,
-  } = useHanunuoTransliterator();
+  } = useHanunooTransliterator();
 
   return (
     <>
@@ -72,4 +72,4 @@ const Hanunuo = () => {
       </>
   );
 };
-export default Hanunuo;
+export default Hanunoo;

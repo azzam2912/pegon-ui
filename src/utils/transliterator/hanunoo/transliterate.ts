@@ -29,7 +29,7 @@ const enum Hanunuo {
     Ra = "ᜭ",
     La = "ᜮ",
     Wa = "ᜯ",
-    Sa = "ᜰ ",
+    Sa = "ᜰ",
     Ha = "ᜱ",
     
     A = "ᜠ",

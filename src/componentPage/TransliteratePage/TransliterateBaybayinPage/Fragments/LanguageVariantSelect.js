@@ -42,10 +42,10 @@ export const LanguageVariantSelect = ({value, onChange = () => {}}) => {
     </MenuItem>
       <MenuItem
         onClick={() => {
-          onChange("Hanunuo");
+          onChange("Hanunó'o");
         }}
     >
-    Hanunu'o
+    Hanunó'o
     </MenuItem>
       <MenuItem
       onClick={() => {
