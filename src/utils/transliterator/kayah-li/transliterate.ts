@@ -1,101 +1,226 @@
-type Kayahli = [string,  string]
+import type { PlainRule, RegexRule, Rule, InputMethodEditor } from "../core"
+import { prepareRules,
+         chainRule,
+         ruleProduct,
+         makeTransitive,
+         transliterate,
+         debugTransliterate,
+         escape,
+         isPlain,
+         wordDelimitingPatterns,
+         asWordBeginning,
+         asWordEnding,
+         asNotWordBeginning,
+         asNotWordEnding,
+         asInverse
+       } from "../core"
 
-const VowelRumKayahli: Kayahli[] = [
-    ["a" , "\uA922"],
-    ["o_e" , "\uA923"],
-    ["i" , "\uA924"],
-    ["o_o" , "\uA925"],
-    ["u_e" , "\uA922\uA926"],
-    ["e" , "\uA922\uA927"],
-    ["u" , "\uA922\uA928"],
-    ["e_e" , "\uA922\uA929"],
-    ["o" , "\uA922\uA92A"],
+const enum KayahLi {
+    A = "\uA922",
+    I = "\uA924",
+    E = "\uA922\uA927",
+    U = "\uA922\uA928",
+    O = "\uA922\uA92A",
+    
+    OE = "\uA923",
+    OO = "\uA925",
+    
+    UE = "\uA922\uA926",
+    EE =  "\uA922\uA929",
+
+    LowTone = "\uA92C",
+    HighTone = "\uA92B",
+    MidTone = "\uA92D",
+
+    K = "\uA90A",
+    G = "\uA90C",
+    S = "\uA90E",
+    Z = "\uA910",
+    T = "\uA912",
+    N = "\uA914",
+    P = "\uA915",
+    M = "\uA917",
+    D = "\uA918",
+    B = "\uA919",
+    R = "\uA91A",
+    Y = "\uA91B",
+    L = "\uA91C",
+    W = "\uA91D",
+    H = "\uA91F",
+    V = "\uA920",
+    C = "\uA921",
+
+    Kh = "\uA90B",
+    Ng = "\uA90D",
+    Sh = "\uA90F",
+    Ny = "\uA911",
+    Ht = "\uA913",
+    Ph = "\uA916",
+    Th = "\uA91E",
+
+    Zero = "꤀",
+ 	  One = "꤁",
+ 	  Two = "꤂",
+ 	  Three = "꤃",
+ 	  Four = "꤄",
+ 	  Five = "꤅",
+ 	  Six = "꤆",
+ 	  Seven = "꤇",
+ 	  Eight = "꤈",
+ 	  Nine = "꤉",
+}
+
+const DigraphLatinDigraphKayahLiVowels: PlainRule[] = [
+    ["u_e", KayahLi.UE],
+    ["e_e", KayahLi.EE],
 ]
 
-const TonedRumKayahli: Kayahli[] = VowelRumKayahli.flatMap(([a, b]) => {
-    const vowel = a;
-    const vowel_high = a + "_3";
-    const vowel_low = a + "_1";
-    const vowel_mid = a + "_2";
-
-    const uncod = b;
-    const uncod_high = b + "\uA92B";
-    const uncod_low = b + "\uA92C";
-    const uncod_mid = b + "\uA92D";
-
-    return [
-        [vowel_high, uncod_high],
-        [vowel_low, uncod_low],
-        [vowel_mid, uncod_mid],
-        [vowel, uncod],
-    ];
-});
-
-const SingleConsonantRumKayahli : Kayahli[] = [
-    ["k" , "\uA90A"],
-    ["k_h" , "\uA90B"],
-    ["g" , "\uA90C"],
-    ["n_g" , "\uA90D"],
-    ["s" , "\uA90E"],
-    ["s_h" , "\uA90F"],
-    ["z" , "\uA910"],
-    ["n_y" , "\uA911"],
-    ["t" , "\uA912"],
-    ["h_t" , "\uA913"],
-    ["n" , "\uA914"],
-    ["p" , "\uA915"],
-    ["p_h" , "\uA916"],
-    ["m" , "\uA917"],
-    ["d" , "\uA918"],
-    ["b" , "\uA919"],
-    ["r" , "\uA91A"],
-    ["y" , "\uA91B"],
-    ["l" , "\uA91C"],
-    ["w" , "\uA91D"],
-    ["t_h" , "\uA91E"],
-    ["h" , "\uA91F"],
-    ["v" , "\uA920"],
-    ["c" , "\uA921"],
+const DigraphLatinMonographKayahLiVowels: PlainRule[] = [
+    ["o_e", KayahLi.OE],
+    ["o_o", KayahLi.OO],
 ]
 
-const TotalRumKayahli: Kayahli[] = [...TonedRumKayahli, ...SingleConsonantRumKayahli];
+const MonographLatinMonographKayahLiVowels: PlainRule[] = [
+    ["a", KayahLi.A],
+    ["i", KayahLi.I],
+]
 
+const MonographLatinDigraphKayahLiVowels: PlainRule[] = [
+    ["e", KayahLi.E],
+    ["u", KayahLi.U],
+    ["o", KayahLi.O],
+]
 
-const TotalKayahliRum: Kayahli[] = TotalRumKayahli.map(([a, b]) => {
-    return [b, a];
-});
+const KayahLiVowels = chainRule(
+    DigraphLatinDigraphKayahLiVowels,
+    MonographLatinDigraphKayahLiVowels,
+    DigraphLatinMonographKayahLiVowels,
+    MonographLatinMonographKayahLiVowels).map(([key, val]) => val)
 
+const LatinVowels = chainRule(
+    DigraphLatinDigraphKayahLiVowels,
+    DigraphLatinMonographKayahLiVowels,
+    MonographLatinDigraphKayahLiVowels,
+    MonographLatinMonographKayahLiVowels).map(([key, val]) => key)
 
-function transliterate(stringToTranslate: string, translationMap: Kayahli[]): 
-    string {
-        let translatedString: string = translationMap.reduce<string>((acc, [key, val]) => acc.replace(new RegExp(key, 'gi'), val),
-        stringToTranslate.slice()
-    )
-    return translatedString;
+const MonographConsonants: PlainRule[] = [
+    ["k", KayahLi.K],
+    ["g", KayahLi.G],
+    ["s", KayahLi.S],
+    ["z", KayahLi.Z],
+    ["t", KayahLi.T],
+    ["n", KayahLi.T],
+    ["p", KayahLi.P],
+    ["m", KayahLi.M],
+    ["d", KayahLi.D],
+    ["b", KayahLi.B],
+    ["r", KayahLi.R],
+    ["y", KayahLi.Y],
+    ["l", KayahLi.L],
+    ["w", KayahLi.W],
+    ["h", KayahLi.H],
+    ["v", KayahLi.V],
+    ["c", KayahLi.C],
+]
+
+const DigraphConsonants: PlainRule[] = [
+    ["k_h", KayahLi.Kh],
+    ["n_g", KayahLi.Ng],
+    ["s_h", KayahLi.Sh],
+    ["n_y", KayahLi.Ny],
+    ["h_t", KayahLi.Ht],
+    ["p_h", KayahLi.Ph],
+    ["t_h", KayahLi.Th],
+]
+
+const ToneNumbers: PlainRule[] = [
+    ["3", KayahLi.HighTone],
+    ["2", KayahLi.MidTone],
+    ["1", KayahLi.LowTone]
+]
+
+const Numbers: PlainRule[] = [
+    ["0", KayahLi.Zero],
+ 	  ["1", KayahLi.One],
+ 	  ["2", KayahLi.Two],
+ 	  ["3", KayahLi.Three],
+ 	  ["4", KayahLi.Four],
+ 	  ["5", KayahLi.Five],
+ 	  ["6", KayahLi.Six],
+ 	  ["7", KayahLi.Seven],
+ 	  ["8", KayahLi.Eight],
+ 	  ["9", KayahLi.Nine],
+]
+
+const ToneNumbersAsKayahLiVowelDiacritics: RegexRule[] = ToneNumbers.map(([key, val]) => [new RegExp(`(?<=(${KayahLiVowels.join("|")}))${key}`), val])
+
+const ToneNumbersAsLatinVowelDiacritics: RegexRule[] = ToneNumbers.map(([key, val]) => [new RegExp(`(?<=(${LatinVowels.join("|")}))${key}`), val])
+
+const FromLatinScheme: PlainRule[] = 
+    prepareRules(
+        chainRule(
+            DigraphLatinDigraphKayahLiVowels,
+            DigraphLatinMonographKayahLiVowels,
+            MonographLatinDigraphKayahLiVowels,
+            MonographLatinMonographKayahLiVowels,
+            DigraphConsonants,
+            MonographConsonants,
+            ToneNumbersAsLatinVowelDiacritics,
+            Numbers,
+        ))
+
+const ToLatinScheme: PlainRule[] = asInverse(
+    prepareRules(
+        chainRule(
+            DigraphLatinDigraphKayahLiVowels,
+            DigraphLatinMonographKayahLiVowels,
+            MonographLatinDigraphKayahLiVowels,
+            MonographLatinMonographKayahLiVowels,
+            DigraphConsonants,
+            MonographConsonants,
+            ToneNumbers,
+            Numbers,
+        )))
+
+const ReversibleLatinToLatinScheme: Rule[] = [
+    ["k_h", "kh"],
+    ["n_g", "ng"],
+    ["s_h", "sh"],
+    ["n_y", "ny"],
+    ["h_t", "ht"],
+    ["p_h", "ph"],
+    ["t_h", "th"],
+    ["u_e", "ư"],
+    ["e_e", "ê"],
+    ["o_e", "ơ"],
+    ["o_o", "ô"],
+]
+
+export const fromLatin = (input: string): string => transliterate(input, FromLatinScheme);
+export const toLatin = (input: string): string => transliterate(input, ToLatinScheme);
+export const toStandardLatin = (input: string): string =>
+    transliterate(input, ReversibleLatinToLatinScheme)
+
+const IMEScheme: Rule[] = prepareRules(chainRule(
+    makeTransitive(
+        chainRule(
+            MonographLatinDigraphKayahLiVowels,
+            MonographLatinMonographKayahLiVowels),
+        chainRule(
+            DigraphLatinDigraphKayahLiVowels,
+            DigraphLatinMonographKayahLiVowels)),
+    makeTransitive(        
+        MonographConsonants,
+        DigraphConsonants),
+    ToneNumbersAsKayahLiVowelDiacritics,
+    // Numbers,
+))
+
+export function initIME(): InputMethodEditor {
+    return {
+        "rules": IMEScheme,
+        "inputEdit": (inputString: string): string => 
+            transliterate(inputString, IMEScheme)
+    }
 }
 
-
-function chainTransliterate(inputString: string, transliterationRules: Kayahli[][]):
-    string {
-        let outputString = transliterationRules.reduce<string>(
-        (acc, rule) => transliterate(acc, rule),
-        inputString.slice()
-    )
-    return outputString;
-}
-
-export function transliterateLatinToKayahli(latinString: string): 
-    string {
-    let firstLetter = transliterate(latinString.charAt(0), TotalRumKayahli);
-    return "\u200E".concat(
-        chainTransliterate(firstLetter.concat(latinString.slice(1)),
-                           [TotalRumKayahli]));
-}
-
-export function transliterateKayahliToLatin(latinString: string): 
-    string {
-    let firstLetter = transliterate(latinString.charAt(0), TotalKayahliRum);
-    return "\u200E".concat(
-        chainTransliterate(firstLetter.concat(latinString.slice(1)),
-                           [TotalKayahliRum]));
-}

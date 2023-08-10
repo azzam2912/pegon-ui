@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { transliterateLatinToKayahli, transliterateKayahliToLatin } from "src/utils/transliterator/kayah-li/transliterate"
+import { fromLatin,
+         toLatin,
+         toStandardLatin,
+         initIME } from "src/utils/transliterator/kayah-li/transliterate"
 
 
 const useKayahliTransliterator = () => {
@@ -12,20 +15,31 @@ const useKayahliTransliterator = () => {
     right: "Kayah Li",
   });
 
+  const ime = initIME();
+
+  function inputMethodEdit(text) {
+    const lastSpaceIndex = text.lastIndexOf(" ") + 1;
+    const lastWord = text.slice(lastSpaceIndex);
+    return text.slice(0, lastSpaceIndex).concat(ime.inputEdit(lastWord));
+  }
+  
   const funcLatin = () => {
-    const transliterateResult = transliterateLatinToKayahli(leftText);
+        const transliterateResult = fromLatin(leftText);
     setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const funcPegon = () => {
-    const transliterateResult = transliterateKayahliToLatin(leftText);
+  const funcNonLatin = () => {
+    setLeftText(inputMethodEdit(leftText));
+    const transliterateResult = toLatin(leftText);
     setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
+    const usedFunc = labels.left === "Latin" ? funcLatin : funcNonLatin;
 
-  const onChange = (e) => {
-    setLeftText(e.target.value);
+    const onChange = (e) => {
+        setLeftText(e.target.value);
   };
 
   useEffect(() => {
