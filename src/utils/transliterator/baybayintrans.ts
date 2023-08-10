@@ -3,7 +3,6 @@ type Baybayin = [string,  string]
 const BaseCases : Baybayin[] = [
     ["ka" , "\u1703"],
     ["ga" , "\u1704"],
-    ["n_ga" , "\u1705"],
     ["ta" , "\u1706"],
     ["da" , "\u1707"],
     ["na" , "\u1708"],
@@ -16,6 +15,12 @@ const BaseCases : Baybayin[] = [
     ["wa" , "\u170F"],
     ["sa" , "\u1710"],
     ["ha" , "\u1711"],
+]
+
+const CompoundRumBaybayin : Baybayin[] = [
+    ["n_ga", "\u1705"],
+    ["n_gi", "\u1705\u1712"],
+    ["n_gu", "\u1705\u1713"],
 ]
 
 const SyllabelsRumBaybayin: Baybayin[] = BaseCases.flatMap(([a, b]) => {
@@ -46,7 +51,10 @@ const VowelsRumBaybayin: Baybayin[] = [
     ["u" , "\u1702"],
 ]
 
-const SingleRumBaybayin: Baybayin[] = [...ConsonantsRumBaybayin, ...VowelsRumBaybayin];
+
+const CompoundBaybayinRum: Baybayin[] = CompoundRumBaybayin.map(([a, b]) => {
+    return [b, a];
+});
 
 
 const SyllabelsBaybayinRumPrimer: Baybayin[] = SyllabelsRumBaybayin.map(([a, b]) => {
@@ -57,7 +65,7 @@ const SyllabelsBaybayinRumSeconder: Baybayin[] = ConsonantsRumBaybayin.map(([a, 
     return [b, a];
 });
 
-const SingleBaybayinRum: Baybayin[] = SingleRumBaybayin.map(([a, b]) => {
+const VowelsBaybayinRum: Baybayin[] = VowelsRumBaybayin.map(([a, b]) => {
     return [b, a];
 });
 
@@ -82,16 +90,16 @@ function chainTransliterate(inputString: string, transliterationRules: Baybayin[
 
 export function transliterateLatinToBaybayin(latinString: string): 
     string {
-    let firstLetter = transliterate(latinString.charAt(0), SyllabelsRumBaybayin);
+    let firstLetter = transliterate(latinString.charAt(0), CompoundRumBaybayin);
     return "\u200E".concat(
         chainTransliterate(firstLetter.concat(latinString.slice(1)),
-                           [SyllabelsRumBaybayin, SingleRumBaybayin]));
+                           [CompoundRumBaybayin, ConsonantsRumBaybayin, SyllabelsRumBaybayin, VowelsRumBaybayin]));
 }
 
 export function transliterateBaybayinToLatin(latinString: string): 
     string {
-    let firstLetter = transliterate(latinString.charAt(0), SyllabelsBaybayinRumSeconder);
+    let firstLetter = transliterate(latinString.charAt(0), CompoundBaybayinRum);
     return "\u200E".concat(
         chainTransliterate(firstLetter.concat(latinString.slice(1)),
-                           [SyllabelsBaybayinRumSeconder, SyllabelsBaybayinRumPrimer, SingleBaybayinRum]));
+                           [CompoundBaybayinRum, SyllabelsBaybayinRumSeconder, SyllabelsBaybayinRumPrimer, VowelsBaybayinRum]));
 }
