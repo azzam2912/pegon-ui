@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { fromLatin,
+import { initIME,
+         fromLatin,
          toLatin,
-         toStandardLatin,
-         initIME } from "src/utils/transliterator/kayah-li/transliterate"
+         toStandardLatin } from "src/utils/transliterator/tagbanwa/transliterate";
 
-
-const useKayahliTransliterator = () => {
+const useTagbanwaTransliterator = () => {
   const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
   const [labels, setLabels] = useState({
     left: "Latin",
-    right: "Kayah Li",
+    right: "Tagbanwa",
   });
 
   const ime = initIME();
@@ -22,9 +21,9 @@ const useKayahliTransliterator = () => {
     const lastWord = text.slice(lastSpaceIndex);
     return text.slice(0, lastSpaceIndex).concat(ime.inputEdit(lastWord));
   }
-  
+
   const funcLatin = () => {
-        const transliterateResult = fromLatin(leftText);
+    const transliterateResult = fromLatin(leftText);
     setRightText(transliterateResult);
     setStandardLatin(toStandardLatin(transliterateResult));
   };
@@ -36,10 +35,10 @@ const useKayahliTransliterator = () => {
     setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-    const usedFunc = labels.left === "Latin" ? funcLatin : funcNonLatin;
+  const usedFunc = labels.left === "Latin" ? funcLatin : funcNonLatin;
 
-    const onChange = (e) => {
-        setLeftText(e.target.value);
+  const onChange = (e) => {
+    setLeftText(e.target.value);
   };
 
   useEffect(() => {
@@ -68,4 +67,4 @@ const useKayahliTransliterator = () => {
   };
 };
 
-export default useKayahliTransliterator;
+export default useTagbanwaTransliterator;

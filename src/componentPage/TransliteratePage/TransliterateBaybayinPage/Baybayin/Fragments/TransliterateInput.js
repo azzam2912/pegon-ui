@@ -3,14 +3,14 @@ import React from "react";
 import { MdContentCopy } from "react-icons/md";
 
 export const TransliterateInput = ({
-  isReadOnly, value, onChange, isJawiCham, isLoading, ...props
+  isReadOnly, value, onChange, rtl, isLoading, ...props
 }) => {
   return (
     <Flex direction="column" align="end" flex={1} p={4}>
       <Textarea
         flex={1}
         textColor={isReadOnly ? "gray.300" : "primary.200"}
-        textAlign={isJawiCham ? "right" : "left"}
+        textAlign={rtl ? "right" : "left"}
         fontWeight="semibold"
         resize="none"
         borderWidth={0}

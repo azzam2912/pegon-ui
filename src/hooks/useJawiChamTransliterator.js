@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { initIME,
-         transliterateLatinToChamJawi as fromLatin,
-         transliterateChamJawiToLatin as toLatin,
-         transliterateReversibleLatinToStandardLatin as toStandardLatin } from "src/utils/transliterator/jawi-cham/transliterate";
+         fromLatin,
+         toLatin,
+         toStandardLatin } from "src/utils/transliterator/jawi-cham/transliterate";
 
 
 // TODO: Replace with jawi cham transliterator

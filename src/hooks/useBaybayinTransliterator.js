@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { transliterateLatinToBaybayin, transliterateBaybayinToLatin } from "src/utils/transliterator/baybayintrans"
-
+import { initIME,
+         fromLatin,
+         toLatin,
+         toStandardLatin } from "src/utils/transliterator/baybayin/transliterate";
 
 const useBaybayinTransliterator = () => {
   const [stemmingType, setStemmingType] = useState("Indonesia");
@@ -12,17 +14,28 @@ const useBaybayinTransliterator = () => {
     right: "Baybayin",
   });
 
+  const ime = initIME();
+
+  function inputMethodEdit(text) {
+    const lastSpaceIndex = text.lastIndexOf(" ") + 1;
+    const lastWord = text.slice(lastSpaceIndex);
+    return text.slice(0, lastSpaceIndex).concat(ime.inputEdit(lastWord));
+  }
+
   const funcLatin = () => {
-    const transliterateResult = transliterateLatinToBaybayin(leftText);
+    const transliterateResult = fromLatin(leftText);
     setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const funcPegon = () => {
-    const transliterateResult = transliterateBaybayinToLatin(leftText);
+  const funcNonLatin = () => {
+    setLeftText(inputMethodEdit(leftText));
+    const transliterateResult = toLatin(leftText);
     setRightText(transliterateResult);
+    setStandardLatin(toStandardLatin(transliterateResult));
   };
 
-  const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
+  const usedFunc = labels.left === "Latin" ? funcLatin : funcNonLatin;
 
   const onChange = (e) => {
     setLeftText(e.target.value);
