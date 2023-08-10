@@ -49,7 +49,11 @@ const VowelsRumBaybayin: Baybayin[] = [
 const SingleRumBaybayin: Baybayin[] = [...ConsonantsRumBaybayin, ...VowelsRumBaybayin];
 
 
-const SyllabelsBaybayinRum: Baybayin[] = SyllabelsRumBaybayin.map(([a, b]) => {
+const SyllabelsBaybayinRumPrimer: Baybayin[] = SyllabelsRumBaybayin.map(([a, b]) => {
+    return [b, a];
+});
+
+const SyllabelsBaybayinRumSeconder: Baybayin[] = ConsonantsRumBaybayin.map(([a, b]) => {
     return [b, a];
 });
 
@@ -86,8 +90,8 @@ export function transliterateLatinToBaybayin(latinString: string):
 
 export function transliterateBaybayinToLatin(latinString: string): 
     string {
-    let firstLetter = transliterate(latinString.charAt(0), SyllabelsBaybayinRum);
+    let firstLetter = transliterate(latinString.charAt(0), SyllabelsBaybayinRumSeconder);
     return "\u200E".concat(
         chainTransliterate(firstLetter.concat(latinString.slice(1)),
-                           [SyllabelsBaybayinRum, SingleBaybayinRum]));
+                           [SyllabelsBaybayinRumSeconder, SyllabelsBaybayinRumPrimer, SingleBaybayinRum]));
 }
