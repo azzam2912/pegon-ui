@@ -483,7 +483,7 @@ const finalConsonantChamLetters = new Set(chainRule<Rule>(
 
 const shortenDoubleA = ([key, val]) => [key.replace(new RegExp(`(${openChamConsonants.join("|")})(aa)`), `$1a`), val]
 
-export const IMERules: Rule[] = prepareRules(chainRule<Rule>(
+const IMERules: Rule[] = prepareRules(chainRule<Rule>(
     ruleProduct(
         asInverse(
             chainRule<Rule>(

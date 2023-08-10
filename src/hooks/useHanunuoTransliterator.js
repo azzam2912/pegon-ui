@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { initIME,
          fromLatin,
          toLatin,
-         toStandardLatin } from "src/utils/transliterator/baybayin/transliterate";
+         toStandardLatin } from "src/utils/transliterator/hanunuo/transliterate";
 
-const useBaybayinTransliterator = () => {
+const useHanunuoTransliterator = () => {
   const [stemmingType, setStemmingType] = useState("Indonesia");
   const [leftText, setLeftText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [rightText, setRightText] = useState("");
   const [labels, setLabels] = useState({
     left: "Latin",
-    right: "Baybayin",
+    right: "Hanunu'o",
   });
 
   const ime = initIME();
@@ -67,4 +67,4 @@ const useBaybayinTransliterator = () => {
   };
 };
 
-export default useBaybayinTransliterator;
+export default useHanunuoTransliterator;
