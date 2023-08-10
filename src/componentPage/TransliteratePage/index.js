@@ -12,6 +12,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
+import TransliterateJawiPage from "./TransilerateJawiPage";
+import TransliterateChamPage from "./TransilterateCham";
+import TransliterateBaybayinPage from "./TransliterateBaybayinPage";
+import TransliterateKayahliPage from "./TransliterateKayahliPage";
 import { FaInfo } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 
@@ -21,6 +25,8 @@ const TransliteratePage = () => {
     Pegon: <TransliteratePegonPage />,
     Jawi: <TransliterateJawiPage />,
     Cham: <TransliterateChamPage />,
+    Baybayin: <TransliterateBaybayinPage />,
+    "Kayah Li": <TransliterateKayahliPage />,
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
