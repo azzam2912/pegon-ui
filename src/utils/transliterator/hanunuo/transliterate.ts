@@ -107,16 +107,17 @@ const ClosedConsonants: PlainRule[] =
         ClosedDigraphConsonants,
         ClosedMonographConsonants)
 
-const FromLatinScheme: PlainRule[] = prepareRules(
+const FromLatinScheme: Rule[] = prepareRules(
     chainRule(Syllables,
-                    ClosedConsonants,
-                    IndependentVowels,
-                    Punctuation))
-const ToLatinScheme: PlainRule[] = prepareRules(
+              ClosedConsonants,
+              IndependentVowels,
+              Punctuation))
+
+const ToLatinScheme: Rule[] = prepareRules(
     chainRule(
-        asInverse(IndependentVowels.filter(([key, val]) => !(key.includes("o")))),
+        asInverse(IndependentVowels.filter(([key, val]: PlainRule) => !(key.includes("o")))),
         asInverse(ClosedConsonants),
-        asInverse(Syllables.filter(([key, val]) => !(key.includes("o")))),
+        asInverse(Syllables.filter(([key, val]: PlainRule) => !(key.includes("o")))),
         asInverse(Punctuation)))
 
 const ReversibleLatinToLatinScheme: Rule[] =

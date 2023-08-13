@@ -153,18 +153,18 @@ const numbers : PlainRule[] = [
 ]
 
 const LatinToChamJawiScheme: Rule[] =
-    prepareRules(chainRule(
+    prepareRules(chainRule<Rule>(
         digraphVowelAsBeginnings,
         monographVowelAsBeginnings,
         digraphConsonants,
         monographConsonants,
         digraphVowels,
-        [["a", ""]],
+        [["a", ""]] as PlainRule[],
         monographVowels,
         numbers))
 
 const ChamJawiToLatinScheme: Rule[] =
-    prepareRules(chainRule(
+    prepareRules(chainRule<Rule>(
         asWordEnding(asInverse(specialCases)),
         asWordBeginning(asInverse(beginningDigraphVowels)),
         asWordBeginning(asInverse(beginningMonographVowels)),
@@ -208,7 +208,7 @@ export const toLatin = (input: string): string =>
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMERules: Rule[] = prepareRules(chainRule(
+const IMERules: Rule[] = prepareRules(chainRule<Rule>(
     makeTransitive(monographConsonants,
                    digraphConsonants),
     digraphVowelAsBeginnings,
