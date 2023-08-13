@@ -56,6 +56,10 @@ const BatakConsonants = chainRule(
     DigraphConsonants,
     MonographConsonants).map(([key, val]) => val)
 
+const LatinConsonants = chainRule(
+    DigraphConsonants,
+    MonographConsonants).map(([key, val]) => key)
+
 const InaNiSurat = BatakConsonants.concat([Batak.A])
 
 const IndependentVowels: PlainRule[] = [
@@ -136,7 +140,7 @@ const ToLatinScheme: Rule[] = prepareRules(
 
 const ReversibleLatinToLatinScheme: Rule[] =
     [
-        ["n_gh", "ngk"],
+        [new RegExp(`(?<=(${LatinConsonants.join("|")}))h`), "k"]
         ["n_g", "ng"]
     ]
 
