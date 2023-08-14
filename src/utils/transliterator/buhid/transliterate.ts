@@ -72,7 +72,7 @@ const IndependentVowels: PlainRule[] = [
 ]
 
 const DependentVowels: PlainRule[] = [
-    ["u", Buhid._u],,
+    ["u", Buhid._u],
     ["i", Buhid._i],
     ["a", ""]
 ]
@@ -89,11 +89,11 @@ const Syllables: PlainRule[] =
             MonographConsonants),
         DependentVowels)
 
-const FromLatinScheme: PlainRule[] = prepareRules(
+const FromLatinScheme: Rule[] = prepareRules(
     chainRule(Syllables,
                     IndependentVowels,
                     Punctuation))
-const ToLatinScheme: PlainRule[] = prepareRules(
+const ToLatinScheme: Rule[] = prepareRules(
     chainRule(
         asInverse(IndependentVowels),
         asInverse(Syllables),

@@ -1,4 +1,4 @@
-import type { StemResult } from "../stemmer/stemmer";
+import type { StemResult } from "./stemmer/stemmer";
 import type { PlainRule, RegexRule, Rule, InputMethodEditor } from "../core"
 import { Arab } from "../arab-common"
 import { prepareRules,

@@ -149,16 +149,16 @@ const Numbers: PlainRule[] = [
  	  ["6", KayahLi.Six],
  	  ["7", KayahLi.Seven],
  	  ["8", KayahLi.Eight],
- 	  ["9", KayahLi.Nine],
+ 	  ["9", KayahLi.Nine]
 ]
 
 const ToneNumbersAsKayahLiVowelDiacritics: RegexRule[] = ToneNumbers.map(([key, val]) => [new RegExp(`(?<=(${KayahLiVowels.join("|")}))${key}`), val])
 
 const ToneNumbersAsLatinVowelDiacritics: RegexRule[] = ToneNumbers.map(([key, val]) => [new RegExp(`(?<=(${LatinVowels.join("|")}))${key}`), val])
 
-const FromLatinScheme: PlainRule[] = 
+const FromLatinScheme: Rule[] = 
     prepareRules(
-        chainRule(
+        chainRule<Rule>(
             DigraphLatinDigraphKayahLiVowels,
             DigraphLatinMonographKayahLiVowels,
             MonographLatinDigraphKayahLiVowels,
@@ -169,9 +169,9 @@ const FromLatinScheme: PlainRule[] =
             Numbers,
         ))
 
-const ToLatinScheme: PlainRule[] = asInverse(
-    prepareRules(
-        chainRule(
+const ToLatinScheme: Rule[] = prepareRules(
+    asInverse(
+        chainRule<PlainRule>(
             DigraphLatinDigraphKayahLiVowels,
             DigraphLatinMonographKayahLiVowels,
             MonographLatinDigraphKayahLiVowels,
@@ -201,12 +201,12 @@ export const toLatin = (input: string): string => transliterate(input, ToLatinSc
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMEScheme: Rule[] = prepareRules(chainRule(
+const IMEScheme: Rule[] = prepareRules(chainRule<Rule>(
     makeTransitive(
-        chainRule(
+        chainRule<PlainRule>(
             MonographLatinDigraphKayahLiVowels,
             MonographLatinMonographKayahLiVowels),
-        chainRule(
+        chainRule<PlainRule>(
             DigraphLatinDigraphKayahLiVowels,
             DigraphLatinMonographKayahLiVowels)),
     makeTransitive(        
