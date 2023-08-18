@@ -15,10 +15,11 @@ import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
 import { VariantSelect } from "./Fragments/VariantSelect";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
-TransliterationHeader;
 import { FaInfo } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 import usePegonTransliterator from "./../../hooks/usePegonTransliterator";
+import useJawiChamTransliterator from './../../hooks/useJawiChamTransliterator';
+import useJawiMalayTransliterator from './../../hooks/useJawiMalayTransliterator';
 
 const variants = {
   Pegon: ["Indonesian", "Javanese", "Madurese"],
@@ -35,6 +36,7 @@ const TransliteratePage = () => {
   const [isLatinInput, setIsLatinInput] = useState(true);
   const [outputText, setOutputText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const transliterate = () => {
     switch (script) {
@@ -45,6 +47,20 @@ const TransliteratePage = () => {
           setInputText,
           isLatinInput,
         );
+      case "Jawi":
+        case "Malay":
+          return useJawiMalayTransliterator(
+            inputText,
+            setInputText,
+            isLatinInput,
+            setIsLoading,
+          );
+        case "Cham":
+          return useJawiChamTransliterator(
+            inputText,
+            setInputText,
+            isLatinInput,
+          );
     }
   };
 
@@ -165,6 +181,7 @@ const TransliteratePage = () => {
                   placeholder="Transliteration"
                   isRightToLeft={isLatinInput}
                   value={outputText}
+                  isLoading={isLoading}
                   isReadOnly
                 />
               </Stack>

@@ -16,9 +16,11 @@ const usePegonTransliterator = (
   };
 
   const transliterate = (useLatinInput) => {
-    const newInputText = useLatinInput ? inputText : inputMethodEdit(inputText);
+    if (!useLatinInput) {
+      setInputText(inputMethodEdit(inputText));
+    }
     const transliterateResult = transliterateFromView(
-      newInputText,
+      inputText,
       useLatinInput,
       variant,
     );

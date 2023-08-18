@@ -7,6 +7,7 @@ export const TransliterateInput = ({
   value,
   onChange,
   isRightToLeft,
+  isLoading,
   ...props
 }) => {
   return (
@@ -36,7 +37,7 @@ export const TransliterateInput = ({
         }}
         onChange={onChange}
         isReadOnly={isReadOnly}
-        value={value}
+        value={isLoading ? "Transliterating..." : value}
         {...props}
       />
       <IconButton
