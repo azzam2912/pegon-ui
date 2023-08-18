@@ -21,6 +21,7 @@ import usePegonTransliterator from "./../../hooks/usePegonTransliterator";
 import useJawiChamTransliterator from './../../hooks/useJawiChamTransliterator';
 import useJawiMalayTransliterator from './../../hooks/useJawiMalayTransliterator';
 import useChamTransliterator from './../../hooks/useChamTransliterator';
+import useKayahliTransliterator from './../../hooks/useKayahliTransliterator';
 
 
 const scriptsData = {
@@ -87,6 +88,12 @@ const TransliteratePage = () => {
         break;
       case "Cham":
         return useChamTransliterator(
+          inputText,
+          setInputText,
+          isLatinInput,
+        );
+      case "Kayah Li":
+        return useKayahliTransliterator(
           inputText,
           setInputText,
           isLatinInput,

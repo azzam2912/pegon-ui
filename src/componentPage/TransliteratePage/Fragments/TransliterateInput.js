@@ -2,6 +2,7 @@ import { Flex, IconButton, Textarea } from "@chakra-ui/react";
 import React from "react";
 import { MdContentCopy } from "react-icons/md";
 import '@fontsource/noto-sans-cham';
+import '@fontsource/noto-sans-kayah-li';
 
 export const TransliterateInput = ({
   isReadOnly,
