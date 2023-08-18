@@ -1,21 +1,23 @@
 import {
   Button,
-  VStack,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
+  VStack,
   Text,
 } from "@chakra-ui/react";
 import { FaChevronDown } from "react-icons/fa";
 
-export const ScriptTypeSelect = ({ value, onChange }) => {
-  const scriptOptions = ["Pegon", "Jawi", "Cham", "Baybayin", "Kayah Li"];
+export const VariantSelect = ({ value, options, onChange }) => {
+  if (options.length === 0) {
+    return null;
+  }
 
   return (
     <VStack align="flex-start">
       <Text fontSize="sm" textColor="gray.500">
-        Script
+        Variant
       </Text>
       <Menu>
         <MenuButton
@@ -30,7 +32,7 @@ export const ScriptTypeSelect = ({ value, onChange }) => {
           {value}
         </MenuButton>
         <MenuList>
-          {scriptOptions.map((option) => (
+          {options.map((option) => (
             <MenuItem key={option} onClick={onChange}>
               {option}
             </MenuItem>
