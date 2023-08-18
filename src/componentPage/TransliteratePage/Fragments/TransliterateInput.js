@@ -1,6 +1,7 @@
 import { Flex, IconButton, Textarea } from "@chakra-ui/react";
 import React from "react";
 import { MdContentCopy } from "react-icons/md";
+import '@fontsource/noto-sans-cham';
 
 export const TransliterateInput = ({
   isReadOnly,
@@ -8,11 +9,13 @@ export const TransliterateInput = ({
   onChange,
   isRightToLeft,
   isLoading,
+  fontFamily,
   ...props
 }) => {
   return (
     <Flex direction="column" align="end" flex={1} p={4}>
       <Textarea
+        style={fontFamily ? { fontFamily } : null}
         flex={1}
         textColor={isReadOnly ? "gray.300" : "primary.200"}
         textAlign={isRightToLeft ? "right" : "left"}

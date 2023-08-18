@@ -20,14 +20,35 @@ import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 import usePegonTransliterator from "./../../hooks/usePegonTransliterator";
 import useJawiChamTransliterator from './../../hooks/useJawiChamTransliterator';
 import useJawiMalayTransliterator from './../../hooks/useJawiMalayTransliterator';
+import useChamTransliterator from './../../hooks/useChamTransliterator';
 
-const variants = {
-  Pegon: ["Indonesian", "Javanese", "Madurese"],
-  Jawi: ["Malay", "Cham"],
-  Cham: [],
-  Baybayin: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
-  "Kayah Li": [],
+
+const scriptsData = {
+  Pegon: {
+    variants: ["Indonesian", "Javanese", "Madurese"],
+    rightToLeft: true,
+  },
+  Jawi: {
+    variants: ["Malay", "Cham"],
+    rightToLeft: true,
+  },
+  Cham: {
+    variants: [],
+    rightToLeft: false,
+    fontFamily: "Noto Sans Cham",
+  },
+  Baybayin: {
+    variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
+    rightToLeft: false,
+    fontFamily: "Noto Sans Baybayin",
+  },
+  "Kayah Li": {
+    variants: [],
+    rightToLeft: false,
+    fontFamily: "Noto Sans Kayah Li",
+  },
 };
+
 
 const TransliteratePage = () => {
   const [script, setScript] = useState("Pegon");
@@ -48,26 +69,35 @@ const TransliteratePage = () => {
           isLatinInput,
         );
       case "Jawi":
-        case "Malay":
-          return useJawiMalayTransliterator(
-            inputText,
-            setInputText,
-            isLatinInput,
-            setIsLoading,
-          );
-        case "Cham":
-          return useJawiChamTransliterator(
-            inputText,
-            setInputText,
-            isLatinInput,
-          );
+        switch (variant) {
+          case "Malay":
+            return useJawiMalayTransliterator(
+              inputText,
+              setInputText,
+              isLatinInput,
+              setIsLoading,
+            );
+          case "Cham":
+            return useJawiChamTransliterator(
+              inputText,
+              setInputText,
+              isLatinInput,
+            );
+        }
+        break;
+      case "Cham":
+        return useChamTransliterator(
+          inputText,
+          setInputText,
+          isLatinInput,
+        );
     }
   };
 
   const handleScriptChange = (event) => {
     const newScript = event.target.innerText;
     setScript(newScript);
-    setVariant(variants[newScript][0]);
+    setVariant(scriptsData[newScript]["variants"][0]);
   };
 
   const handleVariantChange = (event) => {
@@ -121,7 +151,7 @@ const TransliteratePage = () => {
             <ScriptTypeSelect value={script} onChange={handleScriptChange} />
             <VariantSelect
               value={variant}
-              options={variants[script]}
+              options={scriptsData[script]["variants"]}
               onChange={handleVariantChange}
             />
             <Spacer />
@@ -173,16 +203,18 @@ const TransliteratePage = () => {
               >
                 <TransliterateInput
                   placeholder="Enter text"
-                  isRightToLeft={!isLatinInput}
+                  isRightToLeft={isLatinInput ? false : scriptsData[script]["rightToLeft"]}
                   value={inputText}
                   onChange={handleInputTextChange}
+                  fontFamily={scriptsData[script]["fontFamily"]}
                 />
                 <TransliterateInput
                   placeholder="Transliteration"
-                  isRightToLeft={isLatinInput}
+                  isRightToLeft={isLatinInput ? scriptsData[script]["rightToLeft"] : false}
                   value={outputText}
                   isLoading={isLoading}
                   isReadOnly
+                  fontFamily={scriptsData[script]["fontFamily"]}
                 />
               </Stack>
             </Card>
