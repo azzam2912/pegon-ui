@@ -18,11 +18,14 @@ import { TransliterationHeader } from "./Fragments/TransliterationHeader";
 import { FaInfo } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 import usePegonTransliterator from "./../../hooks/usePegonTransliterator";
-import useJawiChamTransliterator from './../../hooks/useJawiChamTransliterator';
-import useJawiMalayTransliterator from './../../hooks/useJawiMalayTransliterator';
-import useChamTransliterator from './../../hooks/useChamTransliterator';
-import useKayahliTransliterator from './../../hooks/useKayahliTransliterator';
-
+import useJawiChamTransliterator from "./../../hooks/useJawiChamTransliterator";
+import useJawiMalayTransliterator from "./../../hooks/useJawiMalayTransliterator";
+import useChamTransliterator from "./../../hooks/useChamTransliterator";
+import useKayahliTransliterator from "./../../hooks/useKayahliTransliterator";
+import useBaybayinTransliterator from "./../../hooks/useBaybayinTransliterator";
+import useBuhidTransliterator from "./../../hooks/useBuhidTransliterator";
+import useHanunuoTransliterator from "./../../hooks/useHanunuoTransliterator";
+import useTagbanwaTransliterator from "./../../hooks/useTagbanwaTransliterator";
 
 const scriptsData = {
   Pegon: {
@@ -36,20 +39,16 @@ const scriptsData = {
   Cham: {
     variants: [],
     rightToLeft: false,
-    fontFamily: "Noto Sans Cham",
   },
   Baybayin: {
     variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
     rightToLeft: false,
-    fontFamily: "Noto Sans Baybayin",
   },
   "Kayah Li": {
     variants: [],
     rightToLeft: false,
-    fontFamily: "Noto Sans Kayah Li",
   },
 };
-
 
 const TransliteratePage = () => {
   const [script, setScript] = useState("Pegon");
@@ -87,17 +86,37 @@ const TransliteratePage = () => {
         }
         break;
       case "Cham":
-        return useChamTransliterator(
-          inputText,
-          setInputText,
-          isLatinInput,
-        );
+        return useChamTransliterator(inputText, setInputText, isLatinInput);
       case "Kayah Li":
-        return useKayahliTransliterator(
-          inputText,
-          setInputText,
-          isLatinInput,
-        );
+        return useKayahliTransliterator(inputText, setInputText, isLatinInput);
+      case "Baybayin":
+        switch (variant) {
+          case "Baybayin":
+            return useBaybayinTransliterator(
+              inputText,
+              setInputText,
+              isLatinInput,
+            );
+          case "Buhid":
+            return useBuhidTransliterator(
+              inputText,
+              setInputText,
+              isLatinInput,
+            );
+          case "Hanuno'o":
+            return useHanunuoTransliterator(
+              inputText,
+              setInputText,
+              isLatinInput,
+            );
+          case "Tagbanwa":
+            return useTagbanwaTransliterator(
+              inputText,
+              setInputText,
+              isLatinInput,
+            );
+        }
+        break;
     }
   };
 
@@ -105,11 +124,15 @@ const TransliteratePage = () => {
     const newScript = event.target.innerText;
     setScript(newScript);
     setVariant(scriptsData[newScript]["variants"][0]);
+    setInputText("");
+    setOutputText("");
   };
 
   const handleVariantChange = (event) => {
     const newVariant = event.target.innerText;
     setVariant(newVariant);
+    setInputText("");
+    setOutputText("");
   };
 
   const handleInputTextChange = (event) => {
@@ -210,18 +233,22 @@ const TransliteratePage = () => {
               >
                 <TransliterateInput
                   placeholder="Enter text"
-                  isRightToLeft={isLatinInput ? false : scriptsData[script]["rightToLeft"]}
+                  isRightToLeft={
+                    isLatinInput ? false : scriptsData[script]["rightToLeft"]
+                  }
                   value={inputText}
                   onChange={handleInputTextChange}
-                  fontFamily={scriptsData[script]["fontFamily"]}
+                  variant={script + " " + variant}
                 />
                 <TransliterateInput
                   placeholder="Transliteration"
-                  isRightToLeft={isLatinInput ? scriptsData[script]["rightToLeft"] : false}
+                  isRightToLeft={
+                    isLatinInput ? scriptsData[script]["rightToLeft"] : false
+                  }
                   value={outputText}
                   isLoading={isLoading}
                   isReadOnly
-                  fontFamily={scriptsData[script]["fontFamily"]}
+                  variant={script + " " + variant}
                 />
               </Stack>
             </Card>

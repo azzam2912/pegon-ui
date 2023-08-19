@@ -1,8 +1,12 @@
 import { Flex, IconButton, Textarea } from "@chakra-ui/react";
 import React from "react";
 import { MdContentCopy } from "react-icons/md";
-import '@fontsource/noto-sans-cham';
-import '@fontsource/noto-sans-kayah-li';
+import "@fontsource/noto-sans-cham";
+import "@fontsource/noto-sans-tagalog";
+import "@fontsource/noto-sans-buhid";
+import "@fontsource/noto-sans-hanunoo";
+import "@fontsource/noto-sans-tagbanwa";
+import "@fontsource/noto-sans-kayah-li";
 
 export const TransliterateInput = ({
   isReadOnly,
@@ -10,9 +14,32 @@ export const TransliterateInput = ({
   onChange,
   isRightToLeft,
   isLoading,
-  fontFamily,
+  variant,
   ...props
 }) => {
+  const variantsStyles = {
+    "Cham undefined": {
+      fontFamily: "Noto Sans Cham",
+    },
+    "Baybayin Baybayin": {
+      fontFamily: "Noto Sans Tagalog",
+    },
+    "Baybayin Buhid": {
+      fontFamily: "Noto Sans Buhid",
+    },
+    "Baybayin Hanuno'o": {
+      fontFamily: "Noto Sans Hanunoo",
+    },
+    "Baybayin Tagbanwa": {
+      fontFamily: "Noto Sans Tagbanwa",
+    },
+    "Kayah Li undefined": {
+      fontFamily: "Noto Sans Kayah Li",
+    },
+  };
+
+  const fontFamily = variantsStyles[variant]?.fontFamily || null;
+
   return (
     <Flex direction="column" align="end" flex={1} p={4}>
       <Textarea
@@ -20,7 +47,6 @@ export const TransliterateInput = ({
         flex={1}
         textColor={isReadOnly ? "gray.300" : "primary.200"}
         textAlign={isRightToLeft ? "right" : "left"}
-        fontWeight="semibold"
         resize="none"
         borderWidth={0}
         height="100%"

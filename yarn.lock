@@ -1932,10 +1932,20 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.46.0.tgz#3f7802972e8b6fe3f88ed1aabc74ec596c456db6"
   integrity sha512-a8TLtmPi8xzPkCbp/OGFUo5yhRkHM2Ko9kOWP4znJr0WAhWyThaw3PnwX4vOTWOAMsV2uRt32PPDcEz63esSaA==
 
+"@fontsource/noto-sans-buhid@^5.0.9":
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-buhid/-/noto-sans-buhid-5.0.9.tgz#717e511eaa07f78e8a6fd63ad1f97c8c926e1fb0"
+  integrity sha512-vkFOUcCzYqrHBnSO87E7ngKYWTnFm+RhpFOLHsjVW6SX8iybyoTVIaQpfTAaaXJxtXvnzq3CeiWeMOgfHXug6Q==
+
 "@fontsource/noto-sans-cham@^5.0.8":
   version "5.0.8"
   resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-cham/-/noto-sans-cham-5.0.8.tgz#c7adc9f455b93ea199146ab4903dc4c1b2248764"
   integrity sha512-5okqU7YEehxuTm/IMmhghET3As3sQmVwoX29YVkP0G+vdbyW/yhB0Ms1y6N+/QMJKohzqG+Wxl1j/IloEvofog==
+
+"@fontsource/noto-sans-hanunoo@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-hanunoo/-/noto-sans-hanunoo-5.0.8.tgz#4f83aac8889e4497013fc5d84097ddba53735022"
+  integrity sha512-xgQVCGrjv907UR+Q242UuoERfI6GXGrc+XwxMA22xgWPCO0OoG8Od3c1jovRrrM1cas1h3DaEUNWp3sPGe5wIA==
 
 "@fontsource/noto-sans-kayah-li@^5.0.8":
   version "5.0.8"
@@ -1946,6 +1956,11 @@
   version "5.0.8"
   resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-tagalog/-/noto-sans-tagalog-5.0.8.tgz#c883ddfa4d12cda22aacda337754f07aa2915645"
   integrity sha512-S9Pbp/ZFUuMXf2Zjg4+r1kBMA7gFAiiv6XirF6XaB1wMGevNQsjllWH8sXh3fwp00wxoAFG9JKZk1W6FkV3N1A==
+
+"@fontsource/noto-sans-tagbanwa@^5.0.9":
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-tagbanwa/-/noto-sans-tagbanwa-5.0.9.tgz#aeab44908fcbabb5d3e12764dc67ee866e0c3fdf"
+  integrity sha512-m4yM6uq+Y+txEYbPY/QXT4bvZsE1YUszFwBpUIMOyN6xt9d1kjib8x8D4eQWSqkg4oHJ6EX51cEA78FKWjmsmQ==
 
 "@fontsource/open-sans@^5.0.3":
   version "5.0.3"
