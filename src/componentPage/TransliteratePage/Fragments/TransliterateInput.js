@@ -1,4 +1,4 @@
-import { Flex, IconButton, Textarea } from "@chakra-ui/react";
+import { Flex, HStack, IconButton, Text, Textarea } from "@chakra-ui/react";
 import React from "react";
 import { MdContentCopy } from "react-icons/md";
 import "@fontsource/noto-sans-cham";
@@ -7,6 +7,7 @@ import "@fontsource/noto-sans-buhid";
 import "@fontsource/noto-sans-hanunoo";
 import "@fontsource/noto-sans-tagbanwa";
 import "@fontsource/noto-sans-kayah-li";
+import { variantsStyles } from "src/utils/objects";
 
 export const TransliterateInput = ({
   isReadOnly,
@@ -15,33 +16,13 @@ export const TransliterateInput = ({
   isRightToLeft,
   isLoading,
   variant,
+  standardLatin,
   ...props
 }) => {
-  const variantsStyles = {
-    "Cham undefined": {
-      fontFamily: "Noto Sans Cham",
-    },
-    "Baybayin Baybayin": {
-      fontFamily: "Noto Sans Tagalog",
-    },
-    "Baybayin Buhid": {
-      fontFamily: "Noto Sans Buhid",
-    },
-    "Baybayin Hanuno'o": {
-      fontFamily: "Noto Sans Hanunoo",
-    },
-    "Baybayin Tagbanwa": {
-      fontFamily: "Noto Sans Tagbanwa",
-    },
-    "Kayah Li undefined": {
-      fontFamily: "Noto Sans Kayah Li",
-    },
-  };
-
   const fontFamily = variantsStyles[variant]?.fontFamily || null;
 
   return (
-    <Flex direction="column" align="end" flex={1} p={4}>
+    <Flex direction="column" flex={1} p={4}>
       <Textarea
         style={fontFamily ? { fontFamily } : null}
         flex={1}
@@ -70,13 +51,18 @@ export const TransliterateInput = ({
         value={isLoading ? "Transliterating..." : value}
         {...props}
       />
-      <IconButton
-        onClick={() => {
-          navigator.clipboard.writeText(value);
-        }}
-        variant="ghost"
-        icon={<MdContentCopy />}
-      />
+      <HStack justify="space-between">
+        <Text fontSize="sm" textColor="gray.300">
+          {standardLatin}
+        </Text>
+        <IconButton
+          onClick={() => {
+            navigator.clipboard.writeText(value);
+          }}
+          variant="ghost"
+          icon={<MdContentCopy />}
+        />
+      </HStack>
     </Flex>
   );
 };

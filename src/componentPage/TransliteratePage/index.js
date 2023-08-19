@@ -26,29 +26,7 @@ import useBaybayinTransliterator from "./../../hooks/useBaybayinTransliterator";
 import useBuhidTransliterator from "./../../hooks/useBuhidTransliterator";
 import useHanunuoTransliterator from "./../../hooks/useHanunuoTransliterator";
 import useTagbanwaTransliterator from "./../../hooks/useTagbanwaTransliterator";
-
-const scriptsData = {
-  Pegon: {
-    variants: ["Indonesian", "Javanese", "Madurese"],
-    rightToLeft: true,
-  },
-  Jawi: {
-    variants: ["Malay", "Cham"],
-    rightToLeft: true,
-  },
-  Cham: {
-    variants: [],
-    rightToLeft: false,
-  },
-  Baybayin: {
-    variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
-    rightToLeft: false,
-  },
-  "Kayah Li": {
-    variants: [],
-    rightToLeft: false,
-  },
-};
+import { scriptsData } from "./../../utils/objects";
 
 const TransliteratePage = () => {
   const [script, setScript] = useState("Pegon");
@@ -239,6 +217,7 @@ const TransliteratePage = () => {
                   value={inputText}
                   onChange={handleInputTextChange}
                   variant={script + " " + variant}
+                  standardLatin={isLatinInput ? null : standardLatin}
                 />
                 <TransliterateInput
                   placeholder="Transliteration"
@@ -249,6 +228,7 @@ const TransliteratePage = () => {
                   isLoading={isLoading}
                   isReadOnly
                   variant={script + " " + variant}
+                  standardLatin={isLatinInput ? standardLatin : null}
                 />
               </Stack>
             </Card>
