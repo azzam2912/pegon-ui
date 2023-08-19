@@ -12,6 +12,12 @@
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/noto-sans-buhid": "^5.0.9",
+    "@fontsource/noto-sans-cham": "^5.0.8",
+    "@fontsource/noto-sans-hanunoo": "^5.0.8",
+    "@fontsource/noto-sans-kayah-li": "^5.0.8",
+    "@fontsource/noto-sans-tagalog": "^5.0.8",
+    "@fontsource/noto-sans-tagbanwa": "^5.0.9",
     "@fontsource/open-sans": "^5.0.3",
     "@react-pdf-viewer/core": "3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
@@ -31,6 +37,10 @@
   },
   "devDependencies": {
     "@types/react": "18.2.14",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.46.0",
+    "eslint-plugin-react": "^7.33.1",
     "typescript": "^5.1.6"
   }
 }
