@@ -5,6 +5,7 @@ import {
   DrawerContent,
   DrawerOverlay,
   Flex,
+  Image
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -17,9 +18,12 @@ import {
   MdDocumentScanner,
   MdLightbulb,
 } from "react-icons/md";
+
 import { SiBookstack } from "react-icons/si";
 import { NavigationButton } from "./fragments/NavigationButton";
 import { useModalSidebar } from "src/componentPage/Page";
+
+import SvgTransliterate from "src/icons/Transliterate";
 
 const Sidebar = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(false);
@@ -82,7 +86,7 @@ const Sidebar = () => {
         </NavigationButton>
         <Divider my={3} />
         <NavigationButton
-          icon={<MdTranslate />}
+          icon={<SvgTransliterate />}
           href="/app/transliterator"
           isSidebarExpanded={isSidebarExpanded}
         >
