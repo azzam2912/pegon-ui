@@ -184,7 +184,7 @@ const NewDocumentPage = () => {
                   <FormLabel mb={0}>Language</FormLabel>
                   <AutoComplete
                     openOnFocus
-                    onChange={(e) => setLanguage(e.target.value)}
+                    onChange={(val) => setLanguage(val)}
                   >
                     <AutoCompleteInput />
                     <AutoCompleteList>
@@ -209,7 +209,7 @@ const NewDocumentPage = () => {
                   <FormLabel mb={0}>Document Script</FormLabel>
                   <AutoComplete
                     openOnFocus
-                    onChange={(e) => setDocumentScript(e.target.value)}
+                    onChange={(val) => setDocumentScript(val)}
                   >
                     <AutoCompleteInput />
                     <AutoCompleteList>
