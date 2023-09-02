@@ -25,14 +25,17 @@ import {
   usePegonMadureseTransliterator,
   usePegonIndonesianTransliterator,
 } from "src/hooks/usePegonTransliterator";
-import useJawiChamTransliterator from "src/hooks/useJawiChamTransliterator";
+
 import useJawiMalayTransliterator from "src/hooks/useJawiMalayTransliterator";
-import useChamTransliterator from "src/hooks/useChamTransliterator";
-import useKayahliTransliterator from "src/hooks/useKayahliTransliterator";
-import useBaybayinTransliterator from "src/hooks/useBaybayinTransliterator";
-import useBuhidTransliterator from "src/hooks/useBuhidTransliterator";
-import useHanunuoTransliterator from "src/hooks/useHanunuoTransliterator";
-import useTagbanwaTransliterator from "src/hooks/useTagbanwaTransliterator";
+import {
+  useChamTransliterator,
+  useKayahLiTransliterator,
+  useBaybayinTransliterator,
+  useBuhidTransliterator,
+  useHanunooTransliterator,
+  useTagbanwaTransliterator,
+  useJawiChamTransliterator,
+} from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
   switch (script) {
@@ -59,7 +62,7 @@ const selectTransliterator = (script, variant) => {
     case "Cham":
       return useChamTransliterator;
     case "Kayah Li":
-      return useKayahliTransliterator;
+      return useKayahLiTransliterator;
     case "Baybayin":
       switch (variant) {
         case "Baybayin":
@@ -67,7 +70,7 @@ const selectTransliterator = (script, variant) => {
         case "Buhid":
           return useBuhidTransliterator;
         case "Hanuno'o":
-          return useHanunuoTransliterator;
+          return useHanunooTransliterator;
         case "Tagbanwa":
           return useTagbanwaTransliterator;
       }
