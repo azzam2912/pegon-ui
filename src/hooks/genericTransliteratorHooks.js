@@ -1,0 +1,87 @@
+import * as Cham from "src/utils/transliterator/cham/transliterate";
+import * as KayahLi from "src/utils/transliterator/kayah-li/transliterate";
+import * as Baybayin from "src/utils/transliterator/baybayin/transliterate";
+import * as Hanunoo from "src/utils/transliterator/hanunuo/transliterate";
+import * as Buhid from "src/utils/transliterator/buhid/transliterate";
+import * as Tagbanwa from "src/utils/transliterator/tagbanwa/transliterate";
+import * as JawiCham from "src/utils/transliterator/jawi-cham/transliterate";
+
+const genericTransliteratorHook =
+  (initIME, toLatin, fromLatin, toStandardLatin) =>
+  (inputText, setInputText, isLatinInput) => {
+    const ime = initIME();
+
+    const inputMethodEdit = (text) => {
+      const lastSpaceIndex = text.lastIndexOf(" ") + 1;
+      const lastWord = text.slice(lastSpaceIndex);
+      return text.slice(0, lastSpaceIndex).concat(ime.inputEdit(lastWord));
+    };
+
+    const transliterate = (useLatinInput) => {
+      let outputText;
+      if (!useLatinInput) {
+        setInputText(inputMethodEdit(inputText));
+        outputText = toLatin(inputText);
+        return {
+          outputText: outputText,
+          standardLatin: toStandardLatin(outputText),
+        };
+      } else {
+        return {
+          outputText: fromLatin(inputText),
+          standardLatin: toStandardLatin(inputText),
+        };
+      }
+    };
+
+    return transliterate(isLatinInput);
+  };
+
+export const useChamTransliterator = genericTransliteratorHook(
+  Cham.initIME,
+  Cham.toLatin,
+  Cham.fromLatin,
+  Cham.toStandardLatin,
+);
+
+export const useKayahLiTransliterator = genericTransliteratorHook(
+  KayahLi.initIME,
+  KayahLi.toLatin,
+  KayahLi.fromLatin,
+  KayahLi.toStandardLatin,
+);
+
+export const useBaybayinTransliterator = genericTransliteratorHook(
+  Baybayin.initIME,
+  Baybayin.toLatin,
+  Baybayin.fromLatin,
+  Baybayin.toStandardLatin,
+);
+
+export const useBuhidTransliterator = genericTransliteratorHook(
+  Buhid.initIME,
+  Buhid.toLatin,
+  Buhid.fromLatin,
+  Buhid.toStandardLatin,
+);
+
+export const useHanunooTransliterator = genericTransliteratorHook(
+  Hanunoo.initIME,
+  Hanunoo.toLatin,
+  Hanunoo.fromLatin,
+  Hanunoo.toStandardLatin,
+);
+
+export const useTagbanwaTransliterator = genericTransliteratorHook(
+  Tagbanwa.initIME,
+  Tagbanwa.toLatin,
+  Tagbanwa.fromLatin,
+  Tagbanwa.toStandardLatin,
+);
+
+export const useJawiChamTransliterator = genericTransliteratorHook(
+  JawiCham.initIME,
+  JawiCham.toLatin,
+  JawiCham.fromLatin,
+  JawiCham.toStandardLatin,
+);
