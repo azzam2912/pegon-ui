@@ -7,7 +7,7 @@ import "@fontsource/noto-sans-buhid";
 import "@fontsource/noto-sans-hanunoo";
 import "@fontsource/noto-sans-tagbanwa";
 import "@fontsource/noto-sans-kayah-li";
-import { variantsStyles } from "src/utils/objects";
+import { getFont } from "src/utils/objects";
 
 export const TransliterateInput = ({
   isReadOnly,
@@ -15,11 +15,12 @@ export const TransliterateInput = ({
   onChange,
   isRightToLeft,
   isLoading,
+  script,
   variant,
   standardLatin,
   ...props
 }) => {
-  const fontFamily = variantsStyles[variant]?.fontFamily || null;
+  const fontFamily = getFont;
 
   return (
     <Flex direction="column" flex={1} p={4}>

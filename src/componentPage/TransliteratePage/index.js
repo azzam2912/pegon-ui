@@ -17,16 +17,63 @@ import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
 import { FaInfo } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
-import usePegonTransliterator from "./../../hooks/usePegonTransliterator";
-import useJawiChamTransliterator from "./../../hooks/useJawiChamTransliterator";
-import useJawiMalayTransliterator from "./../../hooks/useJawiMalayTransliterator";
-import useChamTransliterator from "./../../hooks/useChamTransliterator";
-import useKayahliTransliterator from "./../../hooks/useKayahliTransliterator";
-import useBaybayinTransliterator from "./../../hooks/useBaybayinTransliterator";
-import useBuhidTransliterator from "./../../hooks/useBuhidTransliterator";
-import useHanunuoTransliterator from "./../../hooks/useHanunuoTransliterator";
-import useTagbanwaTransliterator from "./../../hooks/useTagbanwaTransliterator";
-import { scriptsData } from "./../../utils/objects";
+import { scriptsData } from "src/utils/objects";
+
+import {
+  usePegonJavaneseTransliterator,
+  usePegonSundaneseTransliterator,
+  usePegonMadureseTransliterator,
+  usePegonIndonesianTransliterator,
+} from "src/hooks/usePegonTransliterator";
+import useJawiChamTransliterator from "src/hooks/useJawiChamTransliterator";
+import useJawiMalayTransliterator from "src/hooks/useJawiMalayTransliterator";
+import useChamTransliterator from "src/hooks/useChamTransliterator";
+import useKayahliTransliterator from "src/hooks/useKayahliTransliterator";
+import useBaybayinTransliterator from "src/hooks/useBaybayinTransliterator";
+import useBuhidTransliterator from "src/hooks/useBuhidTransliterator";
+import useHanunuoTransliterator from "src/hooks/useHanunuoTransliterator";
+import useTagbanwaTransliterator from "src/hooks/useTagbanwaTransliterator";
+
+const selectTransliterator = (script, variant) => {
+  switch (script) {
+    case "Pegon":
+      switch (variant) {
+        case "Javanese":
+          return usePegonJavaneseTransliterator;
+        case "Sundanese":
+          return usePegonSundaneseTransliterator;
+        case "Madurese":
+          return usePegonMadureseTransliterator;
+        case "Indonesian":
+          return usePegonIndonesianTransliterator;
+      }
+      break;
+    case "Jawi":
+      switch (variant) {
+        case "Malay":
+          return useJawiMalayTransliterator;
+        case "Cham":
+          return useJawiChamTransliterator;
+      }
+      break;
+    case "Cham":
+      return useChamTransliterator;
+    case "Kayah Li":
+      return useKayahliTransliterator;
+    case "Baybayin":
+      switch (variant) {
+        case "Baybayin":
+          return useBaybayinTransliterator;
+        case "Buhid":
+          return useBuhidTransliterator;
+        case "Hanuno'o":
+          return useHanunuoTransliterator;
+        case "Tagbanwa":
+          return useTagbanwaTransliterator;
+      }
+      break;
+  }
+};
 
 const TransliteratePage = () => {
   const [script, setScript] = useState("Pegon");
@@ -36,67 +83,9 @@ const TransliteratePage = () => {
   const [outputText, setOutputText] = useState("");
   const [standardLatin, setStandardLatin] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const transliterate = () => {
-    switch (script) {
-      case "Pegon":
-        return usePegonTransliterator(
-          variant,
-          inputText,
-          setInputText,
-          isLatinInput,
-        );
-      case "Jawi":
-        switch (variant) {
-          case "Malay":
-            return useJawiMalayTransliterator(
-              inputText,
-              setInputText,
-              isLatinInput,
-              setIsLoading,
-            );
-          case "Cham":
-            return useJawiChamTransliterator(
-              inputText,
-              setInputText,
-              isLatinInput,
-            );
-        }
-        break;
-      case "Cham":
-        return useChamTransliterator(inputText, setInputText, isLatinInput);
-      case "Kayah Li":
-        return useKayahliTransliterator(inputText, setInputText, isLatinInput);
-      case "Baybayin":
-        switch (variant) {
-          case "Baybayin":
-            return useBaybayinTransliterator(
-              inputText,
-              setInputText,
-              isLatinInput,
-            );
-          case "Buhid":
-            return useBuhidTransliterator(
-              inputText,
-              setInputText,
-              isLatinInput,
-            );
-          case "Hanuno'o":
-            return useHanunuoTransliterator(
-              inputText,
-              setInputText,
-              isLatinInput,
-            );
-          case "Tagbanwa":
-            return useTagbanwaTransliterator(
-              inputText,
-              setInputText,
-              isLatinInput,
-            );
-        }
-        break;
-    }
-  };
+  const [transliterateHook, setTransliterateHook] = useState(
+    () => usePegonIndonesianTransliterator,
+  );
 
   const handleScriptChange = (event) => {
     const newScript = event.target.innerText;
@@ -126,10 +115,19 @@ const TransliteratePage = () => {
   };
 
   useEffect(() => {
-    const result = transliterate();
+    setTransliterateHook(() => selectTransliterator(script, variant));
+  }, [script, variant]);
+
+  useEffect(() => {
+    const result = transliterateHook(
+      inputText,
+      setInputText,
+      isLatinInput,
+      setIsLoading,
+    );
     setOutputText(result.outputText);
     setStandardLatin(result.standardLatin);
-  }, [inputText, script, variant]);
+  }, [inputText]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -216,8 +214,9 @@ const TransliteratePage = () => {
                   }
                   value={inputText}
                   onChange={handleInputTextChange}
-                  variant={script + " " + variant}
-                  standardLatin={isLatinInput ? null : standardLatin}
+                  script={script}
+                  variant={variant}
+                  standardLatin={isLatinInput ? standardLatin : null}
                 />
                 <TransliterateInput
                   placeholder="Transliteration"
@@ -227,8 +226,9 @@ const TransliteratePage = () => {
                   value={outputText}
                   isLoading={isLoading}
                   isReadOnly
-                  variant={script + " " + variant}
-                  standardLatin={isLatinInput ? standardLatin : null}
+                  script={script}
+                  variant={variant}
+                  standardLatin={isLatinInput ? null : standardLatin}
                 />
               </Stack>
             </Card>

@@ -1,6 +1,6 @@
 const scriptsData = {
   Pegon: {
-    variants: ["Indonesian", "Javanese", "Madurese"],
+    variants: ["Indonesian", "Javanese", "Madurese", "Sundanese"],
     rightToLeft: true,
   },
   Jawi: {
@@ -21,25 +21,29 @@ const scriptsData = {
   },
 };
 
-const variantsStyles = {
-  "Cham undefined": {
-    fontFamily: "Noto Sans Cham",
-  },
-  "Baybayin Baybayin": {
-    fontFamily: "Noto Sans Tagalog",
-  },
-  "Baybayin Buhid": {
-    fontFamily: "Noto Sans Buhid",
-  },
-  "Baybayin Hanuno'o": {
-    fontFamily: "Noto Sans Hanunoo",
-  },
-  "Baybayin Tagbanwa": {
-    fontFamily: "Noto Sans Tagbanwa",
-  },
-  "Kayah Li undefined": {
-    fontFamily: "Noto Sans Kayah Li",
-  },
+const getFont = (script, variant) => {
+  switch (script) {
+    case "Pegon":
+      return "Noto Naskh Arabic";
+    case "Jawi":
+      return "Noto Naskh Arabic";
+    case "Cham":
+      return "Noto Sans Cham";
+    case "Kayah Li":
+      return "Noto Sans Kayah Li";
+    case "Baybayin":
+      switch (variant) {
+        case "Baybayin":
+          return "Noto Sans Tagalog";
+        case "Buhid":
+          return "Noto Sans Buhid";
+        case "Hanuno'o":
+          return "Noto Sans Hanunoo";
+        case "Tagbanwa":
+          return "Noto Sans Tagbanwa";
+      }
+      break;
+  }
 };
 
-export { scriptsData, variantsStyles };
+export { scriptsData, getFont };
