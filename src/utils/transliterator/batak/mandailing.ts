@@ -1,5 +1,8 @@
-import type { PlainRule, RegexRule, Rule, InputMethodEditor } from "../core"
-import { Batak } from "../batak-common";
+import { Batak } from "./batak-common";
+import type { PlainRule,
+              RegexRule,
+              Rule,
+              InputMethodEditor } from "../core";
 import { prepareRules,
          chainRule,
          ruleProduct,
@@ -118,7 +121,7 @@ const ToLatinScheme: Rule[] = prepareRules(
 
 const ReversibleLatinToLatinScheme: Rule[] =
     [
-        [new RegExp(`(?<=(${LatinConsonants.join("|")}))h`), "k"]
+        [new RegExp(`(?<=(${LatinConsonants.join("|")}))h`), "k"],
         ["n_g", "ng"]
     ]
 

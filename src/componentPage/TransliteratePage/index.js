@@ -35,6 +35,11 @@ import {
   useHanunooTransliterator,
   useTagbanwaTransliterator,
   useJawiChamTransliterator,
+  useTobaTransliterator,
+  useKaroTransliterator,
+  useMandailingTransliterator,
+  usePakpakTransliterator,
+  useSimalungunTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -73,6 +78,20 @@ const selectTransliterator = (script, variant) => {
           return useHanunooTransliterator;
         case "Tagbanwa":
           return useTagbanwaTransliterator;
+      }
+      break;
+    case "Batak":
+      switch (variant) {
+        case "Toba":
+          return useTobaTransliterator;
+        case "Karo":
+          return useKaroTransliterator;
+        case "Simalungun":
+          return useSimalungunTransliterator;
+        case "Angkola-Mandailing":
+          return useMandailingTransliterator;
+        case "Pakpak":
+          return usePakpakTransliterator;
       }
       break;
   }

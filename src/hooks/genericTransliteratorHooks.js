@@ -1,10 +1,15 @@
 import * as Cham from "src/utils/transliterator/cham/transliterate";
 import * as KayahLi from "src/utils/transliterator/kayah-li/transliterate";
 import * as Baybayin from "src/utils/transliterator/baybayin/transliterate";
-import * as Hanunoo from "src/utils/transliterator/hanunuo/transliterate";
+import * as Hanunoo from "src/utils/transliterator/hanunoo/transliterate";
 import * as Buhid from "src/utils/transliterator/buhid/transliterate";
 import * as Tagbanwa from "src/utils/transliterator/tagbanwa/transliterate";
 import * as JawiCham from "src/utils/transliterator/jawi-cham/transliterate";
+import * as Toba from "src/utils/transliterator/batak/toba";
+import * as Karo from "src/utils/transliterator/batak/karo";
+import * as Mandailing from "src/utils/transliterator/batak/mandailing";
+import * as Pakpak from "src/utils/transliterator/batak/pakpak";
+import * as Simalungun from "src/utils/transliterator/batak/simalungun";
 
 const genericTransliteratorHook =
   (initIME, toLatin, fromLatin, toStandardLatin) =>
@@ -84,4 +89,39 @@ export const useJawiChamTransliterator = genericTransliteratorHook(
   JawiCham.toLatin,
   JawiCham.fromLatin,
   JawiCham.toStandardLatin,
+);
+
+export const useTobaTransliterator = genericTransliteratorHook(
+  Toba.initIME,
+  Toba.toLatin,
+  Toba.fromLatin,
+  Toba.toStandardLatin,
+);
+
+export const useKaroTransliterator = genericTransliteratorHook(
+  Karo.initIME,
+  Karo.toLatin,
+  Karo.fromLatin,
+  Karo.toStandardLatin,
+);
+
+export const useMandailingTransliterator = genericTransliteratorHook(
+  Mandailing.initIME,
+  Mandailing.toLatin,
+  Mandailing.fromLatin,
+  Mandailing.toStandardLatin,
+);
+
+export const usePakpakTransliterator = genericTransliteratorHook(
+  Pakpak.initIME,
+  Pakpak.toLatin,
+  Pakpak.fromLatin,
+  Pakpak.toStandardLatin,
+);
+
+export const useSimalungunTransliterator = genericTransliteratorHook(
+  Simalungun.initIME,
+  Simalungun.toLatin,
+  Simalungun.fromLatin,
+  Simalungun.toStandardLatin,
 );

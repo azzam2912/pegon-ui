@@ -19,6 +19,10 @@ const scriptsData = {
     variants: [],
     rightToLeft: false,
   },
+  Batak: {
+    variants: ["Toba", "Karo", "Simalungun", "Angkola-Mandailing", "Pakpak"],
+    rightToLeft: false,
+  },
 };
 
 const getFont = (script, variant) => {
@@ -43,6 +47,8 @@ const getFont = (script, variant) => {
           return "Noto Sans Tagbanwa";
       }
       break;
+    case "Batak":
+      return "Noto Sans Batak";
   }
 };
 
