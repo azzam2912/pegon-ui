@@ -110,3 +110,11 @@ export interface InputMethodEditor {
     readonly rules: Rule[];
     readonly inputEdit: (inputString: string) => string;
 }
+
+export const genericIMEInit = (imeScheme: Rule[]) =>
+    (): InputMethodEditor =>
+    ({
+        rules: imeScheme,
+        inputEdit: (inputString: string): string =>
+            transliterate(inputString, imeScheme)
+    });
