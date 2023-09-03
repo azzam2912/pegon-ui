@@ -1,76 +1,39 @@
-import { useEffect, useState } from "react";
 import { initIME } from "src/utils/transliterator/pegon/transliterate";
 import { transliterateFromView } from "src/utils/transliterator/pegon/transliterateMain";
 
-const usePegonTransliterator = () => {
-  const [stemmingType, setStemmingType] = useState("Indonesian");
-  const [leftText, setLeftText] = useState("");
-  const [standardLatin, setStandardLatin] = useState("");
-  const [rightText, setRightText] = useState("");
-  const [labels, setLabels] = useState({
-    left: "Latin",
-    right: "Pegon",
-  });
+const usePegonGenericTransliterator =
+  (lang) => (inputText, setInputText, isLatinInput, setIsLoading) => {
+    const ime = initIME();
 
-  const ime = initIME();
+    const inputMethodEdit = (text) => {
+      const lastSpaceIndex = text.lastIndexOf(" ") + 1;
+      const lastWord = text.slice(lastSpaceIndex);
+      return text.slice(0, lastSpaceIndex).concat(ime.inputEdit(lastWord));
+    };
 
-  function inputMethodEdit(text) {
-    const lastSpaceIndex = text.lastIndexOf(" ") + 1;
-    const lastWord = text.slice(lastSpaceIndex);
-    return text.slice(0, lastSpaceIndex).concat(ime.inputEdit(lastWord));
-  }
+    const transliterate = (useLatinInput) => {
+      if (!useLatinInput) {
+        setInputText(inputMethodEdit(inputText));
+      }
+      const transliterateResult = transliterateFromView(
+        inputText,
+        useLatinInput,
+        lang,
+      );
+      return {
+        outputText: transliterateResult.translitrateResult,
+        standardLatin: transliterateResult.standardLatin,
+      };
+    };
 
-  const funcLatin = () => {
-    const transliterateResult = transliterateFromView(
-      leftText,
-      true,
-      stemmingType
-    );
-    setRightText(transliterateResult.translitrateResult);
-    setStandardLatin(transliterateResult.standardLatin);
+    return transliterate(isLatinInput);
   };
 
-  const funcPegon = () => {
-    setLeftText(inputMethodEdit(leftText));
-    const transliterateResult = transliterateFromView(
-      leftText,
-      false,
-      stemmingType
-    );
-    setRightText(transliterateResult.translitrateResult);
-    setStandardLatin(transliterateResult.standardLatin);
-  };
-
-  const usedFunc = labels.left === "Latin" ? funcLatin : funcPegon;
-
-  const onChange = (e) => {
-    setLeftText(e.target.value);
-  };
-
-  useEffect(() => {
-    usedFunc();
-  }, [leftText, rightText, stemmingType]);
-
-  const onSwitch = () => {
-    const tempLeft = leftText;
-    setLeftText(rightText);
-    setRightText(tempLeft);
-    const tempLabel = labels.left;
-    setLabels({
-      left: labels.right,
-      right: tempLabel,
-    });
-  };
-
-  return {
-    stemmingType,
-    setStemmingType,
-    leftText,
-    rightText,
-    labels,
-    onChange,
-    onSwitch,
-  };
-};
-
-export default usePegonTransliterator;
+export const usePegonIndonesianTransliterator =
+  usePegonGenericTransliterator("Indonesian");
+export const usePegonJavaneseTransliterator =
+  usePegonGenericTransliterator("Jawa");
+export const usePegonSundaneseTransliterator =
+  usePegonGenericTransliterator("Sunda");
+export const usePegonMadureseTransliterator =
+  usePegonGenericTransliterator("Madura");

@@ -10,8 +10,16 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.5",
+    "@choc-ui/chakra-autocomplete": "^5.2.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/noto-naskh-arabic": "^5.0.11",
+    "@fontsource/noto-sans-buhid": "^5.0.9",
+    "@fontsource/noto-sans-cham": "^5.0.8",
+    "@fontsource/noto-sans-hanunoo": "^5.0.8",
+    "@fontsource/noto-sans-kayah-li": "^5.0.8",
+    "@fontsource/noto-sans-tagalog": "^5.0.8",
+    "@fontsource/noto-sans-tagbanwa": "^5.0.9",
     "@fontsource/open-sans": "^5.0.3",
     "@react-pdf-viewer/core": "3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
@@ -27,10 +35,16 @@
     "pdfjs-dist": "3.4.120",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "react-nanny": "^2.15.0"
   },
   "devDependencies": {
+    "@svgr/cli": "^8.1.0",
     "@types/react": "18.2.14",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.46.0",
+    "eslint-plugin-react": "^7.33.1",
     "typescript": "^5.1.6"
   }
 }

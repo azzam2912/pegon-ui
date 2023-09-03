@@ -1,20 +1,23 @@
-import { Button } from "@chakra-ui/react";
 import {
+  Button,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  Text,
   VStack,
+  Text,
 } from "@chakra-ui/react";
-import React from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-export const LanguageVariantSelect = ({ value, onChange = () => {} }) => {
+export const VariantSelect = ({ value, options, onChange }) => {
+  if (options.length === 0) {
+    return null;
+  }
+
   return (
     <VStack align="flex-start">
       <Text fontSize="sm" textColor="gray.500">
-        Language
+        Variant
       </Text>
       <Menu>
         <MenuButton
@@ -23,25 +26,17 @@ export const LanguageVariantSelect = ({ value, onChange = () => {} }) => {
           variant="outline"
           fontWeight="normal"
           gap={3}
+          ml={4}
           rightIcon={<FaChevronDown />}
         >
           {value}
         </MenuButton>
         <MenuList>
-          <MenuItem
-            onClick={() => {
-              onChange("Malay");
-            }}
-          >
-            Malay
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onChange("Cham");
-            }}
-          >
-            Cham
-          </MenuItem>
+          {options.map((option) => (
+            <MenuItem key={option} onClick={onChange}>
+              {option}
+            </MenuItem>
+          ))}
         </MenuList>
       </Menu>
     </VStack>

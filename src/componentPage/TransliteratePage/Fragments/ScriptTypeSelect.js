@@ -7,10 +7,11 @@ import {
   MenuItem,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-export const ScriptTypeSelect = ({ value, onChange = () => {}, ...props }) => {
+export const ScriptTypeSelect = ({ value, onChange }) => {
+  const scriptOptions = ["Pegon", "Jawi", "Cham", "Baybayin", "Kayah Li"];
+
   return (
     <VStack align="flex-start">
       <Text fontSize="sm" textColor="gray.500">
@@ -23,47 +24,17 @@ export const ScriptTypeSelect = ({ value, onChange = () => {}, ...props }) => {
           variant="outline"
           fontWeight="normal"
           gap={3}
-          {...props}
+          ml={4}
           rightIcon={<FaChevronDown />}
         >
           {value}
         </MenuButton>
         <MenuList>
-          <MenuItem
-            onClick={() => {
-              onChange("Pegon");
-            }}
-          >
-            Pegon
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onChange("Jawi");
-            }}
-          >
-            Jawi
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onChange("Cham");
-            }}
-          >
-            Cham
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onChange("Baybayin");
-            }}
-          >
-            Baybayin
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onChange("Kayah Li");
-            }}
-          >
-            Kayah Li
-          </MenuItem>
+          {scriptOptions.map((option) => (
+            <MenuItem key={option} onClick={onChange}>
+              {option}
+            </MenuItem>
+          ))}
         </MenuList>
       </Menu>
     </VStack>

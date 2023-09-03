@@ -27,6 +27,18 @@ import { useAddDocumentMutation } from "src/hooks/fetchers/mutations/useAddDocum
 import { useRouter } from "next/router";
 import Head from "next/head";
 
+import {
+  AutoComplete,
+  AutoCompleteGroup,
+  AutoCompleteGroupTitle,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+} from "@choc-ui/chakra-autocomplete";
+
+import { scripts } from "src/utils/scriptList";
+import { languages } from "src/utils/languageList";
+
 const NewDocumentPage = () => {
   const [file, setFile] = React.useState(null);
   const [url, setUrl] = React.useState(null);
@@ -55,7 +67,7 @@ const NewDocumentPage = () => {
     !documentType ||
     !language ||
     !thumbnail ||
-    documentScript;
+    !documentScript;
 
   // useAddDocumentMutation({
   const { mutate: addDocument, status: addDocumentStatus } =
@@ -65,7 +77,7 @@ const NewDocumentPage = () => {
           createToast({
             title: "Success",
             description:
-              "You have successfully created an entry. please wait until it's published.",
+              "You have successfully created a document entry. It will be previewed by the admin team before it is published.",
             status: "success",
             position: "bottom-right",
             isClosable: true,
@@ -164,41 +176,59 @@ const NewDocumentPage = () => {
                   value={documentType}
                   onChange={(e) => setDocumentType(e.target.value)}
                   label="Document Type"
-                  placeholder="Ex: Tassawuf, Fiqh, etc"
+                  placeholder="ex: poem, letter, etc"
                   type="text"
                   isRequired
                 />
                 <FormControl isRequired>
                   <FormLabel mb={0}>Language</FormLabel>
-                  <InputGroup size="md">
-                    <Select
-                      placeholder="Select One"
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                    >
-                      <option value="Javanese">Javanese</option>
-                      <option value="Sundanese">Sundanese</option>
-                      <option value="Madurese">Madurese</option>
-                      <option value="Indonesian">Indonesian</option>
-                      <option value="Malay">Malay</option>
-                      <option value="Cham">Cham</option>
-                      <option value="Others">Others</option>
-                    </Select>
-                  </InputGroup>
+                  <AutoComplete
+                    openOnFocus
+                    onChange={(val) => setLanguage(val)}
+                  >
+                    <AutoCompleteInput />
+                    <AutoCompleteList>
+                      {Object.entries(languages).map(
+                        ([family, langs], lf_id) => (
+                          <AutoCompleteGroup key={lf_id} showDivider>
+                            <AutoCompleteGroupTitle>
+                              {family}
+                            </AutoCompleteGroupTitle>
+                            {langs.map((language, idx) => (
+                              <AutoCompleteItem key={idx} value={language}>
+                                {language}
+                              </AutoCompleteItem>
+                            ))}
+                          </AutoCompleteGroup>
+                        ),
+                      )}
+                    </AutoCompleteList>
+                  </AutoComplete>
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel mb={0}>Document Script</FormLabel>
-                  <InputGroup size="md">
-                    <Select
-                      placeholder="Select One"
-                      value={documentScript}
-                      onChange={(e) => setDocumentScript(e.target.value)}
-                    >
-                      <option value="Pegon">Pegon</option>
-                      <option value="Jawi">Jawi</option>
-                      <option value="Cham">Cham</option>
-                    </Select>
-                  </InputGroup>
+                  <AutoComplete
+                    openOnFocus
+                    onChange={(val) => setDocumentScript(val)}
+                  >
+                    <AutoCompleteInput />
+                    <AutoCompleteList>
+                      {Object.entries(scripts).map(
+                        ([family, scripts], sf_id) => (
+                          <AutoCompleteGroup key={sf_id} showDivider>
+                            <AutoCompleteGroupTitle>
+                              {family}
+                            </AutoCompleteGroupTitle>
+                            {scripts.map((script, idx) => (
+                              <AutoCompleteItem key={idx} value={script}>
+                                {script}
+                              </AutoCompleteItem>
+                            ))}
+                          </AutoCompleteGroup>
+                        ),
+                      )}
+                    </AutoCompleteList>
+                  </AutoComplete>
                 </FormControl>
               </HStack>
               <HStack width="100%">

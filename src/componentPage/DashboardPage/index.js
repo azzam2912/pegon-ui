@@ -168,7 +168,7 @@ const DashboardPage = () => {
                   Welcome, {userStatus === "success" ? user?.firstName : "..."}!
                 </Heading>
                 <Text>
-                  Let's explore Southeast Asian scripts together and contribute to the community!
+                  Join us in delving into the richness of Southeast Asian scripts and collectively enhancing the community's knowledge.
                 </Text>
                 <Spacer />
                 <HStack justify="end" width="100%">

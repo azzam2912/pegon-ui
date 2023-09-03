@@ -1,0 +1,28 @@
+export const languages = Object.fromEntries(
+  Object.entries({
+    Indic: ["Sanksrit", "Pali"],
+    "Tibeto-Burman": ["Myanmar", "Karen", "Kachin"],
+    "Tai-Kadai": ["Shan", "Lanna", "Lao", "Thai"],
+    Austroasiatic: ["Khmer", "Tieng Viet"],
+    Chamic: ["Aceh", "Cham"],
+    Malayic: [
+      "Malay",
+      "Minangkabau",
+      "Indonesian",
+      "Rejang",
+      "Kerinci",
+      "Lampung",
+    ],
+    Batak: ["Toba", "Angkola", "Mandailing", "Pakpak", "Karo", "Simalungun"],
+    Jawa: ["Jawa", "Sunda", "Madura"],
+    "Bali-Sasak-Sumbawa": ["Bali", "Sasak", "Sumbawa"],
+    Bugis: ["Bugis", "Embaloh", "Taman", "Campalagian"],
+    Makassar: ["Makassar", "Bentong", "Konjo", "Selayar"],
+    "Nusa Tenggara": ["Mbojo", "Flores", "Sumba", "Ende"],
+    Luzon: ["Tagalog", "Ilokano", "Kapampangan", "Bikolano"],
+    Visayas: ["Hiligaynon", "Bisaya", "Waray"],
+    Mindanao: ["Maguindanao", "Maranao", "Tausug"],
+    Palawan: ["Palaw'an", "Aborlan", "Calamian", "Tagbanwa"],
+    Mindoro: ["Hanunó'o", "Buhid"],
+  }).map(([key, value]) => [key, value.slice().sort()]),
+);
