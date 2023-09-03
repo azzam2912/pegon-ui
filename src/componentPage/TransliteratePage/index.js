@@ -176,7 +176,11 @@ const TransliteratePage = () => {
       <AppLayout>
         <VStack pt={3} align="start">
           <HStack px={5} w="100%">
-            <ScriptTypeSelect value={script} onChange={handleScriptChange} />
+            <ScriptTypeSelect
+              value={script}
+              options={Object.keys(scriptsData)}
+              onChange={handleScriptChange}
+            />
             <VariantSelect
               value={variant}
               options={scriptsData[script]["variants"]}
