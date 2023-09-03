@@ -63,6 +63,14 @@ const getFont = (script, variant) => {
       break;
     case "Batak":
       return "Noto Sans Batak";
+    case "Lontara":
+      switch (variant) {
+        case "Bugis":
+          return "Noto Sans Buginese";
+        case "Makasar":
+          return "Noto Serif Makasar";
+      }
+      break;
   }
 };
 
