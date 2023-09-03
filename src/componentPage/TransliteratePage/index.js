@@ -40,6 +40,7 @@ import {
   useMandailingTransliterator,
   usePakpakTransliterator,
   useSimalungunTransliterator,
+  useRejangTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -68,6 +69,8 @@ const selectTransliterator = (script, variant) => {
       return useChamTransliterator;
     case "Kayah Li":
       return useKayahLiTransliterator;
+    case "Rejang":
+      return useRejangTransliterator;
     case "Baybayin":
       switch (variant) {
         case "Baybayin":
@@ -92,6 +95,22 @@ const selectTransliterator = (script, variant) => {
           return useMandailingTransliterator;
         case "Pakpak":
           return usePakpakTransliterator;
+      }
+      break;
+    case "Lontara":
+      switch (variant) {
+        case "Makassar":
+          return useMakassarTransliterator;
+        case "Bugis":
+          return useBugisTransliterator;
+      }
+      break;
+    case "Mon-Burmese":
+      switch (variant) {
+        case "Mon":
+          return useMonTransliterator;
+        case "Kayah Li":
+          return useKayahLiTransliterator;
       }
       break;
   }

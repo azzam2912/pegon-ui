@@ -1,5 +1,4 @@
 import * as Cham from "src/utils/transliterator/cham/transliterate";
-import * as KayahLi from "src/utils/transliterator/kayah-li/transliterate";
 import * as Baybayin from "src/utils/transliterator/baybayin/transliterate";
 import * as Hanunoo from "src/utils/transliterator/hanunoo/transliterate";
 import * as Buhid from "src/utils/transliterator/buhid/transliterate";
@@ -10,6 +9,11 @@ import * as Karo from "src/utils/transliterator/batak/karo";
 import * as Mandailing from "src/utils/transliterator/batak/mandailing";
 import * as Pakpak from "src/utils/transliterator/batak/pakpak";
 import * as Simalungun from "src/utils/transliterator/batak/simalungun";
+import * as Rejang from "src/utils/transliterator/ulu/rejang";
+import * as Makassar from "src/utils/transliterator/lontaraq/makassar";
+import * as Bugis from "src/utils/transliterator/lontaraq/lontara";
+import * as KayahLi from "src/utils/transliterator/mon-burmese/kayah-li";
+import * as Mon from "src/utils/transliterator/mon-burmese/mon";
 
 const genericTransliteratorHook =
   (initIME, toLatin, fromLatin, toStandardLatin) =>
@@ -124,4 +128,32 @@ export const useSimalungunTransliterator = genericTransliteratorHook(
   Simalungun.toLatin,
   Simalungun.fromLatin,
   Simalungun.toStandardLatin,
+);
+
+export const useRejangTransliterator = genericTransliteratorHook(
+  Rejang.initIME,
+  Rejang.toLatin,
+  Rejang.fromLatin,
+  Rejang.toStandardLatin,
+);
+
+export const useMakassarTransliterator = genericTransliteratorHook(
+  Makassar.initIME,
+  Makassar.toLatin,
+  Makassar.fromLatin,
+  Makassar.toStandardLatin,
+);
+
+export const useBugisTransliterator = genericTransliteratorHook(
+  Bugis.initIME,
+  Bugis.toLatin,
+  Bugis.fromLatin,
+  Bugis.toStandardLatin,
+);
+
+export const useMonTransliterator = genericTransliteratorHook(
+  Mon.initIME,
+  Mon.toLatin,
+  Mon.fromLatin,
+  Mon.toStandardLatin,
 );

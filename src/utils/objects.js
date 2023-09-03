@@ -1,26 +1,34 @@
 const scriptsData = {
-  Pegon: {
-    variants: ["Indonesian", "Javanese", "Madurese", "Sundanese"],
-    rightToLeft: true,
-  },
-  Jawi: {
-    variants: ["Malay", "Cham"],
-    rightToLeft: true,
+  "Mon-Burmese": {
+    variants: ["Mon", "Kayah Li"],
+    rightToLeft: false,
   },
   Cham: {
     variants: [],
     rightToLeft: false,
   },
-  Baybayin: {
-    variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
-    rightToLeft: false,
-  },
-  "Kayah Li": {
-    variants: [],
-    rightToLeft: false,
+  Jawi: {
+    variants: ["Malay", "Cham"],
+    rightToLeft: true,
   },
   Batak: {
     variants: ["Toba", "Karo", "Simalungun", "Angkola-Mandailing", "Pakpak"],
+    rightToLeft: false,
+  },
+  Rejang: {
+    variants: [],
+    rightToLeft: false,
+  },
+  Pegon: {
+    variants: ["Indonesian", "Javanese", "Madurese", "Sundanese"],
+    rightToLeft: true,
+  },
+  Lontara: {
+    variants: ["Bugis", "Makassar"],
+    rightToLeft: false,
+  },
+  Baybayin: {
+    variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
     rightToLeft: false,
   },
 };
