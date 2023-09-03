@@ -41,8 +41,14 @@ const getFont = (script, variant) => {
       return "Noto Naskh Arabic";
     case "Cham":
       return "Noto Sans Cham";
-    case "Kayah Li":
-      return "Noto Sans Kayah Li";
+    case "Mon-Burmese":
+      switch (variant) {
+        case "Mon":
+          return "Noto Sans Myanmar";
+        case "Kayah Li":
+          return "Noto Sans Kayah Li";
+      }
+      break;
     case "Baybayin":
       switch (variant) {
         case "Baybayin":
