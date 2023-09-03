@@ -2116,6 +2116,11 @@
 "@fontsource/noto-naskh-arabic@^5.0.11":
   "version" "5.0.11"
 
+"@fontsource/noto-sans-buginese@^5.0.11":
+  "integrity" "sha512-UkhDvuD0XxhzNMtQw+PHtCJFMGXCdSk1q5ZQBlmwpXIpl9ftlf34jNn85r9f7qqCEHVkLfZbwkyDDSDSQNwv1w=="
+  "resolved" "https://registry.npmjs.org/@fontsource/noto-sans-buginese/-/noto-sans-buginese-5.0.11.tgz"
+  "version" "5.0.11"
+
 "@fontsource/noto-sans-buhid@^5.0.9":
   "integrity" "sha512-vkFOUcCzYqrHBnSO87E7ngKYWTnFm+RhpFOLHsjVW6SX8iybyoTVIaQpfTAaaXJxtXvnzq3CeiWeMOgfHXug6Q=="
   "resolved" "https://registry.npmjs.org/@fontsource/noto-sans-buhid/-/noto-sans-buhid-5.0.9.tgz"
@@ -2150,6 +2155,11 @@
   "integrity" "sha512-m4yM6uq+Y+txEYbPY/QXT4bvZsE1YUszFwBpUIMOyN6xt9d1kjib8x8D4eQWSqkg4oHJ6EX51cEA78FKWjmsmQ=="
   "resolved" "https://registry.npmjs.org/@fontsource/noto-sans-tagbanwa/-/noto-sans-tagbanwa-5.0.9.tgz"
   "version" "5.0.9"
+
+"@fontsource/noto-serif-makasar@^5.0.2":
+  "integrity" "sha512-y5wMhQ2sE27fTEYk2m88ALvt+PTa+5sbH0eQcdfmE4vaYtlmDRda9aa1ZvZZVuHsq0yUxArwgrw1X8M2gNnxtQ=="
+  "resolved" "https://registry.npmjs.org/@fontsource/noto-serif-makasar/-/noto-serif-makasar-5.0.2.tgz"
+  "version" "5.0.2"
 
 "@fontsource/open-sans@^5.0.3":
   "integrity" "sha512-L86qrEfW7IWSGojCtiPpw2/M6qKjxDG+EV4k1xMVFCkhh6Z6gyZwevqCt0yOvd1BmjrtUAIAfSzFTjBn3DeZJw=="
