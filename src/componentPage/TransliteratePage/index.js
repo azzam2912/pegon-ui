@@ -41,6 +41,8 @@ import {
   usePakpakTransliterator,
   useSimalungunTransliterator,
   useRejangTransliterator,
+  useBugisTransliterator,
+  useMakassarTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {

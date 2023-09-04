@@ -56,6 +56,9 @@ export const asSingleWord = (rules: PlainRule[]): RegexRule[] =>
         [new RegExp(`(^|[${wordDelimitingPatterns}])(${key})($|[${wordDelimitingPatterns}])`),
          `$1${val}$3`])
 
+export const notAfter = (before: Array<string>, [key, val]: PlainRule) =>
+    [new RegExp(`(?<!${before.map(escape).join("|")})${escape(key)}`), val]
+
 export const debugTransliterate = (stringToTransliterate: string,
                        translationMap: Rule[]): string =>
     translationMap.reduce<string>((acc, [key, val]) => {

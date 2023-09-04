@@ -67,7 +67,7 @@ const getFont = (script, variant) => {
       switch (variant) {
         case "Bugis":
           return "Noto Sans Buginese";
-        case "Makasar":
+        case "Makassar":
           return "Noto Serif Makasar";
       }
       break;
