@@ -10,6 +10,7 @@ import "@fontsource/noto-sans-kayah-li";
 import "@fontsource/noto-sans-myanmar";
 import "@fontsource/noto-sans-buginese";
 import "@fontsource/noto-serif-makasar";
+import "@fontsource/noto-sans-rejang";
 import { getFont } from "src/utils/objects";
 
 export const TransliterateInput = ({

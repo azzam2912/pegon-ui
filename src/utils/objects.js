@@ -71,6 +71,8 @@ const getFont = (script, variant) => {
           return "Noto Serif Makasar";
       }
       break;
+    case "Rejang":
+      return "Noto Sans Rejang";
   }
 };
 
