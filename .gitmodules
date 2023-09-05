@@ -1,3 +1,6 @@
 [submodule "src/utils/transliterator/carakan.js"]
 	path = src/utils/transliterator/carakan-jawa
 	url = git@github.com:Aksarantara/carakan.js.git
+[submodule "src/utils/transliterator/sunda.js"]
+	path = src/utils/transliterator/sunda
+	url = git@github.com:masnormen/sunda.js.git
