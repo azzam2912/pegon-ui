@@ -1,0 +1,3 @@
+[submodule "src/utils/transliterator/carakan.js"]
+	path = src/utils/transliterator/carakan-jawa
+	url = git@github.com:Aksarantara/carakan.js.git
