@@ -7,13 +7,12 @@ import { prepareRules,
          debugTransliterate,
          escape,
          isPlain,
-         wordDelimitingPatterns,
-         asWordBeginning,
-         asWordEnding,
-         asNotWordBeginning,
-         asNotWordEnding,
+         wordDelimiters,
          asInverse,
-         genericIMEInit
+         genericIMEInit,
+         notAfter,
+         between,
+         patternList
        } from "../core"
 
 const enum Rejang {
@@ -63,8 +62,7 @@ const TrigraphConsonants: PlainRule[] = [
     ["n_g_g", Rejang.Ngga]
 ]
 
-const DigraphConsonants: PlainRule[] = [
-    
+const DigraphConsonants: PlainRule[] = [    
     ["n_d", Rejang.Nda],
     ["n_g", Rejang.Nga],
     ["n_j", Rejang.Nja],
@@ -89,7 +87,17 @@ const MonographConsonants: PlainRule[] = [
     ["h", Rejang.Ha],
 ]
 
+const Inok: PlainRule[] = chainRule<PlainRule>(
+    TrigraphConsonants,
+    DigraphConsonants,
+    MonographConsonants,
+    [["a", Rejang.A]]
+)
+
 const IndependentDigraphVowels: PlainRule[] = [
+    ["au", Rejang.A + Rejang._au],
+    ["ai", Rejang.A + Rejang._ai],
+    ["ea", Rejang.A + Rejang._ea],
     ["^e", Rejang.A + Rejang._eˆu]
 ]
 
@@ -102,23 +110,33 @@ const IndependentMonographVowels: PlainRule[] = [
     ["a", Rejang.A]
 ]
 
+
+
+const IndependentVowels = chainRule<PlainRule>(IndependentDigraphVowels,
+                                               IndependentMonographVowels)
+
 const DiphthongVowels: PlainRule[] = [
-    ["au", Rejang._au],
-    ["ai", Rejang._ai],
-    ["ea", Rejang._ea]
+    ["a_u", Rejang._au],
+    ["a_i", Rejang._ai],
+    ["e_a", Rejang._ea]
 ]
 
-const DigraphDependentVowels: PlainRule[] = [
+const DigraphAnok: PlainRule[] = [
     ["^e", Rejang._eˆu]
 ]
 
-const MonographDependentVowels: PlainRule[] = [
+const MonographAnok: PlainRule[] = [
     ["u", Rejang._u],
     ["o", Rejang._o],
     ["e", Rejang._e],
     ["i", Rejang._i],
-    ["a", ""]
 ]
+
+const Anok = chainRule<PlainRule>(DigraphAnok,
+                                  MonographAnok)
+
+const DependentVowels = chainRule<PlainRule>(Anok,
+                                             [["a", ""]])
 
 const Punctuation: PlainRule[] = [
     [".", Rejang.Titik]
@@ -137,9 +155,11 @@ const FinalDigraphConsonantDiacritics: PlainRule[] = [
 const Syllables: PlainRule[] =
     ruleProduct(
         chainRule(
+            TrigraphConsonants,
             DigraphConsonants,
             MonographConsonants),
-        DependentVowels)
+        chainRule(DiphthongVowels,
+                  DependentVowels))
 
 const ClosedMonographConsonants: PlainRule[] =
     ruleProduct(
@@ -157,37 +177,88 @@ const ClosedTrigraphConsonants: PlainRule[] =
         [["", Rejang.Virama]])
 
 const ClosedConsonants: PlainRule[] =
-    chainRule(
-        ClosedTrigraphConsonants,
-        ClosedDigraphConsonants,
-        ClosedMonographConsonants)
+    chainRule(ClosedTrigraphConsonants,
+              ClosedDigraphConsonants,
+              ClosedMonographConsonants)
+
+const latinVowels: string[] = DependentVowels.map(([key,val]) => key)
+const anok: string[] = chainRule(Anok).map(([key, val]) => val)
+const inok: string[] = chainRule(Inok).map(([key, val]) => val)
+
+const FinalConsonants: PlainRule[] = chainRule(
+    FinalDigraphConsonantDiacritics,
+    FinalMonographConsonantDiacritics
+)
+
+const FinalConsonantsToClosedConsonants: PlainRule[] =
+    FinalConsonants
+        .filter(([key, val]) => (key != "\'"))
+        .map(([key, val]) =>
+            [val, ClosedConsonants.filter(([k, v]) => key == k)[0][1]])
+
+// console.dir(FinalConsonantsToClosedConsonants, {maxArrayLength: null})
 
 const FromLatinScheme: Rule[] = prepareRules(
-    chainRule(Syllables,
+    chainRule<Rule>(FinalConsonants
+        .map((rule: PlainRule) =>
+            between(
+                patternList(latinVowels.map(escape)),
+                rule,
+                patternList(wordDelimiters.map(escape).concat("$")))),
+              Syllables,
               ClosedConsonants,
               IndependentVowels,
               Punctuation))
+
 const ToLatinScheme: Rule[] = prepareRules(
     chainRule(
-        asInverse(IndependentVowels.filter(([key, val]) => !(key.includes("o") || key.includes("e")))),
+        asInverse(IndependentVowels),
         asInverse(ClosedConsonants),
-        asInverse(Syllables.filter(([key, val]) => !(key.includes("o") || key.includes("e")))),
+        asInverse(Syllables),
+        asInverse(FinalConsonants),
+        asInverse(DiphthongVowels),
         asInverse(Punctuation)))
 
-const ReversibleLatinToLatinScheme: Rule[] =
-    [["n_g", "ng"]]
+const ReversibleLatinToLatinScheme: Rule[] = prepareRules([
+    ["n_g_g", "ngg"],
+    ["n_d", "nd"],
+    ["n_g", "ng"],
+    ["n_j", "nj"],
+    ["n_y", "ny"],
+    ["m_b", "mb"],
+    ["n_g", "ng"],
+    ["a_i", "ai"],
+    ["a_u", "au"],
+    ["e_a", "ea"],
+    notAfter(/\^/, ["e", "é"]),
+    ["^e", "e"],
+])
 
 export const fromLatin = (input: string): string => transliterate(input, FromLatinScheme);
 export const toLatin = (input: string): string => transliterate(input, ToLatinScheme);
 export const toStandardLatin = (input: string): string =>
     transliterate(input, ReversibleLatinToLatinScheme)
 
-const IMEScheme: Rule[] = prepareRules(chainRule(
+const IMEScheme: Rule[] = prepareRules(chainRule<Rule>(
     Punctuation,
+    ruleProduct(
+        FinalConsonantsToClosedConsonants,
+        DependentVowels
+            .map(([key, val]): PlainRule => [key, key])),
+    FinalConsonants.map((rule: PlainRule) =>
+        between(
+            patternList(inok.concat(anok).map(escape)),
+            rule,
+            patternList(wordDelimiters.map(escape).concat("$"))
+            )),
     makeTransitive(ClosedMonographConsonants,
                    ClosedDigraphConsonants,
+                   ClosedTrigraphConsonants,
                    Syllables),
-    IndependentVowels    
+    makeTransitive(DependentVowels,
+                   DiphthongVowels).filter(([key, val]) =>
+                       val != "" && key.length > 1),
+    IndependentVowels
 ))
 
 export const initIME: (() => InputMethodEditor) = genericIMEInit(IMEScheme);
