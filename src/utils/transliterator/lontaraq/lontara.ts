@@ -93,24 +93,26 @@ const Ana = chainRule<PlainRule>(DigraphAna, MonographAna);
 const IndependentVowels: PlainRule[] =
     Ana.map(([key, val]: PlainRule): PlainRule => [key, Lontara.A + val])
 
-const Syllables: Rule[] = chainRule<Rule>(
-    ruleProduct<PlainRule>(
-        chainRule(TrigraphConsonants,
+const Syllables: PlainRule[] = chainRule<PlainRule>(
+    ruleProduct(
+        chainRule<PlainRule>(TrigraphConsonants,
                   DigraphConsonants,
                   MonographConsonants),
         Ana),
     IndependentVowels)
 
-const Punctuation: Rule[] = [
+const Punctuation: PlainRule[] = [
     [",", Lontara.Pallawa],
     [".", Lontara.EndOfSection]
 ]
 
 export const fromLatin = (input: string): string =>
-    transliterate(input, prepareRules(chainRule(Syllables, Punctuation)));
+    transliterate(input, prepareRules(chainRule<PlainRule>(Syllables,
+                                                           Punctuation)));
 
 export const toLatin = (input: string): string =>
-    transliterate(input, asInverse(chainRule(Syllables, Punctuation)))
+    transliterate(input, asInverse(chainRule<PlainRule>(Syllables,
+                                                        Punctuation)))
 
 const StandardLatinScheme: Rule[] = prepareRules([
     ["n_g_k", "ngk"],
@@ -119,7 +121,7 @@ const StandardLatinScheme: Rule[] = prepareRules([
     ["n_r", "nr"],
     ["n_y", "ny"],
     ["n_c", "nc"],
-    notAfter(["^"], ["e", "é"]),
+    notAfter(/\^/, ["e", "é"]),
     ["^e", "e"],
 ])
 

@@ -81,12 +81,12 @@ const IndependentVowels: PlainRule[] =
     Vowels.map(([key, val]: PlainRule): PlainRule => [key, Makassar.A + val])
 
 
-const Syllables: Rule[] =
-    chainRule<Rule>(ruleProduct<PlainRule>(Consonants,
-                                           Vowels),
+const Syllables: PlainRule[] =
+    chainRule<PlainRule>(ruleProduct(Consonants,
+                                Vowels),
                     IndependentVowels)
 
-const DoubleAna: Rule[] =
+const DoubleAna: PlainRule[] =
     Consonants.flatMap<PlainRule>(([leftKey, leftVal]) =>
         Ana.map<PlainRule>(([rightKey, rightVal]) =>
             [`${leftVal}${rightVal}${leftVal}${rightVal}`,
@@ -95,16 +95,16 @@ const DoubleAna: Rule[] =
 const anaGroup: Array<string> = Ana.map(([key, val]) => val)
     
 const Angka: Rule[] =
-    Consonants.map<PlainRule>(([key, val]) =>
+    Consonants.map<RegexRule>(([key, val]) =>
         [new RegExp(`(${val})((${anaGroup.join("|")})?)(${val})`),
          `$1$2${Makassar.Angka}`])
 
 const AngkaReverse: Rule[] =
-    Consonants.map<PlainRule>(([key, val]) =>
+    Consonants.map<RegexRule>(([key, val]) =>
         [new RegExp(`(${val})((${anaGroup.join("|")})?)(${Makassar.Angka})`),
          "$1$2$1"])
 
-const Punctuation: Rule[] = [
+const Punctuation: PlainRule[] = [
     [",", Makassar.Passimbang],
     [".", Makassar.EndOfSection]
 ]
@@ -121,9 +121,9 @@ export const fromLatin = (input: string): string =>
 const ToLatinScheme: Rule[] =
     chainRule(
         AngkaReverse,
-        asInverse(chainRule(DoubleAna,
-                            Syllables,
-                            Punctuation)))
+        asInverse(chainRule<PlainRule>(DoubleAna,
+                                       Syllables,
+                                       Punctuation)))
 
 export const toLatin = (input: string): string =>
     transliterate(input, ToLatinScheme)
