@@ -4,3 +4,6 @@
 [submodule "src/utils/transliterator/sunda.js"]
 	path = src/utils/transliterator/sunda
 	url = git@github.com:masnormen/sunda.js.git
+[submodule "src/utils/transliterator/bali.js"]
+	path = src/utils/transliterator/bali
+	url = git@github.com:Aksarantara/bali.js.git
