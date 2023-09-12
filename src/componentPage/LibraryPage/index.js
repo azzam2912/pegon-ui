@@ -41,6 +41,18 @@ import { MdDelete } from "react-icons/md";
 import { useRemoveBookmarkMutation } from "src/hooks/fetchers/mutations/useRemoveBookmarkMutation";
 import { useQueryClient } from "@tanstack/react-query";
 
+import {
+  AutoComplete,
+  AutoCompleteGroup,
+  AutoCompleteGroupTitle,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+} from "@choc-ui/chakra-autocomplete";
+import { languages } from "src/utils/languageList";
+
+languages["All"] = ["All Languages"];
+
 const LibraryPage = () => {
   return (
     <AppLayout>
@@ -236,31 +248,29 @@ const DataComponent = () => {
           />
         </InputGroup>
         <HStack>
-          <Select
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            width="auto"
-            htmlSize={10}
-            defaultValue=""
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option value="">All Languages</option>
-            <option value="Javanese">Javanese</option>
-            <option value="Sundanese">Sundanese</option>
-            <option value="Madurese">Madurese</option>
-            <option value="Indonesian">Indonesian</option>
-            <option value="Malay">Malay</option>
-            <option value="Cham">Cham</option>
-            <option value="Others">Others</option>
-          </Select>
+          <Flex base="1" md="auto" htmlSize="10">
+            <AutoComplete openOnFocus onChange={(val) => setLanguage(val)}>
+              <AutoCompleteInput placeholder="All Languages" />
+              <AutoCompleteList>
+                {Object.entries(languages).map(([family, langs], lf_id) => (
+                  <AutoCompleteGroup key={lf_id} showDivider>
+                    <AutoCompleteGroupTitle>{family}</AutoCompleteGroupTitle>
+                    {langs.map((language, idx) => (
+                      <AutoCompleteItem key={idx} value={language}>
+                        {language}
+                      </AutoCompleteItem>
+                    ))}
+                  </AutoCompleteGroup>
+                ))}
+              </AutoCompleteList>
+            </AutoComplete>
+          </Flex>
           <Input
             flex={{
               base: "1",
               md: "auto",
             }}
-            htmlSize={10}
+            htmlSize={20}
             width="auto"
             type="text"
             placeholder="Document Type"
@@ -400,15 +410,25 @@ const DataComponent = () => {
                 <DocumentSkeleton />
               </>
             )}
-            {
-              status !== "loading" && currentData?.length === 0 && (
-                <Flex p={4} minH="200px" direction="column" align="center" justify="center">
-                  <Heading size="4xl" color="gray.600"><FaFolderOpen/></Heading>
-                  <Heading size="md" color="gray.500">No documents found</Heading>
-                  <Text color="gray.500">Add documents here or change the filter</Text>
-                </Flex>
-              )
-            }
+            {status !== "loading" && currentData?.length === 0 && (
+              <Flex
+                p={4}
+                minH="200px"
+                direction="column"
+                align="center"
+                justify="center"
+              >
+                <Heading size="4xl" color="gray.600">
+                  <FaFolderOpen />
+                </Heading>
+                <Heading size="md" color="gray.500">
+                  No documents found
+                </Heading>
+                <Text color="gray.500">
+                  Add documents here or change the filter
+                </Text>
+              </Flex>
+            )}
           </VStack>
           {/* Pagination */}
           <Flex align="center" pt={4}>
