@@ -6,12 +6,16 @@ const FAQPage = () => {
   return (
     <>
       <Head>
-        <title>Change Password - Aksarantara</title>
+        <title>Frequently Asked Questions - Aksarantara</title>
         <meta
           name="description"
           content="Let's explore Pegon together and contribute to the community!"
         />
-        <meta property="og:title" content="Dashboard - Aksarantara" key="title" />
+        <meta
+          property="og:title"
+          content="Dashboard - Aksarantara"
+          key="title"
+        />
         <meta
           property="og:description"
           content="Let's explore Pegon together and contribute to the community!"
@@ -19,8 +23,7 @@ const FAQPage = () => {
         />
         <meta property="og:image" content="logo.png" key="image" />
       </Head>
-      <AppLayout>
-      </AppLayout>
+      <AppLayout></AppLayout>
     </>
   );
 };
