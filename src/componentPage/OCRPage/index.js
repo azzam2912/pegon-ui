@@ -58,7 +58,6 @@ export const OCRPage = () => {
       );
       setStatus("success");
       setResult(response.data.result);
-      console.log("Upload success:", response.data);
     } catch (error) {
       setStatus("error");
       console.error("Error uploading image:", error);
@@ -232,7 +231,7 @@ export const OCRPage = () => {
                     <Text color="gray.400">This may take a while.</Text>
                   </>
                 )}
-                {status == "success" && <Text fontSize='xl'>{result}</Text>}
+                {status == "success" && <Text fontSize="xl">{result}</Text>}
                 {status == "error" && (
                   <>
                     <Alert

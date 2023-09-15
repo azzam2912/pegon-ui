@@ -86,11 +86,7 @@ const DataComponent = () => {
   const endIndex = startIndex + itemsPerPage;
 
   const { data, status } = useDocumentsQuery({
-    config: {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    },
+    config: {},
     page: currentPage,
     pageSize: itemsPerPage,
     queries: {

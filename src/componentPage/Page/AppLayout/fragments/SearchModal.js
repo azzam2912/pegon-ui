@@ -43,7 +43,6 @@ export const SearchModal = () => {
       const searchResults = await index.search(query);
       setData(searchResults.hits);
       setLoading(false); // Process the search results
-      console.log(searchResults.hits);
     } catch (error) {
       console.error("Error performing search:", error);
     }

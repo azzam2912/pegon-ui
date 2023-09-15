@@ -118,9 +118,6 @@ const DataComponent = () => {
 
   const { data, status } = useDocumentsQuery({
     config: {
-      onSuccess: (data) => {
-        console.log(data);
-      },
       enabled: !!user?.id,
     },
     page: currentPage,
