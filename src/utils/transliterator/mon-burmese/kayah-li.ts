@@ -167,14 +167,14 @@ const ToneNumbersAsLatinVowelDiacritics: RegexRule[] = ToneNumbers.map(
 
 // second pass ONLY
 const Diphthongs: Rule[] = [
-    ["ꤢꤦꤢꤧ", "ꤣꤧ"],
-    ["ꤢꤦꤣ", "ꤛꤣ"],
-    ["ꤟꤢꤦꤣ", "ꤟꤌꤣ"],
-    ["ꤣꤢꤦ", "ꤣꤦ"],
-    ["ꤣꤢꤨ", "ꤣꤨ"],
-    ["ꤣꤢꤩ", "ꤣꤩ"],
-    ["ꤣꤢꤪ", "ꤣꤪ"]
-]
+  ["ꤢꤦꤢꤧ", "ꤣꤧ"],
+  ["ꤢꤦꤣ", "ꤛꤣ"],
+  ["ꤟꤢꤦꤣ", "ꤟꤌꤣ"],
+  ["ꤣꤢꤦ", "ꤣꤦ"],
+  ["ꤣꤢꤨ", "ꤣꤨ"],
+  ["ꤣꤢꤩ", "ꤣꤩ"],
+  ["ꤣꤢꤪ", "ꤣꤪ"],
+];
 
 const FromLatinScheme: Rule[] = prepareRules(
   chainRule<Rule>(
@@ -184,8 +184,8 @@ const FromLatinScheme: Rule[] = prepareRules(
     MonographLatinMonographKayahLiVowels,
     DigraphConsonants,
     MonographConsonants,
-      ToneNumbersAsLatinVowelDiacritics,
-      Diphthongs,
+    ToneNumbersAsLatinVowelDiacritics,
+    Diphthongs,
     Numbers,
   ),
 );
@@ -193,14 +193,14 @@ const FromLatinScheme: Rule[] = prepareRules(
 const ToLatinScheme: Rule[] = prepareRules(
   asInverse(
     chainRule<PlainRule>(
+      Diphthongs,
       DigraphLatinDigraphKayahLiVowels,
       DigraphLatinMonographKayahLiVowels,
       MonographLatinDigraphKayahLiVowels,
       MonographLatinMonographKayahLiVowels,
       DigraphConsonants,
       MonographConsonants,
-        ToneNumbers,
-        Diphthongs,
+      ToneNumbers,
       Numbers,
     ),
   ),
@@ -230,8 +230,8 @@ const ReversibleLatinToLatinScheme: Rule[] = chainRule<Rule>(
     ["2", "̄"], // mid tone
     ["1", "̀"], // low tone
   ].map((rule) => after(patternList(latinVowels), rule)),
-    latinVowels.map<Rule>((vowel) => ["h".concat(vowel), vowel.concat("̤")])
-)
+  latinVowels.map<Rule>((vowel) => ["h".concat(vowel), vowel.concat("̤")]),
+);
 
 export const fromLatin = (input: string): string =>
   transliterate(input, FromLatinScheme);
@@ -253,8 +253,8 @@ const IMEScheme: Rule[] = prepareRules(
       ),
     ),
     makeTransitive(MonographConsonants, DigraphConsonants),
-      ToneNumbersAsKayahLiVowelDiacritics,
-      Diphthongs,
+    ToneNumbersAsKayahLiVowelDiacritics,
+    Diphthongs,
     Numbers,
   ),
 );
