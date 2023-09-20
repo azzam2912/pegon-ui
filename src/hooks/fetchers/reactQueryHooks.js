@@ -12,14 +12,24 @@ export const useFetchQuery = (key, fetcher, options) => {
       if (error.response?.status === 401) {
         localStorage?.removeItem("token");
         router.push("/");
+      } else if (error.response?.status === 403) {
+        // Handle 403 error: Forbidden
+        createToast({
+          title: "Error",
+          description: "Forbidden",
+          status: "error",
+          position: "bottom-right",
+          isClosable: true,
+        });
+      } else {
+        createToast({
+          title: "Error",
+          description: error.message,
+          status: "error",
+          position: "bottom-right",
+          isClosable: true,
+        });
       }
-      createToast({
-        title: "Error",
-        description: error.message,
-        status: "error",
-        position: "bottom-right",
-        isClosable: true,
-      });
     },
     ...options,
   });
@@ -34,14 +44,24 @@ export const useFetchMutation = (fetcher, options) => {
       if (error.response?.status === 401) {
         localStorage?.removeItem("token");
         router.push("/");
+      } else if (error.response?.status === 403) {
+        // Handle 403 error: Forbidden
+        createToast({
+          title: "Error",
+          description: "Forbidden",
+          status: "error",
+          position: "bottom-right",
+          isClosable: true,
+        });
+      } else {
+        createToast({
+          title: "Error",
+          description: error.message,
+          position: "bottom-right",
+          status: "error",
+          isClosable: true,
+        });
       }
-      createToast({
-        title: "Error",
-        description: error.message,
-        position: "bottom-right",
-        status: "error",
-        isClosable: true,
-      });
     },
     ...options,
   });
