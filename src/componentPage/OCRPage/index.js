@@ -42,9 +42,10 @@ export const OCRPage = () => {
 
   const onSubmit = async () => {
     setStatus("loading");
-
+    
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("api_key", `${process.env.OCR_API_KEY}`);
 
     try {
       const response = await axios.post(
@@ -53,6 +54,7 @@ export const OCRPage = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authentication": "Bearer " + `${process.env.OCR_API_KEY}`,
           },
         },
       );
