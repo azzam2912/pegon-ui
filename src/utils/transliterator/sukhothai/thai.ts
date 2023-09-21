@@ -110,6 +110,24 @@ const enum Thai {
   FongMan = "๏",
   AngkhanKhu = "๚",
   KhoMut = "๛",
+
+  // numbers
+  Zero = "๐",
+  One = "๑",
+  Two = "๒",
+  Three = "๓",
+  Four = "๔",
+  Five = "๕",
+  Six = "๖",
+  Seven = "๗",
+  Eight = "๘",
+  Nine = "๙",
+
+  // tones
+  MaiEk = "่",
+  MaiTho = "้",
+  MaiTri = "๊",
+  MaiChattawa = "๋",
 }
 
 const Consonants: PlainRule = [
@@ -280,9 +298,23 @@ const ClosedSyllableVowels: RegexRule[] = [
 
 // TODO: turn spaces into nothing/ZNWJ, and double spaces to actual space?
 // or final stop to actual space
-const Punctuation: PlainRule[] = [];
+const Punctuation: PlainRule[] = prepareRules([
+  [" ", "\u200C"],
+  [".", " "],
+]);
 // TODO: Numbers
-const Numbers: PlainRule[] = [];
+const Numbers: PlainRule[] = [
+  ["0", Thai.Zero],
+  ["1", Thai.One],
+  ["2", Thai.Two],
+  ["3", Thai.Three],
+  ["4", Thai.Four],
+  ["5", Thai.Five],
+  ["6", Thai.Six],
+  ["7", Thai.Seven],
+  ["8", Thai.Eight],
+  ["9", Thai.Nine],
+];
 
 // TODO: special single word spellings
 // TODO: circumfix vowels wrapping around an inherent vowel consonants behind them
