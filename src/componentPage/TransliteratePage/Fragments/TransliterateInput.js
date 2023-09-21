@@ -121,7 +121,6 @@ export const TransliterateInput = ({
             </HStack>
             <Divider borderWidth={"1px"} />
             <Textarea
-              placeholder=""
               style={fontFamily ? { fontFamily } : null}
               flex={1}
               textColor={isReadOnly ? "gray.300" : "primary.200"}
@@ -147,7 +146,7 @@ export const TransliterateInput = ({
               onChange={onChange}
               isReadOnly={true}
               value={isLoading ? "Transliterating..." : standardLatin}
-              {...props}
+              {...{ ...props, placeholder: "Text in standard Latin" }}
             />
             <HStack justify="space-between">
               <IconButton

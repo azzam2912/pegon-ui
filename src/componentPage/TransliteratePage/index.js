@@ -269,7 +269,7 @@ const TransliteratePage = () => {
                   standardLatin={isLatinInput ? standardLatin : null}
                 />
                 <TransliterateInput
-                  placeholder="Transliteration"
+                  placeholder="Transliteration result"
                   isRightToLeft={
                     isLatinInput ? scriptsData[script]["rightToLeft"] : false
                   }
