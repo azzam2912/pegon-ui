@@ -302,6 +302,9 @@ const ClosedSyllableVowels: RegexRule[] = [
 const Punctuation: PlainRule[] = [
   [" ", "\u200C"],
   [".", " "],
+  [`${Thai.PaiyanNoi}${Thai.LoLingL}${Thai.PaiyanNoi}`, " etc"],
+  [Thai.MaiYamok, "2"],
+  [Thai.PaiyanNoi, "."],
 ];
 
 const Numbers: PlainRule[] = [
