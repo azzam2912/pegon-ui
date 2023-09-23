@@ -36,8 +36,6 @@ const enum Thai {
   ChoChangL = "ช",
   ChoChoeL = "ฌ",
 
-  SoSoL = "ซ",
-
   YoYingL = "ญ",
   YoYakL = "ย",
 
@@ -78,6 +76,7 @@ const enum Thai {
   SoSalaH = "ศ",
   SoRuesiH = "ษ",
   SoSueaH = "ส",
+  SoSoL = "ซ",
 
   HoHipH = "ห",
   HoNokHukL = "ฮ",
@@ -185,7 +184,7 @@ const Consonants: PlainRule = [
   ["s_s/", Thai.SoSalaH],
   ["s_t/", Thai.SoRuesiH],
   ["s/", Thai.SoSueaH],
-
+  ["s\\", Thai.SoSoL],
   ["h/", Thai.HoHipH],
   ["h\\", Thai.HoNokHukL],
   ["'", Thai.OAng],
@@ -565,6 +564,7 @@ const StandardLatinFinalConsonants: Rule[] = asWordEnding([
   ["s_s/", "t"],
   ["s_t/", "t"],
   ["s/", "t"],
+  ["s\\", "t"],
 
   ["h/", ""],
   ["h\\", "h"],
@@ -626,6 +626,7 @@ const StandardLatinConsonants: Rule[] = [
   ["s_s/", "s"],
   ["s_t/", "s"],
   ["s/", "s"],
+  ["s\\", "s"],
 
   ["h/", "h"],
   ["h\\", "h"],
