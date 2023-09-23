@@ -14,6 +14,7 @@ import * as Makassar from "src/utils/transliterator/lontaraq/makassar";
 import * as Bugis from "src/utils/transliterator/lontaraq/lontara";
 import * as KayahLi from "src/utils/transliterator/mon-burmese/kayah-li";
 import * as Mon from "src/utils/transliterator/mon-burmese/mon";
+import * as Thai from "src/utils/transliterator/sukhothai/thai";
 
 const genericTransliteratorHook =
   (initIME, toLatin, fromLatin, toStandardLatin) =>
@@ -156,4 +157,11 @@ export const useMonTransliterator = genericTransliteratorHook(
   Mon.toLatin,
   Mon.fromLatin,
   Mon.toStandardLatin,
+);
+
+export const useThaiTransliterator = genericTransliteratorHook(
+  Thai.initIME,
+  Thai.toLatin,
+  Thai.fromLatin,
+  Thai.toStandardLatin,
 );

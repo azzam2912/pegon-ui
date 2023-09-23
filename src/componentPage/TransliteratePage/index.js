@@ -44,6 +44,7 @@ import {
   useBugisTransliterator,
   useMakassarTransliterator,
   useMonTransliterator,
+  useThaiTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -114,6 +115,12 @@ const selectTransliterator = (script, variant) => {
           return useMonTransliterator;
         case "Kayah Li":
           return useKayahLiTransliterator;
+      }
+      break;
+    case "Sukhothai":
+      switch (variant) {
+        case "Thai":
+          return useThaiTransliterator;
       }
       break;
   }

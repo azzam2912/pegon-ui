@@ -7,6 +7,10 @@ const scriptsData = {
     variants: [],
     rightToLeft: false,
   },
+  Sukhothai: {
+    variants: ["Thai"],
+    rightToLeft: false,
+  },
   Jawi: {
     variants: ["Malay", "Cham"],
     rightToLeft: true,
@@ -73,6 +77,12 @@ const getFont = (script, variant) => {
       break;
     case "Rejang":
       return "Noto Sans Rejang";
+    case "Sukhothai":
+      switch (variant) {
+        case "Thai":
+          return "Noto Sans Thai";
+      }
+      break;
   }
 };
 

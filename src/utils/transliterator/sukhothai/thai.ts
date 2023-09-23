@@ -334,6 +334,11 @@ const ToLatinScheme: Rule[] = [[]];
 export const toLatin = (input: string): string =>
   transliterate(input, ToLatinScheme);
 
+const StandardLatinScheme: Rule[] = [["k_h/", "kh"]];
+
+export const toStandardLatin = (input: string): string =>
+  transliterate(input, StandardLatinScheme);
+
 const IMEScheme: Rule[] = [[]];
 
 export const initIME = genericIMEInit(IMEScheme);

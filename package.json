@@ -23,6 +23,7 @@
     "@fontsource/noto-sans-rejang": "^5.0.8",
     "@fontsource/noto-sans-tagalog": "^5.0.8",
     "@fontsource/noto-sans-tagbanwa": "^5.0.9",
+    "@fontsource/noto-sans-thai": "^5.0.8",
     "@fontsource/noto-serif-makasar": "^5.0.2",
     "@fontsource/open-sans": "^5.0.3",
     "@react-pdf-viewer/core": "3.12.0",
