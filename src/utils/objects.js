@@ -80,7 +80,7 @@ const getFont = (script, variant) => {
     case "Sukhothai":
       switch (variant) {
         case "Thai":
-          return "Noto Sans Thai";
+          return "Noto Serif Thai";
       }
       break;
   }
