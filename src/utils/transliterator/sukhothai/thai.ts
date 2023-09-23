@@ -86,7 +86,7 @@ const enum Thai {
   // vowel symbols
   NomNang = "ะ",
   MaiHanAkat = "ั",
-  MaiTaiKhu = "็",
+  MaiTaikhu = "็",
   LakKhang = "า",
   FonThong = "̍",
   FanNu = "̎",
@@ -191,12 +191,15 @@ const Consonants: PlainRule = [
   ["'", Thai.OAng],
 ];
 
-const LatinConsonants: string[] = Consonants.map(([key, _]) => key).sort(
-  (a, b) => a.length - b.length,
-);
+const ruleKeyLengthDiff = ([a, _]: PlainRule, [b, __]: PlainRule): number =>
+  b.length - a.length;
 
-const toVowelOfOpenSyllable = (key: string, val: string): RegexRule => [
-  new RegExp(`(${patternList(LatinConsonants)})(${key})`),
+const LatinConsonants: string[] = prepareRules(Consonants)
+  .map(([key, _]: PlainRule): string => key)
+  .sort();
+
+const toVowelOfOpenSyllable = ([key, val]: PlainRule): RegexRule => [
+  new RegExp(`(${patternList(LatinConsonants).source})(${key})`),
   val,
 ];
 
@@ -230,7 +233,7 @@ const OpenSyllableVowels: RegexRule[] = [
   ["ao", `${Thai._e}$1$${Thai.LakKhang}`],
   // TODO: what to do about Mai Han Akat + Yo Yak version of "ai"
   // [??, `$1${Thai.MaiHanAkat}${Thai.YoYakL}`],
-  ["awy", `$1${Thai.MaiTaiKhu}${Thai.OAng}${Thai.YoYakL}`],
+  ["awy", `$1${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`],
   ["uy", `$1${Thai._u}${Thai.YoYakL}`],
   // base vowels, long
   ["aaw", `$1${Thai.OAng}`],
@@ -242,26 +245,26 @@ const OpenSyllableVowels: RegexRule[] = [
   ["ee", `${Thai._e}$1`],
   ["ii", `$1${Thai._ii}`],
   ["oo", `${Thai._o}$1`],
-  ["aw", `${Thai._e}$1${Thai.LakKhang}${Thai.NomNang}`],
+  ["uu", `$1${Thai._uu}`],
 
   // base vowels, short
+  ["aw", `${Thai._e}$1${Thai.LakKhang}${Thai.NomNang}`],
   ["eu", `${Thai._e}$1${Thai.OAng}${Thai.NomNang}`],
   ["ue", `$1${Thai._ue}`],
-  ["uu", `$1${Thai._uu}`],
-  ["i", `$1{Thai._i}`],
+  ["i", `$1${Thai._i}`],
   ["u", `$1${Thai._u}`],
   ["o", `${Thai._o}$1${Thai.NomNang}`],
   ["e", `${Thai._e}$1${Thai.NomNang}`],
-  ["a", `$1${Thai.NomNang}`],
+  ["a", `$1`],
 ]
-  .sort(([a, _], [b, _]) => a.length - b.length)
+  .sort(ruleKeyLengthDiff)
   .map(toVowelOfOpenSyllable);
 
-const toVowelOfClosedSyllable = (key: string, val: string): RegexRule => [
+const toVowelOfClosedSyllable = ([key, val]: PlainRule): RegexRule => [
   new RegExp(
-    `(${patternList(LatinConsonants)})(${key})(${patternList(
-      LatinConsonants,
-    )})`,
+    `(${patternList(LatinConsonants).source})(${key})(${
+      patternList(LatinConsonants).source
+    })`,
   ),
   val,
 ];
@@ -272,28 +275,28 @@ const ClosedSyllableVowels: RegexRule[] = [
   ["ueaa", `${Thai._e}$1${Thai._uee}${Thai.OAng}$3`],
   ["uaa", `$1${Thai.WoWaenL}$3`],
 
-  // base vowels
+  // base vowels, long
   ["aaw", `$1${Thai.OAng}$3`],
   ["aae", `${Thai._e}${Thai._e}$1$3`],
   ["eeu", `${Thai._e}$1${Thai._i}$3`],
   ["uue", `$1${Thai._uee}$3`],
   ["aa", `$1${Thai.LakKhang}$3`],
-  ["ae", `${Thai._e}${Thai._e}$1${Thai.NomNang}`],
-  ["ee", `${Thai._e}$1`],
-  ["ii", `$1${Thai._ii}`],
-  ["oo", `${Thai._o}$1`],
-  ["aw", `${Thai._e}$1${Thai.LakKhang}${Thai.NomNang}`],
+  ["ae", `${Thai._e}${Thai._e}$1${Thai.MaiTaikhu}$3`],
+  ["ee", `${Thai._e}$1$3`],
+  ["ii", `$1${Thai._ii}$3`],
+  ["oo", `${Thai._o}$1$3`],
+  ["uu", `$1${Thai._uu}$3`],
 
-  ["eu", `${Thai._e}$1${Thai.OAng}${Thai.NomNang}`],
-  ["ue", `$1${Thai._ue}`],
-  ["uu", `$1${Thai._uu}`],
-  ["i", `$1{Thai._i}`],
-  ["u", `$1${Thai._u}`],
-  ["o", `${Thai._o}$1${Thai.NomNang}`],
-  ["e", `${Thai._e}$1${Thai.NomNang}`],
-  ["a", `$1${Thai.MaiHanAkat}`],
+  // base vowels, short
+  ["aw", `$1${Thai.MaiTaikhu}${Thai.OAng}$3`],
+  ["ue", `$1${Thai._ue}$3`],
+  ["i", `$1${Thai._i}`],
+  ["u", `$1${Thai._u}$3`],
+  ["o", `$1$3`],
+  ["e", `${Thai._e}$1${Thai.MaiTaikhu}$3`],
+  ["a", `$1${Thai.MaiHanAkat}$3`],
 ]
-  .sort(([a, _], [b, _]) => a.length - b.length)
+  .sort(ruleKeyLengthDiff)
   .map(toVowelOfClosedSyllable);
 
 // TODO: turn spaces into nothing/ZNWJ, and double spaces to actual space?
@@ -319,11 +322,14 @@ const Numbers: PlainRule[] = [
 // TODO: special single word spellings
 // TODO: circumfix vowels wrapping around an inherent vowel consonants behind them
 // TODO: TONES
+// TODO: NomNang only for last syllables
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
   ClosedSyllableVowels,
   OpenSyllableVowels,
-  Consonants,
+  prepareRules(Consonants.sort(ruleKeyLengthDiff)),
+  Numbers,
+  Punctuation,
 );
 
 export const fromLatin = (input: string): string =>
