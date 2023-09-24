@@ -227,7 +227,7 @@ const OpenSyllableVowels: RegexRule[] = [
   // TODO: decide to keep this or simply let it be parsed using regular w
   // phonetic diphthongs, long
   ["eeo", `${Thai._e}$1${Thai.WoWaenL}`],
-  ["aaeo", `${Thai._e}${Thai._e}$1${Thai.WoWaenL}`],
+  ["aaeo", `${Thai._ae}$1${Thai.WoWaenL}`],
   ["aao", `$1${Thai.LakKhang}${Thai.WoWaenL}`],
   ["iaao", `${Thai._e}$1${Thai._ii}${Thai.YoYakL}${Thai.WoWaenL}`],
   ["aay", `$1${Thai.LakKhang}${Thai.YoYakL}`],
@@ -246,7 +246,7 @@ const OpenSyllableVowels: RegexRule[] = [
   ["uy", `$1${Thai._u}${Thai.YoYakL}`],
   // base vowels, long
   ["aaw", `$1${Thai.OAng}`],
-  ["aae", `${Thai._e}${Thai._e}$1`],
+  ["aae", `${Thai._ae}$1`],
   ["ooe", `${Thai._e}$1${Thai.OAng}`],
   ["uue", `$1${Thai._uee}${Thai.OAng}`],
   ["aa", `$1${Thai.LakKhang}`],
@@ -256,7 +256,7 @@ const OpenSyllableVowels: RegexRule[] = [
   ["uu", `$1${Thai._uu}`],
 
   // base vowels, short
-  ["ae", `${Thai._e}${Thai._e}$1${Thai.NomNang}`],
+  ["ae", `${Thai._ae}$1${Thai.NomNang}`],
   ["aw", `${Thai._e}$1${Thai.LakKhang}${Thai.NomNang}`],
   ["oe", `${Thai._e}$1${Thai.OAng}${Thai.NomNang}`],
   ["ue", `$1${Thai._ue}`],
@@ -277,7 +277,7 @@ const ClosedSyllableVowels: RegexRule[] = [
 
   // base vowels, long
   ["aaw", `$1${Thai.OAng}$3`],
-  ["aae", `${Thai._e}${Thai._e}$1$3`],
+  ["aae", `${Thai._ae}$1$3`],
   ["ooe", `${Thai._e}$1${Thai._i}$3`],
   ["uue", `$1${Thai._uee}$3`],
   ["aa", `$1${Thai.LakKhang}$3`],
@@ -287,7 +287,7 @@ const ClosedSyllableVowels: RegexRule[] = [
   ["uu", `$1${Thai._uu}$3`],
 
   // base vowels, short
-  ["ae", `${Thai._e}${Thai._e}$1${Thai.MaiTaikhu}$3`],
+  ["ae", `${Thai._ae}$1${Thai.MaiTaikhu}$3`],
   ["aw", `$1${Thai.MaiTaikhu}${Thai.OAng}$3`],
   ["ue", `$1${Thai._ue}$3`],
   ["i", `$1${Thai._i}`],
@@ -349,7 +349,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
 
     // base vowels, long
     [`(C)${Thai.OAng}(C)`, "aaw"],
-    [`${Thai._e}${Thai._e}(C)(C)`, "aae"],
+    [`${Thai._ae}(C)(C)`, "aae"],
     [`${Thai._e}(C)${Thai._i}(C)`, "ooe"],
     [`(C)${Thai._uee}(C)`, "uue"],
     [`(C)${Thai.LakKhang}(C)`, "aa"],
@@ -359,7 +359,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
     [`(C)${Thai._uu}(C)`, "uu"],
 
     // base vowels, short
-    [`${Thai._e}${Thai._e}(C)${Thai.MaiTaikhu}(C)`, "ae"],
+    [`${Thai._ae}(C)${Thai.MaiTaikhu}(C)`, "ae"],
     [`(C)${Thai.MaiTaikhu}${Thai.OAng}(C)`, "aw"],
     [`(C)${Thai._ue}(C)`, "ue"],
     [`(C)${Thai._i}`, "i"],
@@ -384,7 +384,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
     [`(C)${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.NomNang}`, "ua"],
 
     // base vowels, short
-    [`${Thai._e}${Thai._e}(C)${Thai.NomNang}`, "ae"],
+    [`${Thai._ae}(C)${Thai.NomNang}`, "ae"],
     [`${Thai._e}(C)${Thai.LakKhang}${Thai.NomNang}`, "aw"],
     [`${Thai._e}(C)${Thai.OAng}${Thai.NomNang}`, "oe"],
     [`${Thai._o}(C)${Thai.NomNang}`, "o"],
@@ -401,7 +401,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
 
     // phonetic diphthongs, long
     [`${Thai._e}(C)${Thai.WoWaenL}`, "eeo"],
-    [`${Thai._e}${Thai._e}(C)${Thai.WoWaenL}`, "aaeo"],
+    [`${Thai._ae}(C)${Thai.WoWaenL}`, "aaeo"],
     [`(C)${Thai.LakKhang}${Thai.WoWaenL}`, "aao"],
     [`${Thai._e}(C)${Thai._ii}${Thai.YoYakL}${Thai.WoWaenL}`, "iaao"],
     [`(C)${Thai.LakKhang}${Thai.YoYakL}`, "aay"],
@@ -419,7 +419,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
     [`(C)${Thai._u}${Thai.YoYakL}`, "uy"],
     // base vowels, long
     [`(C)${Thai.OAng}`, "aaw"],
-    [`${Thai._e}${Thai._e}(C)`, "aae"],
+    [`${Thai._ae}(C)`, "aae"],
     [`${Thai._e}(C)${Thai.OAng}`, "ooe"],
     [`(C)${Thai._uee}${Thai.OAng}`, "uue"],
     [`(C)${Thai.LakKhang}`, "aa"],
