@@ -3,21 +3,21 @@ import AppLayout from "../Page/AppLayout";
 import React from "react";
 
 import {
-  Box
+  Box,
+  Text
 } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
-import { BaybayinWiki } from "./Scripts/baybayin";
-import { ChamWiki } from "./Scripts/cham";
-import { JawiWiki } from "./Scripts/jawi";
-import { KayahLiWiki } from "./Scripts/kayahli";
-import { PegonWiki } from "./Scripts/pegon";
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
+import ReactMarkdown from 'react-markdown';
+import { scriptsData } from "src/utils/objects";
+import { ScriptTypeSelect } from "src/componentPage/TransliteratePage/Fragments/ScriptTypeSelect";
 
 const WikiPage = () => {
   const router = useRouter();
   const [script, setScript] = useState((router.query && router.query.script)? router.query.script : "Pegon");
+  const [mdContent, setMdContent] = useState("");
 
   const handleScriptChange = (event) => {
     const newScript = event.target.innerText;
@@ -38,6 +38,16 @@ const WikiPage = () => {
     // Update the URL with the current state
     router.replace({ query: { script: script } });
   }, [script, router]);
+
+  useEffect(() => {
+    // Update the URL with the current state
+    try {
+      const markdownContent = require(`${"./Scripts/" + script.toLowerCase() + ".md"}`).default;
+      setMdContent(markdownContent);
+    } catch (error) {
+      console.error('Error loading Markdown file:', error);
+    }
+  }, [script]);
   
   
   return (
@@ -60,12 +70,15 @@ const WikiPage = () => {
         ml="auto" // Move to the right (adjust as needed)
         width="98%" // Adjust the width as needed
         > 
-        <ScriptTypeSelect value={script} onChange={handleScriptChange} />
-        {script === 'Pegon' && <PegonWiki />}
-        {script === 'Jawi' && <JawiWiki />}
-        {script === 'Cham' && <ChamWiki />}
-        {script === 'Baybayin' && <BaybayinWiki />}
-        {script === 'Kayah Li' && <KayahLiWiki />}
+        <ScriptTypeSelect
+              value={script}
+              options={Object.keys(scriptsData)}
+              onChange={handleScriptChange}
+            />
+        <Text fontSize="xl"> {/* You can customize the font size */}
+          <ReactMarkdown components={ChakraUIRenderer()} skipHtml>{mdContent}</ReactMarkdown>
+        </Text>
+
         </Box>
       </AppLayout>
     </>
