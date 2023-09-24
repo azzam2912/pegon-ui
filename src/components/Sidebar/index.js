@@ -102,7 +102,7 @@ const Sidebar = () => {
         <Divider my={3} />
         <NavigationButton
           icon={<MdInfo />}
-          href="/app/about"
+          href="/app/faq"
           isSidebarExpanded={isSidebarExpanded}
         >
           About
@@ -181,10 +181,10 @@ const Sidebar = () => {
             <Divider my={3} />
             <NavigationButton
               icon={<MdInfo />}
-              href="/app/about"
+              href="/app/faq"
               isSidebarExpanded
             >
-              About
+              FAQ
             </NavigationButton>
             <NavigationButton
               icon={<MdLightbulb />}
