@@ -12,6 +12,7 @@ import "@fontsource/noto-sans-buginese";
 import "@fontsource/noto-serif-makasar";
 import "@fontsource/noto-sans-rejang";
 import "@fontsource/noto-serif-thai";
+import "@fontsource/noto-serif-lao";
 import { getFont } from "src/utils/objects";
 
 export const TransliterateInput = ({

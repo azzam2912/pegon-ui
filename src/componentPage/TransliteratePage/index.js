@@ -45,6 +45,7 @@ import {
   useMakassarTransliterator,
   useMonTransliterator,
   useThaiTransliterator,
+  useLaoTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -121,6 +122,8 @@ const selectTransliterator = (script, variant) => {
       switch (variant) {
         case "Thai":
           return useThaiTransliterator;
+        case "Lao":
+          return useLaoTransliterator;
       }
       break;
   }
