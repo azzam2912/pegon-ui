@@ -526,7 +526,7 @@ const StandardLatinFinalConsonants: Rule[] = asWordEnding([
 
   ["j_h\\", "t"],
 
-  ["y_n\\", "n\\"],
+  ["y_n\\", "n"],
   // add rules later for cases like phinyo
   ["y\\", "y"],
 
