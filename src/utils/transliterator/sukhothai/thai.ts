@@ -638,15 +638,13 @@ const StandardLatinConsonants: Rule[] = [
 
 const StandardLatinScheme: Rule[] = chainRule<Rule>(
   StandardLatinFinalConsonants,
-  StandardLatinConsonants,
+  prepareRules(StandardLatinConsonants),
   StandardLatinVowels,
   [[" ", ""]],
 );
 
-console.debug(StandardLatinScheme);
-
 export const toStandardLatin = (input: string): string =>
-  debugTransliterate(input, StandardLatinScheme);
+  transliterate(input, StandardLatinScheme);
 
 const IMEScheme: Rule[] = [];
 
