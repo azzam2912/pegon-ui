@@ -239,7 +239,7 @@ const OpenSyllableVowels: RegexRule[] = [
   // phonetic diphthongs, short
   ["io", `$1${Thai._i}${Thai.WoWaenL}`],
   ["eo", `${Thai._e}$1${Thai.MaiHanAkat}${Thai.WoWaenL}`],
-  ["ao", `${Thai._e}$1$${Thai.LakKhang}`],
+  ["ao", `${Thai._e}$1${Thai.LakKhang}`],
   // TODO: what to do about Mai Han Akat + Yo Yak version of "ai"
   // [??, `$1${Thai.MaiHanAkat}${Thai.YoYakL}`],
   ["awy", `$1${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`],
@@ -413,7 +413,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
     // phonetic diphthongs, short
     [`(C)${Thai._i}${Thai.WoWaenL}`, "io"],
     [`${Thai._e}(C)${Thai.MaiHanAkat}${Thai.WoWaenL}`, "eo"],
-    [`${Thai._e}(C)$${Thai.LakKhang}`, "ao"],
+    [`${Thai._e}(C)${Thai.LakKhang}`, "ao"],
     [`(C)${Thai.MaiHanAkat}${Thai.YoYakL}`, "ay"], // this should actually be capturable by the closed syllable regex but for completion's sake
     [`(C)${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`, "awy"],
     [`(C)${Thai._u}${Thai.YoYakL}`, "uy"],
