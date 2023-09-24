@@ -111,6 +111,9 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/utils/transliterator/bali/",
+    "src/utils/transliterator/carakan-jawa",
+    "src/utils/transliterator/sunda"
   ]
 }
