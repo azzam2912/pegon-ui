@@ -12,8 +12,12 @@ import * as Simalungun from "src/utils/transliterator/batak/simalungun";
 import * as Rejang from "src/utils/transliterator/ulu/rejang";
 import * as Makassar from "src/utils/transliterator/lontaraq/makassar";
 import * as Bugis from "src/utils/transliterator/lontaraq/lontara";
+
 import * as KayahLi from "src/utils/transliterator/mon-burmese/kayah-li";
 import * as Mon from "src/utils/transliterator/mon-burmese/mon";
+import * as Burmese from "src/utils/transliterator/mon-burmese/burmese";
+import * as Karen from "src/utils/transliterator/mon-burmese/sgaw-karen";
+
 import * as Thai from "src/utils/transliterator/sukhothai/thai";
 import * as Lao from "src/utils/transliterator/sukhothai/lao";
 
@@ -53,13 +57,6 @@ export const useChamTransliterator = genericTransliteratorHook(
   Cham.toLatin,
   Cham.fromLatin,
   Cham.toStandardLatin,
-);
-
-export const useKayahLiTransliterator = genericTransliteratorHook(
-  KayahLi.initIME,
-  KayahLi.toLatin,
-  KayahLi.fromLatin,
-  KayahLi.toStandardLatin,
 );
 
 export const useBaybayinTransliterator = genericTransliteratorHook(
@@ -153,13 +150,6 @@ export const useBugisTransliterator = genericTransliteratorHook(
   Bugis.toStandardLatin,
 );
 
-export const useMonTransliterator = genericTransliteratorHook(
-  Mon.initIME,
-  Mon.toLatin,
-  Mon.fromLatin,
-  Mon.toStandardLatin,
-);
-
 export const useThaiTransliterator = genericTransliteratorHook(
   Thai.initIME,
   Thai.toLatin,
@@ -172,4 +162,32 @@ export const useLaoTransliterator = genericTransliteratorHook(
   Lao.toLatin,
   Lao.fromLatin,
   Lao.toStandardLatin,
+);
+
+export const useKayahLiTransliterator = genericTransliteratorHook(
+  KayahLi.initIME,
+  KayahLi.toLatin,
+  KayahLi.fromLatin,
+  KayahLi.toStandardLatin,
+);
+
+export const useMonTransliterator = genericTransliteratorHook(
+  Mon.initIME,
+  Mon.toLatin,
+  Mon.fromLatin,
+  Mon.toStandardLatin,
+);
+
+export const useBurmeseTransliterator = genericTransliteratorHook(
+  Burmese.initIME,
+  Burmese.toLatin,
+  Burmese.fromLatin,
+  Burmese.toStandardLatin,
+);
+
+export const useKarenTransliterator = genericTransliteratorHook(
+  Karen.initIME,
+  Karen.toLatin,
+  Karen.fromLatin,
+  Karen.toStandardLatin,
 );

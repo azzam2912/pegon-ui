@@ -29,7 +29,6 @@ import {
 import useJawiMalayTransliterator from "src/hooks/useJawiMalayTransliterator";
 import {
   useChamTransliterator,
-  useKayahLiTransliterator,
   useBaybayinTransliterator,
   useBuhidTransliterator,
   useHanunooTransliterator,
@@ -43,9 +42,12 @@ import {
   useRejangTransliterator,
   useBugisTransliterator,
   useMakassarTransliterator,
-  useMonTransliterator,
   useThaiTransliterator,
   useLaoTransliterator,
+  useKayahLiTransliterator,
+  useMonTransliterator,
+  useBurmeseTransliterator,
+  useKarenTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -72,8 +74,18 @@ const selectTransliterator = (script, variant) => {
       break;
     case "Cham":
       return useChamTransliterator;
-    case "Kayah Li":
-      return useKayahLiTransliterator;
+    case "Mon-Burmese":
+      switch (variant) {
+        case "Myanmar":
+          return useBurmeseTransliterator;
+        case "Mon":
+          return useMonTransliterator;
+        case "Kayah Li":
+          return useKayahLiTransliterator;
+        case "S'gaw Karen":
+          return useKarenTransliterator;
+      }
+      break;
     case "Rejang":
       return useRejangTransliterator;
     case "Baybayin":
@@ -110,13 +122,6 @@ const selectTransliterator = (script, variant) => {
           return useBugisTransliterator;
       }
       break;
-    case "Mon-Burmese":
-      switch (variant) {
-        case "Mon":
-          return useMonTransliterator;
-        case "Kayah Li":
-          return useKayahLiTransliterator;
-      }
       break;
     case "Sukhothai":
       switch (variant) {

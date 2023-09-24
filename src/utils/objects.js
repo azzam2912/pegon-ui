@@ -1,6 +1,6 @@
 const scriptsData = {
   "Mon-Burmese": {
-    variants: ["Mon", "Kayah Li"],
+    variants: ["Myanmar", "Mon", "Kayah Li", "S'gaw Karen"],
     rightToLeft: false,
   },
   Cham: {
@@ -47,6 +47,10 @@ const getFont = (script, variant) => {
       return "Noto Sans Cham";
     case "Mon-Burmese":
       switch (variant) {
+        case "Myanmar":
+          return "Noto Sans Myanmar";
+        case "S'gaw Karen":
+          return "Noto Sans Myanmar";
         case "Mon":
           return "Noto Sans Myanmar";
         case "Kayah Li":
