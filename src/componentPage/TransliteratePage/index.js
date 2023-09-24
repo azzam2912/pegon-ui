@@ -11,11 +11,13 @@ import {
   Divider,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
 import { VariantSelect } from "./Fragments/VariantSelect";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
 import { FaInfo } from "react-icons/fa";
+import { MdLightbulb } from "react-icons/md";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 import { scriptsData } from "src/utils/objects";
 
@@ -79,6 +81,8 @@ const selectTransliterator = (script, variant) => {
 };
 
 const TransliteratePage = () => {
+  const router = useRouter();
+
   const [script, setScript] = useState("Pegon");
   const [variant, setVariant] = useState("Indonesian");
   const [inputText, setInputText] = useState("");
@@ -134,6 +138,11 @@ const TransliteratePage = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleWikiButtonClick = () => {
+    // Use the router to navigate to the desired page
+    router.push('/app/wiki?script=' + script); // Replace '/target-page' with the actual path you want to navigate to
+  };
+  
   return (
     <>
       <Head>
@@ -170,6 +179,13 @@ const TransliteratePage = () => {
               icon={<FaInfo />}
               ml={5}
               onClick={onOpen}
+            />
+            <IconButton
+              colorScheme="primary"
+              size="sm"
+              icon={<MdLightbulb />}
+              ml={5}
+              onClick={handleWikiButtonClick}
             />
           </HStack>
           <CheatSheetDrawer
