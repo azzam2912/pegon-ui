@@ -360,7 +360,8 @@ const ReversibleLatinToLatinScheme: Rule[] = [
     ["d_h", "dh"],
     ["p_h", "ph"],
     ["b_h", "bh"],
-    ["s_h", "sh"]
+    ["s_h", "sh"],
+    ["o^", "o'"]
 ]
 
 export const fromLatin = (input: string): string => transliterate(input, FromLatinScheme);
