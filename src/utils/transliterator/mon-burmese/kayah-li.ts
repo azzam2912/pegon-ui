@@ -166,7 +166,7 @@ const ToneNumbersAsLatinVowelDiacritics: RegexRule[] = ToneNumbers.map(
 );
 
 // second pass ONLY
-const Diphthongs: Rule[] = [
+const Diphthongs: PlainRule[] = [
   ["ꤢꤦꤢꤧ", "ꤣꤧ"],
   ["ꤢꤦꤣ", "ꤛꤣ"],
   ["ꤟꤢꤦꤣ", "ꤟꤌꤣ"],
@@ -225,11 +225,13 @@ const ReversibleLatinToLatinScheme: Rule[] = chainRule<Rule>(
     ["o_e", "ơ"],
     ["o_o", "ô"],
   ],
-  [
-    ["3", "́"], // high tone
-    ["2", "̄"], // mid tone
-    ["1", "̀"], // low tone
-  ].map((rule) => after(patternList(latinVowels), rule)),
+  (
+    [
+      ["3", "́"], // high tone
+      ["2", "̄"], // mid tone
+      ["1", "̀"], // low tone
+    ] as PlainRule[]
+  ).map((rule: PlainRule): RegexRule => after(patternList(latinVowels), rule)),
   latinVowels.map<Rule>((vowel) => ["h".concat(vowel), vowel.concat("̤")]),
 );
 

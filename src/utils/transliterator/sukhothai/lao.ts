@@ -136,7 +136,7 @@ const enum Lao {
   MaiChattawa = "໋",
 }
 
-const Consonants: PlainRule = [
+const Consonants: PlainRule[] = [
   ["k_h/", Lao.KhoKhaiH],
   ["k_h\\", Lao.KhoKhwaiL],
 
@@ -193,9 +193,9 @@ const Consonants: PlainRule = [
 const ruleKeyLengthDiff = ([a, _]: PlainRule, [b, __]: PlainRule): number =>
   b.length - a.length;
 
-const LatinConsonants: string[] = prepareRules(Consonants)
-  .map(([key, _]: PlainRule): string => key)
-  .sort();
+const LatinConsonants: string[] = Consonants.map(
+  ([key, _]: PlainRule): string => escape(key),
+).sort();
 
 const toVowelOfOpenSyllable = ([key, val]: PlainRule): RegexRule => [
   new RegExp(`(${patternList(LatinConsonants).source})(${key})`),
@@ -249,11 +249,11 @@ const OpenSyllableVowelsTemplate: PlainRule[] = [
   ["o", `${Lao._o}$1${Lao.NomNang}`],
   ["e", `${Lao._e}$1${Lao.NomNang}`],
   ["a", `$1${Lao.NomNang}`],
-].sort(ruleKeyLengthDiff);
+];
 
-const OpenSyllableVowels: RegexRule = OpenSyllableVowelsTemplate.map(
-  toVowelOfOpenSyllable,
-);
+const OpenSyllableVowels: RegexRule[] = OpenSyllableVowelsTemplate.sort(
+  ruleKeyLengthDiff,
+).map(toVowelOfOpenSyllable);
 
 const ClosedSyllableVowelsTemplate: PlainRule[] = [
   // diphthongs
@@ -286,11 +286,11 @@ const ClosedSyllableVowelsTemplate: PlainRule[] = [
   ["o", `$1${Lao.MaiKon}$3`],
   ["e", `${Lao._e}$1${Lao.MaiKan}$3`],
   ["a", `$1${Lao.MaiKan}$3`],
-].sort(ruleKeyLengthDiff);
+];
 
-const ClosedSyllableVowels: RegexRule = ClosedSyllableVowelsTemplate.map(
-  toVowelOfClosedSyllable,
-);
+const ClosedSyllableVowels: RegexRule[] = ClosedSyllableVowelsTemplate.sort(
+  ruleKeyLengthDiff,
+).map(toVowelOfClosedSyllable);
 
 const Punctuation: PlainRule[] = [
   [" ", "\u200C"],
@@ -335,9 +335,9 @@ const FromLatinScheme: Rule[] = chainRule<Rule>(
 export const fromLatin = (input: string): string =>
   transliterate(input, FromLatinScheme);
 
-const LaoConsonants: string[] = prepareRules(Consonants)
-  .map(([_, val]: PlainRule): string => val)
-  .sort();
+const LaoConsonants: string[] = Consonants.map(([_, val]: PlainRule): string =>
+  escape(val),
+).sort();
 
 // do NOT use "C" to denote anything other than consonants on the left side of the rule here!
 const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
@@ -446,8 +446,6 @@ const ToLatinScheme: Rule[] = chainRule<Rule>(
   [[/$ /g, ""]],
   asInverse(Numbers),
 );
-
-console.debug(ToLatinScheme);
 
 export const toLatin = (input: string): string =>
   transliterate(input, ToLatinScheme);
@@ -604,7 +602,7 @@ const StandardLatinScheme: Rule[] = chainRule<Rule>(
 );
 
 export const toStandardLatin = (input: string): string =>
-  debugTransliterate(input, StandardLatinScheme);
+  transliterate(input, StandardLatinScheme);
 
 const IMEScheme: Rule[] = [];
 
