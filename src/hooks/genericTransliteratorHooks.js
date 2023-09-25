@@ -20,6 +20,11 @@ import * as Karen from "src/utils/transliterator/mon-burmese/sgaw-karen";
 
 import * as Thai from "src/utils/transliterator/sukhothai/thai";
 import * as Lao from "src/utils/transliterator/sukhothai/lao";
+import * as Carakan from "src/utils/transliterator/carakan-jawa";
+import * as Sunda from "src/utils/transliterator/sunda";
+import * as Bali from "src/utils/transliterator/bali";
+
+import genericIMEInit from "../utils/transliterator/core.ts";
 
 const genericTransliteratorHook =
   (initIME, toLatin, fromLatin, toStandardLatin) =>
@@ -51,6 +56,34 @@ const genericTransliteratorHook =
 
     return transliterate(isLatinInput);
   };
+
+export const useCarakanTransliterator = genericTransliteratorHook(
+  genericIMEInit([]),
+  Carakan.toLatin,
+  Carakan.toJavanese,
+  Carakan.toLatin,
+);
+
+export const useSundaTransliterator = genericTransliteratorHook(
+  genericIMEInit([]),
+  Sunda.toLatin,
+  Sunda.toSunda,
+  Sunda.toLatin,
+);
+
+export const useBaliTransliterator = genericTransliteratorHook(
+  genericIMEInit([]),
+  Bali.toLatin,
+  Bali.toBalinese,
+  (input) => Bali.toLatin(input, false),
+);
+
+export const useSasakTransliterator = genericTransliteratorHook(
+  genericIMEInit([]),
+  (input) => Bali.toLatin(input, true, true),
+  (input) => Bali.toBalinese(input, true),
+  (input) => Bali.toLatin(input, false, true),
+);
 
 export const useChamTransliterator = genericTransliteratorHook(
   Cham.initIME,

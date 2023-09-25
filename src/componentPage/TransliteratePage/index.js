@@ -48,6 +48,10 @@ import {
   useMonTransliterator,
   useBurmeseTransliterator,
   useKarenTransliterator,
+  useCarakanTransliterator,
+  useSundaTransliterator,
+  useBaliTransliterator,
+  useSasakTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -122,13 +126,24 @@ const selectTransliterator = (script, variant) => {
           return useBugisTransliterator;
       }
       break;
-      break;
     case "Sukhothai":
       switch (variant) {
         case "Thai":
           return useThaiTransliterator;
         case "Lao":
           return useLaoTransliterator;
+      }
+      break;
+    case "Carakan":
+      return useCarakanTransliterator;
+    case "Sunda":
+      return useSundaTransliterator;
+    case "Bali":
+      switch (variant) {
+        case "Balinese":
+          return useBaliTransliterator;
+        case "Sasak":
+          return useSasakTransliterator;
       }
       break;
   }

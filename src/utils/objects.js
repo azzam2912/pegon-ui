@@ -35,6 +35,18 @@ const scriptsData = {
     variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
     rightToLeft: false,
   },
+  Carakan: {
+    variants: ["Javanese"],
+    rightToLeft: false,
+  },
+  Sunda: {
+    variants: ["Sundanese"],
+    rightToLeft: false,
+  },
+  Bali: {
+    variants: ["Balinese", "Sasak"],
+    rightToLeft: false,
+  },
 };
 
 const getFont = (script, variant) => {
@@ -89,6 +101,17 @@ const getFont = (script, variant) => {
           return "Noto Serif Lao";
       }
       break;
+    case "Carakan":
+      return "Noto Sans Javanese";
+    case "Sunda":
+      return "Noto Sans Sundanese";
+    case "Bali":
+      switch (variant) {
+        case "Balinese":
+          return "Noto Sans Balinese";
+        case "Sasak":
+          return "Noto Sans Balinese";
+      }
   }
 };
 
