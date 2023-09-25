@@ -35,16 +35,8 @@ const scriptsData = {
     variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
     rightToLeft: false,
   },
-  Carakan: {
-    variants: ["Javanese"],
-    rightToLeft: false,
-  },
-  Sunda: {
-    variants: ["Sundanese"],
-    rightToLeft: false,
-  },
-  Bali: {
-    variants: ["Balinese", "Sasak"],
+  Hanacaraka: {
+    variants: ["Javanese", "Sundanese", "Balinese", "Sasak"],
     rightToLeft: false,
   },
 };

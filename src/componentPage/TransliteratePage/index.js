@@ -134,12 +134,12 @@ const selectTransliterator = (script, variant) => {
           return useLaoTransliterator;
       }
       break;
-    case "Carakan":
-      return useCarakanTransliterator;
-    case "Sunda":
-      return useSundaTransliterator;
-    case "Bali":
+    case "Hanacaraka":
       switch (variant) {
+        case "Javanese":
+          return useCarakanTransliterator;
+        case "Sundanese":
+          return useSundaTransliterator;
         case "Balinese":
           return useBaliTransliterator;
         case "Sasak":

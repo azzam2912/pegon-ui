@@ -20,11 +20,11 @@ import * as Karen from "src/utils/transliterator/mon-burmese/sgaw-karen";
 
 import * as Thai from "src/utils/transliterator/sukhothai/thai";
 import * as Lao from "src/utils/transliterator/sukhothai/lao";
-import * as Carakan from "src/utils/transliterator/carakan-jawa";
+import * as Carakan from "src/utils/transliterator/carakan-jawa/src";
 import * as Sunda from "src/utils/transliterator/sunda";
-import * as Bali from "src/utils/transliterator/bali";
+import * as Bali from "src/utils/transliterator/bali/src";
 
-import genericIMEInit from "../utils/transliterator/core.ts";
+import { genericIMEInit } from "../utils/transliterator/core.ts";
 
 const genericTransliteratorHook =
   (initIME, toLatin, fromLatin, toStandardLatin) =>
@@ -67,7 +67,7 @@ export const useCarakanTransliterator = genericTransliteratorHook(
 export const useSundaTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
   Sunda.toLatin,
-  Sunda.toSunda,
+  Sunda.toSundanese,
   Sunda.toLatin,
 );
 
