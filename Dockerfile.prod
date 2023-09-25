@@ -6,7 +6,6 @@ COPY .env \
     .eslintrc.json \
     jsconfig.json \
     next.config.js \
-    next-env.d.ts \
     package.json \
     public \
     tsconfig.json \
