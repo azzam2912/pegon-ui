@@ -26,20 +26,12 @@ import { NewDocument } from "./Fragments/NewDocument";
 const DashboardPage = () => {
   const router = useRouter();
   const { data: user, status: userStatus } = useUserInfoQuery({
-    config: {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    },
+    config: {},
   });
 
   const { data: latestDocuments, status: latestDocumentsStatus } =
     useDocumentsQuery({
-      config: {
-        onSuccess: (data) => {
-          console.log(data);
-        },
-      },
+      config: {},
       page: 1,
       pageSize: 4,
       queries: {
@@ -49,11 +41,7 @@ const DashboardPage = () => {
 
   const { data: publishedDocuments, status: publishedDocumentsStatus } =
     useDocumentsQuery({
-      config: {
-        onSuccess: (data) => {
-          console.log(data);
-        },
-      },
+      config: {},
       page: 1,
       pageSize: 4,
       queries: {
@@ -63,27 +51,19 @@ const DashboardPage = () => {
 
   const { data: unpublishedDocuments, status: unpublishedDocumentsStatus } =
     useDocumentsQuery({
-      config: {
-        onSuccess: (data) => {
-          console.log(data);
-        },
-      },
+      config: {},
       page: 1,
       pageSize: 4,
       queries: {
         "filters[contributor][id][$eq]": user?.id,
         "filters[publishedAt][$null]": "true",
-        "publicationState":"preview",
+        publicationState: "preview",
       },
     });
 
   const { data: bookmarkedDocuments, status: bookmarkedDocumentsStatus } =
     useDocumentsQuery({
-      config: {
-        onSuccess: (data) => {
-          console.log(data);
-        },
-      },
+      config: {},
       page: 1,
       pageSize: 4,
       queries: {
@@ -93,11 +73,7 @@ const DashboardPage = () => {
 
   const { data: viewedDocuments, status: viewedDocumentsStatus } =
     useDocumentsQuery({
-      config: {
-        onSuccess: (data) => {
-          console.log(data);
-        },
-      },
+      config: {},
       page: 1,
       pageSize: 4,
       queries: {
@@ -113,7 +89,11 @@ const DashboardPage = () => {
           name="description"
           content="Let's explore Southeast Asian scripts together and contribute to the community!"
         />
-        <meta property="og:title" content="Dashboard - Aksarantara" key="title" />
+        <meta
+          property="og:title"
+          content="Dashboard - Aksarantara"
+          key="title"
+        />
         <meta
           property="og:description"
           content="Let's explore Southeast Asian scripts together and contribute to the community!"
@@ -168,7 +148,8 @@ const DashboardPage = () => {
                   Welcome, {userStatus === "success" ? user?.firstName : "..."}!
                 </Heading>
                 <Text>
-                  Join us in delving into the richness of Southeast Asian scripts and collectively enhancing the community's knowledge.
+                  Join us in delving into the richness of Southeast Asian
+                  scripts and collectively enhancing the community's knowledge.
                 </Text>
                 <Spacer />
                 <HStack justify="end" width="100%">

@@ -33,7 +33,6 @@ import { useViewDocumentQuery } from "src/hooks/fetchers/queries/useViewDocument
 import Head from "next/head";
 import { PdfViewer } from "./Fragments/PdfViewer";
 
-
 const DocumentDetailsPage = () => {
   const router = useRouter();
   const createToast = useToast();
@@ -49,9 +48,6 @@ const DocumentDetailsPage = () => {
   const { data: documentDetails, status: documentDetailsStatus } =
     useDocumentDetailsQuery({
       config: {
-        onSuccess: (data) => {
-          console.log("Success");
-        },
         enabled: !!id,
       },
       id: id,
@@ -96,7 +92,9 @@ const DocumentDetailsPage = () => {
     ink,
     illumination,
     description,
-  } = documentDetails?.data?.attributes ? documentDetails?.data?.attributes : {};
+  } = documentDetails?.data?.attributes
+    ? documentDetails?.data?.attributes
+    : {};
   return (
     <>
       <Head>

@@ -1,0 +1,22 @@
+# Use an official Node.js runtime as the base image
+FROM node:18-alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the container
+COPY package.json yarn.lock .eslintignore .eslintrc.json jsconfig.json next.config.js .env tsconfig.json public ./
+
+# Install project dependencies
+# RUN yarn install
+# mount node_modules instead!
+
+# Copy the entire project directory to the container
+# COPY . .
+# mount src instead!
+
+# Expose the development server port (usually 3000)
+EXPOSE 3000
+
+# Define the entrypoint command for development
+CMD ["yarn", "dev"]

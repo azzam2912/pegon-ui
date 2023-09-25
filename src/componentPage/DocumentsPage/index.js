@@ -26,12 +26,27 @@ import { useSearchBar } from "../Page";
 import { DocumentSkeleton } from "./Fragments/DocumentSkeleton";
 import { DocumentData } from "./Fragments/DocumentData";
 
+import {
+  AutoComplete,
+  AutoCompleteGroup,
+  AutoCompleteGroupTitle,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+} from "@choc-ui/chakra-autocomplete";
+import { languages } from "src/utils/languageList";
+
+languages["All"] = ["All Languages"];
+
 const DocumentsPage = () => {
   return (
     <AppLayout>
       <Head>
         <title>Documents and Manuscripts - Aksarantara</title>
-        <meta name="description" content="View all of available documents and manuscripts here!" />
+        <meta
+          name="description"
+          content="View all of available documents and manuscripts here!"
+        />
         <meta
           property="og:title"
           content="Documents and Manuscripts - Aksarantara"
@@ -71,11 +86,7 @@ const DataComponent = () => {
   const endIndex = startIndex + itemsPerPage;
 
   const { data, status } = useDocumentsQuery({
-    config: {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    },
+    config: {},
     page: currentPage,
     pageSize: itemsPerPage,
     queries: {
@@ -124,24 +135,23 @@ const DataComponent = () => {
           width="min-content"
         />
         <HStack>
-          <Select
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            width="auto"
-            defaultValue=""
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option value="">All Languages</option>
-            <option value="Javanese">Javanese</option>
-            <option value="Sundanese">Sundanese</option>
-            <option value="Madurese">Madurese</option>
-            <option value="Indonesian">Indonesian</option>
-            <option value="Malay">Malay</option>
-            <option value="Cham">Cham</option>
-            <option value="Others">Others</option>
-          </Select>
+          <Flex base="1" md="auto" htmlSize="10">
+            <AutoComplete openOnFocus onChange={(val) => setLanguage(val)}>
+              <AutoCompleteInput placeholder="All Languages" />
+              <AutoCompleteList>
+                {Object.entries(languages).map(([family, langs], lf_id) => (
+                  <AutoCompleteGroup key={lf_id} showDivider>
+                    <AutoCompleteGroupTitle>{family}</AutoCompleteGroupTitle>
+                    {langs.map((language, idx) => (
+                      <AutoCompleteItem key={idx} value={language}>
+                        {language}
+                      </AutoCompleteItem>
+                    ))}
+                  </AutoCompleteGroup>
+                ))}
+              </AutoCompleteList>
+            </AutoComplete>
+          </Flex>
           <Input
             flex={{
               base: "1",
@@ -266,4 +276,3 @@ const DataComponent = () => {
 };
 
 export default DocumentsPage;
-

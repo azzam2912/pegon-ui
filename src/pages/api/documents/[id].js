@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiEndpoint } from "src/utils/api";
 
 export default async function handle(req, res) {
   const { method } = req;
@@ -16,22 +17,19 @@ async function handleGetRequest(req, res) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_HOST}/users/me`,
-    {
-      headers: {
-        Authorization: token,
-        "ngrok-skip-browser-warning": "any",
-      },
-    }
-  );
+  const { data } = await axios.get(`${apiEndpoint}/users/me`, {
+    headers: {
+      Authorization: token,
+      "ngrok-skip-browser-warning": "any",
+    },
+  });
 
   return await handleGet(req, res, data);
 }
 
 async function handleGet(req, res, data) {
   const resp = await axios.put(
-    `${process.env.NEXT_PUBLIC_API_HOST}/documents/${req.query.id}`,
+    `${apiEndpoint}/documents/${req.query.id}`,
     {
       data: {
         viewedBy: {
@@ -43,7 +41,7 @@ async function handleGet(req, res, data) {
       headers: {
         Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
       },
-    }
+    },
   );
 
   return res.status(200).json(resp.data);
