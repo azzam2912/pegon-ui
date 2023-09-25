@@ -27,11 +27,12 @@ export const prepareRules = (rules: Rule[]): Rule[] =>
 export const chainRule = <T extends Rule>(...chainOfRules: T[][]): T[] =>
     chainOfRules.reduce<T[]>((acc, rules) => acc.concat(rules),
                              [] as T[])
+export const wordDelimiters: string[] =
+    [" ", ".", ",", "?", "!", "\"", "(", ")", "-", ":", ";",
+     "،", "؛", "؛", "؟"]
 
 export const wordDelimitingPatterns: string =
-    escape([" ", ".", ",", "?", "!", "\"", "(", ")", "-", ":", ";",
-            "،", "؛", "؛", "؟"]
-            .join(""))
+    escape(wordDelimiters.join(""))
 
 // \b would fail when the characters are from different
 // encoding blocks
@@ -56,12 +57,39 @@ export const asSingleWord = (rules: PlainRule[]): RegexRule[] =>
         [new RegExp(`(^|[${wordDelimitingPatterns}])(${key})($|[${wordDelimitingPatterns}])`),
          `$1${val}$3`])
 
+export const patternList = (patterns: Array<string>): RegExp =>
+    new RegExp(patterns.join("|"))
+
+export const between = (before: RegExp,
+                        [key, val]: PlainRule,
+                        after: RegExp): RegexRule =>
+    [new RegExp(`(?<=(${before.source}))${escape(key)}(?=(${after.source}))`),
+     val]
+
+export const after = (before: RegExp,
+                      [key, val]: PlainRule): RegexRule =>
+    [new RegExp(`(?<=(${before.source}))${escape(key)}`),
+     val]
+
+export const before = ([key, val]: PlainRule,
+                       after: RegExp): RegexRule =>
+    [new RegExp(`${escape(key)}(?=(${after.source}))`), val]
+
+export const notAfter = (before: RegExp,
+                         [key, val]: PlainRule): RegexRule =>
+    [new RegExp(`(?<!${before.source})${escape(key)}`), val]
+
+export const notBefore = ([key, val]: PlainRule,
+                       after: RegExp): RegexRule =>
+    [new RegExp(`${escape(key)}(?!(${after.source}))`), val]
+
+
 export const debugTransliterate = (stringToTransliterate: string,
                        translationMap: Rule[]): string =>
     translationMap.reduce<string>((acc, [key, val]) => {
-        // if (new RegExp(key, 'g').test(acc)) {
+        if (new RegExp(key, 'g').test(acc)) {
             console.log(`acc: ${acc}\nkey: ${key}\nval: ${val}\n`)
-        // }
+        }
         return acc.replace(new RegExp(key, 'g'), val)},
                                   stringToTransliterate.slice())
 
@@ -110,3 +138,11 @@ export interface InputMethodEditor {
     readonly rules: Rule[];
     readonly inputEdit: (inputString: string) => string;
 }
+
+export const genericIMEInit = (imeScheme: Rule[]) =>
+    (): InputMethodEditor =>
+    ({
+        rules: imeScheme,
+        inputEdit: (inputString: string): string =>
+            transliterate(inputString, imeScheme)
+    });

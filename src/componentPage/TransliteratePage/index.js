@@ -29,7 +29,6 @@ import {
 import useJawiMalayTransliterator from "src/hooks/useJawiMalayTransliterator";
 import {
   useChamTransliterator,
-  useKayahLiTransliterator,
   useBaybayinTransliterator,
   useBuhidTransliterator,
   useHanunooTransliterator,
@@ -43,7 +42,16 @@ import {
   useRejangTransliterator,
   useBugisTransliterator,
   useMakassarTransliterator,
+  useThaiTransliterator,
+  useLaoTransliterator,
+  useKayahLiTransliterator,
   useMonTransliterator,
+  useBurmeseTransliterator,
+  useKarenTransliterator,
+  useCarakanTransliterator,
+  useSundaTransliterator,
+  useBaliTransliterator,
+  useSasakTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -70,8 +78,18 @@ const selectTransliterator = (script, variant) => {
       break;
     case "Cham":
       return useChamTransliterator;
-    case "Kayah Li":
-      return useKayahLiTransliterator;
+    case "Mon-Burmese":
+      switch (variant) {
+        case "Myanmar":
+          return useBurmeseTransliterator;
+        case "Mon":
+          return useMonTransliterator;
+        case "Kayah Li":
+          return useKayahLiTransliterator;
+        case "S'gaw Karen":
+          return useKarenTransliterator;
+      }
+      break;
     case "Rejang":
       return useRejangTransliterator;
     case "Baybayin":
@@ -108,12 +126,24 @@ const selectTransliterator = (script, variant) => {
           return useBugisTransliterator;
       }
       break;
-    case "Mon-Burmese":
+    case "Sukhothai":
       switch (variant) {
-        case "Mon":
-          return useMonTransliterator;
-        case "Kayah Li":
-          return useKayahLiTransliterator;
+        case "Thai":
+          return useThaiTransliterator;
+        case "Lao":
+          return useLaoTransliterator;
+      }
+      break;
+    case "Hanacaraka":
+      switch (variant) {
+        case "Javanese":
+          return useCarakanTransliterator;
+        case "Sundanese":
+          return useSundaTransliterator;
+        case "Balinese":
+          return useBaliTransliterator;
+        case "Sasak":
+          return useSasakTransliterator;
       }
       break;
   }

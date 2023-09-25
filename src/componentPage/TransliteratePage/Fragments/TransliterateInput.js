@@ -13,7 +13,18 @@ import "@fontsource/noto-sans-tagalog";
 import "@fontsource/noto-sans-buhid";
 import "@fontsource/noto-sans-hanunoo";
 import "@fontsource/noto-sans-tagbanwa";
+
 import "@fontsource/noto-sans-kayah-li";
+import "@fontsource/noto-sans-myanmar";
+
+import "@fontsource/noto-sans-buginese";
+import "@fontsource/noto-serif-makasar";
+import "@fontsource/noto-sans-rejang";
+import "@fontsource/noto-serif-thai";
+import "@fontsource/noto-serif-lao";
+import "@fontsource/noto-sans-javanese";
+import "@fontsource/noto-sans-sundanese";
+import "@fontsource/noto-sans-balinese";
 import { getFont } from "src/utils/objects";
 
 export const TransliterateInput = ({
