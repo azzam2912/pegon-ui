@@ -35,6 +35,15 @@ import {
   useHanunooTransliterator,
   useTagbanwaTransliterator,
   useJawiChamTransliterator,
+  useTobaTransliterator,
+  useKaroTransliterator,
+  useMandailingTransliterator,
+  usePakpakTransliterator,
+  useSimalungunTransliterator,
+  useRejangTransliterator,
+  useBugisTransliterator,
+  useMakassarTransliterator,
+  useMonTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -63,6 +72,8 @@ const selectTransliterator = (script, variant) => {
       return useChamTransliterator;
     case "Kayah Li":
       return useKayahLiTransliterator;
+    case "Rejang":
+      return useRejangTransliterator;
     case "Baybayin":
       switch (variant) {
         case "Baybayin":
@@ -73,6 +84,36 @@ const selectTransliterator = (script, variant) => {
           return useHanunooTransliterator;
         case "Tagbanwa":
           return useTagbanwaTransliterator;
+      }
+      break;
+    case "Batak":
+      switch (variant) {
+        case "Toba":
+          return useTobaTransliterator;
+        case "Karo":
+          return useKaroTransliterator;
+        case "Simalungun":
+          return useSimalungunTransliterator;
+        case "Angkola-Mandailing":
+          return useMandailingTransliterator;
+        case "Pakpak":
+          return usePakpakTransliterator;
+      }
+      break;
+    case "Lontara":
+      switch (variant) {
+        case "Makassar":
+          return useMakassarTransliterator;
+        case "Bugis":
+          return useBugisTransliterator;
+      }
+      break;
+    case "Mon-Burmese":
+      switch (variant) {
+        case "Mon":
+          return useMonTransliterator;
+        case "Kayah Li":
+          return useKayahLiTransliterator;
       }
       break;
   }
@@ -157,7 +198,11 @@ const TransliteratePage = () => {
       <AppLayout>
         <VStack pt={3} align="start">
           <HStack px={5} w="100%">
-            <ScriptTypeSelect value={script} onChange={handleScriptChange} />
+            <ScriptTypeSelect
+              value={script}
+              options={Object.keys(scriptsData)}
+              onChange={handleScriptChange}
+            />
             <VariantSelect
               value={variant}
               options={scriptsData[script]["variants"]}
@@ -197,12 +242,13 @@ const TransliteratePage = () => {
               }
               onSwitchClicked={handleSwap}
             />
-            <Card height={{ base: "300px", md: "200px" }} width="100%">
+            <Card height={{ base: "450px", md: "350px" }} width="100%">
               <Stack
                 height="100%"
                 direction={{ base: "column", md: "row" }}
                 divider={
                   <Divider
+                    borderWidth="2px"
                     orientation={{ base: "horizontal", md: "vertical" }}
                     height={{ base: "1px", md: "auto" }}
                   />
@@ -219,10 +265,11 @@ const TransliteratePage = () => {
                   onChange={handleInputTextChange}
                   script={script}
                   variant={variant}
+                  isLatinInput={isLatinInput}
                   standardLatin={isLatinInput ? standardLatin : null}
                 />
                 <TransliterateInput
-                  placeholder="Transliteration"
+                  placeholder="Transliteration result"
                   isRightToLeft={
                     isLatinInput ? scriptsData[script]["rightToLeft"] : false
                   }
@@ -231,6 +278,7 @@ const TransliteratePage = () => {
                   isReadOnly
                   script={script}
                   variant={variant}
+                  isLatinInput={isLatinInput}
                   standardLatin={isLatinInput ? null : standardLatin}
                 />
               </Stack>
