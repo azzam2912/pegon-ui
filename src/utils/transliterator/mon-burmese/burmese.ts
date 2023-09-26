@@ -68,7 +68,7 @@ const enum Burmese {
     _r_ = "ြ",
     _h_ = "ှ",
     // final diacritics
-    virama = "ံ",
+    virama = "်",
     
     // Tone marks
 
