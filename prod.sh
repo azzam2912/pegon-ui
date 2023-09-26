@@ -1,3 +1,4 @@
+git submodule sync
 git pull --recurse-submodules
 git submodule update --init --recursive --remote
 for submodule in $(git submodule | awk '{ print $2 }'); do
