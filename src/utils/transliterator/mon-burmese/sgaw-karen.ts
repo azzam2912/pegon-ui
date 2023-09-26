@@ -69,7 +69,7 @@ const enum SgawKaren {
     _l_ = "ျ",
     _w_ = "ွ",
     // final diacritics
-    virama = "ံ",
+    virama = "်",
     
     // Tone marks
 
