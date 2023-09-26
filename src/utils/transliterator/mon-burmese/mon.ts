@@ -73,7 +73,7 @@ const enum Mon {
     _m_ = "ၟ",
     _l_ = "ၠ",
     // final diacritics
-    virama = "ံ",
+    virama = "်",
     
     // Tone marks
 
