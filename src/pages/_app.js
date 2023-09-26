@@ -6,8 +6,9 @@ import { colors } from "src/theme";
 // Import the styles provided by the react-pdf-viewer packages
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import '@fontsource/open-sans';
+import "@fontsource/open-sans";
 import Head from "next/head";
+import RouteGuard from "./../components/RouteGuard/index";
 
 // 2. Add your color mode config
 const config = {
@@ -67,7 +68,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
-          <Component {...pageProps} />
+          <RouteGuard>
+            <Component {...pageProps} />
+          </RouteGuard>
         </ChakraProvider>
       </QueryClientProvider>
     </>
