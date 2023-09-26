@@ -24,7 +24,12 @@ import * as Carakan from "src/utils/transliterator/carakan-jawa/src";
 import * as Sunda from "src/utils/transliterator/sunda";
 import * as Bali from "src/utils/transliterator/bali/src";
 
-import { genericIMEInit } from "../utils/transliterator/core.ts";
+import {
+  genericIMEInit,
+  transliterate,
+  debugTransliterate,
+  prepareRules,
+} from "src/utils/transliterator/core.ts";
 
 const genericTransliteratorHook =
   (initIME, toLatin, fromLatin, toStandardLatin) =>
@@ -61,28 +66,72 @@ export const useCarakanTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
   Carakan.toLatin,
   Carakan.toJavanese,
-  Carakan.toLatin,
+  (input) =>
+    transliterate(input, [
+      ["e", "é"],
+      ["x", "e"],
+    ]),
 );
 
 export const useSundaTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
-  Sunda.toLatin,
-  Sunda.toSundanese,
-  Sunda.toLatin,
+  (input) =>
+    transliterate(Sunda.toLatin(input), [
+      ["e", "^e"],
+      ["é", "e"],
+    ]),
+  (input) =>
+    Sunda.toSundanese(
+      transliterate(
+        input,
+        prepareRules([
+          [/(?<!\^)e(?!u)/, "é"],
+          ["^e", "e"],
+        ]),
+      ),
+    ),
+  (input) =>
+    transliterate(
+      input,
+      prepareRules([
+        [/(?<!\^)e(?!u)/, "é"],
+        ["^e", "e"],
+      ]),
+    ),
 );
 
 export const useBaliTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
-  Bali.toLatin,
-  Bali.toBalinese,
-  (input) => Bali.toLatin(input, false),
+  (input) => transliterate(Bali.toLatin(input), [["x", "^e"]]),
+  // Bali.toBalinese,
+  // (input) => Bali.toLatin(input, false),
+  (input) => Bali.toBalinese(transliterate(input, prepareRules([["^e", "x"]]))),
+  (input) =>
+    transliterate(
+      input,
+      prepareRules([
+        [/(?<!\^)e/, "é"],
+        ["^e", "e"],
+      ]),
+    ),
 );
 
 export const useSasakTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
-  (input) => Bali.toLatin(input, true, true),
-  (input) => Bali.toBalinese(input, true),
-  (input) => Bali.toLatin(input, false, true),
+  // (input) => Bali.toLatin(input, true, true),
+  (input) => transliterate(Bali.toLatin(input, true, true), [["x", "^e"]]),
+  // (input) => Bali.toBalinese(input, true),
+  (input) =>
+    Bali.toBalinese(transliterate(input, prepareRules([["^e", "x"]])), true),
+  // (input) => Bali.toLatin(input, false, true),
+  (input) =>
+    transliterate(input, [
+      [/(?<!\^)e/, "é"],
+      ["^e", "e"],
+      ["KH", "kh"],
+      ["TS", "ts"],
+      ["SY", "sy"],
+    ]),
 );
 
 export const useChamTransliterator = genericTransliteratorHook(
