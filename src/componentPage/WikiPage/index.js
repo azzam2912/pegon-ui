@@ -2,21 +2,21 @@ import Head from "next/head";
 import AppLayout from "../Page/AppLayout";
 import React from "react";
 
-import {
-  Box,
-  Text
-} from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-import ReactMarkdown from 'react-markdown';
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import ReactMarkdown from "react-markdown";
 import { scriptsData } from "src/utils/objects";
 import { ScriptTypeSelect } from "src/componentPage/TransliteratePage/Fragments/ScriptTypeSelect";
+import remarkGfm from "remark-gfm";
 
 const WikiPage = () => {
   const router = useRouter();
-  const [script, setScript] = useState((router.query && router.query.script)? router.query.script : "Pegon");
+  const [script, setScript] = useState(
+    router.query && router.query.script ? router.query.script : "Pegon",
+  );
   const [mdContent, setMdContent] = useState("");
 
   const handleScriptChange = (event) => {
@@ -27,7 +27,7 @@ const WikiPage = () => {
   useEffect(() => {
     // Get the query parameter from the router
     const { query } = router.query;
-  
+
     // Check if the query parameter exists and update the state
     if (query && query.script) {
       setScript(query.script);
@@ -42,14 +42,15 @@ const WikiPage = () => {
   useEffect(() => {
     // Update the URL with the current state
     try {
-      const markdownContent = require(`${"./Scripts/" + script.toLowerCase() + ".md"}`).default;
+      const markdownContent = require(
+        `${"./Scripts/" + script.toLowerCase() + ".md"}`,
+      ).default;
       setMdContent(markdownContent);
     } catch (error) {
-      console.error('Error loading Markdown file:', error);
+      console.error("Error loading Markdown file:", error);
     }
   }, [script]);
-  
-  
+
   return (
     <>
       <Head>
@@ -65,20 +66,27 @@ const WikiPage = () => {
       </Head>
       <AppLayout>
         <Box
-        className="pegon-wiki-container"
-        p={3} // Add padding
-        ml="auto" // Move to the right (adjust as needed)
-        width="98%" // Adjust the width as needed
-        > 
-        <ScriptTypeSelect
-              value={script}
-              options={Object.keys(scriptsData)}
-              onChange={handleScriptChange}
-            />
-        <Text fontSize="xl"> {/* You can customize the font size */}
-          <ReactMarkdown components={ChakraUIRenderer()} skipHtml>{mdContent}</ReactMarkdown>
-        </Text>
-
+          className="pegon-wiki-container"
+          p={3} // Add padding
+          ml="auto" // Move to the right (adjust as needed)
+          width="98%" // Adjust the width as needed
+        >
+          <ScriptTypeSelect
+            value={script}
+            options={Object.keys(scriptsData)}
+            onChange={handleScriptChange}
+          />
+          <Text fontSize="xl">
+            {" "}
+            {/* You can customize the font size */}
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={ChakraUIRenderer()}
+              skipHtml
+            >
+              {mdContent}
+            </ReactMarkdown>
+          </Text>
         </Box>
       </AppLayout>
     </>
