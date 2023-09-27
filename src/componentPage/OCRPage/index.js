@@ -17,6 +17,8 @@ import {
   Spinner,
   AlertTitle,
 } from "@chakra-ui/react";
+import { VariantSelect } from "./VariantSelect";
+import { scriptsData } from "src/utils/objects";
 
 const axios = require("axios");
 
@@ -25,6 +27,7 @@ export const OCRPage = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [file, setFile] = useState(null);
   const [result, setResult] = useState(null);
+  const [variant, setVariant] = useState("Pegon");
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
@@ -58,11 +61,15 @@ export const OCRPage = () => {
       );
       setStatus("success");
       setResult(response.data.result);
-      console.log("Upload success:", response.data);
     } catch (error) {
       setStatus("error");
       console.error("Error uploading image:", error);
     }
+  };
+
+  const handleVariantChange = (event) => {
+    const newVariant = event.target.innerText;
+    setVariant(newVariant);
   };
 
   return (
@@ -109,7 +116,13 @@ export const OCRPage = () => {
                 OCR is unavailable due to server maintenance. Please try again later.
               </AlertDescription>
             </Alert> */}
-            <Divider my={5} />
+            <Divider my={2} />
+            <VariantSelect
+              value={variant}
+              options={["Pegon", "Jawi"]}
+              onChange={handleVariantChange}
+            />
+            <Divider my={1} borderWidth={0} />
             <Flex
               position="relative"
               flex={1}
@@ -232,7 +245,7 @@ export const OCRPage = () => {
                     <Text color="gray.400">This may take a while.</Text>
                   </>
                 )}
-                {status == "success" && <Text fontSize='xl'>{result}</Text>}
+                {status == "success" && <Text fontSize="xl">{result}</Text>}
                 {status == "error" && (
                   <>
                     <Alert

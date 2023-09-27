@@ -279,12 +279,13 @@ const TransliteratePage = () => {
               }
               onSwitchClicked={handleSwap}
             />
-            <Card height={{ base: "300px", md: "200px" }} width="100%">
+            <Card height={{ base: "450px", md: "350px" }} width="100%">
               <Stack
                 height="100%"
                 direction={{ base: "column", md: "row" }}
                 divider={
                   <Divider
+                    borderWidth="2px"
                     orientation={{ base: "horizontal", md: "vertical" }}
                     height={{ base: "1px", md: "auto" }}
                   />
@@ -301,10 +302,11 @@ const TransliteratePage = () => {
                   onChange={handleInputTextChange}
                   script={script}
                   variant={variant}
+                  isLatinInput={isLatinInput}
                   standardLatin={isLatinInput ? standardLatin : null}
                 />
                 <TransliterateInput
-                  placeholder="Transliteration"
+                  placeholder="Transliteration result"
                   isRightToLeft={
                     isLatinInput ? scriptsData[script]["rightToLeft"] : false
                   }
@@ -313,6 +315,7 @@ const TransliteratePage = () => {
                   isReadOnly
                   script={script}
                   variant={variant}
+                  isLatinInput={isLatinInput}
                   standardLatin={isLatinInput ? null : standardLatin}
                 />
               </Stack>

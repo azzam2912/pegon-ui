@@ -23,6 +23,10 @@ const scriptsData = {
     variants: [],
     rightToLeft: false,
   },
+  Hanacaraka: {
+    variants: ["Javanese", "Sundanese", "Balinese", "Sasak"],
+    rightToLeft: false,
+  },
   Pegon: {
     variants: ["Indonesian", "Javanese", "Madurese", "Sundanese"],
     rightToLeft: true,
@@ -33,10 +37,6 @@ const scriptsData = {
   },
   Baybayin: {
     variants: ["Baybayin", "Buhid", "Hanuno'o", "Tagbanwa"],
-    rightToLeft: false,
-  },
-  Hanacaraka: {
-    variants: ["Javanese", "Sundanese", "Balinese", "Sasak"],
     rightToLeft: false,
   },
 };

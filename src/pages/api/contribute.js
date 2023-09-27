@@ -1,6 +1,7 @@
 import formidable from "formidable";
 import axios from "axios";
 import FormData from "form-data";
+import { apiEndpoint } from "src/utils/api";
 
 export const config = {
   api: {
@@ -31,20 +32,17 @@ async function handlePostRequest(req, res) {
     }
     const fieldData = JSON.parse(fields.data);
 
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_HOST}/users/me`,
-      {
-        headers: {
-          Authorization: token,
-          "ngrok-skip-browser-warning": "any",
-        },
-      }
-    );
+    const { data } = await axios.get(`${apiEndpoint}/users/me`, {
+      headers: {
+        Authorization: token,
+        "ngrok-skip-browser-warning": "any",
+      },
+    });
 
     const finalData = {
       ...fieldData,
-      author : fieldData.author ? fieldData.author : "Anonymous",
-      collector : fieldData.collector ? fieldData.collector : "Not Specified",
+      author: fieldData.author ? fieldData.author : "Anonymous",
+      collector: fieldData.collector ? fieldData.collector : "Not Specified",
       contributor: data?.id,
       publishedAt: null,
     };
@@ -58,7 +56,7 @@ async function handlePostRequest(req, res) {
       formData.append(
         key,
         fs.createReadStream(files[key].filepath),
-        files[key].originalFilename
+        files[key].originalFilename,
       );
     }
 
@@ -75,16 +73,12 @@ async function handlePostRequest(req, res) {
         .json({ message: "Please fill all the required fields" });
     }
 
-    const resp = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_HOST}/documents`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const resp = await axios.post(`${apiEndpoint}/documents`, formData, {
+      headers: {
+        Authorization: `Bearer ${process.env.MASTER_TOKEN}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     return res.status(200).json(resp.data);
   });

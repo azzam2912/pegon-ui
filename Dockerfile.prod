@@ -16,7 +16,7 @@ RUN yarn install --production
 COPY . .
 
 # build
-RUN git pull --recurse-submodules && yarn build
+RUN yarn build
 
 FROM node:18-alpine
 WORKDIR /app
@@ -27,5 +27,3 @@ COPY --from=BUILD_IMAGE /app/.next ./.next
 COPY --from=BUILD_IMAGE /app/public ./public
 EXPOSE 3000
 CMD ["yarn", "start"]
-
-COPY src/utils/transliterator/submodule.sh /submodule.sh
