@@ -5,138 +5,170 @@
 
 ## Relation to Other Scripts
 
-The Mon-Burmese script developed from [the Pallava script](https://en.wikipedia.org/wiki/Pallava_script). Thus, connecting the script with the [Tamil](https://en.wikipedia.org/wiki/Tamil_script), [Grantha](https://en.wikipedia.org/wiki/Grantha_script), [Khmer](https://en.wikipedia.org/wiki/Khmer_script), [Cham](https://en.wikipedia.org/wiki/Cham_script), and [Kawi](https://en.wikipedia.org/wiki/Kawi_script) scripts.
-The Mon-Burmese itself is an abugida which works by putting vowel signs on its independent consonants to form syllables, in contrast to the alphabets which put vowels as independent unit, such as the latin and greek derived ones.
+The Mon-Burmese script developed from [the Pallava script](https://en.wikipedia.org/wiki/Pallava_script). Thus, the script is connected with the [Tamil](https://en.wikipedia.org/wiki/Tamil_script), [Grantha](https://en.wikipedia.org/wiki/Grantha_script), [Khmer](https://en.wikipedia.org/wiki/Khmer_script), [Cham](https://en.wikipedia.org/wiki/Cham_script), and [Kawi](https://en.wikipedia.org/wiki/Kawi_script) scripts.
+
+Mon-Burmese is an abugida that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units.
 
 ## Writing System
-The writing system consists of independent consonants, independent vowels, dependent vowels, virama, and medials.
+The Mon-Burmewse writing system consists of **independent consonants**, **independent vowels**, **dependent vowels**, **virama**, and **medials**.
 
-* Independent consonants by default are followed by the "a" vowel. For example ဗက by itself would be read as baka, not bak or bk.
+* Independent consonants by default are followed by the "a" vowel. For example ဗက  by itself would be read as "baka", not "bak" nor "bk".
 * Independent vowels are vowels that can stand by itself without relying on အ. It is used when writing a syllable that consists of only one vowel and no consonant. For example, ika would be written as ဣက.
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant or a vowel threshold (အ) in order to function. For example, bi would be written as ဗိ.
-* Asat (်) is also called the vowel killer. This is used to kill vowels from syllables. For example when put on က it would kill the a sound making the sound just a regular k. For example ဗက (baka) when the virama is added becomes ဗကံ (bak).
-* Medials are consonants that stand in the middle of a syllable. Usually it is used when forming word that has 2 consonants prior to a vowel. For example, thee r in tri is a medial.  
+* Asat (်) is also called the vowel killer. This is used to kill vowels from syllables. For example when put on က it would kill the "a" sound making the sound just a regular k. For example ဗက (baka) when the virama is added becomes ဗကံ (bak).
+* Medials are consonants that stand in the middle of a syllable. Usually it is used when forming word that has 2 consonants prior to a vowel. For example, thee r in tri is a medial.
 
 ### Independent Consonants :
 
-* Ka = က
-* Kha = "ခ"
-* Ga = "ဂ"
-* Gha = "ဃ"
-* Nga = "င"
-* Ca = "စ"
-* Cha = "ဆ"
-* Ja = "ဇ"
-* Jha = "ဈ"
-* Ñña = "ည"
-* Nya = "ဉ "
-* Ṭa = "ဋ"
-* Ṭha = "ဌ"
-* Ḍa = "ဍ"
-* Ḍha = "ဎ"
-* Ṇa = "ဏ"
-* Ta = "တ"
-* Tha = "ထ"
-* Da = "ဒ"
-* Dha = "ဓ"
-* Na = "န"
-* Pa = "ပ"
-* Pha = "ဖ"
-* Ba = "ဗ"
-* Bha = "ဘ"
-* Ma = "မ"
-* Ya = "ယ"
-* Ra = "ရ"
-* La = "လ"
-* Va = "ဝ"
-* Sa = "သ"
-* Ha = "ဟ"
-* Ḷa = "ဠ"
-* A = "အ". This one is a placeholder for dependent vowels that don't have their independent counterparts. We can add their dependent version into this instead.
+| Latin   | Burmese | IPA |
+| ------- | ------- | --- |
+| Ka      | က      | /ka/|
+| Kha     | ခ      | /kʰa/|
+| Ga      | ဂ      | /ɡa/|
+| Gha     | ဃ      | /ɡʱa/|
+| Nga     | င      | /ŋa/|
+| Ca      | စ      | /ca/|
+| Cha     | ဆ      | /cʰa/|
+| Ja      | ဇ      | /d͡ʒa/|
+| Jha     | ဈ      | /d͡ʒʱa/|
+| Ñña     | ည      | /ɲa/|
+| Nya     | ဉ      | /ɲa/|
+| Ṭa      | ဋ      | /ʈa/|
+| Ṭha     | ဌ      | /ʈʰa/|
+| Ḍa      | ဍ      | /ɖa/|
+| Ḍha     | ဎ      | /ɖʱa/|
+| Ṇa      | ဏ      | /ɳa/|
+| Ta      | တ      | /ta/|
+| Tha     | ထ      | /tʰa/|
+| Da      | ဒ      | /da/|
+| Dha     | ဓ      | /dʱa/|
+| Na      | န      | /na/|
+| Pa      | ပ      | /pa/|
+| Pha     | ဖ      | /pʰa/|
+| Ba      | ဗ      | /ba/|
+| Bha     | ဘ      | /bʱa/|
+| Ma      | မ      | /ma/|
+| Ya      | ယ      | /ja/|
+| Ra      | ရ      | /ɹa/|
+| La      | လ      | /la/|
+| Va      | ဝ      | /wa/|
+| Sa      | သ      | /sa/|
+| Ha      | ဟ      | /ha/|
+| Ḷa      | ဠ      | /ɭa/|
+| A       | အ      | /a/|
 
+"အ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
 ### Independent Vowels :
 
-* I = "ဣ"
-* Ii = "ဤ"
-* U = "ဥ"
-* Uu = "ဦ"
-* E = "ဧ"
-* O = "ဩ"
-* O' = "ဪ"
+| Latin | Burmese | IPA |
+| ------- | ------- | --- |
+| I       | ဣ      | /i/ |
+| Ii      | ဤ      | /iː/|
+| U       | ဥ      | /u/ |
+| Uu      | ဦ      | /uː/|
+| E       | ဧ      | /e/ |
+| O       | ဩ      | /o/ |
+| O'      | ဪ      | /oʊ/|
 
 ### Dependent Vowels :
 
-* AA = "ာ"
-* I = "ိ"
-* Ii = "ီ"
-* U = "ု"
-* Uu = "ူ"
-* E = "ေ"
-* Ai = "ဲ"
-* O = "ော"
-* O' = "ော်"
-* Ui = "ို"
+| Latin | Burmese | IPA  |
+| ------- | ------- | ---- |
+| AA      | ာ      | /a̰/ |
+| I       | ိ      | /i/  |
+| Ii      | ီ      | /iː/ |
+| U       | ု      | /u/  |
+| Uu      | ူ      | /uː/ |
+| E       | ေ      | /e/  |
+| Ai      | ဲ      | /ai/ |
+| O       | ော     | /o/  |
+| O'      | ော်   | /oʊ/ |
+| Ui      | ို    | /ui/ |
 
-### Medial Consonants : 
+### Medial Consonants :
 
-* Y = "ျ"
-* V = "ွ"
-* R = "ြ"
-* H = "ှ"
+| Latin | Burmese | IPA |
+| ------- | ------- | --- |
+| Y       | ျ      | /j/ |
+| V       | ွ      | /w/ |
+| R       | ြ      | /r/ |
+| H       | ှ      | /h/ |
 
 ### Tones :
 
-* Low Tone = "့"
-* High Tone = "း"
+| Tone    | Burmese | IPA  |
+| ---------- | ------- | ---- |
+| Low Tone   | ့      | /̤/  |
+| High Tone  | း      | /̂/  |
 
 ## Extension for Mon Script
 
-There are some additional characters that can be found only within the Mon script. Those are :
+There are some additional characters that can be found only within the Mon script. These are :
 
 ### Independent Consonants :
-* Bha = ၜ
-* Bbe = ၝ
-* Nga = "ၚ"
-* Jha = "ၛ"
+
+| Latin    | Mon | IPA  |
+| ---------- | ------- | ---- |
+| Bha        | ၜ      | /bʱa/ |
+| Bbe        | ၝ      | /bʱe/ |
+| Nga        | ၚ      | /ŋa/  |
+| Jha        | ၛ      | /d͡ʒʱa/|
 
 ### Independent Vowels :
-* E = "ဨ"
+| Latin | Mon  | IPA  |
+| ----- | ---- | ---- |
+| E     | ဨ   | /e/  |
 
 ### Dependent Vowels :
-* Ii = "ဳ"
-* O = "ဴ"
+
+| Latin | Mon  | IPA  |
+| ----- | ---- | ---- |
+| Ii    | ဳ   | /iː/ |
+| O     | ဴ   | /u/  |
 
 ### Medial Consonants :
 
-* N = "ၞ"
-* M = "ၟ"
-* L = "ၠ"
+| Latin | Mon  | IPA  |
+| ----- | ---- | ---- |
+| N     | ၞ   | /n/  |
+| M     | ၟ   | /m/  |
+| L     | ၠ   | /l/  |
 
 ## Extension for Sgaw-Karen Script
 
-There are some additional characters that can be found only within the Sgaw-Karen script. Those are :
+There are some additional characters that can be found only within the Sgaw-Karen script. These are :
 
-### Independent Consonants : 
-* Sha = "ၡ"
+### Independent Consonants :
 
-### Dependent Vowels : 
-* Eu = "ၢ"
+| Latin | Sgaw-Karen | IPA  |
+| ----- | ---------- | ---- |
+| Sha   | ၡ         | /ʃa/ |
+
+### Dependent Vowels :
+
+| Latin | Sgaw-Karen | IPA  |
+| ----- | ---------- | ---- |
+| Eu    | ၢ         | /əu/ |
 
 ### Medial Consonants :
 
-* Y = "ၠ"
-* R = "ြွ"
-* L = "ျ"
-* W = "ွ"
+| Latin | Sgaw-Karen | IPA     |
+| ----- | ---------- | ------- |
+| Y     | ၠ         | /j/     |
+| R     | ြွ       | /ɹ/     |
+| L     | ျ         | /l/     |
+| W     | ွ         | /w/     |
 
 ### Tones :
-* Rising = "ၢ်",
-* Falling = "ာ်",
-* Mid = "း",
-* High = "ၣ်",
-* Low = "ၤ",
 
+| Tone   | Sgaw-Karen | IPA   |
+| ------- | ---------- | ----- |
+| Rising  | ၢ်       | /ə/   |
+| Falling | ာ်       | /a̤/  |
+| Mid     | း        |       |
+| High    | ၣ်       | /e/   |
+| Low     | ၤ        |       |
 
 ## Examples
 
