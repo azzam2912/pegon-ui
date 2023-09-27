@@ -7,55 +7,56 @@
 
 The Mon-Burmese script developed from [the Pallava script](https://en.wikipedia.org/wiki/Pallava_script). Thus, the script is connected with the [Tamil](https://en.wikipedia.org/wiki/Tamil_script), [Grantha](https://en.wikipedia.org/wiki/Grantha_script), [Khmer](https://en.wikipedia.org/wiki/Khmer_script), [Cham](https://en.wikipedia.org/wiki/Cham_script), and [Kawi](https://en.wikipedia.org/wiki/Kawi_script) scripts.
 
-Mon-Burmese is an abugida that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units.
+Mon-Burmese is an **abugida** that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units. What this means is that there are no letters representing consonants or vowels on their own--each letter represents a syllable unit. 
+
 
 ## Writing System
 The Mon-Burmewse writing system consists of **independent consonants**, **independent vowels**, **dependent vowels**, **virama**, and **medials**.
 
 * Independent consonants by default are followed by the "a" vowel. For example ဗက  by itself would be read as "baka", not "bak" nor "bk".
-* Independent vowels are vowels that can stand by itself without relying on အ. It is used when writing a syllable that consists of only one vowel and no consonant. For example, ika would be written as ဣက.
+* Independent vowels are vowels that can stand by itself without relying on အ. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ဣက, with ဣ standing for the independent consonantless "*i*" sound.
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant or a vowel threshold (အ) in order to function. For example, bi would be written as ဗိ.
-* Asat (်) is also called the vowel killer. This is used to kill vowels from syllables. For example when put on က it would kill the "a" sound making the sound just a regular k. For example ဗက (baka) when the virama is added becomes ဗကံ (bak).
-* Medials are consonants that stand in the middle of a syllable. Usually it is used when forming word that has 2 consonants prior to a vowel. For example, thee r in tri is a medial.
+* The sign *asat* (်), also called the vowel killer, is used to remove vowels from syllables. For example when put on က it would kill the "a" sound making the sound just a regular k. For example, the (hypothetical) word ဗက (read "baka") when the virama is added becomes ဗက် ("bak").
+* Medials are consonants that stand in the middle of a syllable. Usually it is used when forming word that has 2 consonants prior to a vowel. For example, the r in tri is a medial.
 
 ### Independent Consonants :
 
-| Latin   | Burmese | IPA |
-| ------- | ------- | --- |
-| Ka      | က      | /ka/|
-| Kha     | ခ      | /kʰa/|
-| Ga      | ဂ      | /ɡa/|
-| Gha     | ဃ      | /ɡʱa/|
-| Nga     | င      | /ŋa/|
-| Ca      | စ      | /ca/|
-| Cha     | ဆ      | /cʰa/|
-| Ja      | ဇ      | /d͡ʒa/|
-| Jha     | ဈ      | /d͡ʒʱa/|
-| Ñña     | ည      | /ɲa/|
-| Nya     | ဉ      | /ɲa/|
-| Ṭa      | ဋ      | /ʈa/|
-| Ṭha     | ဌ      | /ʈʰa/|
-| Ḍa      | ဍ      | /ɖa/|
-| Ḍha     | ဎ      | /ɖʱa/|
-| Ṇa      | ဏ      | /ɳa/|
-| Ta      | တ      | /ta/|
-| Tha     | ထ      | /tʰa/|
-| Da      | ဒ      | /da/|
-| Dha     | ဓ      | /dʱa/|
-| Na      | န      | /na/|
-| Pa      | ပ      | /pa/|
-| Pha     | ဖ      | /pʰa/|
-| Ba      | ဗ      | /ba/|
-| Bha     | ဘ      | /bʱa/|
-| Ma      | မ      | /ma/|
-| Ya      | ယ      | /ja/|
-| Ra      | ရ      | /ɹa/|
-| La      | လ      | /la/|
-| Va      | ဝ      | /wa/|
-| Sa      | သ      | /sa/|
-| Ha      | ဟ      | /ha/|
-| Ḷa      | ဠ      | /ɭa/|
-| A       | အ      | /a/|
+| Standard Latin | Reversible Latin    | Burmese | Phonetic Reading (IPA) |
+| ------- | ------- | ------- | --- |
+| ka  | `ka` |    | က      | /ka/ |
+| kha | `k_ha`     | ခ      | /kʰa/ |
+| ga  | `ga`      | ဂ      | /ɡa/ |
+| gha | `g_ha`     | ဃ      | /ɡʱa/ |
+| nga | `n_ga`     | င      | /ŋa/|
+| ca  | `ca`      | စ      | /sa/|
+| cha | `c_ha`     | ဆ      | /sʰa/|
+| ja  | `ja`      | ဇ      | /d͡ʒa/|
+| jha | `j_ha`     | ဈ      | /d͡ʒʱa/|
+| ñña | `n_n_ya`    | ည      | /ɲa/|
+| ña | `n_ya`    | ဉ      | /ɲa/|
+| ṭa | `t_ta`      | ဋ      | /ʈa/|
+| ṭha | `t_t_ha`    | ဌ      | /ʈʰa/|
+| ḍa  | `d_da`    | ဍ      | /ɖa/|
+| ḍha | `d_d_ha`   | ဎ      | /ɖʱa/|
+| ṇa  | `n_na`    | ဏ      | /ɳa/|
+| ḷa | `l_la`     | ဠ      | /ɭa/|
+| ta  | `ta`    | တ      | /ta/|
+| Tha | `t_ha`   | ထ      | /tʰa/|
+| Da  | `da`    | ဒ      | /da/|
+| Dha | `d_ha`   | ဓ      | /dʱa/|
+| Na  | `na`    | န      | /na/|
+| Pa  | `pa`    | ပ      | /pa/|
+| Pha | `p_ha`   | ဖ      | /pʰa/|
+| Ba  | `ba`    | ဗ      | /ba/|
+| Bha  | `b_ha`   | ဘ      | /bʱa/|
+| Ma   | `ma`   | မ      | /ma/|
+| Ya   | `ya`   | ယ      | /ja/|
+| Ra   | `ra`   | ရ      | /ja/|
+| La   | `la`   | လ      | /la/|
+| Va   | `va`   | ဝ      | /wa/|
+| Sa   | `sa`   | သ      | /sa/|
+| Ha | `ha`    | ဟ      | /ha/|
+| A  | `a`     | အ      | /a/|
 
 "အ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
@@ -91,7 +92,7 @@ The Mon-Burmewse writing system consists of **independent consonants**, **indepe
 | Latin | Burmese | IPA |
 | ------- | ------- | --- |
 | Y       | ျ      | /j/ |
-| V       | ွ      | /w/ |
+| W       | ွ      | /w/ |
 | R       | ြ      | /r/ |
 | H       | ှ      | /h/ |
 
