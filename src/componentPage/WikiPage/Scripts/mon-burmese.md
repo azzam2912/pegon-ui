@@ -14,7 +14,7 @@ The writing system consists of independent consonants, independent vowels, depen
 * Independent consonants by default are followed by the "a" vowel. For example ဗက by itself would be read as baka, not bak or bk.
 * Independent vowels are vowels that can stand by itself without relying on အ. It is used when writing a syllable that consists of only one vowel and no consonant. For example, ika would be written as ဣက.
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant or a vowel threshold (အ) in order to function. For example, bi would be written as ဗိ.
-* Virama (ံ) is also called the vowel killer. This is used to kill vowels from syllables. For example when put on က it would kill the a sound making the sound just a regular k. For example ဗက (baka) when the virama is added becomes ဗကံ (bak).
+* Asat (်) is also called the vowel killer. This is used to kill vowels from syllables. For example when put on က it would kill the a sound making the sound just a regular k. For example ဗက (baka) when the virama is added becomes ဗကံ (bak).
 * Medials are consonants that stand in the middle of a syllable. Usually it is used when forming word that has 2 consonants prior to a vowel. For example, thee r in tri is a medial.  
 
 ### Independent Consonants :
