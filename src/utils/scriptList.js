@@ -26,7 +26,7 @@ export const scripts = Object.fromEntries(
     Sinitic: ["Chu Nom", "Hokkien"],
     Batak: ["Angkola", "Toba", "Pakpak", "Mandailing", "Karo", "Simalungun"],
     Kawi: ["Kawi", "Buda"],
-    Hanacaraka: ["Jawa", "Sunda", "Bali", "Sasak"],
+    Hanacaraka: ["Jawa", "Sunda", "Bali", "Sasak", "Cacarakan", "Madura"],
     Lontaraq: ["Lontara", "Makassar", "Mbojo"],
     Ulu: ["Rejang", "Lampung", "Incung"],
     Baybayin: [

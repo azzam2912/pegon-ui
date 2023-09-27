@@ -24,11 +24,11 @@ const scriptsData = {
     rightToLeft: false,
   },
   Hanacaraka: {
-    variants: ["Javanese", "Sundanese", "Balinese", "Sasak"],
+    variants: ["Jawa", "Sunda", "Bali", "Sasak"],
     rightToLeft: false,
   },
   Pegon: {
-    variants: ["Indonesian", "Javanese", "Madurese", "Sundanese"],
+    variants: ["Indonesia", "Jawa", "Madura", "Sunda"],
     rightToLeft: true,
   },
   Lontara: {
@@ -93,12 +93,12 @@ const getFont = (script, variant) => {
           return "Noto Serif Lao";
       }
       break;
-    case "Carakan":
-      return "Noto Sans Javanese";
-    case "Sunda":
-      return "Noto Sans Sundanese";
-    case "Bali":
+    case "Hanacaraka":
       switch (variant) {
+        case "Jawa":
+          return "Noto Sans Javanese";
+        case "Sunda":
+          return "Noto Sans Sundanese";
         case "Balinese":
           return "Noto Sans Balinese";
         case "Sasak":
