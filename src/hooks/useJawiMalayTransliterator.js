@@ -18,7 +18,7 @@ const useJawiMalayTransliterator = async (
     const response = await axios.post(url, req);
     setIsLoading(true);
     const outputText = isLatinInput ? response.data.jawi : response.data.rumi;
-    return { outputText };
+    return { outputText: outputText };
   } catch (error) {
     console.error("Error: ", error);
     return { outputText: "" };

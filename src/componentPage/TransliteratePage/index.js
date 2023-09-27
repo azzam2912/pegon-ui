@@ -199,8 +199,15 @@ const TransliteratePage = () => {
       isLatinInput,
       setIsLoading,
     );
-    setOutputText(result.outputText);
-    setStandardLatin(result.standardLatin);
+    if (script !== "Jawi") {
+      setOutputText(result.outputText);
+      setStandardLatin(result.standardLatin);
+    } else {
+      setStandardLatin(inputText);
+      result.then((result) => {
+        setOutputText(result.outputText);
+      });
+    }
   }, [inputText]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
