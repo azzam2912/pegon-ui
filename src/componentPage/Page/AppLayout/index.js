@@ -76,7 +76,7 @@ const AppLayout = ({ children }) => {
               }}
             >
               <Text ml="3" fontWeight="normal" color="whiteAlpha.400">
-                Search Here
+                Search documents
               </Text>
             </Button>
             <Menu>
@@ -162,7 +162,7 @@ const AppLayout = ({ children }) => {
             }}
           >
             <Text ml="3" fontWeight="normal" color="whiteAlpha.400">
-              Search Here
+              Search documents
             </Text>
           </Button>
           <Button

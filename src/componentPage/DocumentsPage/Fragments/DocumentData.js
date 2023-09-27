@@ -1,8 +1,12 @@
 import React from "react";
 import { Badge, Flex, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { timeAgo } from './../../../utils/functions';
 
 export const DocumentData = ({ index, id, item }) => {
+  const firstName = item?.contributor?.data?.attributes.firstName;
+  const lastName = item?.contributor?.data?.attributes.lastName;
+
   return (
     <Flex
       key={index}
@@ -17,36 +21,33 @@ export const DocumentData = ({ index, id, item }) => {
         bg: "gray.800",
       }}
     >
-      <Flex width="240px" align="center" flexShrink={0}>
-        <Image
-          src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
-          fallbackSrc="https://via.placeholder.com/48"
-          alt="Thumbnail"
-          objectFit="cover"
-          boxSize="48px"
-          borderRadius="full" />
-        <Text noOfLines={1} fontSize="sm" ml={4}>
-          {item?.title}
-        </Text>
-      </Flex>
-      <Text width="160px" noOfLines={1} fontSize="sm" color="gray.500" ml="4">
-        By {item?.contributor.data?.attributes.firstName}{" "}
-        {item?.contributor.data?.attributes.lastName}
+      <Image
+        src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
+        fallbackSrc="https://via.placeholder.com/48"
+        alt="Thumbnail"
+        objectFit="cover"
+        boxSize="48px"
+      />
+      <Text width="160px" noOfLines={3} fontSize="sm" ml={4}>
+        {item?.title}
       </Text>
-      <Text width="100px" noOfLines={1} fontSize="sm" ml="4">
+      <Text width="160px" noOfLines={3} fontSize="sm" ml="4">
+        {firstName || lastName ? firstName + " " + lastName : "Admin"}
+      </Text>
+      <Text width="100px" fontSize="sm" ml="4">
         <Badge colorScheme="blue">{item?.language}</Badge>
       </Text>
-      <Text color="gray.500" width="80px" fontSize="sm" ml="4">
+      <Text width="80px" noOfLines={3} fontSize="sm" ml="4">
         {item?.documentType}
       </Text>
-      <Text color="gray.500" width="100px" fontSize="sm" ml="4">
+      <Text width="100px" noOfLines={3} fontSize="sm" ml="4">
         {item?.author ? item.author : "Unknown Author"}
       </Text>
-      <Text color="gray.500" width="100px" fontSize="sm" ml="4">
+      <Text width="100px" noOfLines={3} fontSize="sm" ml="4">
         {item?.collector ? item.collector : "Unknown Collector"}
       </Text>
-      <Text width="100px" fontSize="sm" ml="4" color="gray.500">
-        {item?.publishedAt ? item.publishedAt : "unknown date"}
+      <Text width="100px" noOfLines={3} fontSize="sm" ml="4">
+        {item?.publishedAt ? timeAgo(item.publishedAt) : "Unknown Date"}
       </Text>
     </Flex>
   );
