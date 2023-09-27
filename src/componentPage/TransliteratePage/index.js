@@ -138,9 +138,9 @@ const selectTransliterator = (script, variant) => {
       switch (variant) {
         case "Jawa":
           return useCarakanTransliterator;
-        case "Sundanese":
+        case "Sunda":
           return useSundaTransliterator;
-        case "Balinese":
+        case "Bali":
           return useBaliTransliterator;
         case "Sasak":
           return useSasakTransliterator;
