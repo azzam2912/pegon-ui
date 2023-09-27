@@ -101,7 +101,7 @@ const LoginPage = () => {
           </Heading>
           <HStack spacing="1" justify="center" mb={5}>
             <Text color="muted">Don't have an account?</Text>
-            <Link href="/register">
+            <Link href="/app/register">
               <Button variant="link" colorScheme="primary">
                 Sign up
               </Button>

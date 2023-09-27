@@ -94,13 +94,13 @@ const SignUpPage = () => {
           maxW="lg"
         >
           <Heading size="lg" textAlign="center" mb={3}>
-            Sign up your new account
+            Sign up for a new account
           </Heading>
           <HStack spacing="1" justify="center" mb={5}>
             <Text color="muted">Already have an account?</Text>
-            <Link href="/">
+            <Link href="/app/login">
               <Button variant="link" colorScheme="primary">
-                Sign In
+                Log in
               </Button>
             </Link>
           </HStack>
