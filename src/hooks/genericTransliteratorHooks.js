@@ -61,7 +61,7 @@ export const useCarakanTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
   Carakan.toLatin,
   Carakan.toJavanese,
-  Carakan.toLatin,
+  Carakan.toStandardLatin,
 );
 
 export const useSundaTransliterator = genericTransliteratorHook(
@@ -75,7 +75,7 @@ export const useBaliTransliterator = genericTransliteratorHook(
   genericIMEInit([]),
   Bali.toLatin,
   Bali.toBalinese,
-  (input) => Bali.toLatin(input, false),
+  Bali.toStandardLatin
 );
 
 export const useSasakTransliterator = genericTransliteratorHook(
