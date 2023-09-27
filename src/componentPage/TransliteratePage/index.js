@@ -58,13 +58,13 @@ const selectTransliterator = (script, variant) => {
   switch (script) {
     case "Pegon":
       switch (variant) {
-        case "Javanese":
+        case "Jawa":
           return usePegonJavaneseTransliterator;
-        case "Sundanese":
+        case "Sunda":
           return usePegonSundaneseTransliterator;
-        case "Madurese":
+        case "Madura":
           return usePegonMadureseTransliterator;
-        case "Indonesian":
+        case "Indonesia":
           return usePegonIndonesianTransliterator;
       }
       break;
@@ -136,7 +136,7 @@ const selectTransliterator = (script, variant) => {
       break;
     case "Hanacaraka":
       switch (variant) {
-        case "Javanese":
+        case "Jawa":
           return useCarakanTransliterator;
         case "Sundanese":
           return useSundaTransliterator;
@@ -151,7 +151,7 @@ const selectTransliterator = (script, variant) => {
 
 const TransliteratePage = () => {
   const [script, setScript] = useState("Pegon");
-  const [variant, setVariant] = useState("Indonesian");
+  const [variant, setVariant] = useState("Indonesia");
   const [inputText, setInputText] = useState("");
   const [isLatinInput, setIsLatinInput] = useState(true);
   const [outputText, setOutputText] = useState("");
