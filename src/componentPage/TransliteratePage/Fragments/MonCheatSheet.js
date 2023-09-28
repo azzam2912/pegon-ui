@@ -11,7 +11,7 @@ import {
   cheatSheetMonPunctuations
 } from "src/utils/monInfo";
 
-export const ArabCheatSheet = () => {
+export const MonCheatSheet = () => {
   return (
     <>
       <Heading as="h3" size="md" mb={4}>
