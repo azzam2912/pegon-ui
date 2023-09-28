@@ -130,11 +130,11 @@ There are some additional characters that can be found only within the Mon scrip
 
 ### Medial Consonants :
 
-| Latin | Mon  | IPA  |
-| ----- | ---- | ---- |
-| N     | ၞ   | /n/  |
-| M     | ၟ   | /m/  |
-| L     | ၠ   | /l/  |
+| Standard Latin | Reversible Latin | Mon  | IPA  |
+| ------- | ------- | ---- | ---- |
+| n     | `n`     | ၞ   | /n/  |
+| m     | `m`     | ၟ   | /m/  |
+| l     | `l`     | ၠ   | /l/  |
 
 ## Extension for Sgaw-Karen Script
 
@@ -142,34 +142,34 @@ There are some additional characters that can be found only within the Sgaw-Kare
 
 ### Independent Consonants :
 
-| Latin | Sgaw-Karen | IPA  |
-| ----- | ---------- | ---- |
-| Sha   | ၡ         | /ʃa/ |
+| Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
+| ------- | ------- | ---------- | ---- |
+| sha   |  `s_ha`   | ၡ         | /ʃa/ |
 
 ### Dependent Vowels :
 
-| Latin | Sgaw-Karen | IPA  |
-| ----- | ---------- | ---- |
-| Eu    | ၢ         | /əu/ |
+| Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
+| ------- | ------- | ---------- | ---- |
+| ɨ    | `eu`    | ၢ         | /əu/ |
 
 ### Medial Consonants :
 
-| Latin | Sgaw-Karen | IPA     |
-| ----- | ---------- | ------- |
-| Y     | ၠ         | /j/     |
-| R     | ြွ       | /ɹ/     |
-| L     | ျ         | /l/     |
-| W     | ွ         | /w/     |
+| Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
+| ------- | ------- | ---------- | ---- |
+| y     | `y`     | ၠ         | /j/     |
+| r     | `r`     | ြွ       | /ɹ/     |
+| l     | `l`     | ျ         | /l/     |
+| w     | `w`     | ွ         | /w/     |
 
 ### Tones :
 
-| Tone   | Sgaw-Karen | IPA   |
-| ------- | ---------- | ----- |
-| Rising  | ၢ်       | /ə/   |
-| Falling | ာ်       | /a̤/  |
-| Mid     | း        |       |
-| High    | ၣ်       | /e/   |
-| Low     | ၤ        |       |
+| Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
+| ------- | ------- | ---------- | ---- |
+| Rising  | `1`      | ၢ်       | /ə/   |
+| Falling | `2`      | ာ်       | /a̤/  |
+| Mid     | `3`      | း        |       |
+| High    | `4`      | ၣ်       | /e/   |
+| Low     | `5`      | ၤ        |       |
 
 ## Examples
 
