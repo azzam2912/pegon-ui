@@ -50,7 +50,7 @@ The Buhid writing system consists of **independent consonants**, **independent v
 
 ### Dependent Vowels :
 
-| Reversible Latin | Standard Latin | Buhid | IPA  |
+| Standard Latin | Reversible Latin | Buhid | IPA  |
 | ------- | ------- | ------- | ---- |
 | i      | `i`      | ᝒ      | /i/ |
 | u      | `u`       |  ᝓ       | /u/  |
