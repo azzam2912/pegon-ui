@@ -2,7 +2,7 @@
 # Hanunoo Script
 
 
-[Hanunoo script]((https://en.wikipedia.org/wiki/Hanunoo_script)) is mainly utilised to write the [Hanunoo](https://en.wikipedia.org/wiki/Hanunoo_language) language.
+[Hanunoo script](https://en.wikipedia.org/wiki/Hanunoo_script) is mainly utilised to write the [Hanunoo](https://en.wikipedia.org/wiki/Hanunoo_language) language.
 
 
 ## Relation to Other Scripts
