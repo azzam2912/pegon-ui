@@ -22,7 +22,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 ### Independent Consonants :
 
-| Standard Latin | Reversible Latin    | Buhid | Phonetic Reading (IPA) |
+| Standard Latin | Reversible Latin    | Hanunoo | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | ka  | `ka` |   ᜣ      | /ka/ |
 | ga  | `ga`      | ᜤ      | /ɡa/ |
@@ -44,7 +44,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 ### Independent Vowels :
 
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Hanunoo | IPA |
 | ------- | ------- | ------- | --- |
 | a       | `a`       | ᜠ      | /a/ |
 | i       | `i`      | ᜡ      | /i/|
@@ -52,7 +52,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 ### Dependent Vowels :
 
-| Reversible Latin | Standard Latin | Burmese | IPA  |
+| Reversible Latin | Standard Latin | Hanunoo | IPA  |
 | ------- | ------- | ------- | ---- |
 | i      | `i`      | ᜲ      | /i/ |
 | u      | `u`       | ᜳ       | /u/  |
@@ -60,7 +60,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 ## Examples
 
-Here are some examples of Burmese script and its Latin counterpart :
+Here are some examples of Hanunoo script and its Latin counterpart :
 
 * ᜣᜥ᜴  ᜫᜨᜳᜣ᜴  : kang manuk
 * ᜰᜲ ᜪᜲᜮᜯᜨ᜴ : si bilawan
