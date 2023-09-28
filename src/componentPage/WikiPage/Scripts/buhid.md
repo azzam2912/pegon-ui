@@ -50,7 +50,7 @@ The Buhid writing system consists of **independent consonants**, **independent v
 
 ### Dependent Vowels :
 
-| Reversible Latin | Standard Latin | Burmese | IPA  |
+| Reversible Latin | Standard Latin | Buhid | IPA  |
 | ------- | ------- | ------- | ---- |
 | i      | `i`      | ᝒ      | /i/ |
 | u      | `u`       |  ᝓ       | /u/  |
@@ -58,7 +58,7 @@ The Buhid writing system consists of **independent consonants**, **independent v
 
 ## Examples
 
-Here are some examples of Burmese script and its Latin counterpart :
+Here are some examples of Buhid script and its Latin counterpart :
 
 * ᝃᝑ ᝓᝃᝑ  : kahu kahu
 * ᝃ ᝓ ᝋᝎᝄ ᝓ : ku malagu
