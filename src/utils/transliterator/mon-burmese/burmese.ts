@@ -46,7 +46,7 @@ const enum Burmese {
   Ya = "ယ",
   Ra = "ရ",
   La = "လ",
-  Va = "ဝ",
+  Wa = "ဝ",
   Sa = "သ",
   Ssa = "ဿ",
   Ha = "ဟ",
@@ -123,7 +123,7 @@ const monographConsonants: PlainRule[] = [
   ["y", Burmese.Ya],
   ["r", Burmese.Ra],
   ["l", Burmese.La],
-  ["v", Burmese.Va],
+  ["w", Burmese.Wa],
   ["s", Burmese.Sa],
   ["h", Burmese.Ha],
 ];
