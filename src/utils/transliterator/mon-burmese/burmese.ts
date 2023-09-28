@@ -318,7 +318,7 @@ const ViramaToAsatRule: PlainRule[] = [
   [Burmese.Na, Burmese.Na],
   [Burmese.Pa, Burmese.Pa],
   [Burmese.Pa, Burmese.Pha],
-  [Burmese.Ba, Burmese.Baa],
+  [Burmese.Ba, Burmese.Ba],
   [Burmese.Ba, Burmese.Bha],
   [Burmese.Ma, Burmese.Pa],
   [Burmese.Ma, Burmese.Ba],
