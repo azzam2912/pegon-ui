@@ -52,7 +52,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 ### Dependent Vowels :
 
-| Reversible Latin | Standard Latin | Hanunoo | IPA  |
+| Standard Latin | Reversible Latin | Hanunoo | IPA  |
 | ------- | ------- | ------- | ---- |
 | i      | `i`      | ᜲ      | /i/ |
 | u      | `u`       | ᜳ       | /u/  |
