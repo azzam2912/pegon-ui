@@ -18,7 +18,7 @@ const enum Karo {
   Ca = "\u1BE1",
   Virama = "\u1BF3",
 
-  _e = "\u1BE8",
+  _e = "\u1BE7",
   _i = "\u1BEB",
   _o = "\u1BED",
   _u = "\u1BEC",
