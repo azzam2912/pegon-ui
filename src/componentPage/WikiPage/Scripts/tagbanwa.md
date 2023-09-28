@@ -13,12 +13,11 @@ Tagbanwa is an **abugida** that constructs syllables by affixing vowel signs to 
 
 
 ## Writing System
-The Tagbanwa writing system consists of **independent consonants**, **independent vowels**, **dependent vowels**, and **virama**
+The Tagbanwa writing system consists of **independent consonants**, **independent vowels**, and **dependent vowels**
 
-* Independent consonants by default are followed by the "a" vowel. For example ᜧ  by itself would be read as "da".
-* Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ᜡᜣ.
-* Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᜪᜲ.
-* Virama "᜴" is used as a vowel killer in a syllable.
+* Independent consonants by default are followed by the "a" vowel. For example ᝧ  by itself would be read as "da".
+* Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ᝡᝣ.
+* Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᝪᝲ.
 
 ### Independent Consonants :
 
