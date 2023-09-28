@@ -23,7 +23,7 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 
 | Standard Latin | Reversible Latin    | Burmese | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
-| ka  | `ka` |    | က      | /ka/ |
+| ka  | `ka` |   က      | /ka/ |
 | kha | `k_ha`     | ခ      | /kʰa/ |
 | ga  | `ga`      | ဂ      | /ɡa/ |
 | gha | `g_ha`     | ဃ      | /ɡʱa/ |
