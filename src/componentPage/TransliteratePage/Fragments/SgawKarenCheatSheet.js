@@ -11,7 +11,7 @@ import {
   cheatSheetSgawKarenPunctuations
 } from "src/utils/sgawKarenInfo";
 
-export const ArabCheatSheet = () => {
+export const SgawKarenCheatSheet = () => {
   return (
     <>
       <Heading as="h3" size="md" mb={4}>
