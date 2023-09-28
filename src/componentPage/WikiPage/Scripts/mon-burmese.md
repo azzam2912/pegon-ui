@@ -41,67 +41,67 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 | ṇa  | `n_na`    | ဏ      | /ɳa/|
 | ḷa | `l_la`     | ဠ      | /ɭa/|
 | ta  | `ta`    | တ      | /ta/|
-| Tha | `t_ha`   | ထ      | /tʰa/|
-| Da  | `da`    | ဒ      | /da/|
-| Dha | `d_ha`   | ဓ      | /dʱa/|
-| Na  | `na`    | န      | /na/|
-| Pa  | `pa`    | ပ      | /pa/|
-| Pha | `p_ha`   | ဖ      | /pʰa/|
-| Ba  | `ba`    | ဗ      | /ba/|
-| Bha  | `b_ha`   | ဘ      | /bʱa/|
-| Ma   | `ma`   | မ      | /ma/|
-| Ya   | `ya`   | ယ      | /ja/|
-| Ra   | `ra`   | ရ      | /ja/|
-| La   | `la`   | လ      | /la/|
-| Va   | `va`   | ဝ      | /wa/|
-| Sa   | `sa`   | သ      | /sa/|
-| Ha | `ha`    | ဟ      | /ha/|
-| A  | `a`     | အ      | /a/|
+| tha | `t_ha`   | ထ      | /tʰa/|
+| da  | `da`    | ဒ      | /da/|
+| dha | `d_ha`   | ဓ      | /dʱa/|
+| na  | `na`    | န      | /na/|
+| pa  | `pa`    | ပ      | /pa/|
+| pha | `p_ha`   | ဖ      | /pʰa/|
+| ba  | `ba`    | ဗ      | /ba/|
+| bha  | `b_ha`   | ဘ      | /bʱa/|
+| ma   | `ma`   | မ      | /ma/|
+| ya   | `ya`   | ယ      | /ja/|
+| ra   | `ra`   | ရ      | /ja/|
+| la   | `la`   | လ      | /la/|
+| wa   | `wa`   | ဝ      | /wa/|
+| sa   | `sa`   | သ      | /sa/|
+| ha | `ha`    | ဟ      | /ha/|
+| a  | `a`     | အ      | /a/|
 
 "အ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
 ### Independent Vowels :
 
-| Latin | Burmese | IPA |
-| ------- | ------- | --- |
-| I       | ဣ      | /i/ |
-| Ii      | ဤ      | /iː/|
-| U       | ဥ      | /u/ |
-| Uu      | ဦ      | /uː/|
-| E       | ဧ      | /e/ |
-| O       | ဩ      | /o/ |
-| O'      | ဪ      | /oʊ/|
+| Standard Latin | Reversible Latin | Burmese | IPA |
+| ------- | ------- | ------- | --- |
+| i       | `i`       | ဣ      | /i/ |
+| ī       | `ii`      | ဤ      | /iː/|
+| u        | `u`       | ဥ      | /u/ |
+| ū       | `uu`      | ဦ      | /uː/|
+| e       | `e`       | ဧ      | /e/ |
+| o       | `o`       | ဩ      | /o/ |
+| o'       | `o'`      | ဪ      | /oʊ/|
 
 ### Dependent Vowels :
 
-| Latin | Burmese | IPA  |
-| ------- | ------- | ---- |
-| AA      | ာ      | /a̰/ |
-| I       | ိ      | /i/  |
-| Ii      | ီ      | /iː/ |
-| U       | ု      | /u/  |
-| Uu      | ူ      | /uː/ |
-| E       | ေ      | /e/  |
-| Ai      | ဲ      | /ai/ |
-| O       | ော     | /o/  |
-| O'      | ော်   | /oʊ/ |
-| Ui      | ို    | /ui/ |
+| Reversible Latin | Standard Latin | Burmese | IPA  |
+| ------- | ------- | ------- | ---- |
+| à      | `aa`      | ာ      | /a̰/ |
+| i      | `i`       | ိ      | /i/  |
+| ī      | `ii`      | ီ      | /iː/ |
+| u      | `u`       | ု      | /u/  |
+| ū      | `uu`      | ူ      | /uː/ |
+| e      | `e`       | ေ      | /e/  |
+| ai      | `ai`      | ဲ      | /ai/ |
+| o      | `o`      | ော     | /o/  |
+| o'      | `o^`      | ော်   | /oʊ/ |
+| ui      | `ui`      | ို    | /ui/ |
 
 ### Medial Consonants :
 
-| Latin | Burmese | IPA |
-| ------- | ------- | --- |
-| Y       | ျ      | /j/ |
-| W       | ွ      | /w/ |
-| R       | ြ      | /r/ |
-| H       | ှ      | /h/ |
+| Standard Latin | Reversible Latin | Burmese | IPA |
+| ------- | ------- | ------- | --- |
+| y       | `y`       | ျ      | /j/ |
+| w       | `w`       | ွ      | /w/ |
+| r       | `r`       | ြ      | /r/ |
+| h       | `h`       | ှ      | /h/ |
 
 ### Tones :
 
-| Tone    | Burmese | IPA  |
-| ---------- | ------- | ---- |
-| Low Tone   | ့      | /̤/  |
-| High Tone  | း      | /̂/  |
+| Standard Latin | Reversible Latin | Burmese | IPA  |
+| ------- | ------- | ------- | ---- |
+| Low Tone   | `'`   | ့      | /̤/  |
+| Low Tone   | `"`  | း      | /̂/  |
 
 ## Extension for Mon Script
 
@@ -109,24 +109,24 @@ There are some additional characters that can be found only within the Mon scrip
 
 ### Independent Consonants :
 
-| Latin    | Mon | IPA  |
-| ---------- | ------- | ---- |
-| Bha        | ၜ      | /bʱa/ |
-| Bbe        | ၝ      | /bʱe/ |
-| Nga        | ၚ      | /ŋa/  |
-| Jha        | ၛ      | /d͡ʒʱa/|
+| Standard Latin | Reversible Latin | Mon | IPA  |
+| ------- | ------- | ------- | ---- |
+| bba        | `b_ba`        | ၜ      | /bʱa/ |
+| bbe        | `b_be`        | ၝ      | /bʱe/ |
+| nga        | `n_ga`        | ၚ      | /ŋa/  |
+| jha        | `j_ha`        | ၛ      | /d͡ʒʱa/|
 
 ### Independent Vowels :
-| Latin | Mon  | IPA  |
-| ----- | ---- | ---- |
-| E     | ဨ   | /e/  |
+| Standard Latin | Reversible Latin | Mon  | IPA  |
+| ------- | ------- | ---- | ---- |
+| e     | `e`     | ဨ   | /e/  |
 
 ### Dependent Vowels :
 
-| Latin | Mon  | IPA  |
-| ----- | ---- | ---- |
-| Ii    | ဳ   | /iː/ |
-| O     | ဴ   | /u/  |
+| Standard Latin | Reversible Latin | Mon  | IPA  |
+| ------- | ------- | ---- | ---- |
+| ī    | `ii`    | ဳ   | /iː/ |
+| o    | `o`     | ဴ   | /u/  |
 
 ### Medial Consonants :
 
