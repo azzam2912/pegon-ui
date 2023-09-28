@@ -11,7 +11,7 @@ import {
   cheatSheetBurmesePunctuations
 } from "src/utils/burmeseInfo";
 
-export const ArabCheatSheet = () => {
+export const BurmeseCheatSheet = () => {
   return (
     <>
       <Heading as="h3" size="md" mb={4}>
