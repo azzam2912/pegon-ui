@@ -290,8 +290,8 @@ const specialNyaRule: PlainRule[] = [
   [Burmese.Nnya + Burmese.asat, Burmese.Nya],
 ];
 
-const ViramaToAsatRule: PlainRule[] = [
-  [Burmese.Ka, Burmese.Ka],
+const ViramaToAsatRule: PlainRule[] = (
+  ([[Burmese.Ka, Burmese.Ka],
   [Burmese.Ka, Burmese.Kha],
   [Burmese.Ga, Burmese.Ga],
   [Burmese.Ga, Burmese.Gha],
@@ -325,11 +325,12 @@ const ViramaToAsatRule: PlainRule[] = [
   [Burmese.Ma, Burmese.Bha],
   [Burmese.Ma, Burmese.Ma],
   [Burmese.La, Burmese.La],
-  [Burmese.Lla, Burmese.Lla],
-].map(
+  [Burmese.Lla, Burmese.Lla]]
+) as Array<[string, string]>
+).map(
   ([left, right]: [string, string]): PlainRule => [
-    [left + Burmese.asat + right],
-    [left + Burmese.virama + right],
+    left + Burmese.asat + right,
+    left + Burmese.virama + right
   ],
 );
 
