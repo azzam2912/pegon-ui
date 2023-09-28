@@ -11,7 +11,7 @@ Mon-Burmese is an **abugida** that constructs syllables by affixing vowel signs 
 
 
 ## Writing System
-The Mon-Burmewse writing system consists of **independent consonants**, **independent vowels**, **dependent vowels**, **virama**, and **medials**.
+The Mon-Burmese writing system consists of **independent consonants**, **independent vowels**, **dependent vowels**, **virama**, and **medials**.
 
 * Independent consonants by default are followed by the "a" vowel. For example ဗက  by itself would be read as "baka", not "bak" nor "bk".
 * Independent vowels are vowels that can stand by itself without relying on အ. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ဣက, with ဣ standing for the independent consonantless "*i*" sound.
@@ -23,7 +23,7 @@ The Mon-Burmewse writing system consists of **independent consonants**, **indepe
 
 | Standard Latin | Reversible Latin    | Burmese | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
-| ka  | `ka` |    | က      | /ka/ |
+| ka  | `ka` |   က      | /ka/ |
 | kha | `k_ha`     | ခ      | /kʰa/ |
 | ga  | `ga`      | ဂ      | /ɡa/ |
 | gha | `g_ha`     | ဃ      | /ɡʱa/ |
