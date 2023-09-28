@@ -22,7 +22,7 @@ The Tagbanwa writing system consists of **independent consonants**, **independen
 
 ### Independent Consonants :
 
-| Standard Latin | Reversible Latin    | Buhid | Phonetic Reading (IPA) |
+| Standard Latin | Reversible Latin    | Tagbanwa | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | ka  | `ka` |   ᝣ      | /ka/ |
 | ga  | `ga`      | ᝤ      | /ɡa/ |
@@ -42,7 +42,7 @@ The Tagbanwa writing system consists of **independent consonants**, **independen
 
 ### Independent Vowels :
 
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Tagbanwa | IPA |
 | ------- | ------- | ------- | --- |
 | a       | `a`       | ᝠ      | /a/ |
 | i       | `i`      | ᝡ      | /i/|
@@ -50,7 +50,7 @@ The Tagbanwa writing system consists of **independent consonants**, **independen
 
 ### Dependent Vowels :
 
-| Reversible Latin | Standard Latin | Burmese | IPA  |
+| Standard Latin | Reversible Latin | Tagbanwa | IPA  |
 | ------- | ------- | ------- | ---- |
 | i      | `i`      |ᝲ      | /i/ |
 | u      | `u`       |ᝳ       | /u/  |
