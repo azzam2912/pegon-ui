@@ -24,7 +24,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 
 ### Independent Consonants :
 
-| Standard Latin | Reversible Latin    | Hanunoo | Phonetic Reading (IPA) |
+| Standard Latin | Reversible Latin    | Baybayin | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | ka  | `ka` |   ᜃ      | /ka/ |
 | ga  | `ga`      | ᜄ      | /ɡa/ |
@@ -46,7 +46,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 
 ### Independent Vowels :
 
-| Standard Latin | Reversible Latin | Hanunoo | IPA |
+| Standard Latin | Reversible Latin | Baybayin | IPA |
 | ------- | ------- | ------- | --- |
 | a       | `a`       | ᜀ      | /a/ |
 | i       | `i`      | ᜁ      | /i/|
@@ -54,7 +54,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 
 ### Dependent Vowels :
 
-| Standard Latin | Reversible Latin | Hanunoo | IPA  |
+| Standard Latin | Reversible Latin | Baybayin | IPA  |
 | ------- | ------- | ------- | ---- |
 | i      | `i`      |"ᜒ"      | /i/ |
 | u      | `u`       |"ᜓ"      | /u/  |
