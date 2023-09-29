@@ -1,17 +1,4 @@
-import Head from "next/head";
-import AppLayout from "../Page/AppLayout";
-import React from "react";
-import ReactMarkdown from 'react-markdown';
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-import {
-    Box,
-    Text
-} from "@chakra-ui/react";
-
-
-const FAQPage = () => {
-  const markdownContent = `
-  ## What is Aksarantara ?
+## What is Aksarantara ?
 
 As times went by, many languages became obsolete and gradually fell out of use. May it be due to the reluctance of speaking ones own languages in favour of another language, or other reasons, the fact that languages are dying alongside their marvellous scripts is a call to us to preserve them for the future generations to witness.
 
@@ -31,11 +18,14 @@ The authentication feature offers users of some privileges which may only be don
 
 ## Dashboard
 In the dashboard, you will be able to see four most recently published documents in the document repository. You may also type for documents of your inquiry by utilising the search bar on the top right corner of the webpage.
+
 ## Exploring Documents 
 You can access all of the published documents within the repository by utilising this feature. You may filter the documents to look for the ones you want.
+
 ## Uploading Documents
 
 Uploading documents can be done by clicking the "contribute" on the dashboard. You may then upload your document by dragging your file into the assigned area and filling out the required informations. Afterwards, the documents may be seen on the dashboard and can be accessed through "My Library".
+
 ## Transliteration 
 
 The transliteration section is intended to aide learners of Southeast Asian scripts on how to read those scripts by transliterating latin to those particular scripts. There exist two types of latin scripts, reversible latin and irreversible latin. Reversible latin is used to ease the process of transliterating, while irreversible latin is used to help readers to understand the sound made by the transliteration machine by adding some diacritics, etc.
@@ -43,35 +33,3 @@ The transliteration section is intended to aide learners of Southeast Asian scri
 ## OCR 
 
 The OCR (Optical Character Recognition) feature utilises a powerful AI technology to read Southeast Asian characters from pictures of said scripts. You can upload an image and in return, receive the manuscript in the text format.
-  `
-
-  return (
-    <>
-      <Head>
-        <title> FAQ - Aksarantara</title>
-        <meta name="description" content="Aksarantara FAQ (Frequently Asked Questions)" />
-        <meta property="og:title" content="FAQ - Aksarantara" key="title" />
-        <meta
-          property="og:description"
-          content="Aksarantara FAQ (Frequently Asked Questions)"
-          key="description"
-        />
-        <meta property="og:image" content="logo.png" key="image" />
-      </Head>
-      <AppLayout>
-        <Box
-        className="faq-container"
-        p={3} // Add padding
-        ml="auto" // Move to the right (adjust as needed)
-        width="98%" // Adjust the width as needed
-        > 
-        <Text fontSize="xl"> {/* You can customize the font size */}
-        <ReactMarkdown components={ChakraUIRenderer()} children={markdownContent} skipHtml />
-        </Text>
-        </Box>
-      </AppLayout>
-    </>
-  );
-};
-
-export default FAQPage;
