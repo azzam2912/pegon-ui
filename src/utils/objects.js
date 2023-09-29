@@ -1,6 +1,6 @@
 const scriptsData = {
   "Mon-Burmese": {
-    variants: ["Mon", "Kayah Li"],
+    variants: ["Myanmar", "Mon", "Kayah Li", "S'gaw Karen"],
     rightToLeft: false,
   },
   Cham: {
@@ -8,7 +8,7 @@ const scriptsData = {
     rightToLeft: false,
   },
   Sukhothai: {
-    variants: ["Thai"],
+    variants: ["Thai", "Lao"],
     rightToLeft: false,
   },
   Jawi: {
@@ -23,8 +23,12 @@ const scriptsData = {
     variants: [],
     rightToLeft: false,
   },
+  Hanacaraka: {
+    variants: ["Jawa", "Sunda", "Bali", "Sasak"],
+    rightToLeft: false,
+  },
   Pegon: {
-    variants: ["Indonesian", "Javanese", "Madurese", "Sundanese"],
+    variants: ["Indonesia", "Jawa", "Madura", "Sunda"],
     rightToLeft: true,
   },
   Lontara: {
@@ -47,6 +51,10 @@ const getFont = (script, variant) => {
       return "Noto Sans Cham";
     case "Mon-Burmese":
       switch (variant) {
+        case "Myanmar":
+          return "Noto Sans Myanmar";
+        case "S'gaw Karen":
+          return "Noto Sans Myanmar";
         case "Mon":
           return "Noto Sans Myanmar";
         case "Kayah Li":
@@ -81,8 +89,21 @@ const getFont = (script, variant) => {
       switch (variant) {
         case "Thai":
           return "Noto Serif Thai";
+        case "Lao":
+          return "Noto Serif Lao";
       }
       break;
+    case "Hanacaraka":
+      switch (variant) {
+        case "Jawa":
+          return "Noto Sans Javanese";
+        case "Sunda":
+          return "Noto Sans Sundanese";
+        case "Bali":
+          return "Noto Sans Balinese";
+        case "Sasak":
+          return "Noto Sans Balinese";
+      }
   }
 };
 

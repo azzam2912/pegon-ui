@@ -5,7 +5,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY package.json yarn.lock .eslintignore .eslintrc.json jsconfig.json next.config.js next-env.d.ts .env tsconfig.json public ./
+COPY package.json yarn.lock .eslintignore .eslintrc.json jsconfig.json next.config.js .env tsconfig.json public ./
 
 # Install project dependencies
 # RUN yarn install

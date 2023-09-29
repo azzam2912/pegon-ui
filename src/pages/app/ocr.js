@@ -1,6 +1,6 @@
-import {Page} from "src/componentPage/Page";
+import { Page } from "src/componentPage/Page";
 import { OCRPage } from "src/componentPage/OCRPage";
 
 export default function Transilerator() {
-  return <Page pageComponent={OCRPage} requireAuth />;
+  return <Page pageComponent={OCRPage} />;
 }

@@ -201,8 +201,38 @@ const DataComponent = () => {
             overflowX="auto"
             width="100%"
           >
+            <Flex
+              align="center"
+              justify="space-between"
+              p="4"
+              minWidth="max-content"
+              borderBottomWidth="1px"
+            >
+              <Text as="b" width="48px" fontSize="sm"></Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Title
+              </Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Contributor
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Language
+              </Text>
+              <Text as="b" width="80px" fontSize="sm" ml="4">
+                Document Type
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Author
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Collector
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Publication Date
+              </Text>
+            </Flex>
             {currentData?.map(({ id, attributes: item }, index) => (
-              <DocumentData index={index} id={id} item={item} />
+              <DocumentData key={id} index={index} id={id} item={item} />
             ))}
             {status === "loading" && (
               <>
@@ -244,7 +274,7 @@ const DataComponent = () => {
               <option value={15}>15</option>
             </Select>
             <Text mx="3" fontSize="sm" color="gray.500">
-              Items per page
+              items per page
             </Text>
             <Spacer />
             <Flex align="center" justify="flex-end">

@@ -1,6 +1,6 @@
-import {Page} from "src/componentPage/Page";
+import { Page } from "src/componentPage/Page";
 import FAQPage from "../../componentPage/FAQPage";
 
 export default function FAQ() {
-  return <Page pageComponent={FAQPage} requireAuth />;
+  return <Page pageComponent={FAQPage} />;
 }

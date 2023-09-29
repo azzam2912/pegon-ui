@@ -17,6 +17,9 @@ import { Tfoot, TableCaption } from "@chakra-ui/react";
 import React from "react";
 import { PegonCheatSheet } from "./PegonCheatSheet";
 import { ArabCheatSheet } from "./ArabCheatSheet";
+import { BurmeseCheatSheet } from "./BurmeseCheatSheet"
+import { MonCheatSheet } from "./MonCheatSheet"
+import { SgawKarenCheatSheet } from "./SgawKarenCheatSheet";
 
 export const CheatSheetDrawer = ({ isOpen, onClose, documentScript }) => {
   return (
@@ -59,6 +62,13 @@ export const CheatSheetDrawer = ({ isOpen, onClose, documentScript }) => {
                   <Tab>Cham</Tab>
                 </>
               )}
+              {documentScript == "Mon-Burmese" && (
+                <>
+                  <Tab>Burmese</Tab>
+                  <Tab>Mon</Tab>
+                  <Tab>Sgaw Karen</Tab>
+                </>
+              )}
             </TabList>
             <TabPanels
               borderLeftWidth="1px"
@@ -76,6 +86,19 @@ export const CheatSheetDrawer = ({ isOpen, onClose, documentScript }) => {
                 </>
               )}
               {/* jangan lupa tambah kasus jawi sama cham disini, contoh line atas ini */}
+              {documentScript == "Mon-Burmese" && (
+                <>
+                  <TabPanel>
+                    <BurmeseCheatSheet />
+                  </TabPanel>
+                  <TabPanel>
+                    <MonCheatSheet />
+                  </TabPanel>
+                  <TabPanel>
+                    <SgawKarenCheatSheet />
+                  </TabPanel>
+                </>
+              )}
             </TabPanels>
           </Tabs>
         </DrawerBody>
