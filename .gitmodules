@@ -1,0 +1,12 @@
+[submodule "src/utils/transliterator/carakan.js"]
+	path = src/utils/transliterator/carakan-jawa
+	url = https://github.com/Aksarantara/carakan.js.git
+	branch = main
+[submodule "src/utils/transliterator/sunda.js"]
+	path = src/utils/transliterator/sunda
+	url = https://github.com/masnormen/sunda.js.git
+	branch = master
+[submodule "src/utils/transliterator/bali.js"]
+	path = src/utils/transliterator/bali
+	url = https://github.com/Aksarantara/bali.js.git
+	branch = main

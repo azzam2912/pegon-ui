@@ -1,0 +1,36 @@
+export const enum Batak {
+    A = "\u1BC0",
+    Ha = "\u1BC2",
+    Ba = "\u1BC5",
+    Pa = "\u1BC7",
+    Na = "\u1BC9",
+    Wa = "\u1BCB",
+    Ga = "\u1BCE",
+    Ja = "\u1BD0",
+    Da = "\u1BD1",
+    Ra = "\u1BD2",
+    Ma = "\u1BD4",
+    Ta = "\u1BD6",
+    Sa = "\u1BD8",
+    Ya = "\u1BDB",
+    Nga = "\u1BDD",
+    La = "\u1BDE",
+    Nya = "\u1BE0",
+    
+    I = "\u1BE4",
+    U = "\u1BE5",
+
+    _e = "\u1BE9",
+    _i = "\u1BEA",
+    _o = "\u1BEC",
+    _u = "\u1BEE",
+    _ng = "\u1BF0",
+    _h = "\u1BF1",
+
+    Virama = "\u1BF2",
+
+    BinduNaMetek = "\u1BFC",
+    BinduPinarboras = "\u1BFD",
+    BinduJudul = "\u1BFE",
+    BinduPangolat = "\u1BFF",
+}

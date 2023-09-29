@@ -1,6 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { useColorMode, useDisclosure, useToast } from "@chakra-ui/react";
+import { useColorMode, useDisclosure } from "@chakra-ui/react";
 
 export const ModelSidebarContext = React.createContext();
 export const SearchBarContext = React.createContext();
@@ -33,26 +32,12 @@ export const useSearchBar = () => {
   return context;
 };
 
-export const Page = ({ pageComponent: Page, requireAuth, ...props }) => {
-  const router = useRouter();
-  const createToast = useToast();
+export const Page = ({ pageComponent: Page, ...props }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   React.useEffect(() => {
     if (colorMode == "light") {
       toggleColorMode();
-    }
-    // check if jwt is present
-    const token = localStorage?.getItem("token");
-    if (!token && requireAuth) {
-      createToast({
-        title: "Error",
-        description: "You need to be logged in to access this page",
-        position: "bottom-right",
-        status: "error",
-        isClosable: true,
-      });
-      router.push("/");
     }
   }, []);
   return (

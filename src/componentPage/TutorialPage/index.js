@@ -2,7 +2,6 @@ import Head from "next/head";
 import AppLayout from "../Page/AppLayout";
 import React from "react";
 import ReactMarkdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import {
     Box,
@@ -34,8 +33,7 @@ const TutorialPage = () => {
         width="98%" // Adjust the width as needed
         > 
         <Text>
-        <ReactMarkdown 
-          rehypePlugins={[rehypeHighlight]}
+        <ReactMarkdown
           components={ChakraUIRenderer()}
           children={markdownContent} 
           skipHtml 
