@@ -27,12 +27,13 @@ export const DocumentData = ({ index, id, item }) => {
         alt="Thumbnail"
         objectFit="cover"
         boxSize="48px"
+        borderRadius="full"
       />
       <Text width="160px" noOfLines={3} fontSize="sm" ml={4}>
         {item?.title}
       </Text>
       <Text width="160px" noOfLines={3} fontSize="sm" ml="4">
-        {firstName || lastName ? firstName + " " + lastName : "Admin"}
+        {firstName + " " + lastName}
       </Text>
       <Text width="100px" fontSize="sm" ml="4">
         <Badge colorScheme="blue">{item?.language}</Badge>

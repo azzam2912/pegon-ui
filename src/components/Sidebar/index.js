@@ -75,7 +75,7 @@ const Sidebar = () => {
           href="/app/documents"
           isSidebarExpanded={isSidebarExpanded}
         >
-          All Documents
+          Explore Documents
         </NavigationButton>
         <NavigationButton
           icon={<SiBookstack />}
@@ -154,7 +154,7 @@ const Sidebar = () => {
               href="/app/documents"
               isSidebarExpanded
             >
-              All Documents
+              Explore Documents
             </NavigationButton>
             <NavigationButton
               icon={<SiBookstack />}

@@ -37,7 +37,7 @@ import Link from "next/link";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import Head from "next/head";
 import { useUserInfoQuery } from "src/hooks/fetchers/queries/useUserInfoQuery";
-import { MdDelete } from "react-icons/md";
+import { MdBookmarkRemove } from "react-icons/md";
 import { useRemoveBookmarkMutation } from "src/hooks/fetchers/mutations/useRemoveBookmarkMutation";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -50,6 +50,8 @@ import {
   AutoCompleteList,
 } from "@choc-ui/chakra-autocomplete";
 import { languages } from "src/utils/languageList";
+import { useUserDocumentsQuery } from "src/hooks/fetchers/queries/useUserDocumentsQuery";
+import { timeAgo } from "./../../utils/functions";
 
 languages["All"] = ["All Languages"];
 
@@ -107,7 +109,7 @@ const DataComponent = () => {
           queryClient.invalidateQueries({ queryKey: ["documents"] });
           createToast({
             title: "Success",
-            description: "You have successfully removed a bookmark",
+            description: "Bookmark removed.",
             status: "success",
             position: "bottom-right",
             isClosable: true,
@@ -116,7 +118,7 @@ const DataComponent = () => {
       },
     });
 
-  const { data, status } = useDocumentsQuery({
+  const { data, status } = useUserDocumentsQuery({
     config: {
       enabled: !!user?.id,
     },
@@ -322,6 +324,36 @@ const DataComponent = () => {
             overflowX="auto"
             width="100%"
           >
+            <Flex
+              align="center"
+              justify="space-between"
+              p="4"
+              minWidth="max-content"
+              borderBottomWidth="1px"
+            >
+              <Text as="b" width="48px" fontSize="sm"></Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Title
+              </Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Contributor
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Language
+              </Text>
+              <Text as="b" width="80px" fontSize="sm" ml="4">
+                Document Type
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Author
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Collector
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Publication Date
+              </Text>
+            </Flex>
             {currentData?.map(({ id, attributes: item }, index) => (
               <Flex
                 key={index}
@@ -340,43 +372,37 @@ const DataComponent = () => {
                 }}
                 position="relative"
               >
-                <Flex width="240px" align="center" flexShrink={0}>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
-                    fallbackSrc="https://via.placeholder.com/48"
-                    alt="Thumbnail"
-                    objectFit="cover"
-                    boxSize="48px"
-                    borderRadius="full"
-                  />
-                  <Text noOfLines={1} fontSize="sm" ml={4}>
-                    {item?.title}
-                  </Text>
-                </Flex>
-                <Text
-                  width="160px"
-                  noOfLines={1}
-                  fontSize="sm"
-                  color="gray.500"
-                  ml="4"
-                >
-                  By {item?.contributor.data?.attributes.firstName}{" "}
-                  {item?.contributor.data?.attributes.lastName}
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
+                  fallbackSrc="https://via.placeholder.com/48"
+                  alt="Thumbnail"
+                  objectFit="cover"
+                  boxSize="48px"
+                  borderRadius="full"
+                />
+                <Text width="160px" noOfLines={3} fontSize="sm" ml={4}>
+                  {item?.title}
                 </Text>
-                <Text width="100px" noOfLines={1} fontSize="sm" ml="4">
+                <Text width="160px" noOfLines={3} fontSize="sm" ml="4">
+                  {item?.contributor?.data?.attributes.firstName}{" "}
+                  {item?.contributor?.data?.attributes.lastName}
+                </Text>
+                <Text width="100px" fontSize="sm" ml="4">
                   <Badge colorScheme="blue">{item?.language}</Badge>
                 </Text>
-                <Text color="gray.500" width="80px" fontSize="sm" ml="4">
+                <Text width="80px" noOfLines={3} fontSize="sm" ml="4">
                   {item?.documentType}
                 </Text>
-                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
+                <Text width="100px" noOfLines={3} fontSize="sm" ml="4">
                   {item?.author ? item.author : "Unknown Author"}
                 </Text>
-                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
+                <Text width="100px" noOfLines={3} fontSize="sm" ml="4">
                   {item?.collector ? item.collector : "Unknown Collector"}
                 </Text>
-                <Text width="100px" fontSize="sm" ml="4" color="gray.500">
-                  {item?.publishedAt ? item.publishedAt : "Unpublished"}
+                <Text width="100px" noOfLines={3} fontSize="sm" ml="4">
+                  {item?.publishedAt
+                    ? timeAgo(item.publishedAt)
+                    : "Unknown Date"}
                 </Text>
                 {library === 0 ? (
                   <IconButton
@@ -387,7 +413,7 @@ const DataComponent = () => {
                     aria-label="Delete Bookmark"
                     colorScheme="red"
                     opacity={0}
-                    icon={<MdDelete />}
+                    icon={<MdBookmarkRemove />}
                     onClick={(e) => {
                       e.preventDefault();
                       removeBookmark(id);
@@ -442,7 +468,7 @@ const DataComponent = () => {
               <option value={15}>15</option>
             </Select>
             <Text mx="3" fontSize="sm" color="gray.500">
-              Items per page
+              items per page
             </Text>
             <Spacer />
             <Flex align="center" justify="flex-end">

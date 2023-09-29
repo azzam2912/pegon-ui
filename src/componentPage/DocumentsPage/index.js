@@ -219,7 +219,7 @@ const DataComponent = () => {
                 Language
               </Text>
               <Text as="b" width="80px" fontSize="sm" ml="4">
-                Type
+                Document Type
               </Text>
               <Text as="b" width="100px" fontSize="sm" ml="4">
                 Author
@@ -232,7 +232,7 @@ const DataComponent = () => {
               </Text>
             </Flex>
             {currentData?.map(({ id, attributes: item }, index) => (
-              <DocumentData index={index} id={id} item={item} />
+              <DocumentData key={id} index={index} id={id} item={item} />
             ))}
             {status === "loading" && (
               <>

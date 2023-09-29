@@ -134,7 +134,7 @@ const LoginPage = () => {
             isLoading={loginStatus === "loading"}
             isDisabled={loginStatus === "loading"}
           >
-            Sign In
+            Log in
           </Button>
         </Flex>
       </Flex>

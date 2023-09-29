@@ -10,6 +10,7 @@ import {
   Button,
   Text,
   Spacer,
+  Link,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
@@ -38,6 +39,10 @@ const AppLayout = ({ children }) => {
   const { onOpen } = useModalSidebar();
   const { onOpen: onOpenSearch } = useSearchBar();
 
+  const linkStyles = {
+    textDecoration: "none",
+  };
+
   if (userStatus === "success") {
     const { data: user } = useUserInfoQuery({});
 
@@ -54,10 +59,14 @@ const AppLayout = ({ children }) => {
           justify="space-between"
         >
           <Flex display={{ base: "none", md: "flex" }} alignItems="center">
-            <Image p={2} width="48px" src="/logo.png" alt="Pegon Logo" />
-            <Heading size="sm" ml={3}>
-              Aksarantara
-            </Heading>
+            <Link href="/app" style={linkStyles}>
+              <Image p={2} width="48px" src="/logo.png" alt="Pegon Logo" />
+            </Link>
+            <Link href="/app" style={linkStyles}>
+              <Heading size="sm" ml={3}>
+                Aksarantara
+              </Heading>
+            </Link>
           </Flex>
           <Flex display={{ md: "none" }} alignItems="center">
             <IconButton icon={<MdMenu />} variant="ghost" onClick={onOpen} />
@@ -97,7 +106,7 @@ const AppLayout = ({ children }) => {
                     router.push("/app/change-password");
                   }}
                 >
-                  Change Password
+                  Change password
                 </MenuItem>
                 <MenuItem
                   icon={<MdLogout />}
@@ -106,7 +115,7 @@ const AppLayout = ({ children }) => {
                     router.push("/");
                   }}
                 >
-                  Logout
+                  Log out
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -140,10 +149,14 @@ const AppLayout = ({ children }) => {
         justify="space-between"
       >
         <Flex display={{ base: "none", md: "flex" }} alignItems="center">
-          <Image p={2} width="48px" src="/logo.png" alt="Pegon Logo" />
-          <Heading size="sm" ml={3}>
-            Aksarantara
-          </Heading>
+          <Link href="/app" style={linkStyles}>
+            <Image p={2} width="48px" src="/logo.png" alt="Pegon Logo" />
+          </Link>
+          <Link href="/app" style={linkStyles}>
+            <Heading size="sm" ml={3}>
+              Aksarantara
+            </Heading>
+          </Link>
         </Flex>
         <Flex display={{ md: "none" }} alignItems="center">
           <IconButton icon={<MdMenu />} variant="ghost" onClick={onOpen} />
@@ -173,7 +186,7 @@ const AppLayout = ({ children }) => {
               router.push("/app/login");
             }}
           >
-            Log In
+            Log in
           </Button>
         </Flex>
       </Flex>
