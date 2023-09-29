@@ -99,7 +99,7 @@ const getFont = (script, variant) => {
           return "Noto Sans Javanese";
         case "Sunda":
           return "Noto Sans Sundanese";
-        case "Balinese":
+        case "Bali":
           return "Noto Sans Balinese";
         case "Sasak":
           return "Noto Sans Balinese";

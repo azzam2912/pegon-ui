@@ -46,7 +46,7 @@ const enum Burmese {
   Ya = "ယ",
   Ra = "ရ",
   La = "လ",
-  Va = "ဝ",
+  Wa = "ဝ",
   Sa = "သ",
   Ssa = "ဿ",
   Ha = "ဟ",
@@ -123,7 +123,7 @@ const monographConsonants: PlainRule[] = [
   ["y", Burmese.Ya],
   ["r", Burmese.Ra],
   ["l", Burmese.La],
-  ["v", Burmese.Va],
+  ["w", Burmese.Wa],
   ["s", Burmese.Sa],
   ["h", Burmese.Ha],
 ];
@@ -290,8 +290,8 @@ const specialNyaRule: PlainRule[] = [
   [Burmese.Nnya + Burmese.asat, Burmese.Nya],
 ];
 
-const ViramaToAsatRule: PlainRule[] = [
-  [Burmese.Ka, Burmese.Ka],
+const ViramaToAsatRule: PlainRule[] = (
+  ([[Burmese.Ka, Burmese.Ka],
   [Burmese.Ka, Burmese.Kha],
   [Burmese.Ga, Burmese.Ga],
   [Burmese.Ga, Burmese.Gha],
@@ -318,18 +318,19 @@ const ViramaToAsatRule: PlainRule[] = [
   [Burmese.Na, Burmese.Na],
   [Burmese.Pa, Burmese.Pa],
   [Burmese.Pa, Burmese.Pha],
-  [Burmese.Ba, Burmese.Baa],
+  [Burmese.Ba, Burmese.Ba],
   [Burmese.Ba, Burmese.Bha],
   [Burmese.Ma, Burmese.Pa],
   [Burmese.Ma, Burmese.Ba],
   [Burmese.Ma, Burmese.Bha],
   [Burmese.Ma, Burmese.Ma],
   [Burmese.La, Burmese.La],
-  [Burmese.Lla, Burmese.Lla],
-].map(
+  [Burmese.Lla, Burmese.Lla]]
+) as Array<[string, string]>
+).map(
   ([left, right]: [string, string]): PlainRule => [
-    [left + Burmese.asat + right],
-    [left + Burmese.virama + right],
+    left + Burmese.asat + right,
+    left + Burmese.virama + right
   ],
 );
 
