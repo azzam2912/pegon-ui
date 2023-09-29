@@ -15,11 +15,12 @@ const nextConfig = {
     ];
   },
   webpack: (config, { isServer }) => {
-    // Apply raw-loader for .md files
+    // Add a rule to handle .md files with the raw-loader
     config.module.rules.push({
       test: /\.md$/,
-      use: "raw-loader",
+      use: 'raw-loader',
     });
+
     return config;
   },
 };
