@@ -1,5 +1,5 @@
 import { Page } from "src/componentPage/Page";
-import FAQPage from "../../componentPage/FAQPage";
+import TutorialPage from "../../componentPage/TutorialPage";
 
 export default function FAQ() {
   return <Page pageComponent={FAQPage} />;
