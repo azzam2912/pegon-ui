@@ -58,3 +58,11 @@ The Baybayin writing system consists of **independent consonants**, **independen
 | ------- | ------- | ------- | ---- |
 | i      | `i`      |"ᜒ"      | /i/ |
 | u      | `u`       |"ᜓ"      | /u/  |
+
+## Examples
+
+Here are some examples of Batak script and its Latin counterpart :
+
+* ᜋᜑᜎ᜔ ᜃᜒᜆ (mahal kita): I love you
+* ᜃᜓᜋᜃᜁᜈ᜔ ᜐᜒᜌ ᜅ᜔ ᜋᜅ᜔ᜄ ᜐ ᜃᜈ᜔ᜌᜅ᜔ ᜊᜑᜌ᜔ (kumakain siya ng mangga sa kanyang bahay): she eats a mango in his house
+* ᜋᜄ᜔ ᜀᜋ᜔ᜊᜄ᜔ ᜆᜌᜓ ᜐ ᜀᜃ᜔ᜐᜍᜈ᜔ᜆᜍ (mag-ambag tayo sa aksarantar): Let's contribute to Aksarantara
