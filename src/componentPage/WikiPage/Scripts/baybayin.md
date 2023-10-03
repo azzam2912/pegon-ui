@@ -20,7 +20,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 * Independent consonants by default are followed by the "a" vowel. For example ᜇ  by itself would be read as "da".
 * Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ᜁᜃ.
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᜊᜒ.
-* Virama is used as a vowel killer in a syllable.
+* Virama ( ᜕) is used as a vowel killer in a syllable.
 
 ### Independent Consonants :
 
