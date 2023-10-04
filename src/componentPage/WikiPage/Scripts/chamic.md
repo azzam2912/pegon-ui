@@ -1,3 +1,5 @@
+
+
 # Cham Script
 
 The [Cham](https://en.wikipedia.org/wiki/Cham_script) script is one of the two scripts used to write the [Cham](https://en.wikipedia.org/wiki/Cham_language) language, the other one being the Jawi script.
@@ -11,11 +13,13 @@ Cham is an **abugida** that constructs syllables by affixing vowel signs to its 
 
 
 ## Writing System
-The Buhid writing system consists of **independent consonants**, **independent vowels**, and **dependent vowels**
+The Cham writing system consists of **independent consonants**, **medial consonants**, **final consonants**, **independent vowels**, and **dependent vowels**
 
-* Independent consonants by default are followed by the "a" vowel. For example ᝇ  by itself would be read as "da".
-* Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ᝁᝃ.
-* Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᝋᝒ.
+* Independent consonants by default are followed by the "a" vowel. For example ꨆ  by itself would be read as "ka".
+* Medial consonants are consonants that are placed in between another consonant and a vowel to form a consonant cluster. For example, ꨆꨴ would be read as kra and not kara, as it uses the medial ra, therefore it also silences the previous ka.
+* Final consonants are consonants that are placed usually at the end of a word as virama (vowel killer) does not exist in this script. There are in general two types of final consonants, letters and diacritics. Final consonants in the form of a diacritic are usually used on loan words, while native words use the letter form.
+* Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ꨁꨆ.
+* Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ꨝꨪ.
 
 ### Independent Consonants :
 
