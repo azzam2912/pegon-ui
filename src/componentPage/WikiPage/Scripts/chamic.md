@@ -73,6 +73,29 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 | l        | `l`       | ◌ꨵ      | /l/ |
 | w        | `w`       | ◌ꨶ      | /w/ |
 
+### Final Consonants :
+ Consonant letters :
+| Standard Latin | Reversible Latin | Buhid | IPA |
+| ------- | ------- | ------- | --- |
+| k       | `k`       | ꩀ      | /k/ |
+| ng       | `n_g`      | ꩂ      | /ŋ/|
+| c        | `c`       | ꩄ      | /tʃ/ |
+| t        | `t`       | ꩅ      | /t/ |
+| n       | `n`       | ꩆ      | /n/ |
+| p       | `p`      | ꩇ      | /p/|
+| y       | `y`       | ꩈ      | /j/ |
+| r       | `r`      | ꩉ      | /r/|
+| l        | `l`       | ꩊ      | /l/ |
+| w        | `w`       | ꨥ      | /w/ |
+| sh       | `s_h`       | ꩋ      | /ʃ/ |
+
+Consonant diacritics
+| Standard Latin | Reversible Latin | Buhid | IPA |
+| ------- | ------- | ------- | --- |
+| ng       | `_n_g`       | ◌ꩃ      | /ŋ/ |
+| m       | `m`      | ◌ꩌ      | /m/|
+| h        | `h`       | ◌ꩍ      | /h/ |
+
 ### Independent Vowels :
 
 | Standard Latin | Reversible Latin | Buhid | IPA |
