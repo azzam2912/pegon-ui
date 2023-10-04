@@ -1,3 +1,5 @@
+
+
 # Cham Script
 
 The [Cham](https://en.wikipedia.org/wiki/Cham_script) script is one of the two scripts used to write the [Cham](https://en.wikipedia.org/wiki/Cham_language) language, the other one being the Jawi script.
@@ -63,10 +65,9 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 | nâ | `n^a`     | ꨗ      | /nɨŋ/|
 | mâ | `m^a`      | ꨟ      | /mɨŋ/|
 
-
 ### Medial Consonants :
 
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
 | y       | `y`       | ◌ꨳ      | /j/ |
 | r       | `r`      | ◌ꨴ      | /r/|
@@ -75,7 +76,7 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 
 ### Final Consonants :
  Consonant letters :
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
 | k       | `k`       | ꩀ      | /k/ |
 | ng       | `n_g`      | ꩂ      | /ŋ/|
@@ -90,7 +91,7 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 | sh       | `s_h`       | ꩋ      | /ʃ/ |
 
 Consonant diacritics
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
 | ng       | `_n_g`       | ◌ꩃ      | /ŋ/ |
 | m       | `m`      | ◌ꩌ      | /m/|
@@ -98,23 +99,42 @@ Consonant diacritics
 
 ### Independent Vowels :
 
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
-| a       | `a`       | ᝀ      | /a/ |
-| i       | `i`      | ᝁ      | /i/|
-| u        | `u`       | ᝂ      | /u/ |
+| a       | `a`       | ꨀ      | /a/ |
+| i       | `i`      | ꨁ      | /i/|
+| u        | `u`       | ꨂ      | /u/ |
+| e        | `u`       | ꨃ      | /e/ |
+| o        | `u`       | ꨅ      | /o/ |
+| ai        | `a_i`       | ꨄ      | /ai/ |
 
 ### Dependent Vowels :
 
-| Standard Latin | Reversible Latin | Buhid | IPA  |
+| Standard Latin | Reversible Latin | Cham | IPA  |
 | ------- | ------- | ------- | ---- |
-| i      | `i`      | ᝒ      | /i/ |
-| u      | `u`       |  ᝓ       | /u/  |
+| ā      | `aa`      |◌ꨩ      | /aa/ |
+| i      | `i`       | ◌ꨪ       | /i/  |
+| ī      | `ii`      |◌ꨫ      | /ii/ |
+| ei      | `ei`      |◌ꨬ      | /ei/ |
+| u      | `u`       | ◌ꨭ       | /u/  |
+| ū      | `uu`       | ◌ꨭꨩ       | /uu/  |
+| e      | `e`      |◌ꨮ      | /e/ |
+| ē      | `ee`       | ◌ꨮꨩ       | /ee/  |
+| é      | `^e`      |ꨯꨮ      | /ɛ/ |
+| éé      | `^e^e`       | ꨯꨮꨩ       | /ɛɛ/  |
+| o      | `o`      |ꨯ      | /o/ |
+| ō      | `oo`       | ꨯꨩ       | /oo/  |
+| ai      | `aai`//`ai`      |ꨰ      | /aai/ |
+| ao      | `aao`/`aao`       | ꨯꨱ       | /aao/  |
+| â      | `^a`      |◌ꨲ      | /ɨ/ |
+| ââ      | `^a^a`       | ◌ꨲꨩ       | /ɨɨ/  |
+| au      | `au`      |◌ꨮꨭ      | /i/ |
 
 
 ## Examples
 
-Here are some examples of Buhid script and its Latin counterpart :
+Here are some examples of Cham script and its Latin counterpart :
 
-* ᝃᝑ ᝓᝃᝑ  : kahu kahu
-* ᝃ ᝓ ᝋᝎᝄ ᝓ : ku malagu
+* ꨕꨨꨵꩀ ꨀꨓꨯꩃ ꨐꨭ  : dahlak atong nyu (i beat him)
+* ꨔꩃ ꨚꨴꨯꨱꩃ : thang praong (a big house)
+* ꨂꨣꩃ ꨚꨴꨯꨱꩃ ꨧꩇ : urang praong sap (a very noisy person)
