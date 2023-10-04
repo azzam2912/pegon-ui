@@ -1,5 +1,3 @@
-
-
 # Cham Script
 
 The [Cham](https://en.wikipedia.org/wiki/Cham_script) script is one of the two scripts used to write the [Cham](https://en.wikipedia.org/wiki/Cham_language) language, the other one being the Jawi script.
@@ -23,23 +21,47 @@ The Cham writing system consists of **independent consonants**, **medial consona
 
 ### Independent Consonants :
 
-| Standard Latin | Reversible Latin    | Buhid | Phonetic Reading (IPA) |
+| Standard Latin | Reversible Latin    | Cham | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
-| ka  | `ka` |   ᝃ      | /ka/ |
-| ga  | `ga`      | ᝄ      | /ɡa/ |
-| nga | `n_ga`     | ᝅ      | /ŋa/|
-| ta | `ta`      | ᝆ      | /ta/|
-| da | `da`      | ᝇ      | /da/|
-| na | `na`      | ᝈ      | /na/|
-| pa | `pa`      | ᝉ      | /pa/|
-| ba | `ba`      | ᝊ      | /ba/|
-| ma | `ma`      | ᝋ      | /ma/|
-| ya | `ya`      | ᝌ      | /ja/|
-| ra | `ra`      | ᝍ      | /ra/|
-| la | `la`      | ᝎ      | /la/|
-| wa | `wa`      | ᝏ      | /wa/|
-| sa | `sa`      | ᝐ      | /sa/|
-| ha | `ha`      | ᝑ      | /ha/|
+| ka  | `ka` |   ꨆ      | /ka/ |
+| kha  | `k_ha`      | ꨇ      | /kʰa/ |
+| ga  | `ga`      | ꨈ      | /ga/ |
+| gha  | `g_ha`      | ꨉ      | /gʰa/ |
+| nga | `n_ga`     | ꨋ      | /ŋa/|
+| ca | `ca`      | ꨌ      | /tʃa/|
+| cha | `c_ha`      | ꨍ      | /tʃʰa/|
+| ja  | `ja`      | ꨎ      | /d͡ʒa/ |
+| jha  | `j_ha`      | ꨏ      | /d͡ʒʰa/ |
+| nya  | `n_ya`      | ꨑ      | /ɲa/ |
+| nja  | `n_ja`      | ꨒ      | /nd͡ʒa/ |
+| ta  | `ta`      | ꨓ      | /ta/ |
+| tha  | `t_ha`      | ꨔ      | /tʰa/ |
+| da  | `da`      | ꨕ      | /da/ |
+| dha  | `d_ha`      | ꨖ      | /dʰa/ |
+| na | `na`      | ꨘ      | /na/|
+| nda  | `n_da`      | ꨙ      | /nda/ |
+| pa | `pa`      | ꨚ      | /pa/|
+| ppa | `p_pa`      | ꨛ      | /ppa/|
+| pha | `p_ha`      | ꨜ      | /pʰa/|
+| ba | `ba`      | ꨝ      | /ba/|
+| bha | `ba`      | ꨞ      | /bʰa/|
+| ma | `ma`      | ꨠ      | /ma/|
+| mba | `m_ba`      | ꨡ      | /mba/|
+| ya | `ya`      | ꨢ      | /ja/|
+| ra | `ra`      | ꨣ      | /ra/|
+| la | `la`      | ꨤ      | /la/|
+| wa | `wa`      | ꨥ      | /wa/|
+| sha | `sa`      | ꨦ      | /ʃa/|
+| sa | `sa`      | ꨧ      | /sa/|
+| ha | `ha`      | ꨨ      | /ha/|
+
+There are several consonants that if met with ɨ, be followed by a nasalisation:
+| Standard Latin | Reversible Latin    | Cham | Phonetic Reading (IPA) |
+| ------- | ------- | ------- | --- |
+| ngâ  | `n_g^a` |   ꨊ      | /ŋɨŋ/ |
+| ñâ  | `n_y^a`      | ꨐ      | /ɲɨŋ/ |
+| nâ | `n^a`     | ꨗ      | /nɨŋ/|
+| mâ | `m^a`      | ꨟ      | /mɨŋ/|
 
 
 
