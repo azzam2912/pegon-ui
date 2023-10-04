@@ -138,3 +138,5 @@ Here are some examples of Cham script and its Latin counterpart :
 * ꨕꨨꨵꩀ ꨀꨓꨯꩃ ꨐꨭ  : dahlak atong nyu (i beat him)
 * ꨔꩃ ꨚꨴꨯꨱꩃ : thang praong (a big house)
 * ꨂꨣꩃ ꨚꨴꨯꨱꩃ ꨧꩇ : urang praong sap (a very noisy person)
+* ꨨꨮꨭ ꨗꨯꨱ ꨨꨓꨯꨱ : hau nao hatao (where are you going)
+* ꨤꨪꨟ ꨝꨯꩍ ꨍꨲꩀ : limâ boh châk (five mountains)
