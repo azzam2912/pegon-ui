@@ -64,6 +64,14 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 | mâ | `m^a`      | ꨟ      | /mɨŋ/|
 
 
+### Medial Consonants :
+
+| Standard Latin | Reversible Latin | Buhid | IPA |
+| ------- | ------- | ------- | --- |
+| y       | `y`       | ◌ꨳ      | /j/ |
+| r       | `r`      | ◌ꨴ      | /r/|
+| l        | `l`       | ◌ꨵ      | /l/ |
+| w        | `w`       | ◌ꨶ      | /w/ |
 
 ### Independent Vowels :
 
