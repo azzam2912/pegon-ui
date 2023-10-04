@@ -1,13 +1,15 @@
 import axios from "axios";
 import { apiEndpoint } from "src/utils/ocrApi";
+import FormData from "form-data";
+import formidable from "formidable";
+
+const fs = require("fs");
 
 export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '25mb' // Set desired value here
-        }
-    }
-}
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default async function handle(req, res) {
   const { method } = req;
@@ -20,10 +22,28 @@ export default async function handle(req, res) {
 }
 
 async function handlePostRequest(req, res) {
-  const resp = await axios.post(`${apiEndpoint + '/infer'}`, req.body, {
+  const form = new formidable.IncomingForm();
+  const formData = new FormData();
+
+  form.parse(req, async (err, fields, files) => {
+    formData.append(
+      "file",
+      fs.createReadStream(files.file.filepath),
+      files.file.originalFilename,
+    );
+
+    try {
+      const response = await axios.post(`${apiEndpoint}/infer`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data", 
+          "Content-Type": "multipart/form-data",
         },
-      })
-  return res.status(201).json(resp.data); // 201 Created status code
+      });
+
+      console.log(response.data);
+      res.status(200).json(response.data);
+    } catch (error) {
+      console.error("Error forwarding data to OCR backend:", error);
+      res.status(500).json({ error: "Error forwarding data to OCR backend" });
+    }
+  });
 }

@@ -60,7 +60,7 @@ export const OCRPage = () => {
         },
       );
       setStatus("success");
-      setResult(response.data.result);
+      setResult(response.data.result.join(' '));
     } catch (error) {
       setStatus("error");
       console.error("Error uploading image:", error);
