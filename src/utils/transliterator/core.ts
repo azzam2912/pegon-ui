@@ -2,6 +2,7 @@ export type PlainRule = [string, string];
 export type RegexRule = [RegExp, string];
 
 export type Rule = PlainRule | RegexRule;
+type Keys<T extends Rule> = T extends [infer K, string] ? K : never;
 
 // like a cartesian product but for tl rules
 // https://rosettacode.org/wiki/Cartesian_product_of_two_or_more_lists#Functional
@@ -47,6 +48,9 @@ export const wordDelimiters: string[] = [
   "؛",
   "؛",
   "؟",
+  "\n",
+  "\t",
+  "\u200C",
 ];
 
 export const wordDelimitingPatterns: string = escape(wordDelimiters.join(""));
@@ -84,6 +88,20 @@ export const asSingleWord = (rules: PlainRule[]): RegexRule[] =>
     ),
     `$1${val}$3`,
   ]);
+
+export const toSingleWord = ([key, val]: PlainRule): RegexRule => [
+  new RegExp(
+    `(?<=^|[${wordDelimitingPatterns}])${key}(?=$|[${wordDelimitingPatterns}])`,
+  ),
+  val,
+];
+
+export const toWordBeginning = ([key, val]: PlainRule): RegexRule => [
+  new RegExp(
+    `(?<=^|[${wordDelimitingPatterns}])${key}`,
+  ),
+  val,
+];
 
 export const patternList = (patterns: Array<string>): RegExp =>
   new RegExp(patterns.join("|"));
@@ -123,7 +141,7 @@ export const debugTransliterate = (
 ): string =>
   translationMap.reduce<string>((acc, [key, val]) => {
     const rule: RegExp = new RegExp(key, "g");
-    console.log(
+    console.debug(
       `acc: ${acc}\nkey: ${key}\nval: ${val}\nmatched: ${rule.test(acc)}\n`,
     );
     return acc.replace(rule, val);
@@ -183,3 +201,43 @@ export const genericIMEInit = (imeScheme: Rule[]) => (): InputMethodEditor => ({
   inputEdit: (inputString: string): string =>
     transliterate(inputString, imeScheme),
 });
+
+export const getKeys = <T extends Rule>(scheme: T[]): Keys<T>[] =>
+  scheme.map<Keys<T>>(([key, _]: T): Keys<T> => key as Keys<T>);
+
+export const getValues = <T extends Rule>(scheme: T[]): string[] =>
+  scheme.map(([_, val]: T): string => val);
+
+export const fillTemplate = (
+  scheme: PlainRule[],
+  keyScheme: PlainRule[],
+  valScheme: PlainRule[],
+): PlainRule[] =>
+  scheme.map(([key, val]: PlainRule) => [
+    transliterate(key, keyScheme),
+    transliterate(val, valScheme),
+  ]);
+
+export const separate = <T extends Rule>(
+  arr: Array<T>,
+  fn: (rule: T) => boolean,
+): [Array<T>, Array<T>] => {
+  const trueArr = [] as Array<T>;
+  const falseArr = [] as Array<T>;
+  for (const rule of arr) {
+    if (fn(rule)) {
+      trueArr.push(rule)
+    } else {
+      falseArr.push(rule)
+    }
+  }
+  return [trueArr, falseArr]
+}
+/*
+  note: if you want to apply this function to template rules,
+  make sure EVERY identifier is the same length as any letters
+*/
+export const ruleKeyLengthDiff = ([a, _]: PlainRule, [b, __]: PlainRule): number =>
+  b.length - a.length;
+
+export const stringLengthDiff = (a, b) => b.length - a.length

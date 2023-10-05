@@ -16,6 +16,15 @@ import {
   asInverse,
   patternList,
   genericIMEInit,
+  fillTemplate,
+  toSingleWord,
+  separate,
+  getKeys,
+  getValues,
+  before,
+  after,
+  ruleKeyLengthDiff,
+  stringLengthDiff,
 } from "../core";
 
 // O means obsolete
@@ -109,6 +118,7 @@ const enum Thai {
   FongMan = "๏",
   AngkhanKhu = "๚",
   KhoMut = "๛",
+  Thanthakhat = "์",
 
   // numbers
   Zero = "๐",
@@ -136,6 +146,7 @@ const Consonants: PlainRule[] = [
   ["k", Thai.KoKaiM],
 
   ["g_h\\", Thai.KhoRakhangL],
+  ["n_g/", Thai.HoHipH + Thai.NgoNguL],
   ["n_g\\", Thai.NgoNguL],
 
   ["c_h/", Thai.ChoChingH],
@@ -144,7 +155,10 @@ const Consonants: PlainRule[] = [
 
   ["j_h\\", Thai.ChoChoeL],
 
+  ["y_n/", Thai.HoHipH + Thai.YoYingL],
   ["y_n\\", Thai.YoYingL],
+
+  ["y/", Thai.HoHipH + Thai.YoYakL],
   ["y\\", Thai.YoYakL],
 
   ["d", Thai.DoChadaM],
@@ -162,6 +176,7 @@ const Consonants: PlainRule[] = [
   ["d\\", Thai.ThoThahanL],
 
   ["n_n\\", Thai.NoNenL],
+  ["n/", Thai.HoHipH + Thai.NoNuL],
   ["n\\", Thai.NoNuL],
 
   ["p_h/", Thai.PhoPhuengH],
@@ -174,142 +189,174 @@ const Consonants: PlainRule[] = [
   ["f/", Thai.FoFaH],
   ["f\\", Thai.FoFanL],
 
+  ["m/", Thai.HoHipH + Thai.MoMaL],
   ["m\\", Thai.MoMaL],
 
+  ["r/", Thai.HoHipH + Thai.RoRueaL],
   ["r\\", Thai.RoRueaL],
+
+  ["l/", Thai.HoHipH + Thai.LoLingL],
   ["l\\", Thai.LoLingL],
 
+  ["w/", Thai.HoHipH + Thai.WoWaenL],
   ["w\\", Thai.WoWaenL],
 
   ["s_s/", Thai.SoSalaH],
   ["s_t/", Thai.SoRuesiH],
   ["s/", Thai.SoSueaH],
   ["s\\", Thai.SoSoL],
+
   ["h/", Thai.HoHipH],
   ["h\\", Thai.HoNokHukL],
+
   ["'", Thai.OAng],
 ];
 
-const ruleKeyLengthDiff = ([a, _]: PlainRule, [b, __]: PlainRule): number =>
-  b.length - a.length;
-
-const LatinConsonants: string[] = Consonants.map(
-  ([key, _]: PlainRule): string => escape(key),
-).sort();
-
-const toVowelOfOpenSyllable = ([key, val]: PlainRule): RegexRule => [
-  new RegExp(`(${patternList(LatinConsonants).source})(${key})`),
-  val,
+const Tones: PlainRule[] = [
+  ["1", Thai.MaiEk],
+  ["2", Thai.MaiTho],
+  ["3", Thai.MaiTri],
+  ["4", Thai.MaiChattawa],
 ];
 
-const toVowelOfClosedSyllable = ([key, val]: PlainRule): RegexRule => [
-  new RegExp(
-    `(${patternList(LatinConsonants).source})(${key})(${
-      patternList(LatinConsonants).source
-    })`,
-  ),
-  val,
-];
+const LatinConsonants: string[] = getKeys<PlainRule>(Consonants)
+  .map(escape)
+  .sort(stringLengthDiff);
 
-const OpenSyllableVowels: RegexRule[] = (
+const LatinTones: string[] = getKeys<PlainRule>(Tones).map(escape).sort();
+
+const ThaiConsonants: string[] = getValues<PlainRule>(Consonants)
+  .map(escape)
+  .sort(stringLengthDiff);
+
+const ThaiTones: string[] = getValues<PlainRule>(Tones).map(escape).sort();
+
+const OpenSyllableVowelsTemplate: PlainRule[] = (
   [
     // diphthongs
-    ["iaa", `${Thai._e}$1${Thai._ii}${Thai.YoYakL}`],
-    ["ia", `${Thai._e}$1${Thai._ii}${Thai.YoYakL}${Thai.NomNang}`],
-    ["ueaa", `${Thai._e}$1${Thai._uee}${Thai.OAng}`],
-    ["uea", `${Thai._e}$1${Thai._uee}${Thai.OAng}${Thai.NomNang}`],
-    ["uaa", `$1${Thai.MaiHanAkat}${Thai.WoWaenL}`],
-    ["ua", `$1${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.NomNang}`],
-    ["aii", `${Thai._aii}$1`],
-    ["ai", `${Thai._ai}$1`],
-    ["aiy", `${Thai._ai}$1${Thai.YoYakL}`],
-
+    ["iaa", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}`],
+    ["ia", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}${Thai.NomNang}`],
+    ["ueaa", `${Thai._e}CT${Thai._uee}${Thai.OAng}`],
+    ["uea", `${Thai._e}CT${Thai._uee}${Thai.OAng}${Thai.NomNang}`],
+    ["uaa", `CT${Thai.MaiHanAkat}${Thai.WoWaenL}`],
+    ["ua", `CT${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.NomNang}`],
+    ["aii", `${Thai._aii}CT`],
+    ["ai", `${Thai._ai}CT`],
+    ["aiy", `${Thai._ai}CT${Thai.YoYakL}`],
     // actually just vowel + w or y, but for completion's sake
     // TODO: decide to keep this or simply let it be parsed using regular w
     // phonetic diphthongs, long
-    ["eeo", `${Thai._e}$1${Thai.WoWaenL}`],
-    ["aaeo", `${Thai._ae}$1${Thai.WoWaenL}`],
-    ["aao", `$1${Thai.LakKhang}${Thai.WoWaenL}`],
-    ["iaao", `${Thai._e}$1${Thai._ii}${Thai.YoYakL}${Thai.WoWaenL}`],
-    ["aay", `$1${Thai.LakKhang}${Thai.YoYakL}`],
-    ["aawy", `$1${Thai.OAng}${Thai.YoYakL}`],
-    ["ooy", `${Thai._o}$1${Thai.YoYakL}`],
-    ["ooey", `${Thai._e}$1${Thai.YoYakL}`],
-    ["uaay", `$1${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.YoYakL}`],
-    ["ueaai", `${Thai._e}$1${Thai._uee}${Thai.OAng}${Thai.YoYakL}`],
+    ["eeo", `${Thai._e}CT${Thai.WoWaenL}`],
+    ["aaeo", `${Thai._ae}CT${Thai.WoWaenL}`],
+    ["aao", `CT${Thai.LakKhang}${Thai.WoWaenL}`],
+    ["iaao", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}${Thai.WoWaenL}`],
+    ["aay", `CT${Thai.LakKhang}${Thai.YoYakL}`],
+    ["aawy", `CT${Thai.OAng}${Thai.YoYakL}`],
+    ["ooy", `${Thai._o}CT${Thai.YoYakL}`],
+    ["ooey", `${Thai._e}CT${Thai.YoYakL}`],
+    ["uaay", `CT${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.YoYakL}`],
+    ["ueaai", `${Thai._e}CT${Thai._uee}${Thai.OAng}${Thai.YoYakL}`],
     // phonetic diphthongs, short
-    ["io", `$1${Thai._i}${Thai.WoWaenL}`],
-    ["eo", `${Thai._e}$1${Thai.MaiHanAkat}${Thai.WoWaenL}`],
-    ["ao", `${Thai._e}$1${Thai.LakKhang}`],
+    ["io", `CT${Thai._i}${Thai.WoWaenL}`],
+    ["eo", `${Thai._e}CT${Thai.MaiHanAkat}${Thai.WoWaenL}`],
+    ["ao", `${Thai._e}CT${Thai.LakKhang}`],
     // TODO: what to do about Mai Han Akat + Yo Yak version of "ai"
-    // [??, `$1${Thai.MaiHanAkat}${Thai.YoYakL}`],
-    ["awy", `$1${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`],
-    ["uy", `$1${Thai._u}${Thai.YoYakL}`],
+    // [??, `CT${Thai.MaiHanAkat}${Thai.YoYakL}`],
+    ["awy", `CT${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`],
+    ["uy", `CT${Thai._u}${Thai.YoYakL}`],
     // base vowels, long
-    ["aaw", `$1${Thai.OAng}`],
-    ["aae", `${Thai._ae}$1`],
-    ["ooe", `${Thai._e}$1${Thai.OAng}`],
-    ["uue", `$1${Thai._uee}${Thai.OAng}`],
-    ["aa", `$1${Thai.LakKhang}`],
-    ["ee", `${Thai._e}$1`],
-    ["ii", `$1${Thai._ii}`],
-    ["oo", `${Thai._o}$1`],
-    ["uu", `$1${Thai._uu}`],
+    ["aaw", `CT${Thai.OAng}`],
+    ["aae", `${Thai._ae}CT`],
+    ["ooe", `${Thai._e}CT${Thai.OAng}`],
+    ["uue", `CT${Thai._uee}${Thai.OAng}`],
+    ["aa", `CT${Thai.LakKhang}`],
+    ["ee", `${Thai._e}CT`],
+    ["ii", `CT${Thai._ii}`],
+    ["oo", `${Thai._o}CT`],
+    ["uu", `CT${Thai._uu}`],
 
     // base vowels, short
-    ["ae", `${Thai._ae}$1${Thai.NomNang}`],
-    ["aw", `${Thai._e}$1${Thai.LakKhang}${Thai.NomNang}`],
-    ["oe", `${Thai._e}$1${Thai.OAng}${Thai.NomNang}`],
-    ["ue", `$1${Thai._ue}`],
-    ["i", `$1${Thai._i}`],
-    ["u", `$1${Thai._u}`],
-    ["o", `${Thai._o}$1${Thai.NomNang}`],
-    ["e", `${Thai._e}$1${Thai.NomNang}`],
-    ["a", `$1`],
+    ["ae", `${Thai._ae}CT${Thai.NomNang}`],
+    ["aw", `${Thai._e}CT${Thai.LakKhang}${Thai.NomNang}`],
+    ["oe", `${Thai._e}CT${Thai.OAng}${Thai.NomNang}`],
+    ["ue", `CT${Thai._ue}`],
+    ["i", `CT${Thai._i}`],
+    ["u", `CT${Thai._u}`],
+    ["o", `${Thai._o}CT${Thai.NomNang}`],
+    ["e", `${Thai._e}CT${Thai.NomNang}`],
+    ["a", `CT`],
   ] as PlainRule[]
-)
-  .sort(ruleKeyLengthDiff)
-  .map(toVowelOfOpenSyllable);
+).map(([key, val]: PlainRule): PlainRule => ["CT" + key, val] as PlainRule);
 
-const ClosedSyllableVowels: RegexRule[] = (
+const OpenSyllableVowels: RegexRule[] = fillTemplate(
+  OpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+  [
+    ["C", `((${patternList(LatinConsonants).source})+)`],
+    ["T", `(${patternList(LatinTones).source})?`],
+  ],
+  [
+    ["C", "$1"],
+    ["T", "$3"],
+  ],
+).map(toSingleWord);
+
+const ClosedSyllableVowelsTemplate: PlainRule[] = (
   [
     // diphthongs
-    ["iaa", `${Thai._e}$1${Thai._ii}${Thai.YoYakL}$3`],
-    ["ueaa", `${Thai._e}$1${Thai._uee}${Thai.OAng}$3`],
-    ["uaa", `$1${Thai.WoWaenL}$3`],
+    ["iaa", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}X`],
+    ["ueaa", `${Thai._e}CT${Thai._uee}${Thai.OAng}X`],
+    ["uaa", `CT${Thai.WoWaenL}X`],
 
     // base vowels, long
-    ["aaw", `$1${Thai.OAng}$3`],
-    ["aae", `${Thai._ae}$1$3`],
-    ["ooe", `${Thai._e}$1${Thai._i}$3`],
-    ["uue", `$1${Thai._uee}$3`],
-    ["aa", `$1${Thai.LakKhang}$3`],
-    ["ee", `${Thai._e}$1$3`],
-    ["ii", `$1${Thai._ii}$3`],
-    ["oo", `${Thai._o}$1$3`],
-    ["uu", `$1${Thai._uu}$3`],
+    ["aaw", `CT${Thai.OAng}X`],
+    ["aae", `${Thai._ae}CTX`],
+    ["ooe", `${Thai._e}CT${Thai._i}X`],
+    ["uue", `CT${Thai._uee}X`],
+    ["aa", `CT${Thai.LakKhang}X`],
+    ["ee", `${Thai._e}CTX`],
+    ["ii", `CT${Thai._ii}X`],
+    ["oo", `${Thai._o}CTX`],
+    ["uu", `CT${Thai._uu}X`],
 
     // base vowels, short
-    ["ae", `${Thai._ae}$1${Thai.MaiTaikhu}$3`],
-    ["aw", `$1${Thai.MaiTaikhu}${Thai.OAng}$3`],
-    ["ue", `$1${Thai._ue}$3`],
-    ["i", `$1${Thai._i}`],
-    ["u", `$1${Thai._u}$3`],
-    ["o", `$1$3`],
-    ["e", `${Thai._e}$1${Thai.MaiTaikhu}$3`],
-    ["a", `$1${Thai.MaiHanAkat}$3`],
+    ["ae", `${Thai._ae}CT${Thai.MaiTaikhu}X`],
+    ["aw", `CT${Thai.MaiTaikhu}${Thai.OAng}X`],
+    ["ue", `CT${Thai._ue}X`],
+    ["i", `CT${Thai._i}`],
+    ["u", `CT${Thai._u}X`],
+    ["o", `CTX`],
+    ["e", `${Thai._e}CT${Thai.MaiTaikhu}X`],
+    ["a", `CT${Thai.MaiHanAkat}X`],
   ] as PlainRule[]
-)
-  .sort(ruleKeyLengthDiff)
-  .map(toVowelOfClosedSyllable);
+).map(([key, val]: PlainRule): PlainRule => ["CT" + key + "X", val]);
+
+const ClosedSyllableVowels: RegexRule[] = fillTemplate(
+  ClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+  [
+    ["C", `((${patternList(LatinConsonants).source})+)`],
+    ["T", `(${patternList(LatinTones).source})?`],
+    ["X", `(${patternList(LatinConsonants).source})`],
+  ],
+  [
+    ["C", `$1`],
+    ["T", `$3`],
+    ["X", `$4`],
+  ],
+).map(toSingleWord);
 
 const Punctuation: PlainRule[] = [
+  ["-", "\u200C"],
   [" ", "\u200C"],
   [".", " "],
-  [`${Thai.PaiyanNoi}${Thai.LoLingL}${Thai.PaiyanNoi}`, " etc"],
-  [Thai.MaiYamok, "2"],
-  [Thai.PaiyanNoi, "."],
 ];
+const InversePunctuation: PlainRule[] = chainRule<PlainRule>(
+  asInverse(Punctuation.reverse()),
+  [
+    [`${Thai.PaiyanNoi}${Thai.LoLingL}${Thai.PaiyanNoi}`, " etc"],
+    [Thai.MaiYamok, "2"],
+    [Thai.PaiyanNoi, "."],
+  ],
+);
 
 const Numbers: PlainRule[] = [
   ["0", Thai.Zero],
@@ -324,142 +371,119 @@ const Numbers: PlainRule[] = [
   ["9", Thai.Nine],
 ];
 
+// second pass
+const SpecialFromLatin: RegexRule[] = [
+  after(
+    new RegExp(
+      patternList(ThaiConsonants).source +
+        `(${patternList(ThaiTones).source})?`,
+    ),
+    [`${Thai.MaiHanAkat}${Thai.OAng}`, `${Thai.NomNang}`],
+  ),
+];
+
+const ThaiVowelPrefixLetters: string[] = [];
+const ThaiVowelSuffixLetters: string[] = [];
+
+{
+  let a: string[] = [];
+  let b: string[] = [];
+
+  for (const [_, val] of OpenSyllableVowelsTemplate) {
+    if (!(val.startsWith("CT") || val.endsWith("CT"))) {
+      const [prefix, suffix] = val.split("CT", 2);
+      a.push(prefix);
+      b.push(suffix);
+    }
+  }
+
+  a = [...new Set(a)].sort(stringLengthDiff);
+  b = [...new Set(b)].sort(stringLengthDiff);
+
+  ThaiVowelPrefixLetters.push(...a);
+  ThaiVowelSuffixLetters.push(...b);
+}
+
+const CircumfixSpellingTemplate: PlainRule[] = [
+  ["CT\u200cPCTS", "$3$1$2\u200c$4$5$6"],
+];
+
+const CircumfixSpelling: RegexRule[] = fillTemplate(
+  CircumfixSpellingTemplate,
+  [
+    ["C", `(${patternList(ThaiConsonants).source})`],
+    ["T", `(${patternList(ThaiTones).source})?`],
+    ["P", `(${patternList(ThaiVowelPrefixLetters).source})`],
+    ["S", `(${patternList(ThaiVowelSuffixLetters).source})`],
+  ],
+  [],
+);
 // TODO: special single word spellings
-// TODO: circumfix vowels wrapping around an inherent vowel consonants behind them
-// TODO: TONES
-// TODO: NomNang only for last syllables
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
   ClosedSyllableVowels,
   OpenSyllableVowels,
+  [after(patternList(LatinConsonants), ["x", Thai.Thanthakhat])],
+  Tones.map(
+    (rule: PlainRule): RegexRule => after(patternList(LatinConsonants), rule),
+  ),
   prepareRules(Consonants.sort(ruleKeyLengthDiff)),
   Numbers,
   prepareRules(Punctuation),
+  // second pass
+  SpecialFromLatin,
+  CircumfixSpelling,
 );
 
 export const fromLatin = (input: string): string =>
   transliterate(input, FromLatinScheme);
 
-const ThaiConsonants: string[] = Consonants.map(([_, val]: PlainRule): string =>
-  escape(val),
-).sort();
+const [CircumfixOpenSyllableVowelsTemplate, SuffixOpenSyllableVowelsTemplate] =
+  separate(
+    OpenSyllableVowelsTemplate,
+    ([key, val]: PlainRule): boolean => !val.startsWith("CT"),
+  );
 
-// do NOT use "C" to denote anything other than consonants on the left side of the rule here!
-const InverseSyllableVowels: RegexRule[] = chainRule<RegexRule>(
-  (
-    [
-      [`${Thai._e}(C)${Thai._ii}${Thai.YoYakL}(C)`, "iaa"],
-      [`${Thai._e}(C)${Thai._uee}${Thai.OAng}(C)`, "ueaa"],
-      [`(C)${Thai.WoWaenL}(C)`, "uaa"],
-
-      // base vowels, long
-      [`(C)${Thai.OAng}(C)`, "aaw"],
-      [`${Thai._ae}(C)(C)`, "aae"],
-      [`${Thai._e}(C)${Thai._i}(C)`, "ooe"],
-      [`(C)${Thai._uee}(C)`, "uue"],
-      [`(C)${Thai.LakKhang}(C)`, "aa"],
-      [`${Thai._e}(C)(C)`, "ee"],
-      [`(C)${Thai._ii}(C)`, "ii"],
-      [`${Thai._o}(C)(C)`, "oo"],
-      [`(C)${Thai._uu}(C)`, "uu"],
-
-      // base vowels, short
-      [`${Thai._ae}(C)${Thai.MaiTaikhu}(C)`, "ae"],
-      [`(C)${Thai.MaiTaikhu}${Thai.OAng}(C)`, "aw"],
-      [`(C)${Thai._ue}(C)`, "ue"],
-      [`(C)${Thai._i}`, "i"],
-      [`(C)${Thai._u}(C)`, "u"],
-      [`${Thai._e}(C)${Thai.MaiTaikhu}(C)`, "e"],
-      [`(C)${Thai.MaiHanAkat}(C)`, "a"],
-      [`(?<![${Thai._aii}${Thai._ai}${Thai._o}${Thai._e}])(C)(C)`, "o"],
-    ] as PlainRule[]
-  ).map(
-    ([key, val]: PlainRule): RegexRule => [
-      new RegExp(
-        key.replace(/\(C\)/g, `(${patternList(ThaiConsonants).source})`),
-      ),
-      `$1${val}$2 `,
-    ],
-  ),
-
-  // open, with nomnang first
-  // diphthongs
-  (
-    [
-      [`${Thai._e}(C)${Thai._ii}${Thai.YoYakL}${Thai.NomNang}`, "ia"],
-      [`${Thai._e}(C)${Thai._uee}${Thai.OAng}${Thai.NomNang}`, "uea"],
-      [`(C)${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.NomNang}`, "ua"],
-
-      // base vowels, short
-      [`${Thai._ae}(C)${Thai.NomNang}`, "ae"],
-      [`${Thai._e}(C)${Thai.LakKhang}${Thai.NomNang}`, "aw"],
-      [`${Thai._e}(C)${Thai.OAng}${Thai.NomNang}`, "oe"],
-      [`${Thai._o}(C)${Thai.NomNang}`, "o"],
-      [`${Thai._e}(C)${Thai.NomNang}`, "e"],
-      // open, no nomnang
-      // diphthongs
-      [`${Thai._e}(C)${Thai._ii}${Thai.YoYakL}`, "iaa"],
-      [`${Thai._e}(C)${Thai._uee}${Thai.OAng}`, "ueaa"],
-      [`(C)${Thai.MaiHanAkat}${Thai.WoWaenL}`, "uaa"],
-
-      [`${Thai._ai}(C)${Thai.YoYakL}`, "aiy"],
-      [`${Thai._aii}(C)`, "aii"],
-      [`${Thai._ai}(C)`, "ai"],
-
-      // phonetic diphthongs, long
-      [`${Thai._e}(C)${Thai.WoWaenL}`, "eeo"],
-      [`${Thai._ae}(C)${Thai.WoWaenL}`, "aaeo"],
-      [`(C)${Thai.LakKhang}${Thai.WoWaenL}`, "aao"],
-      [`${Thai._e}(C)${Thai._ii}${Thai.YoYakL}${Thai.WoWaenL}`, "iaao"],
-      [`(C)${Thai.LakKhang}${Thai.YoYakL}`, "aay"],
-      [`(C)${Thai.OAng}${Thai.YoYakL}`, "aawy"],
-      [`${Thai._o}(C)${Thai.YoYakL}`, "ooy"],
-      [`${Thai._e}(C)${Thai.YoYakL}`, "ooey"],
-      [`(C)${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.YoYakL}`, "uaay"],
-      [`${Thai._e}(C)${Thai._uee}${Thai.OAng}${Thai.YoYakL}`, "ueaai"],
-      // phonetic diphthongs, short
-      [`(C)${Thai._i}${Thai.WoWaenL}`, "io"],
-      [`${Thai._e}(C)${Thai.MaiHanAkat}${Thai.WoWaenL}`, "eo"],
-      [`${Thai._e}(C)${Thai.LakKhang}`, "ao"],
-      [`(C)${Thai.MaiHanAkat}${Thai.YoYakL}`, "ay"], // this should actually be capturable by the closed syllable regex but for completion's sake
-      [`(C)${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`, "awy"],
-      [`(C)${Thai._u}${Thai.YoYakL}`, "uy"],
-      // base vowels, long
-      [`(C)${Thai.OAng}`, "aaw"],
-      [`${Thai._ae}(C)`, "aae"],
-      [`${Thai._e}(C)${Thai.OAng}`, "ooe"],
-      [`(C)${Thai._uee}${Thai.OAng}`, "uue"],
-      [`(C)${Thai.LakKhang}`, "aa"],
-      [`${Thai._e}(C)`, "ee"],
-      [`(C)${Thai._ii}`, "ii"],
-      [`${Thai._o}(C)`, "oo"],
-      [`(C)${Thai._uu}`, "uu"],
-
-      // base vowels, short
-      [`(C)${Thai._ue}`, "ue"],
-      [`(C)${Thai._i}`, "i"],
-      [`(C)${Thai._u}`, "u"],
-      [
-        `(?<![${Thai._aii}${Thai._ai}${Thai._o}${Thai._e}aiueo])(C)(?![aiueo])`,
-        "a",
-      ],
-    ] as PlainRule[]
-  ).map(
-    ([key, val]: PlainRule): RegexRule => [
-      new RegExp(
-        key.replace(/\(C\)/g, `(${patternList(ThaiConsonants).source})`),
-      ),
-      `$1${val} `,
-    ],
-  ),
+const [
+  CircumfixClosedSyllableVowelsTemplate,
+  SuffixClosedSyllableVowelsTemplate,
+] = separate(
+  ClosedSyllableVowelsTemplate,
+  ([key, val]: PlainRule): boolean => !val.startsWith("CT"),
 );
 
+const InverseSyllableVowels: RegexRule[] = fillTemplate(
+  asInverse(
+    chainRule<PlainRule>(
+      CircumfixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+      CircumfixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+      SuffixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+      [["CTa'", `CT${Thai.NomNang}`]],
+      SuffixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+    ),
+  ),
+  [
+    ["C", `((${patternList(ThaiConsonants).source})+)`],
+    ["T", `(${patternList(ThaiTones).source})?`],
+    ["X", `(${patternList(ThaiConsonants).source})`],
+  ],
+  [
+    ["C", `$1`],
+    ["T", `$3`],
+    ["X", `$4`],
+  ],
+).map(toSingleWord);
+
 const ToLatinScheme: Rule[] = chainRule<Rule>(
+  [[Thai.Thanthakhat, "x"]],
   InverseSyllableVowels,
-  asInverse(Consonants),
+  asInverse(Tones).map(
+    (rule: PlainRule): RegexRule => after(patternList(ThaiConsonants), rule),
+  ),
+  asInverse(Consonants).sort(ruleKeyLengthDiff),
   [[/$ /g, ""]],
   asInverse(Numbers),
-  // asInverse(Punctuation.reverse()),
+  InversePunctuation,
 );
 
 export const toLatin = (input: string): string =>
@@ -521,7 +545,7 @@ const StandardLatinVowels: PlainRule[] = (
   ] as PlainRule[]
 ).sort(ruleKeyLengthDiff);
 
-const StandardLatinFinalConsonants: Rule[] = asWordEnding([
+const StandardLatinFinalConsonants: PlainRule[] = [
   ["k_h/", "k"],
   ["k_h\\", "k"],
   ["g_h\\", "k"],
@@ -530,7 +554,6 @@ const StandardLatinFinalConsonants: Rule[] = asWordEnding([
 
   ["n_g\\", "ng"],
 
-  ["c_h/", ""],
   ["c_h\\", "t"],
   ["c_h", "t"],
 
@@ -549,22 +572,21 @@ const StandardLatinFinalConsonants: Rule[] = asWordEnding([
   ["t_h/", "t"],
   ["t_t/", "t"],
 
-  ["t_d\\", "th"],
-  ["t_h\\", "th"],
-  ["d_h\\", "th"],
+  ["t_d\\", "t"],
+  ["t_h\\", "t"],
+  ["d_h\\", "t"],
+
   ["d\\", "t"],
 
   ["n_n\\", "n"],
   ["n\\", "n"],
 
-  ["p_h/", ""],
   ["p_h\\", "p"],
   ["b_h\\", "p"],
 
   ["b", "p"],
   ["p", "p"],
 
-  ["f/", ""],
   ["f\\", "p"],
 
   ["m\\", "m"],
@@ -579,10 +601,26 @@ const StandardLatinFinalConsonants: Rule[] = asWordEnding([
   ["s/", "t"],
   ["s\\", "t"],
 
-  ["h/", ""],
-  ["h\\", "h"],
   ["'", ""],
-]);
+];
+
+const StandardLatinSonorantFinals: string[] = ["ng", "m", "n", "w", "y"];
+const StandardLatinStopFinals: string[] = ["p", "t", "k"];
+
+const LatinSonorantFinals: string[] = getKeys<PlainRule>(
+  StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
+    StandardLatinSonorantFinals.includes(val),
+  ),
+);
+
+const LatinStopFinals: string[] = getKeys<PlainRule>(
+  StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
+    StandardLatinStopFinals.includes(val),
+  ),
+);
+
+// v is short vowel, V is long vowel, W is any vowel
+const StandardLatinTonesTemplate: PlainRule[] = [["LV", "LV1"]];
 
 const StandardLatinConsonants: Rule[] = [
   ["k_h/", "kh"],
@@ -647,15 +685,18 @@ const StandardLatinConsonants: Rule[] = [
 ];
 
 const StandardLatinScheme: Rule[] = chainRule<Rule>(
-  StandardLatinFinalConsonants,
+  [
+    ["-", ""],
+    [`(${patternList(LatinConsonants).source})x`, ""],
+  ],
+  asWordEnding(StandardLatinFinalConsonants),
   prepareRules(StandardLatinConsonants),
   StandardLatinVowels,
-  [[" ", ""]],
 );
 
 export const toStandardLatin = (input: string): string =>
   transliterate(input, StandardLatinScheme);
 
-const IMEScheme: Rule[] = [];
+const IMEScheme: Rule[] = [[" ", "\u200C"]];
 
 export const initIME = genericIMEInit(IMEScheme);
