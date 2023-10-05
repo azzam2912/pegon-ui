@@ -99,6 +99,7 @@ const enum Thai {
   MaiHanAkat = "ั",
   MaiTaikhu = "็",
   LakKhang = "า",
+  LakKhangYao = "ๅ",
   FonThong = "̍",
   FanNu = "̎",
   Nikhahit = "ํ",
@@ -114,6 +115,9 @@ const enum Thai {
   _o = "โ",
   _aii = "ใ",
   _ai = "ไ",
+  _am = "ำ",
+  _r = "ฤ",
+  _l = "ฦ",
 
   // punctuation
   PaiyanNoi = "ฯ",
@@ -374,6 +378,24 @@ const Numbers: PlainRule[] = [
   ["9", Thai.Nine],
 ];
 
+const SpecialSanskritEnding: PlainRule = ["am", Thai._am];
+const SpecialSanskritVowels: PlainRule[] = [
+  ["ruue", Thai._r + Thai.LakKhangYao],
+  ["luue", Thai._l + Thai.LakKhangYao],
+  ["rue", Thai._r],
+  ["lue", Thai._l],
+];
+const SpecialSanskrit: Rule[] = [
+  toWordEnding(SpecialSanskritEnding),
+  ...SpecialSanskritVowels,
+];
+const InverseSpecialSanskrit: Rule[] = asInverse([
+  SpecialSanskritEnding,
+  ...SpecialSanskritVowels,
+]);
+
+console.debug(SpecialSanskrit);
+
 // second pass
 const SpecialFromLatin: RegexRule[] = [
   after(
@@ -433,6 +455,7 @@ const FromLatinScheme: Rule[] = chainRule<Rule>(
   prepareRules(Consonants.sort(ruleKeyLengthDiff)),
   Numbers,
   prepareRules(Punctuation),
+  SpecialSanskrit,
   // second pass
   SpecialFromLatin,
   CircumfixSpelling,
@@ -499,6 +522,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<PlainRule>(
 const ToLatinScheme: Rule[] = chainRule<Rule>(
   [[Thai.Thanthakhat, "x"]],
   InverseSyllableVowels,
+  InverseSpecialSanskrit,
   asInverse(Tones).map(
     (rule: PlainRule): RegexRule => after(patternList(ThaiConsonants), rule),
   ),
@@ -857,7 +881,7 @@ const StandardLatinScheme: Rule[] = chainRule<Rule>(
 );
 
 export const toStandardLatin = (input: string): string =>
-  debugTransliterate(input, StandardLatinScheme);
+  transliterate(input, StandardLatinScheme);
 
 const IMEScheme: Rule[] = [[" ", "\u200C"]];
 
