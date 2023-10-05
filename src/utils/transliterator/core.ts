@@ -4,6 +4,8 @@ export type RegexRule = [RegExp, string];
 export type Rule = PlainRule | RegexRule;
 type Keys<T extends Rule> = T extends [infer K, string] ? K : never;
 
+export const toRegexRule = ([key, val]: PlainRule): RegexRule => [new RegExp(key), val]
+
 // like a cartesian product but for tl rules
 // https://rosettacode.org/wiki/Cartesian_product_of_two_or_more_lists#Functional
 export const ruleProduct = (
@@ -99,6 +101,13 @@ export const toSingleWord = ([key, val]: PlainRule): RegexRule => [
 export const toWordBeginning = ([key, val]: PlainRule): RegexRule => [
   new RegExp(
     `(?<=^|[${wordDelimitingPatterns}])${key}`,
+  ),
+  val,
+];
+
+export const toWordEnding = ([key, val]: PlainRule): RegexRule => [
+  new RegExp(
+    `${key}(?=$|[${wordDelimitingPatterns}])`,
   ),
   val,
 ];
@@ -218,7 +227,7 @@ export const fillTemplate = (
     transliterate(val, valScheme),
   ]);
 
-export const separate = <T extends Rule>(
+export const separate = <T extends Rule|string>(
   arr: Array<T>,
   fn: (rule: T) => boolean,
 ): [Array<T>, Array<T>] => {
@@ -240,4 +249,4 @@ export const separate = <T extends Rule>(
 export const ruleKeyLengthDiff = ([a, _]: PlainRule, [b, __]: PlainRule): number =>
   b.length - a.length;
 
-export const stringLengthDiff = (a, b) => b.length - a.length
+export const stringLengthDiff = (a: string, b: string): number => b.length - a.length

@@ -18,6 +18,8 @@ import {
   genericIMEInit,
   fillTemplate,
   toSingleWord,
+  toWordBeginning,
+  toWordEnding,
   separate,
   getKeys,
   getValues,
@@ -25,6 +27,7 @@ import {
   after,
   ruleKeyLengthDiff,
   stringLengthDiff,
+  toRegexRule,
 } from "../core";
 
 // O means obsolete
@@ -260,8 +263,8 @@ const OpenSyllableVowelsTemplate: PlainRule[] = (
     ["io", `CT${Thai._i}${Thai.WoWaenL}`],
     ["eo", `${Thai._e}CT${Thai.MaiHanAkat}${Thai.WoWaenL}`],
     ["ao", `${Thai._e}CT${Thai.LakKhang}`],
-    // TODO: what to do about Mai Han Akat + Yo Yak version of "ai"
     // [??, `CT${Thai.MaiHanAkat}${Thai.YoYakL}`],
+    // this should be automatic from "ay"
     ["awy", `CT${Thai.MaiTaikhu}${Thai.OAng}${Thai.YoYakL}`],
     ["uy", `CT${Thai._u}${Thai.YoYakL}`],
     // base vowels, long
@@ -417,7 +420,7 @@ const CircumfixSpelling: RegexRule[] = fillTemplate(
     ["S", `(${patternList(ThaiVowelSuffixLetters).source})`],
   ],
   [],
-);
+).map(toSingleWord);
 // TODO: special single word spellings
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
@@ -452,26 +455,45 @@ const [
   ([key, val]: PlainRule): boolean => !val.startsWith("CT"),
 );
 
-const InverseSyllableVowels: RegexRule[] = fillTemplate(
-  asInverse(
-    chainRule<PlainRule>(
-      CircumfixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
-      CircumfixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
-      SuffixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
-      [["CTa'", `CT${Thai.NomNang}`]],
-      SuffixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+const SafeFinalThaiConsonants: string[] = ThaiConsonants.filter(
+  (c: string): boolean => c != Thai.WoWaenL && c != Thai.YoYakL,
+);
+
+const InverseSyllableVowels: RegexRule[] = chainRule<PlainRule>(
+  fillTemplate(
+    asInverse(
+      chainRule<PlainRule>(
+        CircumfixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+        CircumfixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+        SuffixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+        [[`CT${Thai.NomNang}`, "CTa"]],
+        SuffixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+      ),
     ),
+    [
+      ["C", `((${patternList(ThaiConsonants).source})+)`],
+      ["T", `(${patternList(ThaiTones).source})?`],
+      ["X", `(${patternList(SafeFinalThaiConsonants).source})`],
+    ],
+    [
+      ["C", `$1`],
+      ["T", `$3`],
+      ["X", `$4`],
+    ],
   ),
-  [
-    ["C", `((${patternList(ThaiConsonants).source})+)`],
-    ["T", `(${patternList(ThaiTones).source})?`],
-    ["X", `(${patternList(ThaiConsonants).source})`],
-  ],
-  [
-    ["C", `$1`],
-    ["T", `$3`],
-    ["X", `$4`],
-  ],
+  fillTemplate(
+    asInverse(ClosedSyllableVowelsTemplate).sort(ruleKeyLengthDiff),
+    [
+      ["C", `((${patternList(ThaiConsonants).source})+)`],
+      ["T", `(${patternList(ThaiTones).source})?`],
+      ["X", `(${patternList([Thai.WoWaenL, Thai.YoYakL]).source})`],
+    ],
+    [
+      ["C", `$1`],
+      ["T", `$3`],
+      ["X", `$4`],
+    ],
+  ),
 ).map(toSingleWord);
 
 const ToLatinScheme: Rule[] = chainRule<Rule>(
@@ -489,14 +511,19 @@ const ToLatinScheme: Rule[] = chainRule<Rule>(
 export const toLatin = (input: string): string =>
   transliterate(input, ToLatinScheme);
 
+const StandardLatinSpecialVowels: RegexRule[] = [
+  before(["r\\r\\", "a"], patternList(LatinConsonants)),
+  toWordEnding([escape("r\\r\\"), "an"]),
+];
+
 const StandardLatinVowels: PlainRule[] = (
   [
     // diphthongs
-    ["iaa", "ia"],
+    ["iaa", "īa"],
     ["ia", "ia"],
-    ["ueaa", "uea"],
-    ["uea", "uea"],
-    ["uaa", "ua"],
+    ["ueaa", "ư̄a"],
+    ["uea", "ưa"],
+    ["uaa", "ūa"],
     ["ua", "ua"],
     ["aii", "ai"],
     ["ai", "ai"],
@@ -505,16 +532,16 @@ const StandardLatinVowels: PlainRule[] = (
     // actually just vowel + w or y, but for completion's sake
     // TODO: decide to keep this or simply let it be parsed using regular w
     // phonetic diphthongs, long
-    ["eeo", "eo"],
-    ["aaeo", "aeo"],
-    ["aao", "ao"],
-    ["iaao", "iao"],
-    ["aay", "ay"],
-    ["aawy", "oi"],
-    ["ooy", "oi"],
-    ["ooey", "oei"],
-    ["uaay", "uai"],
-    ["ueaai", "ueai"],
+    ["eeo", "ēo"],
+    ["aaeo", "ǣo"],
+    ["aao", "āo"],
+    ["iaao", "īao"],
+    ["aay", "āy"],
+    ["aawy", "ōi"],
+    ["ooy", "ōi"],
+    ["ooey", "œ̄i"],
+    ["uaay", "ūai"],
+    ["ueaai", "ư̄ai"],
     // phonetic diphthongs, short
     ["io", "io"],
     ["eo", "eo"],
@@ -522,21 +549,21 @@ const StandardLatinVowels: PlainRule[] = (
     ["awy", "oi"],
     ["uy", "ui"],
     // base vowels, long
-    ["aaw", "o"],
-    ["aae", "ae"],
-    ["ooe", "oe"],
-    ["uue", "ue"],
-    ["aa", "a"],
-    ["ee", "e"],
-    ["ii", "i"],
-    ["oo", "o"],
-    ["uu", "u"],
+    ["aaw", "ō"],
+    ["aae", "ǣ"],
+    ["ooe", "œ̄"],
+    ["uue", "ư̄"],
+    ["aa", "ā"],
+    ["ee", "ē"],
+    ["ii", "ī"],
+    ["oo", "ō"],
+    ["uu", "ū"],
 
     // base vowels, short
-    ["ae", "ae"],
+    ["ae", "æ"],
     ["aw", "o"],
-    ["oe", "oe"],
-    ["ue", "ue"],
+    ["oe", "œ"],
+    ["ue", "ư"],
     ["i", "i"],
     ["u", "u"],
     ["o", "o"],
@@ -604,23 +631,155 @@ const StandardLatinFinalConsonants: PlainRule[] = [
   ["'", ""],
 ];
 
-const StandardLatinSonorantFinals: string[] = ["ng", "m", "n", "w", "y"];
+const StandardLatinSonorantFinals: string[] = [
+  "ng",
+  "m",
+  "n",
+  "w",
+  "y",
+  "o",
+  "i",
+];
 const StandardLatinStopFinals: string[] = ["p", "t", "k"];
 
-const LatinSonorantFinals: string[] = getKeys<PlainRule>(
-  StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
-    StandardLatinSonorantFinals.includes(val),
-  ),
-);
+// const StandardLatinSonorantFinals: string[] = getKeys<PlainRule>(
+//   StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
+//     StandardLatinSonorantFinals.includes(val),
+//   ),
+// );
 
-const LatinStopFinals: string[] = getKeys<PlainRule>(
-  StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
-    StandardLatinStopFinals.includes(val),
-  ),
-);
+// const StandardLatinStopFinals: string[] = getKeys<PlainRule>(
+//   StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
+//     StandardLatinStopFinals.includes(val),
+//   ),
+// );
 
 // v is short vowel, V is long vowel, W is any vowel
-const StandardLatinTonesTemplate: PlainRule[] = [["LV", "LV1"]];
+// right side: 0 is mid tone, 1 is falling, 2 is low, 3 is high, 4 is rising
+// S is sonorant, P is stop/plosive
+// consonants: M is mid, L is low, H is high
+const StandardLatinTonesTemplate: PlainRule[] = [
+  // mai chattawa / tone 4
+  ["C4W", "CW4"],
+  // mai tri / tone 3
+  ["C3W", "CW3"],
+  // mai tho / tone 2
+  // mid/high
+  ["M2W", "MW1"],
+  ["H2W", "HW1"],
+  // low
+  ["L2W", "LW3"],
+  // mai ek / tone 1
+  // mid/high
+  ["M1W", "MW2"],
+  ["H1W", "HW2"],
+  // low
+  ["L1W", "LW1"],
+
+  // no tone mark
+  // sonorant
+  ["LWS", "LW0S"],
+  ["MWS", "MW0S"],
+
+  ["HWS", "HW4S"],
+  // plosive
+  ["MWP", "MW2P"],
+  ["HWP", "HW2P"],
+
+  ["LVP", "LV1P"],
+  ["LvP", "Lv3P"],
+
+  // none
+  // long vowel
+  // high
+  ["HVX", "HV4"],
+  // low/mid
+  ["LVX", "LV0"],
+  ["MVX", "MV0"],
+  // short vowel
+  // low
+  ["LvX", "Lv3"],
+  // mid/high
+  ["MvX", "Mv2"],
+  ["HvX", "Hv2"],
+];
+
+const LatinHighConsonants: string[] = [];
+const LatinMidConsonants: string[] = [];
+const LatinLowConsonants: string[] = [];
+
+for (const consonant of LatinConsonants) {
+  if (consonant.endsWith("/")) {
+    LatinHighConsonants.push(consonant);
+  } else if (consonant.endsWith("\\")) {
+    LatinLowConsonants.push(consonant);
+  } else {
+    LatinMidConsonants.push(consonant);
+  }
+}
+
+const StandardLatinAllVowels: string[] = getValues(
+  StandardLatinVowels.filter(
+    ([key, val]: PlainRule): boolean =>
+      // skip dipthongs
+      !(key.endsWith("y") || (key != "o" && key != "oo" && key.endsWith("o"))),
+  ),
+).sort(stringLengthDiff);
+
+const [StandardLatinLongVowels, StandardLatinShortVowels] = separate<string>(
+  StandardLatinAllVowels,
+  (vowel: string): boolean => vowel.includes("\u0304"), // macron symbol, i.e. ̄
+);
+
+const StandardLatinTones: Rule[] = fillTemplate(
+  StandardLatinTonesTemplate,
+  [
+    ["H", `(${patternList(LatinHighConsonants).source})`],
+    ["M", `(${patternList(LatinMidConsonants).source})`],
+    ["L", `(${patternList(LatinLowConsonants).source})`],
+    ["C", `(${patternList(LatinConsonants).source})`],
+
+    ["V", `(${patternList(StandardLatinLongVowels).source})`],
+    ["v", `(${patternList(StandardLatinShortVowels).source})`],
+    ["W", `(${patternList(StandardLatinAllVowels).source})`],
+
+    ["P", `(${patternList(StandardLatinStopFinals).source})`],
+    ["S", `(${patternList(StandardLatinSonorantFinals).source})`],
+    ["X", `(?=$|[${wordDelimitingPatterns}])`],
+  ],
+  [
+    ["0", ""],
+    ["1", "\u030C"],
+    ["2", "\u0300"],
+    ["3", "\u0301"],
+    ["4", "\u0302"],
+
+    ["H", "$1"],
+    ["M", "$1"],
+    ["L", "$1"],
+    ["C", "$1"],
+
+    ["V", "$2"],
+    ["v", "$2"],
+    ["W", "$2"],
+
+    ["P", "$3"],
+    ["S", "$3"],
+  ],
+).map(toRegexRule);
+
+const MonographStandardLatinVowel: string[] = StandardLatinAllVowels.filter(
+  (v: string): boolean => v.length == 1,
+);
+
+const StandardLatinDiacriticRepositioning: RegexRule[] = fillTemplate(
+  [["(V)(\u0304)?((V)+)(X)", "$1$2$5$3"]],
+  [
+    ["V", patternList(MonographStandardLatinVowel).source],
+    ["X", patternList(["\u030C", "\u0300", "\u0301", "\u0302"]).source],
+  ],
+  [],
+).map(toRegexRule);
 
 const StandardLatinConsonants: Rule[] = [
   ["k_h/", "kh"],
@@ -689,13 +848,16 @@ const StandardLatinScheme: Rule[] = chainRule<Rule>(
     ["-", ""],
     [`(${patternList(LatinConsonants).source})x`, ""],
   ],
+  StandardLatinSpecialVowels,
   asWordEnding(StandardLatinFinalConsonants),
-  prepareRules(StandardLatinConsonants),
   StandardLatinVowels,
+  StandardLatinTones,
+  prepareRules(StandardLatinConsonants),
+  StandardLatinDiacriticRepositioning,
 );
 
 export const toStandardLatin = (input: string): string =>
-  transliterate(input, StandardLatinScheme);
+  debugTransliterate(input, StandardLatinScheme);
 
 const IMEScheme: Rule[] = [[" ", "\u200C"]];
 
