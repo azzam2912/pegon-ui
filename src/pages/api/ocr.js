@@ -36,6 +36,7 @@ async function handlePostRequest(req, res) {
       const response = await axios.post(`${apiEndpoint}/infer`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          API_KEY: process.env.API_KEY,
         },
       });
 
