@@ -36,11 +36,10 @@ async function handlePostRequest(req, res) {
       const response = await axios.post(`${apiEndpoint}/infer`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          API_KEY: process.env.API_KEY,
+          "API-Key": process.env.API_KEY,
         },
       });
 
-      console.log(response.data);
       res.status(200).json(response.data);
     } catch (error) {
       console.error("Error forwarding data to OCR backend:", error);
