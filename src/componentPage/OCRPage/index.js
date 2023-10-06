@@ -51,7 +51,7 @@ export const OCRPage = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_ML_API_HOST}/infer`,
+        `/api/ocr`,
         formData,
         {
           headers: {
@@ -60,7 +60,7 @@ export const OCRPage = () => {
         },
       );
       setStatus("success");
-      setResult(response.data.result);
+      setResult(response.data.result.join(' '));
     } catch (error) {
       setStatus("error");
       console.error("Error uploading image:", error);

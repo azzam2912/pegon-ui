@@ -41,6 +41,7 @@
     "formidable": "^2.1.1",
     "framer-motion": "^10.12.2",
     "meilisearch": "^0.32.5",
+    "multer": "^1.4.5-lts.1",
     "next": "13.3.0",
     "next-pwa": "^5.6.0",
     "pdfjs-dist": "3.4.120",
