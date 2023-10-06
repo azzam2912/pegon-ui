@@ -167,6 +167,7 @@ const Consonants: PlainRule[] = [
 
   ["y/", Thai.HoHipH + Thai.YoYakL],
   ["y\\", Thai.YoYakL],
+  ["y", Thai.OAng + Thai.YoYakL],
 
   ["d", Thai.DoChadaM],
   ["d_t", Thai.DoDekM],
