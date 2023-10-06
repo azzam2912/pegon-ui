@@ -9,41 +9,43 @@ The [Tai Le](https://en.wikipedia.org/wiki/Tai_Le_script) script is used to writ
 
 The Tai-Le script developed from [the Mon–Burmese](https://en.wikipedia.org/wiki/Mon%E2%80%93Burmese_script "Mon–Burmese script") script. Thus, the script is connected with the [Ahom](https://en.wikipedia.org/wiki/Ahom_script "Ahom script") and [Khamti](https://en.wikipedia.org/wiki/Khamti_script "Khamti script") scripts
 
-Tai-Le, although was born from an abugida, is actually used like an alphabet. Whereas in an **abugida** syllables are constructed by affixing vowel signs to its independent consonants. Tai-Le, like other alphabetic scripts such as Latin and Greek, treats vowels as distinct units. What this means is that there are no letters representing consonants or vowels on their own--each letter represents a syllable unit. 
+Tai-Le is an **abugida** that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units. What this means is that there are no letters representing consonants or vowels on their own--each letter represents a syllable unit.
 
 
 ## Writing System
 The Tai-Le writing system consists of **consonants**, **vowels**, **special vowels**, and **tones**
 
+* Consonants are followed by an inherent /a/ sound, unless it is followed by a vowel.
+
 
 ### Independent Consonants :
 
-| Standard Latin | Reversible Latin    | Buhid | Phonetic Reading (IPA) |
+| Standard Latin | Reversible Latin    | Tai-Le | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
-| k  | `x` |   ᥐ      | /k/ |
-| x  | `x`      | ᥑ      | /x/ |
-| ng | `n_g`     | ᥒ      | /ŋ/|
-| ts | `t_s`      | ᥓ      | /t͡s/|
-| s | `s`      | ᥔ      | /s/|
-| y | `y`      | ᥕ      | /j/|
-| t | `t`      | ᥖ      | /t/|
-| th | `t_h`      | ᥗ      | /tʰ/|
-| l | `l`      | ᥘ      | /l/|
-| p | `p`      | ᥙ      | /p/|
-| ph | `p_h`      | ᥚ      | /pʰ/|
-| m | `m`      | ᥛ      | /m/|
-| f | `f`      | ᥜ      | /f/|
-| w | `w`      | ᥝ      | /w/|
-| h | `h`      | ᥞ      | /h/|
-| q | `q`      | ᥟ      | /ʔ/|
-| kh | `k_h`      | ᥠ      | /kʰ/|
-| tsh | `t_s_h`      | ᥡ      | /t͡sʰ/|
-| n | `n`      | ᥢ      | /n/|
+| ka  | `ka` |   ᥐ      | /ka/ |
+| xa  | `xa`      | ᥑ      | /xa/ |
+| nga | `n_ga`     | ᥒ      | /ŋa/|
+| tsa | `t_sa`      | ᥓ      | /t͡sa/|
+| sa | `sa`      | ᥔ      | /sa/|
+| ya | `ya`      | ᥕ      | /ja/|
+| ta | `ta`      | ᥖ      | /ta/|
+| tha | `t_ha`      | ᥗ      | /tʰa/|
+| la | `la`      | ᥘ      | /la/|
+| pa | `pa`      | ᥙ      | /pa/|
+| pha | `p_ha`      | ᥚ      | /pʰa/|
+| ma | `ma`      | ᥛ      | /ma/|
+| fa | `fa`      | ᥜ      | /fa/|
+| wa | `wa`      | ᥝ      | /wa/|
+| ha | `ha`      | ᥞ      | /ha/|
+| qa | `qa`      | ᥟ      | /ʔ/|
+| kha | `k_ha`      | ᥠ      | /kʰa/|
+| tsha | `t_s_ha`      | ᥡ      | /t͡sʰa/|
+| na | `na`      | ᥢ      | /n/|
 
 
 ### Vowels :
 
-| Standard Latin | Reversible Latin | Buhid | IPA |
+| Standard Latin | Reversible Latin | Tai-Le | IPA |
 | ------- | ------- | ------- | --- |
 | a       | `a`       | ᥣ      | /a/ |
 | i       | `i`      | ᥤ      | /i/|
@@ -59,18 +61,26 @@ The Tai-Le writing system consists of **consonants**, **vowels**, **special vowe
 
 Special vowels are basically vowels that are a mix of two vowels to create a new sound. It's also known as special syllables in this case. 
 
+* When all vowels except ᥤ[i], ᥦ[ɛ], and ᥬ[aɯ] is met with ᥭ[ai], the vowels will be followed by an -i instead of an -ai. Example : ᥩ[o] + ᥭ[ai] = ᥩᥭ[oi]
+* When ᥣ[a] meets ᥭ[ai], however, it becomes ᥣᥭ[a:i]
+* When all vowels except ᥧ[u], ᥨ[ɔ], and ᥬ[aɯ] is met with the consonant ᥝ[w], the vowels will be followed by an -u instead of a -w. Example : ᥥ[e] + ᥝ[w] = ᥥᥝ[au]
+* When ᥣ[a] meets ᥝ[w], however, it becomes ᥣᥝ[a:u]
 
-### Dependent Vowels :
+### Tones :
 
-| Standard Latin | Reversible Latin | Buhid | IPA  |
+| Standard Latin | Reversible Latin | Tai Le | IPA  |
 | ------- | ------- | ------- | ---- |
-| i      | `i`      | ᝒ      | /i/ |
-| u      | `u`       |  ᝓ       | /u/  |
+| - (high-level tone)      | `#2`      |ᥰ      | - (tone 2) |
+| - (low-level tone)      | `#3`       | ᥱ       | - (tone 3)  |
+| - (mid-fall tone)      | `#4`       | ᥲ       | - (tone 4)  |
+| - (high-fall tone)      | `#5`       | ᥳ       | - (tone 5)  |
+| - (mid-rise tone)      | `#6`       | ᥴ       | - (tone 6)  |
+
+By default, unmarked syllables would follow tone 1.
 
 
 ## Examples
 
 Here are some examples of Buhid script and its Latin counterpart :
 
-* ᝃᝑ ᝓᝃᝑ  : kahu kahu
-* ᝃ ᝓ ᝋᝎᝄ ᝓ : ku malagu
+* ᥖᥭᥰ ᥘᥫᥴ  : tai le (the tai le script)
