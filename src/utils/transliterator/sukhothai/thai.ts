@@ -394,8 +394,6 @@ const InverseSpecialSanskrit: Rule[] = asInverse([
   ...SpecialSanskritVowels,
 ]);
 
-console.debug(SpecialSanskrit);
-
 // second pass
 const SpecialFromLatin: RegexRule[] = [
   after(
