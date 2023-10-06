@@ -39,7 +39,7 @@ export const TransliterateInput = ({
   standardLatin,
   ...props
 }) => {
-  const fontFamily = getFont;
+  const fontFamily = getFont(script, variant);
   let result = "";
 
   {
