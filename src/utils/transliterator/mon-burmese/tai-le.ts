@@ -118,6 +118,19 @@ const monoConsonants: PlainRule[] = [
   ["n", TaiLe.Na],
 ];
 
+const tripleConsonantsA: PlainRule[] = [
+  ["t_s_ha", TaiLe.Tsha],
+]
+
+const monoConsonantsA: PlainRule[] = monoConsonants.map(([letter, taiLe]) => {
+  return [letter + 'a', taiLe];
+});
+
+const dualConsonantsA: PlainRule[] = dualConsonants.map(([letter, taiLe]) => {
+  return [letter + 'a', taiLe];
+});
+
+
 const diagraphVowels: PlainRule[] = [
   ["aai", TaiLe.Aai],
   ["ei", TaiLe.Ei],
@@ -146,7 +159,21 @@ const monographVowels: PlainRule[] = [
   ["o", TaiLe.O],
   ["^o", TaiLe.Oo],
   ["^u", TaiLe.Ue],
+];
+
+const FinalConsonants: PlainRule[] = [
+  ["m", TaiLe.Ma],
+  ["n", TaiLe.Na],
+  ["n_g", TaiLe.Nga],
+  ["p", TaiLe.Pa],
+  ["t", TaiLe.Ta],
+  ["k", TaiLe.Ka],
 ]
+
+const FinalConsonantsSyllables: PlainRule[] = ruleProduct(
+  monographVowels,
+  FinalConsonants
+);
 
 const tones: PlainRule[] = [
   ["#2", TaiLe.tone2],
@@ -172,6 +199,10 @@ const numbers: PlainRule[] = [
 
 const FromLatinScheme: Rule[] = prepareRules(
   chainRule(
+    FinalConsonantsSyllables,
+    tripleConsonantsA,
+    dualConsonantsA,
+    monoConsonantsA,
     tripleConsonants,
     dualConsonants,
     monoConsonants,
@@ -185,6 +216,10 @@ const FromLatinScheme: Rule[] = prepareRules(
 const ToLatinScheme: Rule[] = prepareRules(
   chainRule(
     // inverse second pass, first
+    asInverse(FinalConsonantsSyllables),
+    asInverse(tripleConsonantsA),
+    asInverse(dualConsonantsA),
+    asInverse(monoConsonantsA),
     asInverse(tripleConsonants),
     asInverse(dualConsonants),
     asInverse(monoConsonants),
@@ -228,9 +263,13 @@ export const toStandardLatin = (input: string): string =>
 
 const IMEScheme: Rule[] = prepareRules(
   chainRule(
+    makeTransitive(FinalConsonantsSyllables,
+    tripleConsonantsA,
+    dualConsonantsA,
+    monoConsonantsA,
     tripleConsonants,
     dualConsonants,
-    monoConsonants,
+    monoConsonants),
     diagraphVowels,
     monographVowels,
     tones,
