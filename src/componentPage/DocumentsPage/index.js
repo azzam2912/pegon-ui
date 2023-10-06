@@ -1,195 +1,187 @@
-import React from "react";
-import AppLayout from "../Page/AppLayout";
+import React, { useState } from "react";
+import NextLink from "next/link";
+import Head from "next/head";
 import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Heading,
-  IconButton,
-  Input,
-  Select,
-  Spacer,
-  Stack,
-  Text,
   VStack,
+  HStack,
+  Stack,
+  Flex,
+  Spacer,
+  Text,
+  Select,
+  IconButton,
+  InputGroup,
+  Input,
+  InputRightElement,
+  CloseButton,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  Button,
+  Heading,
+  Box,
+  Show,
 } from "@chakra-ui/react";
 import {
   FaChevronLeft,
   FaChevronRight,
+  FaFileUpload,
+  FaFilter,
   FaFolderOpen,
-  FaSearch,
 } from "react-icons/fa";
+import AppLayout from "src/componentPage/Page/AppLayout";
+import FilterInput from "src/components/FilterInput";
+import LanguageFilter from "src/components/LanguageFilter";
+import { DocumentData } from "src/componentPage/DocumentsPage/Fragments/DocumentData";
+import { DocumentSkeleton } from "src/componentPage/DocumentsPage/Fragments/DocumentSkeleton";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
-import Head from "next/head";
-import { useSearchBar } from "../Page";
-import { DocumentSkeleton } from "./Fragments/DocumentSkeleton";
-import { DocumentData } from "./Fragments/DocumentData";
-
-import {
-  AutoComplete,
-  AutoCompleteGroup,
-  AutoCompleteGroupTitle,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList,
-} from "@choc-ui/chakra-autocomplete";
 import { languages } from "src/utils/languageList";
 
-languages["All"] = ["All Languages"];
-
-const DocumentsPage = () => {
-  return (
-    <AppLayout>
-      <Head>
-        <title>Documents and Manuscripts - Aksarantara</title>
-        <meta
-          name="description"
-          content="View all of available documents and manuscripts here!"
-        />
-        <meta
-          property="og:title"
-          content="Documents and Manuscripts - Aksarantara"
-          key="title"
-        />
-        <meta
-          property="og:description"
-          content="View all of available documents and manuscripts here!"
-          key="description"
-        />
-        <meta property="og:image" content="logo.png" key="image" />
-      </Head>
-      <VStack w="100%" align="stretch" p={8}>
-        <DataComponent />
-      </VStack>
-    </AppLayout>
-  );
-};
+const DocumentsPage = () => (
+  <AppLayout>
+    <Head>
+      <title>Explore Documents - Aksarantara</title>
+      <meta
+        name="description"
+        content="View all of available documents and manuscripts here!"
+      />
+      <meta
+        property="og:title"
+        content="Explore Documents - Aksarantara"
+        key="title"
+      />
+      <meta
+        property="og:description"
+        content="View all of available documents and manuscripts here!"
+        key="description"
+      />
+      <meta property="og:image" content="logo.png" key="image" />
+    </Head>
+    <VStack w="100%" align="stretch" p={8}>
+      <DataComponent />
+    </VStack>
+  </AppLayout>
+);
 
 const DataComponent = () => {
-  const [itemsPerPage, setItemsPerPage] = React.useState(5); // Number of items to display per page
-  const [currentPage, setCurrentPage] = React.useState(1); // Current page number (can be dynamic)
-  const { onOpen } = useSearchBar();
-
-  const [filter, setFilter] = React.useState({
-    documentType: "",
-    Author: "",
-    Collector: "",
-    language: "",
-  });
-
-  const [documentType, setDocumentType] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [collector, setCollector] = React.useState("");
-  const [language, setLanguage] = React.useState("");
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [title, setTitle] = useState("");
+  const [documentType, setDocumentType] = useState("");
+  const [author, setAuthor] = useState("");
+  const [collector, setCollector] = useState("");
+  const [language, setLanguage] = useState("");
   const { data, status } = useDocumentsQuery({
     config: {},
     page: currentPage,
     pageSize: itemsPerPage,
     queries: {
       populate: "*",
-      "filters[language][$containsi]": filter.language,
-      "filters[documentType][$containsi]": filter.documentType,
-      "filters[author][$containsi]": filter.author,
-      "filters[collector][$containsi]": filter.collector,
+      "filters[title][$containsi]": title,
+      "filters[language][$containsi]": language,
+      "filters[documentType][$containsi]": documentType,
+      "filters[author][$containsi]": author,
+      "filters[collector][$containsi]": collector,
     },
   });
 
   const currentData = data?.data;
-
-  const handleFilter = () => {
-    setFilter({
-      documentType: documentType,
-      author: author,
-      collector: collector,
-      language: language,
-    });
-    setCurrentPage(1);
-  };
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   return (
     <>
       <VStack align="left" mb={5}>
-        <Heading size="lg">Explore Documents</Heading>
+        <HStack>
+          <Heading size="lg">Explore Documents</Heading>
+          <Spacer />
+          <Show above="sm">
+            <Button
+              as={NextLink}
+              href="/app/documents/new"
+              size={["sm", "md"]}
+              leftIcon={<FaFileUpload />}
+              colorScheme="primary"
+              variant="solid"
+            >
+              Contribute
+            </Button>
+          </Show>
+        </HStack>
         <Text color="gray.500">
           {data?.meta.pagination.total} entries found
         </Text>
       </VStack>
-      <Stack
-        mt={5}
-        direction={{
-          base: "column",
-          lg: "row",
-        }}
-        align="stretch"
-        w="100%"
-      >
-        <IconButton
-          icon={<FaSearch />}
-          onClick={onOpen}
-          aria-label="Search database"
-          variant="outline"
-          width="min-content"
-        />
-        <HStack>
-          <Flex base="1" md="auto" htmlSize="10">
-            <AutoComplete openOnFocus onChange={(val) => setLanguage(val)}>
-              <AutoCompleteInput placeholder="All Languages" />
-              <AutoCompleteList>
-                {Object.entries(languages).map(([family, langs], lf_id) => (
-                  <AutoCompleteGroup key={lf_id} showDivider>
-                    <AutoCompleteGroupTitle>{family}</AutoCompleteGroupTitle>
-                    {langs.map((language, idx) => (
-                      <AutoCompleteItem key={idx} value={language}>
-                        {language}
-                      </AutoCompleteItem>
-                    ))}
-                  </AutoCompleteGroup>
-                ))}
-              </AutoCompleteList>
-            </AutoComplete>
-          </Flex>
-          <Input
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            width="auto"
-            type="text"
+
+      <Show above="md">
+        <Stack mt={5} direction="row" align="stretch" w="100%">
+          <HStack mr={3}>
+            <FaFilter color="primary" />
+            <Text color="primary">Filter</Text>
+          </HStack>
+          <FilterInput placeholder="Title" value={title} setValue={setTitle} />
+          <LanguageFilter language={language} setLanguage={setLanguage} />
+          <FilterInput
             placeholder="Document Type"
-            onChange={(e) => setDocumentType(e.target.value)}
+            value={documentType}
+            setValue={setDocumentType}
           />
-        </HStack>
-        <HStack>
-          <Input
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            width="auto"
-            type="text"
+          <FilterInput
             placeholder="Author"
-            onChange={(e) => setAuthor(e.target.value)}
+            value={author}
+            setValue={setAuthor}
           />
-          <Input
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            width="auto"
-            type="text"
+          <FilterInput
             placeholder="Collector"
-            onChange={(e) => setCollector(e.target.value)}
+            value={collector}
+            setValue={setCollector}
           />
-        </HStack>
-        <Spacer />
-        <Button onClick={handleFilter} colorScheme="primary" width="auto">
-          Filter
-        </Button>
-      </Stack>
+        </Stack>
+      </Show>
+
+      <Show below="md">
+        <Accordion allowToggle>
+          <AccordionItem>
+            <AccordionButton>
+              <HStack>
+                <FaFilter />
+                <Text>Filter</Text>
+              </HStack>
+            </AccordionButton>
+            <AccordionPanel pb={4}>
+              <Stack
+                direction={{ base: "column", lg: "row" }}
+                align="stretch"
+                w="100%"
+              >
+                <FilterInput
+                  placeholder="Title"
+                  value={title}
+                  setValue={setTitle}
+                />
+                <LanguageFilter language={language} setLanguage={setLanguage} />
+                <FilterInput
+                  placeholder="Document Type"
+                  value={documentType}
+                  setValue={setDocumentType}
+                />
+                <FilterInput
+                  placeholder="Author"
+                  value={author}
+                  setValue={setAuthor}
+                />
+                <FilterInput
+                  placeholder="Collector"
+                  value={collector}
+                  setValue={setCollector}
+                />
+              </Stack>
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      </Show>
+
       <VStack pt={3} align="stretch">
         <Box width="100%">
           <VStack
@@ -201,8 +193,38 @@ const DataComponent = () => {
             overflowX="auto"
             width="100%"
           >
+            <Flex
+              align="center"
+              justify="space-between"
+              p="4"
+              minWidth="max-content"
+              borderBottomWidth="1px"
+            >
+              <Text as="b" width="48px" fontSize="sm"></Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Title
+              </Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Contributor
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Language
+              </Text>
+              <Text as="b" width="80px" fontSize="sm" ml="4">
+                Document Type
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Author
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Collector
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Publication Date
+              </Text>
+            </Flex>
             {currentData?.map(({ id, attributes: item }, index) => (
-              <DocumentData index={index} id={id} item={item} />
+              <DocumentData key={id} index={index} id={id} item={item} />
             ))}
             {status === "loading" && (
               <>
@@ -229,7 +251,6 @@ const DataComponent = () => {
               </Flex>
             )}
           </VStack>
-          {/* Pagination */}
           <Flex align="center" pt={4}>
             <Select
               width="fit-content"
@@ -244,7 +265,7 @@ const DataComponent = () => {
               <option value={15}>15</option>
             </Select>
             <Text mx="3" fontSize="sm" color="gray.500">
-              Items per page
+              items per page
             </Text>
             <Spacer />
             <Flex align="center" justify="flex-end">

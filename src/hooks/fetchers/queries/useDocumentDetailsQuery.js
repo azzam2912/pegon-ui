@@ -7,9 +7,6 @@ export const useDocumentDetailsQuery = ({ config, id }) => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_HOST}/documents/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
           params: {
             populate: "*",
           },
@@ -21,5 +18,9 @@ export const useDocumentDetailsQuery = ({ config, id }) => {
     }
   };
 
-  return useFetchQuery(["documentDetail", {id}], _documentDetailsQuery, config);
+  return useFetchQuery(
+    ["documentDetail", { id }],
+    _documentDetailsQuery,
+    config,
+  );
 };

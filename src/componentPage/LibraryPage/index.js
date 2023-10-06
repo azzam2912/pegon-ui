@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import AppLayout from "../Page/AppLayout";
+import React, { useEffect, useState } from "react";
+import AppLayout from "src/componentPage/Page/AppLayout";
 import {
   Badge,
   Box,
@@ -10,11 +10,7 @@ import {
   IconButton,
   Image,
   Input,
-  InputGroup,
-  InputLeftElement,
   Select,
-  SkeletonCircle,
-  SkeletonText,
   Spacer,
   Stack,
   Tab,
@@ -22,7 +18,12 @@ import {
   Tabs,
   Text,
   VStack,
-  useToast,
+  Show,
+  CloseButton,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import {
   FaBookmark,
@@ -32,30 +33,34 @@ import {
   FaHistory,
   FaPenSquare,
   FaSearch,
+  FaFilter,
 } from "react-icons/fa";
 import Link from "next/link";
 import { useDocumentsQuery } from "src/hooks/fetchers/queries/useDocumentsQuery";
 import Head from "next/head";
 import { useUserInfoQuery } from "src/hooks/fetchers/queries/useUserInfoQuery";
-import { MdDelete } from "react-icons/md";
+import { MdBookmarkRemove } from "react-icons/md";
 import { useRemoveBookmarkMutation } from "src/hooks/fetchers/mutations/useRemoveBookmarkMutation";
 import { useQueryClient } from "@tanstack/react-query";
-
-import {
-  AutoComplete,
-  AutoCompleteGroup,
-  AutoCompleteGroupTitle,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList,
-} from "@choc-ui/chakra-autocomplete";
+import FilterInput from "src/components/FilterInput";
+import LanguageFilter from "src/components/LanguageFilter";
+import { DocumentData } from "src/componentPage/DocumentsPage/Fragments/DocumentData";
+import { DocumentSkeleton } from "src/componentPage/DocumentsPage/Fragments/DocumentSkeleton";
 import { languages } from "src/utils/languageList";
-
-languages["All"] = ["All Languages"];
+import { useUserDocumentsQuery } from "src/hooks/fetchers/queries/useUserDocumentsQuery";
 
 const LibraryPage = () => {
   return (
     <AppLayout>
+      <Head>
+        <title>My Library - Aksarantara</title>
+        <meta
+          property="og:title"
+          content="My Library - Aksarantara"
+          key="title"
+        />
+        <meta property="og:image" content="logo.png" key="image" />
+      </Head>
       <VStack w="100%" align="stretch" p={8}>
         <DataComponent />
       </VStack>
@@ -68,19 +73,12 @@ const DataComponent = () => {
   const [itemsPerPage, setItemsPerPage] = React.useState(5); // Number of items to display per page
   const [currentPage, setCurrentPage] = React.useState(1); // Current page number (can be dynamic)
 
-  const [filter, setFilter] = React.useState({
-    documentType: "",
-    Author: "",
-    Collector: "",
-    language: "",
-    title: "",
-  });
-
   const [title, setTitle] = React.useState("");
   const [documentType, setDocumentType] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [collector, setCollector] = React.useState("");
   const [language, setLanguage] = React.useState("");
+  
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -98,7 +96,7 @@ const DataComponent = () => {
       publicationState: "preview",
     },
   ];
-  const createToast = useToast();
+
   const queryClient = useQueryClient();
   const { mutate: removeBookmark, status: removeBookmarkStatus } =
     useRemoveBookmarkMutation({
@@ -107,7 +105,7 @@ const DataComponent = () => {
           queryClient.invalidateQueries({ queryKey: ["documents"] });
           createToast({
             title: "Success",
-            description: "You have successfully removed a bookmark",
+            description: "Bookmark removed.",
             status: "success",
             position: "bottom-right",
             isClosable: true,
@@ -116,7 +114,7 @@ const DataComponent = () => {
       },
     });
 
-  const { data, status } = useDocumentsQuery({
+  const { data, status } = useUserDocumentsQuery({
     config: {
       enabled: !!user?.id,
     },
@@ -124,42 +122,28 @@ const DataComponent = () => {
     pageSize: itemsPerPage,
     queries: {
       populate: "*",
-      "filters[language][$containsi]": filter.language,
-      "filters[documentType][$containsi]": filter.documentType,
-      "filters[author][$containsi]": filter.author,
-      "filters[collector][$containsi]": filter.collector,
-      "filters[title][$containsi]": filter.title,
+      "filters[language][$containsi]": language,
+      "filters[documentType][$containsi]": documentType,
+      "filters[author][$containsi]": author,
+      "filters[collector][$containsi]": collector,
+      "filters[title][$containsi]": title,
       ...pageFilter[library],
     },
   });
 
   const currentData = data?.data;
 
-  const handleFilter = () => {
-    setFilter({
-      documentType: documentType,
-      author: author,
-      collector: collector,
-      language: language,
-      title: title,
-    });
-  };
-
   useEffect(() => {
     setCurrentPage(1);
-  }, [filter, library]);
+    setTitle("");
+    setDocumentType("");
+    setAuthor("");
+    setCollector("");
+    setLanguage("");
+  }, [library]);
 
   return (
     <>
-      <Head>
-        <title>My Library - Aksarantara</title>
-        <meta
-          property="og:title"
-          content="My Library - Aksarantara"
-          key="title"
-        />
-        <meta property="og:image" content="logo.png" key="image" />
-      </Head>
       <Stack
         direction={{
           base: "column",
@@ -224,93 +208,74 @@ const DataComponent = () => {
           </TabList>
         </Tabs>
       </Stack>
-      <Stack
-        mt={5}
-        direction={{
-          base: "column",
-          lg: "row",
-        }}
-        align="stretch"
-        w="100%"
-      >
-        <InputGroup width="auto">
-          <InputLeftElement pointerEvents="none">
-            <FaSearch />
-          </InputLeftElement>
-          <Input
-            onChange={(e) => setTitle(e.target.value)}
-            type="text"
-            placeholder="Document Title"
-            value={title}
-          />
-        </InputGroup>
-        <HStack>
-          <Flex base="1" md="auto" htmlSize="10">
-            <AutoComplete openOnFocus onChange={(val) => setLanguage(val)}>
-              <AutoCompleteInput placeholder="All Languages" />
-              <AutoCompleteList>
-                {Object.entries(languages).map(([family, langs], lf_id) => (
-                  <AutoCompleteGroup key={lf_id} showDivider>
-                    <AutoCompleteGroupTitle>{family}</AutoCompleteGroupTitle>
-                    {langs.map((language, idx) => (
-                      <AutoCompleteItem key={idx} value={language}>
-                        {language}
-                      </AutoCompleteItem>
-                    ))}
-                  </AutoCompleteGroup>
-                ))}
-              </AutoCompleteList>
-            </AutoComplete>
-          </Flex>
-          <Input
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            htmlSize={20}
-            width="auto"
-            type="text"
+      <Show above="md">
+        <Stack mt={5} direction="row" align="stretch" w="100%">
+          <HStack mr={3}>
+            <FaFilter color="primary" />
+            <Text color="primary">Filter</Text>
+          </HStack>
+          <FilterInput placeholder="Title" value={title} setValue={setTitle} />
+          <LanguageFilter language={language} setLanguage={setLanguage} />
+          <FilterInput
             placeholder="Document Type"
-            onChange={(e) => setDocumentType(e.target.value)}
             value={documentType}
+            setValue={setDocumentType}
           />
-        </HStack>
-        <HStack>
-          <Input
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            htmlSize={10}
-            width="auto"
-            type="text"
+          <FilterInput
             placeholder="Author"
-            onChange={(e) => setAuthor(e.target.value)}
             value={author}
+            setValue={setAuthor}
           />
-          <Input
-            flex={{
-              base: "1",
-              md: "auto",
-            }}
-            htmlSize={10}
-            width="auto"
-            type="text"
+          <FilterInput
             placeholder="Collector"
-            onChange={(e) => setCollector(e.target.value)}
             value={collector}
+            setValue={setCollector}
           />
-        </HStack>
-        <Spacer />
-        <Button
-          onClick={handleFilter}
-          colorScheme="primary"
-          htmlSize={10}
-          width="auto"
-        >
-          Filter
-        </Button>
-      </Stack>
+        </Stack>
+      </Show>
+
+      <Show below="md">
+        <Accordion allowToggle>
+          <AccordionItem>
+            <AccordionButton>
+              <HStack>
+                <FaFilter />
+                <Text>Filter</Text>
+              </HStack>
+            </AccordionButton>
+            <AccordionPanel pb={4}>
+              <Stack
+                direction={{ base: "column", lg: "row" }}
+                align="stretch"
+                w="100%"
+              >
+                <FilterInput
+                  placeholder="Title"
+                  value={title}
+                  setValue={setTitle}
+                />
+                <LanguageFilter language={language} setLanguage={setLanguage} />
+                <FilterInput
+                  placeholder="Document Type"
+                  value={documentType}
+                  setValue={setDocumentType}
+                />
+                <FilterInput
+                  placeholder="Author"
+                  value={author}
+                  setValue={setAuthor}
+                />
+                <FilterInput
+                  placeholder="Collector"
+                  value={collector}
+                  setValue={setCollector}
+                />
+              </Stack>
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      </Show>
+
       <VStack pt={3} align="stretch">
         <Box width="100%">
           <VStack
@@ -322,81 +287,38 @@ const DataComponent = () => {
             overflowX="auto"
             width="100%"
           >
+            <Flex
+              align="center"
+              justify="space-between"
+              p="4"
+              minWidth="max-content"
+              borderBottomWidth="1px"
+            >
+              <Text as="b" width="48px" fontSize="sm"></Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Title
+              </Text>
+              <Text as="b" width="160px" fontSize="sm" ml="4">
+                Contributor
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Language
+              </Text>
+              <Text as="b" width="80px" fontSize="sm" ml="4">
+                Document Type
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Author
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Collector
+              </Text>
+              <Text as="b" width="100px" fontSize="sm" ml="4">
+                Publication Date
+              </Text>
+            </Flex>
             {currentData?.map(({ id, attributes: item }, index) => (
-              <Flex
-                key={index}
-                align="center"
-                justify="space-between"
-                p="4"
-                as={Link}
-                href={`/app/documents/${id}`}
-                minWidth="max-content"
-                borderBottomWidth="1px"
-                _hover={{
-                  bg: "gray.800",
-                  "& > button": {
-                    opacity: 1,
-                  },
-                }}
-                position="relative"
-              >
-                <Flex width="240px" align="center" flexShrink={0}>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_HOST}${item?.thumbnail.data?.attributes.url}`}
-                    fallbackSrc="https://via.placeholder.com/48"
-                    alt="Thumbnail"
-                    objectFit="cover"
-                    boxSize="48px"
-                    borderRadius="full"
-                  />
-                  <Text noOfLines={1} fontSize="sm" ml={4}>
-                    {item?.title}
-                  </Text>
-                </Flex>
-                <Text
-                  width="160px"
-                  noOfLines={1}
-                  fontSize="sm"
-                  color="gray.500"
-                  ml="4"
-                >
-                  By {item?.contributor.data?.attributes.firstName}{" "}
-                  {item?.contributor.data?.attributes.lastName}
-                </Text>
-                <Text width="100px" noOfLines={1} fontSize="sm" ml="4">
-                  <Badge colorScheme="blue">{item?.language}</Badge>
-                </Text>
-                <Text color="gray.500" width="80px" fontSize="sm" ml="4">
-                  {item?.documentType}
-                </Text>
-                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
-                  {item?.author ? item.author : "Unknown Author"}
-                </Text>
-                <Text color="gray.500" width="100px" fontSize="sm" ml="4">
-                  {item?.collector ? item.collector : "Unknown Collector"}
-                </Text>
-                <Text width="100px" fontSize="sm" ml="4" color="gray.500">
-                  {item?.publishedAt ? item.publishedAt : "Unpublished"}
-                </Text>
-                {library === 0 ? (
-                  <IconButton
-                    position="absolute"
-                    left="5"
-                    top="auto"
-                    borderRadius="full"
-                    aria-label="Delete Bookmark"
-                    colorScheme="red"
-                    opacity={0}
-                    icon={<MdDelete />}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      removeBookmark(id);
-                    }}
-                    isDisabled={removeBookmarkStatus === "loading"}
-                    isLoading={removeBookmarkStatus === "loading"}
-                  />
-                ) : null}
-              </Flex>
+              <DocumentData key={id} index={index} id={id} item={item} />
             ))}
             {status === "loading" && (
               <>
@@ -442,7 +364,7 @@ const DataComponent = () => {
               <option value={15}>15</option>
             </Select>
             <Text mx="3" fontSize="sm" color="gray.500">
-              Items per page
+              items per page
             </Text>
             <Spacer />
             <Flex align="center" justify="flex-end">
@@ -470,61 +392,6 @@ const DataComponent = () => {
         </Box>
       </VStack>
     </>
-  );
-};
-
-const DocumentSkeleton = () => {
-  return (
-    <Flex
-      align="center"
-      justify="space-between"
-      p="4"
-      minWidth="max-content"
-      borderBottomWidth="1px"
-    >
-      <Flex width="240px" align="center" as={Link} href="/" flexShrink={0}>
-        <SkeletonCircle size="48px" />
-        <SkeletonText noOfLines={1} fontSize="sm" ml={4} />
-      </Flex>
-      <SkeletonText
-        width="160px"
-        noOfLines={1}
-        fontSize="sm"
-        color="gray.500"
-        ml="4"
-      />
-      <SkeletonText
-        color="gray.500"
-        noOfLines={1}
-        width="80px"
-        fontSize="sm"
-        ml="4"
-      />
-      <SkeletonText width="100px" noOfLines={1} fontSize="sm" ml="4" />
-      <SkeletonText
-        color="gray.500"
-        noOfLines={1}
-        width="100px"
-        fontSize="sm"
-        ml="4"
-      />
-      <SkeletonText
-        color="gray.500"
-        noOfLines={1}
-        width="100px"
-        fontSize="sm"
-        ml="4"
-      />
-      <SkeletonText
-        width="100px"
-        fontSize="sm"
-        noOfLines={1}
-        ml="4"
-        color="gray.500"
-      >
-        2023-05-24T07:35:16.900Z
-      </SkeletonText>
-    </Flex>
   );
 };
 

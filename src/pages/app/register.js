@@ -1,6 +1,6 @@
 import SignUpPage from "src/componentPage/SignUpPage";
-import {Page} from "src/componentPage/Page";
+import { Page } from "src/componentPage/Page";
 
-export default function Login() {
+export default function Register() {
   return <Page pageComponent={SignUpPage} />;
 }

@@ -71,7 +71,7 @@ export const SearchModal = () => {
             </InputLeftElement>
             <Input
               type="text"
-              placeholder="Search Here"
+              placeholder="Search documents"
               colorScheme="blackAlpha"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
