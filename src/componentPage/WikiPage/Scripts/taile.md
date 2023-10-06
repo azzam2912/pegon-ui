@@ -1,5 +1,3 @@
-
-
 # Tai Le Script
 
 The [Tai Le](https://en.wikipedia.org/wiki/Tai_Le_script) script is used to write [ Tai Nüa](https://en.wikipedia.org/wiki/Tai_N%C3%BCa_language "Tai Nüa language"), [Ta'ang](https://en.wikipedia.org/wiki/Palaung_language "Palaung language"), [Blang](https://en.wikipedia.org/wiki/Blang_language "Blang language"), and [Achang](https://en.wikipedia.org/wiki/Achang_language "Achang language") languages.
@@ -13,12 +11,13 @@ Tai-Le is an **abugida** that constructs syllables by affixing vowel signs to it
 
 
 ## Writing System
-The Tai-Le writing system consists of **consonants**, **vowels**, **special vowels**, and **tones**
+The Tai-Le writing system consists of **consonants**, **final consonants**, **vowels**, **special vowels**, and **tones**
 
 * Consonants are followed by an inherent /a/ sound, unless it is followed by a vowel.
+* Final Consonants are consonants that may end without being followed by another vowel. For example, ᥥᥛ would be read as /em/ instead of /ema/
 
 
-### Independent Consonants :
+### Consonants :
 
 | Standard Latin | Reversible Latin    | Tai-Le | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -41,6 +40,17 @@ The Tai-Le writing system consists of **consonants**, **vowels**, **special vowe
 | kha | `k_ha`      | ᥠ      | /kʰa/|
 | tsha | `t_s_ha`      | ᥡ      | /t͡sʰa/|
 | na | `na`      | ᥢ      | /n/|
+
+### Final Consonants :
+
+| Standard Latin | Reversible Latin    | Tai-Le | Phonetic Reading (IPA) |
+| ------- | ------- | ------- | --- |
+| -m  | `-m` |   ᥐ      | /-m/ |
+| -n  | `-n`      | ᥑ      | /-n/ |
+| -ng | `-n_g`     | ᥒ      | /-ŋ/|
+| -p | `-p`      | ᥓ      | /-p/|
+| -t | `-t`      | ᥔ      | /-t/|
+| -k | `-k`      | ᥕ      | /-k/|
 
 
 ### Vowels :
