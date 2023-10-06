@@ -395,7 +395,7 @@ const InverseSpecialSanskrit: Rule[] = asInverse([
   ...SpecialSanskritVowels,
 ]);
 
-const SpecialWords: Rule[] = [["kaaw", Thai.KoKaiM + Thai.MaiTaikhu]];
+const SpecialWords: PlainRule[] = [["kaaw", Thai.KoKaiM + Thai.MaiTaikhu]];
 
 // second pass
 const SpecialFromLatin: RegexRule[] = [
@@ -447,7 +447,7 @@ const CircumfixSpelling: RegexRule[] = fillTemplate(
 // TODO: special single word spellings
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
-  SpecialWords.map(toSingleWord),
+  SpecialWords.map<RegexRule>(toSingleWord),
   ClosedSyllableVowels,
   OpenSyllableVowels,
   [after(patternList(LatinConsonants), ["x", Thai.Thanthakhat])],
@@ -494,10 +494,12 @@ const InverseSyllableVowels: RegexRule[] = chainRule<PlainRule>(
   fillTemplate(
     asInverse(
       chainRule<PlainRule>(
-        [
-          ...CircumfixClosedSyllableVowelsTemplate,
-          ["CTooeX", `${Thai._e}CT${Thai.OAng}X`],
-        ].sort(ruleKeyLengthDiff),
+        (
+          [
+            ...CircumfixClosedSyllableVowelsTemplate,
+            ["CTooeX", `${Thai._e}CT${Thai.OAng}X`],
+          ] as PlainRule[]
+        ).sort(ruleKeyLengthDiff),
         CircumfixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
         SuffixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
         [["CTa", `CT${Thai.NomNang}`]],
@@ -678,23 +680,28 @@ const StandardLatinSonorantFinals: string[] = [
 ];
 const StandardLatinStopFinals: string[] = ["p", "t", "k"];
 
-// const StandardLatinSonorantFinals: string[] = getKeys<PlainRule>(
-//   StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
-//     StandardLatinSonorantFinals.includes(val),
-//   ),
-// );
-
-// const StandardLatinStopFinals: string[] = getKeys<PlainRule>(
-//   StandardLatinFinalConsonants.filter(([key, val]: PlainRule): boolean =>
-//     StandardLatinStopFinals.includes(val),
-//   ),
-// );
-
 // v is short vowel, V is long vowel, W is any vowel
 // right side: 0 is mid tone, 1 is falling, 2 is low, 3 is high, 4 is rising
 // S is sonorant, P is stop/plosive
 // consonants: M is mid, L is low, H is high
+// X is no consonant
+// no tone goes first so that it matches the narrowest rule
+// in case any of the other rules reduce the tones and
+// make the diacritic disappear
 const StandardLatinTonesTemplate: PlainRule[] = [
+  // none
+  // long vowel
+  // high
+  ["HVX", "HV4"],
+  // low/mid
+  ["LVX", "LV0"],
+  ["MVX", "MV0"],
+  // short vowel
+  // low
+  ["LvX", "Lv3"],
+  // mid/high
+  ["MvX", "Mv2"],
+  ["HvX", "Hv2"],
   // mai chattawa / tone 4
   ["C4W", "CW4"],
   // mai tri / tone 3
@@ -724,20 +731,6 @@ const StandardLatinTonesTemplate: PlainRule[] = [
 
   ["LVP", "LV1P"],
   ["LvP", "Lv3P"],
-
-  // none
-  // long vowel
-  // high
-  ["HVX", "HV4"],
-  // low/mid
-  ["LVX", "LV0"],
-  ["MVX", "MV0"],
-  // short vowel
-  // low
-  ["LvX", "Lv3"],
-  // mid/high
-  ["MvX", "Mv2"],
-  ["HvX", "Hv2"],
 ];
 
 const LatinHighConsonants: string[] = [];
