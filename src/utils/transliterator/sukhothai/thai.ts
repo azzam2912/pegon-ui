@@ -394,6 +394,8 @@ const InverseSpecialSanskrit: Rule[] = asInverse([
   ...SpecialSanskritVowels,
 ]);
 
+const SpecialWords: Rule[] = [["kaaw", Thai.KoKaiM + Thai.MaiTaikhu]];
+
 // second pass
 const SpecialFromLatin: RegexRule[] = [
   after(
@@ -444,6 +446,7 @@ const CircumfixSpelling: RegexRule[] = fillTemplate(
 // TODO: special single word spellings
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
+  SpecialWords.map(toSingleWord),
   ClosedSyllableVowels,
   OpenSyllableVowels,
   [after(patternList(LatinConsonants), ["x", Thai.Thanthakhat])],
@@ -476,18 +479,27 @@ const [
   ([key, val]: PlainRule): boolean => !val.startsWith("CT"),
 );
 
+const UnsafeFinalThaiConsonants: string[] = [
+  Thai.WoWaenL,
+  Thai.OAng,
+  Thai.YoYakL,
+];
+
 const SafeFinalThaiConsonants: string[] = ThaiConsonants.filter(
-  (c: string): boolean => c != Thai.WoWaenL && c != Thai.YoYakL,
+  (c: string): boolean => !UnsafeFinalThaiConsonants.includes(c),
 );
 
 const InverseSyllableVowels: RegexRule[] = chainRule<PlainRule>(
   fillTemplate(
     asInverse(
       chainRule<PlainRule>(
-        CircumfixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
+        [
+          ...CircumfixClosedSyllableVowelsTemplate,
+          ["CTooeX", `${Thai._e}CT${Thai.OAng}X`],
+        ].sort(ruleKeyLengthDiff),
         CircumfixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
         SuffixClosedSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
-        [[`CT${Thai.NomNang}`, "CTa"]],
+        [["CTa", `CT${Thai.NomNang}`]],
         SuffixOpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
       ),
     ),
@@ -507,7 +519,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<PlainRule>(
     [
       ["C", `((${patternList(ThaiConsonants).source})+)`],
       ["T", `(${patternList(ThaiTones).source})?`],
-      ["X", `(${patternList([Thai.WoWaenL, Thai.YoYakL]).source})`],
+      ["X", `(${patternList(UnsafeFinalThaiConsonants).source})`],
     ],
     [
       ["C", `$1`],
@@ -518,6 +530,7 @@ const InverseSyllableVowels: RegexRule[] = chainRule<PlainRule>(
 ).map(toSingleWord);
 
 const ToLatinScheme: Rule[] = chainRule<Rule>(
+  asInverse(SpecialWords).map(toSingleWord),
   [[Thai.Thanthakhat, "x"]],
   InverseSyllableVowels,
   InverseSpecialSanskrit,
