@@ -1,3 +1,4 @@
+
 # Lontara Script
 
 The [Lontara](https://en.wikipedia.org/wiki/Lontara_script) or Bugis script is mainly utilised to write the [Buginese](https://en.wikipedia.org/wiki/Buginese_language "Buginese language"), [Makassarese](https://en.wikipedia.org/wiki/Makassarese_language "Makassarese language"), and [Mandar](https://en.wikipedia.org/wiki/Mandar_language "Mandar language") languages.
@@ -20,30 +21,29 @@ The Lontara writing system consists of **consonants**, **vowels**
 
 | Standard Latin | Reversible Latin    | Lontara | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
-| ka  | `ka` |   ᝃ      | /ka/ |
-| ga  | `ga`      | ᝄ      | /ɡa/ |
-| nga | `n_ga`     | ᝅ      | /ŋa/|
-| ngka | `n_ga`     | ᝅ      | /ŋka/|
-| pa | `pa`      | ᝉ      | /pa/|
-| ba | `ba`      | ᝊ      | /ba/|
-| ma | `ma`      | ᝋ      | /ma/|
-| mpa | `ma`      | ᝋ      | /mpa/|
-| ta | `ta`      | ᝆ      | /ta/|
-| da | `da`      | ᝇ      | /da/|
-| na | `na`      | ᝈ      | /na/|
-| nra | `na`      | ᝈ      | /nra/|
-| ca | `ta`      | ᝆ      | /ca/|
-| ja | `da`      | ᝇ      | /ɟa/|
-| nya | `na`      | ᝈ      | /ɲa/|
-| nyca | `na`      | ᝈ      | /ɲca/|
-| ya | `ya`      | ᝌ      | /ja/|
-| ra | `ra`      | ᝍ      | /ra/|
-| la | `la`      | ᝎ      | /la/|
-| wa | `wa`      | ᝏ      | /wa/|
-| sa | `sa`      | ᝐ      | /sa/|
-| a | `a`      | ᝐ      | /a/|
-| ha | `ha`      | ᝑ      | /ha/|
-
+| ka  | `ka` |   ᨀ      | /ka/ |
+| ga  | `ga`      | ᨁ      | /ɡa/ |
+| nga | `n_ga`     | ᨂ      | /ŋa/|
+| ngka | `n_ga`     | ᨃ      | /ŋka/|
+| pa | `pa`      | ᨄ      | /pa/|
+| ba | `ba`      | ᨅ      | /ba/|
+| ma | `ma`      | ᨆ      | /ma/|
+| mpa | `ma`      | ᨇ      | /mpa/|
+| ta | `ta`      | ᨈ      | /ta/|
+| da | `da`      | ᨉ      | /da/|
+| na | `na`      | ᨊ      | /na/|
+| nra | `na`      | ᨋ      | /nra/|
+| ca | `ta`      | ᨌ      | /ca/|
+| ja | `da`      | ᨍ      | /ɟa/|
+| nya | `na`      | ᨎ      | /ɲa/|
+| nyca | `na`      | ᨏ      | /ɲca/|
+| ya | `ya`      | ᨐ      | /ja/|
+| ra | `ra`      | ᨑ      | /ra/|
+| la | `la`      | ᨒ      | /la/|
+| wa | `wa`      | ᨓ      | /wa/|
+| sa | `sa`      | ᨔ      | /sa/|
+| a | `a`      | ᨕ      | /a/|
+| ha | `ha`      | ᨖ      | /ha/|
 
 
 ### Vowels :
