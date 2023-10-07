@@ -1,4 +1,3 @@
-
 # Balinese Script
 
 The [Balinese](https://en.wikipedia.org/wiki/Balinese_script) script is a script used to write the [Balinese](https://en.wikipedia.org/wiki/Balinese_language "Balinese language") and [Sasak](https://en.wikipedia.org/wiki/Sasak_language "Sasak language") languages.
@@ -54,9 +53,9 @@ Short :
 Long :
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
-| Ā     | ᬆ              | /aa/       |
-| Ī     | ᬈ              | /ii/       |
-| Ū     | ᬊ              | /uu/       |
+| Ā     | ᬆ              | /a:/       |
+| Ī     | ᬈ              | /i:/       |
+| Ū     | ᬊ              | /u:/       |
 | Ṝ/Re     | ᬌ              | /ṝ/       |
 | Ḹ/Le     | ᬎ              | /ḹ/       |
 | Ai     | ᬐ            | /ai/       |
@@ -79,34 +78,33 @@ Long :
 | ia     | ◌᭄ᬬ              | /ja/       |
 
 
-### Pangangge Swara :
-There are two types of Swara, short and long.
+### Pangangge Suara :
+There are two types of Suara, short and long.
 Short :
-| Latin | Javanese  | IPA       |
+| Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
-| A     | -              | /a/       |
-| I     |  ꦶ              | /i/       |
-| U     |  ꦸ              | /u/       |
-| É     |  ꦺ              | /e/       |
-| O     |  ꦺꦴ            | /o/       |
-| E     |  ꦼ            | /ə/       |
+| ə     |  ᭂ              | /ə/       |
+| I     |  ᬶ              | /i/       |
+| U     |  ᬸ              | /u/       |
+| É     |  ᬾ              | /e/ or /ɛ/       |
+| O     | ◌ᭀ            | /o/ or /ɔ/       |
 
 Long : 
-| Latin | Javanese  | IPA       |
+| Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
-| ā     |  ꦴ              | /aa/       |
-| ī     |  ꦷ              | /ii/       |
-| ū     |  ꦹ              | /uu/       |
-| ai     |  ꦻ              | /ai/       |
-| au     |  ꦻꦴ            | /aw/       |
+| ā     |  ᬵ              | /a:/       |
+| ī     |  ᬷ              | /i:/       |
+| ū     |  ᬹ              | /u:/       |
+| ai     | ᬿ              | /ai/       |
+| au     |  ◌ᭁ           | /aw/       |
 
 
 ## Examples
 
-Here is an example of Javanese script and its Latin counterpart :
+Here is an example of Balinese script and its Latin counterpart :
 
-ꦏꦸꦭꦱꦒꦺꦠ꧀ꦧꦱꦗꦮ
+ᬱᬫᬶ​ᬫᬦᬸᬲᬦᬾ​ᬓᬸᬮᬯᬃᬕ
 
-Kula sagÉt basa jawa
+Sami manusané kulawarga
 
-(i speak javanese)
+(All humans are family)
