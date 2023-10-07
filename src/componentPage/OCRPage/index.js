@@ -17,6 +17,7 @@ import {
   Spinner,
   AlertTitle,
 } from "@chakra-ui/react";
+import { FaExclamationTriangle } from "react-icons/fa";
 import { VariantSelect } from "./VariantSelect";
 import { scriptsData } from "src/utils/objects";
 
@@ -96,6 +97,12 @@ export const OCRPage = () => {
               Simply upload your image, and instantly see the text within it
               transcribed and displayed.
             </Text>
+            <HStack>
+            <FaExclamationTriangle/>
+            <Text color="gray.400">
+              This feature uses experimental AI technology and may produce inaccurate results.
+            </Text>
+            </HStack>
             {/* <Alert
               mt={5}
               status="error"
@@ -178,6 +185,7 @@ export const OCRPage = () => {
               />
             </Flex>
             <Button
+              marg
               mt={5}
               mb={{
                 base: 5,
@@ -188,6 +196,10 @@ export const OCRPage = () => {
             >
               Process
             </Button>
+            <Text fontSize="xs">​</Text>
+            <Text color="gray.400" fontSize="sm">
+This is made possible thanks to Tokopedia-UI AI Center and the Faculty of Computer Science Universitas Indonesia.
+            </Text>
           </Flex>
           <Divider orientation="vertical" mx={3} />
           <VStack
