@@ -24,32 +24,58 @@ The Tai-Viet writing system consists of **consonants**, **vowels**, and **tones*
 Low tones consonants :
 | Standard Latin | Reversible Latin    | Tai-Viet | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
-| ko  | `k\\` |   ᥐ      | /k/ |
-| kho  | `k_h\\`      | ᥑ      | /kʰ/ |
-| khho | `x\\`     | ᥒ      | /x/|
-| go | `g\\`      | ᥓ      | /g/|
-| ngo | `n_g\\`      | ᥔ      | /ŋ/|
-| co | `c\\`      | ᥕ      | /tɕ/|
-| cho | `c_h\\`      | ᥖ      | /tɕʰ/|
-| so | `s\\`      | ᥗ      | /s/|
-| nyo | `n_y\\`      | ᥘ      | /ɲ/|
-| do | `d\\`      | ᥙ      | /d/|
-| to | `t\\`      | ᥚ      | /t/|
-| tho | `t_h\\`      | ᥛ      | /tʰ/|
-| no | `n\\`      | ᥜ      | /n/|
-| bo | `b\\`      | ᥝ      | /b/|
-| po | `p\\`      | ᥞ      | /p/|
-| pho | `p_h\\`      | ᥟ      | /pʰ/|
-| fo | `f\\`      | ᥠ      | /f/|
-| mo | `m\\`      | ᥡ      | /m/|
-| yo | `y\\`      | ᥢ      | /j/|
-| ro | `r\\`      | ᥢ      | /r/|
-| lo | `l\\`      | ᥢ      | /l/|
-| vo | `v\\`      | ᥢ      | /v/|
-| ho | `h\\`      | ᥢ      | /h/|
-| o | `\\`      | ᥢ      | /ʔ/|
+| ko  | `k\\` |   ꪀ      | /k/ |
+| kho  | `k_h\\`      | ꪂ      | /kʰ/ |
+| khho | `x\\`     | ꪄ      | /x/|
+| go | `g\\`      | ꪆ      | /g/|
+| ngo | `n_g\\`      | ꪈ      | /ŋ/|
+| co | `c\\`      | ꪊ      | /tɕ/|
+| cho | `c_h\\`      | ꪌ      | /tɕʰ/|
+| so | `s\\`      | ꪎ      | /s/|
+| nyo | `n_y\\`      | ꪎ      | /ɲ/|
+| do | `d\\`      | ꪒ      | /d/|
+| to | `t\\`      | ꪔ      | /t/|
+| tho | `t_h\\`      | ꪖ      | /tʰ/|
+| no | `n\\`      | ꪘ      | /n/|
+| bo | `b\\`      | ꪚ      | /b/|
+| po | `p\\`      | ꪜ      | /p/|
+| pho | `p_h\\`      | ꪞ      | /pʰ/|
+| fo | `f\\`      | ꪠ      | /f/|
+| mo | `m\\`      | ꪢ      | /m/|
+| yo | `y\\`      | ꪤ      | /j/|
+| ro | `r\\`      | ꪦ      | /r/|
+| lo | `l\\`      | ꪨ      | /l/|
+| vo | `v\\`      | ꪪ      | /v/|
+| ho | `h\\`      | ꪬ      | /h/|
+| o | `\\`      | ꪮ      | /ʔ/|
 
-Low tones consonants :
+High tones consonants :
+| Standard Latin | Reversible Latin    | Tai-Viet | Phonetic Reading (IPA) |
+| ------- | ------- | ------- | --- |
+| ko  | `k/` |   ꪁ      | /k/ |
+| kho  | `k_h/`      | ꪃ      | /kʰ/ |
+| khho | `x/`     | ꪅ      | /x/|
+| go | `g/`      | ꪇ      | /g/|
+| ngo | `n_g/`      | ꪉ      | /ŋ/|
+| co | `c/`      | ꪋ      | /tɕ/|
+| cho | `c_h/`      | ꪍ      | /tɕʰ/|
+| so | `s/`      | ꪏ      | /s/|
+| nyo | `n_y\\`      | ꪑ      | /ɲ/|
+| do | `d\\`      | ꪓ      | /d/|
+| to | `t\\`      | ꪕ      | /t/|
+| tho | `t_h\\`      | ꪗ      | /tʰ/|
+| no | `n\\`      | ꪙ      | /n/|
+| bo | `b\\`      | ꪛ      | /b/|
+| po | `p\\`      | ꪝ      | /p/|
+| pho | `p_h\\`      | ꪟ      | /pʰ/|
+| fo | `f\\`      | ꪡ      | /f/|
+| mo | `m\\`      | ꪣ      | /m/|
+| yo | `y\\`      | ꪥ      | /j/|
+| ro | `r\\`      | ꪧ      | /r/|
+| lo | `l\\`      | ꪩ      | /l/|
+| vo | `v\\`      | ꪫ      | /v/|
+| ho | `h\\`      | ꪭ      | /h/|
+| o | `\\`      | ꪯ      | /ʔ/|
 ### Final Consonants :
 
 | Standard Latin | Reversible Latin    | Tai-Le | Phonetic Reading (IPA) |
