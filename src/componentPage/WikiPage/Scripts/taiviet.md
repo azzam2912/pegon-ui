@@ -118,6 +118,6 @@ Traditionally, the script had no tone marks, and only indicated tones with the c
 
 ## Examples
 
-Here are some examples of Buhid script and its Latin counterpart :
+Here are some examples of Tai-Viet script and its Latin counterpart :
 
-* ᥖᥭᥰ ᥘᥫᥴ  : tai le (the tai le script)
+* ꪎꪳ ꪼꪕ : (sue tai) (tai script)
