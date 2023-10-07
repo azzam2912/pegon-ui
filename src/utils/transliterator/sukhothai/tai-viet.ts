@@ -201,8 +201,8 @@ const Consonants: PlainRule[] = chainRule<PlainRule>(
 const Tones: PlainRule[] = [
   ["1", TaiViet.MaiEk],
   ["2", TaiViet.MaiTho],
-  ["\\^1", TaiViet.MaiNueng],
-  ["\\^2", TaiViet.MaiSong],
+  ["^1", TaiViet.MaiNueng],
+  ["^2", TaiViet.MaiSong],
 ];
 
 const LatinConsonants: string[] = getKeys<PlainRule>(Consonants)
@@ -405,17 +405,17 @@ const StandardLatinTonesTemplate: PlainRule[] = [
   ["HV", "HV1"],
   ["LV", "LV4"],
   // mai nueng / tone ^1
-  ["HV^1", "HV2"],
-  ["LV^1", "LV5"],
+  [escape("H^1V"), "HV2"],
+  [escape("L^1V"), "LV5"],
   // mai song / tone ^2
-  ["HV^2", "HV3"],
-  ["LV^2", "LV6"],
+  [escape("H^2V"), "HV3"],
+  [escape("L^2V"), "LV6"],
   // mai ek / tone 1
-  ["HV1", "HV2"],
-  ["LV1", "LV5"],
+  ["H1V", "HV2"],
+  ["L1V", "LV5"],
   // mai tho / tone 2
-  ["HV2", "HV3"],
-  ["LV2", "LV6"],
+  ["H2V", "HV3"],
+  ["L2V", "LV6"],
 ];
 
 const LatinHighConsonants: string[] = [];
