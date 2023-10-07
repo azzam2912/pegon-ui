@@ -189,8 +189,8 @@ const MonographConsonants: PlainRule[] = [
   ["v\\", TaiViet.VoL],
   ["h/", TaiViet.HoH],
   ["h\\", TaiViet.HoL],
-  ["'/", TaiViet.OoH],
-  ["'\\", TaiViet.OoL],
+  ["'/", TaiViet.OH],
+  ["'\\", TaiViet.OL],
 ];
 
 const Consonants: PlainRule[] = chainRule<PlainRule>(
@@ -211,7 +211,7 @@ const LatinConsonants: string[] = getKeys<PlainRule>(Consonants)
 
 const LatinTones: string[] = getKeys<PlainRule>(Tones).map(escape).sort();
 
-const TaiVietConsonants: string[] = getValues<PlainRule>(Consonants)
+const TaiVietConsonants: string[] = getValues(Consonants)
   .map(escape)
   .sort(stringLengthDiff);
 
@@ -242,9 +242,7 @@ const SyllableVowelsTemplate: PlainRule[] = (
 ).map(([key, val]: PlainRule): PlainRule => ["CT" + key, val] as PlainRule);
 
 const SyllableVowels: RegexRule[] = fillTemplate(
-  prepareRules(
-    OpenSyllableVowelsTemplate.sort(ruleKeyLengthDiff),
-  ) as PlainRule[],
+  prepareRules(SyllableVowelsTemplate.sort(ruleKeyLengthDiff)) as PlainRule[],
   [
     ["C", `((${patternList(LatinConsonants).source})+)`],
     ["T", `(${patternList(LatinTones).source})?`],
@@ -256,14 +254,14 @@ const SyllableVowels: RegexRule[] = fillTemplate(
 ).map(toWordBeginning);
 
 const Punctuation: PlainRule[] = [
-  ["-", "\u200C"],
-  [" ", "\u200C"],
-  [".", " "],
+  // ["-", "\u200C"],
+  // [" ", "\u200C"],
+  // [".", " "],
 ];
 
 const InversePunctuation: PlainRule[] = chainRule<PlainRule>(
   asInverse(Punctuation.reverse()),
-  [["\\.", ". "]],
+  // [["\\.", ". "]],
 );
 
 const Numbers: PlainRule[] = [
@@ -281,7 +279,7 @@ const Numbers: PlainRule[] = [
 
 // second pass
 const SpecialFromLatin: RegexRule[] = [
-  before([TaiViet.MaiKhit, Thai.OL], TaiVietConsonants),
+  before([TaiViet.MaiKhit, TaiViet.OL], patternList(TaiVietConsonants)),
 ];
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
@@ -449,7 +447,7 @@ const StandardLatinTones: Rule[] = fillTemplate(
     ["5", ""],
     ["6", "\u030F"], // double grave
 
-    ["M", "$1"],
+    ["H", "$1"],
     ["L", "$1"],
 
     ["V", "$2"],
@@ -461,10 +459,17 @@ const MonographStandardLatinVowel: string[] = StandardLatinAllVowels.filter(
 );
 
 const StandardLatinDiacriticRepositioning: RegexRule[] = fillTemplate(
-  [["(V)(\u0304)?((V)+)(X)", "$1$2$5$3"]],
+  [["(V)(\u0304)?((W)+)(X)", "$1$2$5$3"]],
   [
     ["V", patternList(MonographStandardLatinVowel).source],
-    ["X", patternList(["\u030C", "\u0300", "\u0301", "\u0302"]).source],
+    [
+      "W",
+      patternList(["w", "n", "m", "p", ...MonographStandardLatinVowel]).source,
+    ],
+    [
+      "X",
+      patternList(["\u0300", "\u0301", "\u0302", "\u030C", "\u030F"]).source,
+    ],
   ],
   [],
 ).map(toRegexRule);
@@ -527,8 +532,8 @@ const StandardLatinScheme: Rule[] = chainRule<Rule>(
 );
 
 export const toStandardLatin = (input: string): string =>
-  ransliterate(input, StandardLatinScheme);
+  transliterate(input, StandardLatinScheme);
 
-const IMEScheme: Rule[] = [];
+const IMEScheme: Rule[] = [[" ", "\u200C"]];
 
 export const initIME = genericIMEInit(IMEScheme);
