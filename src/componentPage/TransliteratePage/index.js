@@ -44,15 +44,16 @@ import {
   useMakassarTransliterator,
   useThaiTransliterator,
   useLaoTransliterator,
+  useTaiVietTransliterator,
   useKayahLiTransliterator,
   useMonTransliterator,
   useBurmeseTransliterator,
   useKarenTransliterator,
+  useTaiLeTransliterator,
   useCarakanTransliterator,
   useSundaTransliterator,
   useBaliTransliterator,
   useSasakTransliterator,
-  useTaiVietTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -89,6 +90,8 @@ const selectTransliterator = (script, variant) => {
           return useKayahLiTransliterator;
         case "S'gaw Karen":
           return useKarenTransliterator;
+        case "Tai Le":
+          return useTaiLeTransliterator;
       }
       break;
     case "Rejang":

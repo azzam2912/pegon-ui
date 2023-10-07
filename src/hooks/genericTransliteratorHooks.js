@@ -17,6 +17,7 @@ import * as KayahLi from "src/utils/transliterator/mon-burmese/kayah-li";
 import * as Mon from "src/utils/transliterator/mon-burmese/mon";
 import * as Burmese from "src/utils/transliterator/mon-burmese/burmese";
 import * as Karen from "src/utils/transliterator/mon-burmese/sgaw-karen";
+import * as TaiLe from "src/utils/transliterator/mon-burmese/tai-le";
 
 import * as Thai from "src/utils/transliterator/sukhothai/thai";
 import * as Lao from "src/utils/transliterator/sukhothai/lao";
@@ -248,6 +249,13 @@ export const useLaoTransliterator = genericTransliteratorHook(
   Lao.toStandardLatin,
 );
 
+export const useTaiVietTransliterator = genericTransliteratorHook(
+  TaiViet.initIME,
+  TaiViet.toLatin,
+  TaiViet.fromLatin,
+  TaiViet.toStandardLatin,
+);
+
 export const useKayahLiTransliterator = genericTransliteratorHook(
   KayahLi.initIME,
   KayahLi.toLatin,
@@ -276,9 +284,9 @@ export const useKarenTransliterator = genericTransliteratorHook(
   Karen.toStandardLatin,
 );
 
-export const useTaiVietTransliterator = genericTransliteratorHook(
-  TaiViet.initIME,
-  TaiViet.toLatin,
-  TaiViet.fromLatin,
-  TaiViet.toStandardLatin,
+export const useTaiLeTransliterator = genericTransliteratorHook(
+  TaiLe.initIME,
+  TaiLe.toLatin,
+  TaiLe.fromLatin,
+  TaiLe.toStandardLatin,
 );

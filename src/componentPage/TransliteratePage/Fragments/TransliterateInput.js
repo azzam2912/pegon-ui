@@ -16,6 +16,7 @@ import "@fontsource/noto-sans-tagbanwa";
 
 import "@fontsource/noto-sans-kayah-li";
 import "@fontsource/noto-sans-myanmar";
+import "@fontsource/noto-sans-tai-le";
 
 import "@fontsource/noto-serif-thai";
 import "@fontsource/noto-serif-lao";
