@@ -2,27 +2,130 @@ import Head from "next/head";
 import AppLayout from "../Page/AppLayout";
 import React from "react";
 
-import { Box, Text } from "@chakra-ui/react";
+import { 
+  Box, 
+  Text,    
+  ListItem,
+  OrderedList,
+  UnorderedList, 
+} from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ChakraUIRenderer from "chakra-ui-markdown-renderer";
-import ReactMarkdown from "react-markdown";
 import { scriptsData } from "src/utils/objects";
 import { ScriptTypeSelect } from "src/componentPage/TransliteratePage/Fragments/ScriptTypeSelect";
+import { VariantSelect } from "src/componentPage/TransliteratePage/Fragments/VariantSelect";
 import remarkGfm from "remark-gfm";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import ReactMarkdown from "react-markdown";
+
+import bali from "src/componentPage/WikiPage/Scripts/bali.md";
+import batak from "src/componentPage/WikiPage/Scripts/batak.md";
+import baybayin from "src/componentPage/WikiPage/Scripts/baybayin.md";
+import buhid from "src/componentPage/WikiPage/Scripts/buhid.md";
+import cham from "src/componentPage/WikiPage/Scripts/cham.md";
+import hanunoo from "src/componentPage/WikiPage/Scripts/hanunoo.md";
+import jawa from "src/componentPage/WikiPage/Scripts/jawa.md";
+import jawi from "src/componentPage/WikiPage/Scripts/jawi.md";
+import kayahli from "src/componentPage/WikiPage/Scripts/kayah li.md";
+import lao from "src/componentPage/WikiPage/Scripts/lao.md";
+import lontara from "src/componentPage/WikiPage/Scripts/lontara.md";
+import makasar from "src/componentPage/WikiPage/Scripts/makasar.md";
+import monburmese from "src/componentPage/WikiPage/Scripts/mon-burmese.md";
+import pegon from "src/componentPage/WikiPage/Scripts/pegon.md";
+import sunda from "src/componentPage/WikiPage/Scripts/sunda.md";
+import tagbanwa from "src/componentPage/WikiPage/Scripts/tagbanwa.md";
+import taile from "src/componentPage/WikiPage/Scripts/taile.md"; // needs to be added
+import thai from "src/componentPage/WikiPage/Scripts/thai.md";
+
+// import { readFile } from 'fs';
 
 const WikiPage = () => {
   const router = useRouter();
+  // const [searchParams, setSearchParams] = useSearchParams();
+  const [mdContent, setMdContent] = useState("");
   const [script, setScript] = useState(
     router.query && router.query.script ? router.query.script : "Pegon",
   );
-  const [mdContent, setMdContent] = useState("");
+  const [variant, setVariant] = useState(
+    router.query && router.query.variant ? router.query.variant : "",
+  );
+
+  const fileStrMD = (script, variant) => {
+    let temp;
+    switch (script) {
+      case "Pegon":
+        return pegon;
+      case "Jawi":
+        return jawi;
+      case "Cham":
+        return cham;
+      case "Mon-Burmese":
+        temp = monburmese;
+        switch (variant) {
+          case "Kayah Li":
+            return kayahli;
+        }
+        break;
+      case "Baybayin":
+        temp = baybayin;
+        switch (variant) {
+          case "Buhid":
+            return buhid;
+          case "Hanuno'o":
+            return hanunoo;
+          case "Tagbanwa":
+            return tagbanwa;
+        }
+        break;
+      case "Batak":
+        return batak;
+      case "Lontara":
+        temp = lontara;
+        switch (variant) {
+          case "Makassar":
+            return makasar;
+        }
+        break;
+      case "Rejang":
+        return "Noto Sans Rejang";
+      case "Sukhothai":
+        switch (variant) {
+          case "Thai":
+            return thai;
+          case "Lao":
+            return lao;
+        }
+        break;
+      case "Hanacaraka":
+        switch (variant) {
+          case "Jawa":
+            return jawa;
+          case "Sunda":
+            return sunda;
+          case "Bali":
+            return bali;
+          case "Sasak":
+            return "Noto Sans Balinese";
+        }
+    }
+    return temp;
+  }
 
   const handleScriptChange = (event) => {
     const newScript = event.target.innerText;
     setScript(newScript);
   };
+
+  const handleVariantChange = (event) => {
+    const newVariant = event.target.innerText;
+    setVariant(newVariant);
+  };
+
+  useEffect(() => {
+    const fileStr = fileStrMD(script, variant);
+    setMdContent(fileStr);
+  }, [script, variant])
 
   useEffect(() => {
     // Get the query parameter from the router
@@ -32,24 +135,11 @@ const WikiPage = () => {
     if (query && query.script) {
       setScript(query.script);
     }
-  }, [router]);
 
-  useEffect(() => {
-    // Update the URL with the current state
-    router.replace({ query: { script: script } });
-  }, [script, router]);
-
-  useEffect(() => {
-    // Update the URL with the current state
-    try {
-      const markdownContent = require(
-        `${"./Scripts/" + script.toLowerCase() + ".md"}`,
-      ).default;
-      setMdContent(markdownContent);
-    } catch (error) {
-      console.error("Error loading Markdown file:", error);
+    if (query && query.variant) {
+      setVariant(query.variant);
     }
-  }, [script]);
+  }, [router]);
 
   return (
     <>
@@ -76,15 +166,37 @@ const WikiPage = () => {
             options={Object.keys(scriptsData)}
             onChange={handleScriptChange}
           />
+          <VariantSelect
+              value={variant}
+              options={scriptsData[script]["variants"]}
+              onChange={handleVariantChange}
+          />
           <Text fontSize="xl">
             {" "}
             {/* You can customize the font size */}
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              components={ChakraUIRenderer()}
+              components={ChakraUIRenderer({
+                ul: ({ children }) => {
+                  return <UnorderedList as="ul">
+                    {children}
+                  </UnorderedList>
+                },
+                li: ({ children }) => {
+                  return <ListItem as="li">
+                    {children}
+                  </ListItem>
+                },
+                ol: ({ children }) => {
+                  return <OrderedList as="ol">
+                    {children}
+                  </OrderedList>
+                },
+              })
+            }
               skipHtml
+              children={mdContent}
             >
-              {mdContent}
             </ReactMarkdown>
           </Text>
         </Box>

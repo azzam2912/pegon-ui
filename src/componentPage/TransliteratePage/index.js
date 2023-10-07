@@ -211,7 +211,95 @@ const TransliteratePage = () => {
 
   const handleWikiButtonClick = () => {
     // Use the router to navigate to the desired page
-    router.push('/app/wiki?script=' + script); // Replace '/target-page' with the actual path you want to navigate to
+    let paramScript, paramVariant;
+    switch (script) {
+      case "Pegon":
+        paramScript = "Pegon";
+        paramVariant = "";
+        break;
+      case "Jawi":
+        paramScript = "Jawi";
+        paramVariant = "";
+        break;
+      case "Cham":
+        paramScript = "Cham";
+        paramVariant = "";
+        break;
+      case "Mon-Burmese":
+        paramScript = "Mon-Burmese";
+        paramVariant = "";
+        switch (variant) {
+          case "Kayah Li":
+            paramVariant = "Kayah Li";
+            break;
+        }
+        break;
+      case "Baybayin":
+        paramScript = "Baybayin";
+        paramVariant = "";
+        switch (variant) {
+          case "Buhid":
+            paramVariant = "Buhid";
+            break;
+          case "Hanuno'o":
+            paramVariant = "Hanuno'o";
+            break;
+          case "Tagbanwa":
+            paramVariant = "Tagbanwa";
+            break;
+        }
+        break;
+      case "Batak":
+        paramScript = "Batak";
+        paramVariant = "";
+        break;
+      case "Lontara":
+        paramScript = "Lontara";
+        paramVariant = "";
+        switch (variant) {
+          case "Bugis":
+            paramVariant = "Bugis";
+            break;
+          case "Makassar":
+            paramVariant = "Makassar";
+            break;
+        }
+        break;
+      case "Rejang":
+        paramScript = "Rejang";
+        paramVariant = "";
+        break;
+      case "Sukhothai":
+        paramScript = "Sukhothai";
+        paramVariant = "";
+        switch (variant) {
+          case "Thai":
+            paramVariant = "Thai";
+            break;
+          case "Lao":
+            paramVariant = "Lao";
+            break;
+        }
+        break;
+      case "Hanacaraka":
+        paramScript = "Hanacaraka";
+        paramVariant = "";
+        switch (variant) {
+          case "Jawa":
+            paramVariant = "Jawa";
+            break;
+          case "Sunda":
+            paramVariant = "Sunda";
+            break;
+          case "Bali":
+            paramVariant = "Bali";
+            break;
+          case "Sasak":
+            paramVariant = "Sasak";
+            break;
+        }
+    }
+    router.push("/app/wiki?script=" + paramScript + "&variant=" + paramVariant);
   };
   
   return (
