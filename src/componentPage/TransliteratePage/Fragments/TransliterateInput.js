@@ -95,7 +95,6 @@ export const TransliterateInput = ({
       : (result = (
           <Flex direction="column" flex={1} p={4}>
             <Textarea
-              style={fontFamily ? { fontFamily } : null}
               flex={1}
               textColor={isReadOnly ? "gray.300" : "primary.200"}
               textAlign={isRightToLeft ? "right" : "left"}
@@ -136,7 +135,6 @@ export const TransliterateInput = ({
             </HStack>
             <Divider borderWidth={"1px"} />
             <Textarea
-              style={fontFamily ? { fontFamily } : null}
               flex={1}
               textColor={isReadOnly ? "gray.300" : "primary.200"}
               textAlign={isRightToLeft ? "right" : "left"}
