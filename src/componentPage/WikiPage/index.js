@@ -36,6 +36,7 @@ import pegon from "src/componentPage/WikiPage/Scripts/pegon.md";
 import sunda from "src/componentPage/WikiPage/Scripts/sunda.md";
 import tagbanwa from "src/componentPage/WikiPage/Scripts/tagbanwa.md";
 import taile from "src/componentPage/WikiPage/Scripts/taile.md"; // needs to be added
+import taiviet from "src/componentPage/WikiPage/Scripts/taiviet.md"; // needs to be added
 import thai from "src/componentPage/WikiPage/Scripts/thai.md";
 
 // import { readFile } from 'fs';
