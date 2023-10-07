@@ -8,7 +8,7 @@ const scriptsData = {
     rightToLeft: false,
   },
   Sukhothai: {
-    variants: ["Thai", "Lao"],
+    variants: ["Thai", "Lao", "Tai Viet"],
     rightToLeft: false,
   },
   Jawi: {
@@ -91,6 +91,8 @@ const getFont = (script, variant) => {
           return "Noto Serif Thai";
         case "Lao":
           return "Noto Serif Lao";
+        case "Tai Viet":
+          return "Noto Sans Tai Viet";
       }
       break;
     case "Hanacaraka":

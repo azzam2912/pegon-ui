@@ -52,6 +52,7 @@ import {
   useSundaTransliterator,
   useBaliTransliterator,
   useSasakTransliterator,
+  useTaiVietTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
@@ -132,6 +133,8 @@ const selectTransliterator = (script, variant) => {
           return useThaiTransliterator;
         case "Lao":
           return useLaoTransliterator;
+        case "Tai Viet":
+          return useTaiVietTransliterator;
       }
       break;
     case "Hanacaraka":
