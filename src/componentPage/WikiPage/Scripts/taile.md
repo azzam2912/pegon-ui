@@ -91,6 +91,6 @@ By default, unmarked syllables would follow tone 1.
 
 ## Examples
 
-Here are some examples of Buhid script and its Latin counterpart :
+Here are some examples of Tai-Le script and its Latin counterpart :
 
 * ᥖᥭᥰ ᥘᥫᥴ  : tai le (the tai le script)
