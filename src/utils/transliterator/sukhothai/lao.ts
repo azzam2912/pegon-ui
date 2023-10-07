@@ -599,9 +599,10 @@ const MonographStandardLatinVowel: string[] = StandardLatinAllVowels.filter(
 );
 
 const StandardLatinDiacriticRepositioning: RegexRule[] = fillTemplate(
-  [["(V)(\u0304)?((V)+)(X)", "$1$2$5$3"]],
+  [["(V)(\u0304)?((W)+)(X)", "$1$2$5$3"]],
   [
     ["V", patternList(MonographStandardLatinVowel).source],
+    ["W", patternList(["m", ...MonographStandardLatinVowel]).source],
     ["X", patternList(["\u030C", "\u0300", "\u0301", "\u0302"]).source],
   ],
   [],
@@ -669,8 +670,8 @@ const StandardLatinScheme: Rule[] = chainRule<Rule>(
 );
 
 export const toStandardLatin = (input: string): string =>
-  ransliterate(input, StandardLatinScheme);
+  transliterate(input, StandardLatinScheme);
 
-const IMEScheme: Rule[] = [];
+const IMEScheme: Rule[] = [[" ", "\u200C"]];
 
 export const initIME = genericIMEInit(IMEScheme);
