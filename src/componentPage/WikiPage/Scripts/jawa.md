@@ -82,22 +82,58 @@ The inherent vowels of the consonants can be suppressed by using Virama (also kn
 | - (virama)     | ꧀              | /ɛ/       |
 
 ### Sandhangan Swara :
+There are two types of Swara, short and long.
+Short :
+| Latin | Javanese  | IPA       |
+| ----- | --------------- | --------- |
+| A     | -              | /a/       |
+| I     |  ꦶ              | /i/       |
+| U     |  ꦸ              | /u/       |
+| É     |  ꦺ              | /e/       |
+| O     |  ꦺꦴ            | /o/       |
+| E     |  ꦼ            | /ə/       |
+
+Long : 
+| Latin | Javanese  | IPA       |
+| ----- | --------------- | --------- |
+| ā     |  ꦴ              | /aa/       |
+| ī     |  ꦷ              | /ii/       |
+| ū     |  ꦹ              | /uu/       |
+| ai     |  ꦻ              | /ai/       |
+| au     |  ꦻꦴ            | /aw/       |
 
 ### Aksara Swara :
+
+There are also short and long vowels for aksara swara.
+
+Short : 
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
 | A     | ꦄ              | /a/       |
 | I     | ꦆ              | /i/       |
 | U     | ꦈ              | /u/       |
+| Ṛ/Re     | ꦉ              | /ṛ/       |
+| Ḷ/Le     | ꦊ              | /ḷ/       |
 | É     | ꦌ              | /e/       |
-| È     | ꦎ              | /ɛ/       |
-| O     | ꦎꦴ            | /o/       |
-| É     | ꦒꦴ            | /ɔ/       |
-| E     | ꦏꦴ            | /ə/       |
+| O     | ꦎ              | /o/       |
+
+Long :
+| Latin | Javanese  | IPA       |
+| ----- | --------------- | --------- |
+| Ā     | ꦄꦴ              | /aa/       |
+| Ī     | ꦇ              | /ii/       |
+| Ū     | ꦈꦴ              | /uu/       |
+| Ṝ/Re     | ꦉꦴ              | /ṝ/       |
+| Ḹ/Le     | ꦋ              | /ḹ/       |
+| Ai     | ꦍ            | /ai/       |
+| Au     | ꦎꦴ            | /ɔ/       |
 
 ## Examples
 
-Here are some examples of Buhid script and its Latin counterpart :
+Here is an example of Javanese script and its Latin counterpart :
 
-* ᝃᝑ ᝓᝃᝑ  : kahu kahu
-* ᝃ ᝓ ᝋᝎᝄ ᝓ : ku malagu
+ꦏꦸꦭꦱꦒꦺꦠ꧀ꦧꦱꦗꦮ
+
+Kula sagÉt basa jawa
+
+(i speak javanese)
