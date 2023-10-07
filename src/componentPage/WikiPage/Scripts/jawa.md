@@ -1,3 +1,4 @@
+
 # Javanese Script
 
 The [Javanese](https://en.wikipedia.org/wiki/Javanese_script) script is a script used to write the [Javanese language](https://en.wikipedia.org/wiki/Javanese_language), a major language spoken in Indonesia.
@@ -46,20 +47,39 @@ The Javanese writing system consists of ***Aksara Wyanjana*** (independent conso
 
 ### Aksara Rekan :
 
-| Standard Latin | Reversible Latin | Buhid | IPA |
-| ------- | ------- | ------- | --- |
-| a       | `a`       | ᝀ      | /a/ |
-| i       | `i`      | ᝁ      | /i/|
-| u        | `u`       | ᝂ      | /u/ |
+| Latin |Buhid | Arabic Equivalent | IPA |
+| ------- |------- | --- |--- |
+| ḥ       |ꦲ꦳      | ح | /ħ/ |
+| kh       |ꦏ꦳      | خ| /x/ |
+| q        |ꦐ      | ق | /q/ |
+| dz        |ꦢ꦳      | ذ | /dʒ̊/ |
+| sy        |ꦱ꦳      | ش | /ʃ/ |
+| f/v        |ꦥ꦳      | ف | /f/ |
+| z        |ꦗ꦳      | ز | /z/ |
+| gh        |ꦒ꦳      | غ | /ɣ/ |
+| '        |ꦔ꦳      | ع | /ʕ/ |
 
 ### Pasangan :
 
-| Standard Latin | Reversible Latin | Buhid | IPA  |
-| ------- | ------- | ------- | ---- |
-| i      | `i`      | ᝒ      | /i/ |
-| u      | `u`       |  ᝓ       | /u/  |
+|           |          | ha/a |  na  |   ca  |  ra  |  ka  |  da  |  ta  |  sa  |  wa  |  la  |  pa  |  dha |  ja  |  ya  |  nya |  ma  |  ga  |  ba  |  tha |  nga |
+|-----------|----------|:----:|:----:|:-----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|  Nglegena |  Aksara  | # ꦲ  | # ꦤ  | # ꦕ   | # ꦫ  | # ꦏ  | # ꦢ  | # ꦠ  | # ꦱ  | # ꦮ  | # ꦭ  | # ꦥ  | # ꦝ  | # ꦗ  | # ꦪ  | # ꦚ  | # ꦩ  | # ꦒ  | # ꦧ  | # ꦛ  | # ꦔ  |
+|           | Pasangan | # ꧀ꦲ | # ꧀ꦤ | # ꧀ꦕ  | # ꧀ꦫ | # ꧀ꦏ | # ꧀ꦢ | # ꧀ꦠ | # ꧀ꦱ | # ꧀ꦮ | # ꧀ꦭ | # ꧀ꦥ | # ꧀ꦝ | # ꧀ꦗ | # ꧀ꦪ | # ꧀ꦚ | # ꧀ꦩ | # ꧀ꦒ | # ꧀ꦧ | # ꧀ꦛ | # ꧀ꦔ |
+|   Murda   |  Aksara  |      | # ꦟ  | # ꦖ   | # ꦬ  | # ꦑ  |      | # ꦡ  | # ꦯ  |      |      | # ꦦ  |      |      |      | # ꦘ  |      | # ꦓ  | # ꦨ  |      |      |
+|           | Pasangan |      | # ꧀ꦟ | # ꧀ꦖ1 | # ꧀ꦬ | # ꧀ꦑ |      | # ꧀ꦡ | # ꧀ꦯ |      |      | # ꧀ꦦ |      |      |      | # ꧀ꦘ |      | # ꧀ꦓ | # ꧀ꦨ |      |      |
+| Mahaprana |  Aksara  |      |      |       |      |      | # ꦣ  |      | # ꦰ  |      |      |      | # ꦞ  | # ꦙ  |      |      |      |      |      | # ꦜ  |      |
+|           | Pasangan |      |      |       |      |      | # ꧀ꦣ |      | # ꧀ꦰ |      |      |      | # ꧀ꦞ | # ꧀ꦙ |      |      |      |      |      | # ꧀ꦜ |      |
+
+The inherent vowels of the consonants can be suppressed by using Virama (also known as the vowel killer). In the Javanese script however, the virama is not normally used in the mid of a word or a sentence. Another form called "pasangan" is used for closed syllables instead. Thus, every basic letter has its "pasangan" to nullify the inherent vowel it carried. 
 
 ### Sandhangan Panyigeging Wanda :
+| Latin | Javanese  | IPA       |
+| ----- | --------------- | --------- |
+| -m     | ꦀ              | /-m/       |
+| -ng     | ꦁ              | /-ŋ/       |
+| -r     | ꦂ              | /-r/       |
+| -h     | ꦃ              | /-h/       |
+| - (virama)     | ꧀              | /ɛ/       |
 
 ### Sandhangan Swara :
 
