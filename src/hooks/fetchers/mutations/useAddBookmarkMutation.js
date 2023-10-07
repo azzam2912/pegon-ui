@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useFetchMutation } from "../reactQueryHooks";
 
-export const useBookmarkMutation = ({ config }) => {
+export const useAddBookmarkMutation = ({ config }) => {
   const _bookmark = async (id) => {
     try {
       const { data } = await axios.post(`/api/bookmark/${id}`, {}, {
