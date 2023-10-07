@@ -280,6 +280,18 @@ const Numbers: PlainRule[] = [
 // second pass
 const SpecialFromLatin: RegexRule[] = [
   before([TaiViet.MaiKhit, TaiViet.OL], patternList(TaiVietConsonants)),
+  [
+    new RegExp(
+      `([${TaiVietConsonants.join("")}]+)([${TaiVietTones.join("")}])?${
+        TaiViet._an
+      }\\\\`,
+    ),
+    `$1$2${TaiViet.MaiKang}${TaiViet.NoL}`,
+  ],
+];
+
+const SpecialToLatin: RegexRule[] = [
+  before([TaiViet.OL, TaiViet.MaiKhit], patternList(TaiVietConsonants)),
 ];
 
 const FromLatinScheme: Rule[] = chainRule<Rule>(
@@ -290,16 +302,15 @@ const FromLatinScheme: Rule[] = chainRule<Rule>(
   prepareRules(Consonants.sort(ruleKeyLengthDiff)),
   Numbers,
   prepareRules(Punctuation),
+
+  SpecialFromLatin,
 );
 
 export const fromLatin = (input: string): string =>
   transliterate(input, FromLatinScheme);
 
 const InverseSyllableVowels: RegexRule[] = fillTemplate(
-  chainRule<PlainRule>(
-    asInverse(SyllableVowelsTemplate).sort(ruleKeyLengthDiff),
-    [["CT", "CTa"]],
-  ),
+  asInverse(SyllableVowelsTemplate).sort(ruleKeyLengthDiff),
   [
     ["C", `((${patternList(TaiVietConsonants).source})+)`],
     ["T", `(${patternList(TaiVietTones).source})?`],
@@ -310,9 +321,10 @@ const InverseSyllableVowels: RegexRule[] = fillTemplate(
     ["T", `$3`],
     ["X", `$4`],
   ],
-).map(toSingleWord);
+).map(toWordBeginning);
 
 const ToLatinScheme: Rule[] = chainRule<Rule>(
+  SpecialToLatin,
   InversePunctuation,
   InverseSyllableVowels,
   asInverse(Consonants),
@@ -373,9 +385,9 @@ const StandardLatinFinalConsonants: PlainRule[] = [
   ["t/", ""],
   ["t\\", ""],
   ["n/", ""],
-  ["n\\", ""],
+  ["n\\", "n"],
   ["b/", ""],
-  ["b\\", "t"],
+  ["b\\", "p"],
   ["p/", ""],
   ["p\\", ""],
   ["f/", ""],
