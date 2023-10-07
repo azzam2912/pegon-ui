@@ -181,6 +181,8 @@ const MonographConsonants: PlainRule[] = [
   ["f\\", TaiViet.FoL],
   ["m/", TaiViet.MoH],
   ["m\\", TaiViet.MoL],
+  ["y/", TaiViet.YoH],
+  ["y\\", TaiViet.YoL],
   ["r/", TaiViet.RoH],
   ["r\\", TaiViet.RoL],
   ["l/", TaiViet.LoH],
