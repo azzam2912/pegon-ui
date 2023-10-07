@@ -226,7 +226,7 @@ const SyllableVowelsTemplate: PlainRule[] = (
     ["u", `CT${TaiViet._u}`],
     ["ee", `${TaiViet.ee_}CT`],
     ["o", `${TaiViet.o_}CT`],
-    ["aw", `${TaiViet.MaiKhit}CT`],
+    ["aw", `CT${TaiViet.MaiKhit}`],
     ["ia", `CT${TaiViet._ia}`],
     ["uea", `${TaiViet.uea_}CT`],
     ["ua", `CT${TaiViet._ua}`],
