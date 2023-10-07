@@ -183,7 +183,7 @@ const syllabicÂConsonants: PlainRule[] = [
 const finalMonographConsonantLetters: PlainRule[] = [
   ["k", Cham._k],
   // keep ths or the other one?
-  // ["n_g", Cham._ng],
+  ["n_g", Cham._ng],
   ["c", Cham._c],
   ["t", Cham._t],
   ["n", Cham._n],
@@ -201,14 +201,14 @@ const finalConsonantLetters: PlainRule[] = chainRule(
   finalMonographConsonantLetters,
 );
 
-const finalDigraphConsonantDiacritics: PlainRule[] = [["n_g", Cham.__ng]];
+const finalDigraphConsonantDiacritics: PlainRule[] = [["_n_g", Cham.__ng]];
 
 const finalMonographConsonantDiacritics: PlainRule[] = [
   ["m", Cham.__m],
   ["h", Cham.__h],
 ];
 
-const finalMonographNasals: PlainRule[] = [
+const finalNasals: PlainRule[] = [
   ["n_g", Cham.__ng],
   ["m", Cham.__m],
   ["n", Cham._n],
@@ -468,6 +468,7 @@ export const toLatin = (input: string): string =>
   transliterate(input, ChamToLatinScheme);
 
 const ReversibleLatinToLatinScheme: Rule[] = prepareRules([
+  ["_n_g", "ng"],
   ["k_h", "kh"],
   ["g_h", "gh"],
   ["c_h", "ch"],
@@ -629,7 +630,7 @@ const IMERules: Rule[] = prepareRules(
       ),
     ),
 
-    makeTransitive(finalMonographNasals, syllabicÂConsonants),
+    makeTransitive(finalNasals, syllabicÂConsonants),
 
     chainRule(digraphIndependentVowels, monographIndependentVowels),
     numbers,

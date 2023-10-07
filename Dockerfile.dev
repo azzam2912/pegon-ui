@@ -17,6 +17,7 @@ COPY package.json yarn.lock .eslintignore .eslintrc.json jsconfig.json next.conf
 
 # Expose the development server port (usually 3000)
 EXPOSE 3000
+EXPOSE 7999
 
 # Define the entrypoint command for development
 CMD ["yarn", "dev"]
