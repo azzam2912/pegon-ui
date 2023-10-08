@@ -9,13 +9,14 @@ import {
   Card,
   Stack,
   Divider,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
 import { VariantSelect } from "./Fragments/VariantSelect";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
-import { FaInfo } from "react-icons/fa";
+import { FaInfo, FaExclamationTriangle } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 import { scriptsData } from "src/utils/objects";
 
@@ -324,6 +325,15 @@ const TransliteratePage = () => {
                 />
               </Stack>
             </Card>
+            <Text>​</Text>
+            {(script === "Jawi" && variant === "Malay") ?   
+              <HStack>
+                <FaExclamationTriangle size={13}/>
+                <Text color="gray.400" fontSize="xs">
+                  This feature uses experimental AI technology and may produce inaccurate results.
+                </Text>
+              </HStack> : "" 
+            }
           </VStack>
         </VStack>
       </AppLayout>
