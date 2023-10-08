@@ -18,8 +18,7 @@ import { VariantSelect } from "./Fragments/VariantSelect";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
 import { MdLightbulb } from "react-icons/md";
-import { FaInfo, FaExclamationTriangle } from "react-icons/fa";
-import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
+import { FaExclamationTriangle } from "react-icons/fa";
 import { scriptsData } from "src/utils/objects";
 
 import {
@@ -269,23 +268,11 @@ const TransliteratePage = () => {
             <IconButton
               colorScheme="primary"
               size="sm"
-              icon={<FaInfo />}
-              ml={5}
-              onClick={onOpen}
-            />
-            <IconButton
-              colorScheme="primary"
-              size="sm"
               icon={<MdLightbulb />}
               ml={5}
               onClick={handleWikiButtonClick}
             />
           </HStack>
-          <CheatSheetDrawer
-            isOpen={isOpen}
-            onClose={onClose}
-            documentScript={script}
-          />
           <VStack
             px={5}
             spacing={0}
