@@ -80,3 +80,5 @@ The Rejang writing system consists of **consonants**, **final consonants**, **vo
 Here are some examples of Rejang script and its Latin counterpart:
 
 * ꤷꥈꤸꥊ    = bumai (earth)
+* ꤷꥇꤳꥏ  =   bitang (star)
+* ꤸꤳꥊꤷꥇꤾꥊ = mataibilai (sun)
