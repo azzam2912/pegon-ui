@@ -47,7 +47,7 @@ The Javanese writing system consists of ***Aksara Wyanjana*** (independent conso
 
 ### Aksara Rekan :
 
-| Latin |Buhid | Arabic Equivalent | IPA |
+| Latin | Javanese | Arabic Equivalent | IPA |
 | ------- |------- | --- |--- |
 | ḥ       |ꦲ꦳      | ح | /ħ/ |
 | kh       |ꦏ꦳      | خ| /x/ |
