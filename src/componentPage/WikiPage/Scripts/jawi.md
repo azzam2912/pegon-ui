@@ -6,7 +6,7 @@ The [Jawi Script](https://en.wikipedia.org/wiki/Jawi_script) is an [Arabic](http
 While Jawi is an Arabic-based script, Jawi uses additional characters and diacritics to accommodate the unique sounds of Malay. There are 28 basic characters, including **consonants** and **vowels**. Jawi script is written from right to left, like Arabic. and words are separated by spaces.
 
 
-### Consonants :
+### Consonants
 Here are the original Arabic letters present in Jawi:
 
 | Latin   | Jawi     | IPA            |

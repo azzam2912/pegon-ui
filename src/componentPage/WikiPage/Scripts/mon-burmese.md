@@ -7,7 +7,7 @@
 
 The Mon-Burmese script developed from [the Pallava script](https://en.wikipedia.org/wiki/Pallava_script). Thus, the script is connected with the [Tamil](https://en.wikipedia.org/wiki/Tamil_script), [Grantha](https://en.wikipedia.org/wiki/Grantha_script), [Khmer](https://en.wikipedia.org/wiki/Khmer_script), [Cham](https://en.wikipedia.org/wiki/Cham_script), and [Kawi](https://en.wikipedia.org/wiki/Kawi_script) scripts.
 
-Mon-Burmese is an **abugida** that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units. What this means is that there are no letters representing consonants or vowels on their own--each letter represents a syllable unit. 
+Mon-Burmese is an **abugida** that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units. What this means is that there are no letters representing consonants or vowels on their own—each letter represents a syllable unit. 
 
 
 ## Writing System
