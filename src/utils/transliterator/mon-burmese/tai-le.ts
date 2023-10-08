@@ -150,8 +150,19 @@ const diagraphVowels: PlainRule[] = [
   ["a^u", TaiLe.Oo],
 ]
 const monographVowels: PlainRule[] = [
+  ["i", TaiLe.I],
+  ["ee", TaiLe.Ee],
+  ["e", TaiLe.E],
+  ["^e", TaiLe.Eˆ],
+  ["u", TaiLe.U],
+  ["o", TaiLe.O],
+  ["^o", TaiLe.Oo],
+  ["^u", TaiLe.Ue],
   ["a", ""],
-  ["aa", TaiLe.A],
+];
+
+const dependentMonographVowels: PlainRule[] = [
+  ["a", TaiLe.A],
   ["i", TaiLe.I],
   ["e", TaiLe.E],
   ["ee", TaiLe.Ee],
@@ -221,6 +232,7 @@ const FromLatinScheme: Rule[] = prepareRules(
     dualConsonants,
     monoConsonants,
     diagraphVowels,
+    dependentMonographVowels,
     monographVowels,
     tones,
     numbers
@@ -240,6 +252,7 @@ const ToLatinScheme: Rule[] = prepareRules(
     asInverse(monoConsonants),
 
     asInverse(diagraphVowels),
+    asInverse(dependentMonographVowels),
     asInverse(monographVowels),
     asInverse(tones),
     asInverse(numbers),
@@ -286,9 +299,10 @@ const IMEScheme: Rule[] = prepareRules(
     toLatinSyllables
     tripleConsonants,
     dualConsonants,
-    monoConsonants),
+    monoConsonants,
     diagraphVowels,
-    monographVowels,
+    dependentMonographVowels,
+    monographVowels),
     tones,
     numbers
   ),
