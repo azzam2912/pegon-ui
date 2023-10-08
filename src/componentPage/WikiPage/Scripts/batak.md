@@ -257,8 +257,8 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 Here are some examples of Batak script and its Latin counterpart :
 
-* ᯀᯘᯪ ᯒᯬᯂᯔ᯲ ᯀᯞᯩ ᯑᯬᯝᯉ᯲ : asi roham ale dongan
-* ᯂᯮᯀᯞ᯲ᯞᯰ ᯔ ᯑᯩᯰᯂᯩ : huallang ma dengke
-* ᯀᯑ ᯎᯬᯀᯒ᯲ ᯉ ᯥᯔᯮᯞᯪ ᯘᯪᯀᯉ᯲ ᯉᯘ ᯎᯬᯀᯒ᯲ ᯤ : sada goar na umuli sian nasa goar i
-* ᯒᯬ ᯑᯬ ᯀᯂᯮ ᯘᯪᯀᯉ᯲ ᯞᯮᯀᯖ᯲ ᯉ ᯑᯀᯬ ᯤ : ro do ahu sian luat na dao i
-* ᯖᯅᯬ ᯑᯬ ᯑᯩᯰᯂᯩ ᯉ ᯉᯪᯥᯒ : tabo do dengke na niura
+* ᯀᯘᯪ ᯒᯬᯂᯔ᯲ ᯀᯞᯩ ᯑᯬᯝᯉ᯲ : asi roham ale dongan (have mercy oh friend)
+* ᯂᯮᯀᯞ᯲ᯞᯰ ᯔ ᯑᯩᯰᯂᯩ : huallang ma dengke (i eat a fish)
+* ᯀᯑ ᯎᯬᯀᯒ᯲ ᯉ ᯥᯔᯮᯞᯪ ᯘᯪᯀᯉ᯲ ᯉᯘ ᯎᯬᯀᯒ᯲ ᯤ : sada goar na umuli sian nasa goar i (one Name that is prettier than all names)
+* ᯒᯬ ᯑᯬ ᯀᯂᯮ ᯘᯪᯀᯉ᯲ ᯞᯮᯀᯖ᯲ ᯉ ᯑᯀᯬ ᯤ : ro do ahu sian luat na dao i (I came from a faraway land)
+* ᯖᯅᯬ ᯑᯬ ᯑᯩᯰᯂᯩ ᯉ ᯉᯪᯥᯒ : tabo do dengke na niura ([dengke na niura](https://en.wikipedia.org/wiki/Dengke_mas_na_niura) is delicious)
