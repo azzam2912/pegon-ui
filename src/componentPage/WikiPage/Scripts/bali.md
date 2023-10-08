@@ -13,18 +13,48 @@ Balinese script is an **abugida** that constructs syllables by affixing vowel si
 ## Writing System
 The Balinese writing system consists of ***Aksara Wianjana*** (independent consonants), ***Gantungan  and  Gempelan*** (medial consonants), ***Aksara Suara*** (independent vowels), ***Pangangge tengenan*** (final consonants), ***Pangangge aksara*** (semi vowels), and ***Pangangge Suara*** (independent vowels).
 
+
 ### Aksara Wianjana
 
-|  Warga (Place of articulation)  |         Pancawalimukha          |                               |                                 |                                 |                       | Ardhasuara ᬅᬭ᭄ᬥᬲ᭄ᬯᬭ (Semivowels) | Ūṣma ᬊᬱ᭄ᬫ (Fricatives) | Wisarga ᬯᬶᬲᬭ᭄ᬕ (Glottal) |
-|:-------------------------------:|:-------------------------------:|:-----------------------------:|:-------------------------------:|:-------------------------------:|:---------------------:|:--------------------------------:|:----------------------:|:-----------------------:|
-|                                 |             Unvoiced            |                               |              Voiced             |                                 | Anunāsika ᬅᬦᬸᬦᬲᬶᬓ Nasal |                                  |                        |                         |
-|                                 | Alpaprāṇa ᬅᬮ᭄ᬧᬧ᭄ᬭᬵᬡ Unaspirated | Mahāprāṇa ᬫᬵᬳᬵᬧ᭄ᬭᬵᬡ Aspirated | Alpaprāṇa ᬅᬮ᭄ᬧᬧ᭄ᬭᬵᬡ Unaspirated |  Mahāprāṇa ᬫᬵᬳᬵᬧ᭄ᬭᬵᬡ Aspirated  |                       |                                  |                        |                         |
-| Kaṇṭhya ᬓᬡ᭄ᬞ᭄ᬬ (Guttural/Velar) |          ᬓ [ka] ka Ka         |    ᬔ [kʰa] kha Ka mahaprana  |          ᬕ [ɡa] ga Ga         |       ᬖ [ɡʱa] gha Ga gora      |    ᬗ [ŋa] nga Nga   |                                  |                        |     ᬳ [ha] ha Ha     |
-|     Tālawya ᬢᬵᬮᬯ᭄ᬬ (Palatal)    |      ᬘ [tʃa] ca Ca murca      |     ᬙ [tʃʰa] cha Ca laca    |         ᬚ [dʒa] ja Ja        |      ᬛ [dʒʱa] jha Ja jera      |    ᬜ [ɲa] nya Nya   |          ᬬ [ja] ya Ya          |  ᬰ [ɕa] śa ça Sa saga |                         |
-| Mūrdhanya ᬫᬹᬭ᭄ᬠᬜ (Retroflex)     | ᬝ [ʈa] ṭa Ta latik             | ᬞ [ʈʰa] ṭha Ta latik m.     | ᬟ [ɖa] ḍa Da murda a.         | ᬠ [ɖʱa] ḍha Da murda m.       | ᬡ [ɳa] ṇa Na rambat  | ᬭ [ra] ra Ra                   | ᬱ [ʂa] ṣa Sa sapa     |                         |
-|      Dantya ᬤᬦ᭄ᬢ᭄ᬬ (Dental)     |          ᬢ [t̪a] ta Ta         |      ᬣ [t̪ʰa] tha Ta tawa     |      ᬤ [d̪a] da Da lindung     |       ᬥ [d̪ʱa] dha Da madu      | ᬦ [n̪a] na Na kojong |          ᬮ [l̪a] la La          |  ᬲ [sa] sa Sa danti |                         |
-| Oṣṭhya ᬑᬱ᭄ᬞ᭄ᬬ (Labial/Bilabial) | ᬧ [pa] pa Pa                  | ᬨ [pʰa] pha Pa kapal         | ᬩ [ba] ba Ba                  |   ᬪ [bʱa] bha Ba kembang | ᬫ [ma] ma Ma        | ᬯ [wa] wa Wa                   |                        |                         |
-
+| Latin | Javanese  | IPA       |
+| ----- | --------------- | --------- |
+| k     | ᬓ              | /k/       |
+| K    | ᬔ              | /kʰ/      |
+| g     | ᬕ              | /ɡ/       |
+| G     | ᬖ              | /ɡʰ/       |
+| ng     | ᬗ              | /ŋ/       |
+| ny    | ᬜ              | /ɲ/       |
+| c     | ᬘ              | /t͡ʃ/      |
+| C     | ᬙ              | /tʃʰ/      |
+| j     | ᬚ              | /d͡ʒ/      |
+| J    | ᬛ              | /d͡ʒʱ/     |
+| y     | ᬬ              | /j/       |
+| t     | ᬢ              | /t/       |
+| T    | ᬝ              | /tʰ/      |
+| ^t     | ᬣ              | /t̪ʰ/       |
+| ^T    | ᬞ              | /ʈʰ/      |
+| d     | ᬤ              | /d/       |
+| D    | ᬟ              | /dʱ/      |
+| ^d     | ᬥ              | /d̪ʱ/       |
+| ^D    | ᬠ              | /ɖʱ/      |
+| n     | ᬦ              | /n/       |
+| N     | ᬡ              | /ɳ/       |
+| r     | ᬭ              | /r/       |
+| s     | ᬲ              | /s/       |
+| S     | ᬱ              | /ʂ/       |
+| sh     | ᬰ              | /ɕa/       |
+| p     | ᬧ              | /p/       |
+| P    | ᬨ              | /pʰ/      |
+| b     | ᬩ              | /b/       |
+| B    | ᬪ              | /bʱ/      |
+| m     | ᬫ              | /m/       |
+| l     | ᬮ              | /l/       |
+| w     | ᬯ              | /w/       |
+| h     | ᬳ              | /h/       |
+| f     | ᬧ              | /f/       |
+| q     | ᬓ              | /k/       |
+| v     | ᬧ              | /p/       |
+| z     | ᬲ              | /s/       |
 ### Gantungan  and  Gempelan: 
 
 | Warga (Place of articulation) |          Pancawalimukha         |                               |                                 |                               |                       | Ardhasuara ᬅᬭ᭄ᬥᬲ᭄ᬯᬭ (Semivowels) | Ūṣma ᬊᬱ᭄ᬫ (Fricatives) | Wisarga ᬯᬶᬲᬭ᭄ᬕ (Glottal) |
