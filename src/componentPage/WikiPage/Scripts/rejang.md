@@ -21,7 +21,7 @@ The Rejang writing system consists of **consonants**, **final consonants**, **vo
 * Virama (ꤰ꥓) is basically a vowel killer to kill the inherent /a/ sound.
 
 
-### Consonants :
+### Consonants
 
 | Standard Latin | Reversible Latin    | Rejang | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -49,7 +49,7 @@ The Rejang writing system consists of **consonants**, **final consonants**, **vo
 | nja | `n_ja`      | ꥅ      | /ɲɟa/|
 | a | `a`      | ꥆ    | /a/|
 
-### Final Consonants :
+### Final Consonants
 
 | Standard Latin | Reversible Latin | Rejang | IPA |
 | ------- | ------- | ------- | --- |
@@ -58,7 +58,7 @@ The Rejang writing system consists of **consonants**, **final consonants**, **vo
 | -r        | `r`       | ꥆꥑ | /r/ |
 | -ʔ        | `'`       |ꥆꥒ| /ʔ/ |
 
-### Vowels :
+### Vowels
 
 | Standard Latin | Reversible Latin | Rejang | IPA |
 | ------- | ------- | ------- | --- |
@@ -77,6 +77,6 @@ The Rejang writing system consists of **consonants**, **final consonants**, **vo
 
 ## Examples
 
-Here are some examples of Rejang script and its Latin counterpart :
+Here are some examples of Rejang script and its Latin counterpart:
 
 * ꤷꥈꤸꥊ    = bumai (earth)
