@@ -53,12 +53,21 @@ export const useFetchMutation = (fetcher, options) => {
           position: "bottom-right",
           isClosable: true,
         });
+      } else if (error.response?.status === 413) {
+        // Handle 413 error: Request Entity Too Large
+        createToast({
+          title: "Error",
+          description: "Your document file is too large.",
+          status: "error",
+          position: "bottom-right",
+          isClosable: true,
+        });
       } else {
         createToast({
           title: "Error",
           description: error.message,
-          position: "bottom-right",
           status: "error",
+          position: "bottom-right",
           isClosable: true,
         });
       }
