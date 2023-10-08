@@ -198,8 +198,9 @@ const TransliteratePage = () => {
     setTransliterateHook(() => selectTransliterator(script, variant));
   }, [script, variant]);
 
-  useEffect(() => {
-    const result = transliterateHook(
+
+  const asyncTransliterate = async() =>{ 
+    let result = await transliterateHook(
       inputText,
       setInputText,
       isLatinInput,
@@ -207,6 +208,10 @@ const TransliteratePage = () => {
     );
     setOutputText(result.outputText);
     setStandardLatin(result.standardLatin);
+  }
+
+  useEffect(() => {
+    asyncTransliterate();
   }, [inputText]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
