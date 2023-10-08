@@ -214,7 +214,7 @@ const TransliteratePage = () => {
   };
   const getTimeout = (script, variant) => {
     if (script === "Jawi" && variant === "Malay") {
-      return 1000;
+      return 2000;
     } else {
       return 0;
     }
