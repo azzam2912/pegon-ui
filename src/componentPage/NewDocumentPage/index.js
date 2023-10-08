@@ -18,12 +18,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { TextInput } from "src/components/Input";
 import { useAddDocumentMutation } from "src/hooks/fetchers/mutations/useAddDocumentMutation";
+import { PdfViewer } from "src/componentPage/DocumentDetailsPage/Fragments/PdfViewer";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -51,7 +48,7 @@ const NewDocumentPage = () => {
   const [author, setAuthor] = React.useState("");
   const [documentType, setDocumentType] = React.useState("");
   const [language, setLanguage] = React.useState("");
-  const [yearWritten, setYearWritten] = React.useState(0);
+  const [yearWritten, setYearWritten] = React.useState("");
   const [locationWritten, setLocationWritten] = React.useState("");
   const [ink, setInk] = React.useState("");
   const [illumination, setIllumination] = React.useState("");
@@ -92,7 +89,7 @@ const NewDocumentPage = () => {
       title,
       author,
       collector,
-      documentType,
+      documentType: documentType.toLowerCase(),
       language,
       yearWritten,
       locationWritten,
@@ -146,13 +143,13 @@ const NewDocumentPage = () => {
           </Flex>
           <Flex height="100%" flex={1} direction="column">
             <VStack overflowY="auto" p={5} spacing={5} w="100%">
-              <Heading w="100%">New Document</Heading>
+              <Heading w="100%">Create New Document</Heading>
               <TextInput
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 label="Title"
-                placeholder="Title"
                 type="text"
+                maxLength={200}
                 isRequired
               />
               <HStack width="100%">
@@ -160,15 +157,15 @@ const NewDocumentPage = () => {
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
                   label="Author"
-                  placeholder="Author"
                   type="text"
+                  maxLength={100}
                 />
                 <TextInput
                   value={collector}
                   onChange={(e) => setCollector(e.target.value)}
                   label="Collector"
-                  placeholder="Collector"
                   type="text"
+                  maxLength={100}
                 />
               </HStack>
               <HStack width="100%">
@@ -176,8 +173,9 @@ const NewDocumentPage = () => {
                   value={documentType}
                   onChange={(e) => setDocumentType(e.target.value)}
                   label="Document Type"
-                  placeholder="ex: poem, letter, etc"
+                  placeholder="ex: poem"
                   type="text"
+                  maxLength={100}
                   isRequired
                 />
                 <FormControl isRequired>
@@ -239,6 +237,7 @@ const NewDocumentPage = () => {
                       value={yearWritten}
                       onChange={(e) => setYearWritten(e.target.value)}
                       type="number"
+                      maxLength={4}
                     />
                   </InputGroup>
                 </FormControl>
@@ -249,7 +248,8 @@ const NewDocumentPage = () => {
                       value={locationWritten}
                       onChange={(e) => setLocationWritten(e.target.value)}
                       type="text"
-                      placeholder="ex: Central Java, Lombok, etc"
+                      placeholder="ex: Central Java"
+                      maxLength={100}
                     />
                   </InputGroup>
                 </FormControl>
@@ -259,13 +259,15 @@ const NewDocumentPage = () => {
                   value={ink}
                   onChange={(e) => setInk(e.target.value)}
                   label="Ink"
-                  placeholder="ex: masi, etc"
+                  placeholder="ex: masi"
+                  maxLength={100}
                 />
                 <TextInput
                   value={illumination}
                   onChange={(e) => setIllumination(e.target.value)}
                   label="Illumination"
-                  placeholder="ex: Bingkai, etc"
+                  placeholder="ex: frame"
+                  maxLength={100}
                 />
               </HStack>
               <FormControl>
@@ -274,7 +276,7 @@ const NewDocumentPage = () => {
                   <Textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Insert description here"
+                    maxLength={10000}
                   />
                 </InputGroup>
               </FormControl>
@@ -338,7 +340,7 @@ const ImageInput = ({ onChange, value }) => {
           >
             <Image boxSize="48px" src="/file.svg" />
             <Text textAlign="center">
-              Drag and drop your Thumbnail file here {value && "or"}
+              Drag and drop your thumbnail file here {value && "or"}
             </Text>
             {!value && (
               <HStack width="100%">
@@ -376,21 +378,6 @@ const ImageInput = ({ onChange, value }) => {
         />
       </InputGroup>
     </FormControl>
-  );
-};
-
-const PdfViewer = ({ fileUrl }) => {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  return (
-    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
-      <div style={{ height: "100%", width: "100%" }}>
-        <Viewer
-          fileUrl={fileUrl}
-          plugins={[defaultLayoutPluginInstance]}
-          theme="dark"
-        />
-      </div>
-    </Worker>
   );
 };
 

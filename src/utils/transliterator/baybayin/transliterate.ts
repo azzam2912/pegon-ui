@@ -12,7 +12,8 @@ import { prepareRules,
          asWordEnding,
          asNotWordBeginning,
          asNotWordEnding,
-         asInverse
+         asInverse,
+         genericIMEInit
        } from "../core"
 
 const enum Baybayin {
@@ -138,10 +139,4 @@ const IMEScheme: Rule[] = prepareRules(chainRule(
     IndependentVowels    
 ))
 
-export function initIME(): InputMethodEditor {
-    return {
-        "rules": IMEScheme,
-        "inputEdit": (inputString: string): string => 
-            transliterate(inputString, IMEScheme)
-    }
-}
+export const initIME: (() => InputMethodEditor) = genericIMEInit(IMEScheme);

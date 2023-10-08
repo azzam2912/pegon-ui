@@ -64,6 +64,7 @@ const Sidebar = () => {
         />
         <Divider my={2} />
         <NavigationButton
+          label="Home"
           icon={<MdHome />}
           href="/app"
           isSidebarExpanded={isSidebarExpanded}
@@ -71,13 +72,15 @@ const Sidebar = () => {
           Home
         </NavigationButton>
         <NavigationButton
+          label="Explore Documents"
           icon={<MdLibraryBooks />}
           href="/app/documents"
           isSidebarExpanded={isSidebarExpanded}
         >
-          All Documents
+          Explore Documents
         </NavigationButton>
         <NavigationButton
+          label="My Library"
           icon={<SiBookstack />}
           href="/app/library"
           isSidebarExpanded={isSidebarExpanded}
@@ -86,6 +89,7 @@ const Sidebar = () => {
         </NavigationButton>
         <Divider my={3} />
         <NavigationButton
+          label="Transliterator"
           icon={<SvgTransliterate />}
           href="/app/transliterator"
           isSidebarExpanded={isSidebarExpanded}
@@ -93,6 +97,7 @@ const Sidebar = () => {
           Transliterator
         </NavigationButton>
         <NavigationButton
+          label="OCR"
           icon={<MdDocumentScanner />}
           href="/app/ocr"
           isSidebarExpanded={isSidebarExpanded}
@@ -101,13 +106,15 @@ const Sidebar = () => {
         </NavigationButton>
         <Divider my={3} />
         <NavigationButton
+          label="Tutorial"
           icon={<MdInfo />}
-          href="/app/about"
+          href="/app/tutorial"
           isSidebarExpanded={isSidebarExpanded}
         >
-          About
+          Tutorial
         </NavigationButton>
         <NavigationButton
+          label="Wiki"
           icon={<MdLightbulb />}
           href="/app/wiki"
           isSidebarExpanded={isSidebarExpanded}
@@ -154,7 +161,7 @@ const Sidebar = () => {
               href="/app/documents"
               isSidebarExpanded
             >
-              All Documents
+              Explore Documents
             </NavigationButton>
             <NavigationButton
               icon={<SiBookstack />}
@@ -181,10 +188,10 @@ const Sidebar = () => {
             <Divider my={3} />
             <NavigationButton
               icon={<MdInfo />}
-              href="/app/about"
+              href="/app/tutorial"
               isSidebarExpanded
             >
-              About
+              FAQ
             </NavigationButton>
             <NavigationButton
               icon={<MdLightbulb />}

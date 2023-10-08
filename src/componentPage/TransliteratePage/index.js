@@ -9,13 +9,16 @@ import {
   Card,
   Stack,
   Divider,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { ScriptTypeSelect } from "./Fragments/ScriptTypeSelect";
 import { VariantSelect } from "./Fragments/VariantSelect";
 import { TransliterateInput } from "./Fragments/TransliterateInput";
 import { TransliterationHeader } from "./Fragments/TransliterationHeader";
-import { FaInfo } from "react-icons/fa";
+import { MdLightbulb } from "react-icons/md";
+import { FaInfo, FaExclamationTriangle } from "react-icons/fa";
 import { CheatSheetDrawer } from "./Fragments/CheatSheetDrawer";
 import { scriptsData } from "src/utils/objects";
 
@@ -29,25 +32,44 @@ import {
 import useJawiMalayTransliterator from "src/hooks/useJawiMalayTransliterator";
 import {
   useChamTransliterator,
-  useKayahLiTransliterator,
   useBaybayinTransliterator,
   useBuhidTransliterator,
   useHanunooTransliterator,
   useTagbanwaTransliterator,
   useJawiChamTransliterator,
+  useTobaTransliterator,
+  useKaroTransliterator,
+  useMandailingTransliterator,
+  usePakpakTransliterator,
+  useSimalungunTransliterator,
+  useRejangTransliterator,
+  useBugisTransliterator,
+  useMakassarTransliterator,
+  useThaiTransliterator,
+  useLaoTransliterator,
+  useTaiVietTransliterator,
+  useKayahLiTransliterator,
+  useMonTransliterator,
+  useBurmeseTransliterator,
+  useKarenTransliterator,
+  useTaiLeTransliterator,
+  useCarakanTransliterator,
+  useSundaTransliterator,
+  useBaliTransliterator,
+  useSasakTransliterator,
 } from "src/hooks/genericTransliteratorHooks";
 
 const selectTransliterator = (script, variant) => {
   switch (script) {
     case "Pegon":
       switch (variant) {
-        case "Javanese":
+        case "Jawa":
           return usePegonJavaneseTransliterator;
-        case "Sundanese":
+        case "Sunda":
           return usePegonSundaneseTransliterator;
-        case "Madurese":
+        case "Madura":
           return usePegonMadureseTransliterator;
-        case "Indonesian":
+        case "Indonesia":
           return usePegonIndonesianTransliterator;
       }
       break;
@@ -61,8 +83,22 @@ const selectTransliterator = (script, variant) => {
       break;
     case "Cham":
       return useChamTransliterator;
-    case "Kayah Li":
-      return useKayahLiTransliterator;
+    case "Mon-Burmese":
+      switch (variant) {
+        case "Myanmar":
+          return useBurmeseTransliterator;
+        case "Mon":
+          return useMonTransliterator;
+        case "Kayah Li":
+          return useKayahLiTransliterator;
+        case "S'gaw Karen":
+          return useKarenTransliterator;
+        case "Tai Le":
+          return useTaiLeTransliterator;
+      }
+      break;
+    case "Rejang":
+      return useRejangTransliterator;
     case "Baybayin":
       switch (variant) {
         case "Baybayin":
@@ -75,12 +111,58 @@ const selectTransliterator = (script, variant) => {
           return useTagbanwaTransliterator;
       }
       break;
+    case "Batak":
+      switch (variant) {
+        case "Toba":
+          return useTobaTransliterator;
+        case "Karo":
+          return useKaroTransliterator;
+        case "Simalungun":
+          return useSimalungunTransliterator;
+        case "Angkola-Mandailing":
+          return useMandailingTransliterator;
+        case "Pakpak":
+          return usePakpakTransliterator;
+      }
+      break;
+    case "Lontara":
+      switch (variant) {
+        case "Makassar":
+          return useMakassarTransliterator;
+        case "Bugis":
+          return useBugisTransliterator;
+      }
+      break;
+    case "Sukhothai":
+      switch (variant) {
+        case "Thai":
+          return useThaiTransliterator;
+        case "Lao":
+          return useLaoTransliterator;
+        case "Tai Viet":
+          return useTaiVietTransliterator;
+      }
+      break;
+    case "Hanacaraka":
+      switch (variant) {
+        case "Jawa":
+          return useCarakanTransliterator;
+        case "Sunda":
+          return useSundaTransliterator;
+        case "Bali":
+          return useBaliTransliterator;
+        case "Sasak":
+          return useSasakTransliterator;
+      }
+      break;
   }
 };
 
 const TransliteratePage = () => {
+  const router = useRouter();
+
   const [script, setScript] = useState("Pegon");
-  const [variant, setVariant] = useState("Indonesian");
+  const [variant, setVariant] = useState("Indonesia");
   const [inputText, setInputText] = useState("");
   const [isLatinInput, setIsLatinInput] = useState(true);
   const [outputText, setOutputText] = useState("");
@@ -121,8 +203,8 @@ const TransliteratePage = () => {
     setTransliterateHook(() => selectTransliterator(script, variant));
   }, [script, variant]);
 
-  useEffect(() => {
-    const result = transliterateHook(
+  const asyncTransliterate = async () => {
+    let result = await transliterateHook(
       inputText,
       setInputText,
       isLatinInput,
@@ -130,9 +212,25 @@ const TransliteratePage = () => {
     );
     setOutputText(result.outputText);
     setStandardLatin(result.standardLatin);
+  };
+  const getTimeout = (script, variant) => {
+    if (script === "Jawi" && variant === "Malay") {
+      return 1000;
+    } else {
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(asyncTransliterate(), getTimeout(script, variant));
+    return () => clearTimeout(timer);
   }, [inputText]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleWikiButtonClick = () => {
+    router.push("/app/wiki?script=" + script + "&variant=" + variant);
+  };
 
   return (
     <>
@@ -157,7 +255,11 @@ const TransliteratePage = () => {
       <AppLayout>
         <VStack pt={3} align="start">
           <HStack px={5} w="100%">
-            <ScriptTypeSelect value={script} onChange={handleScriptChange} />
+            <ScriptTypeSelect
+              value={script}
+              options={Object.keys(scriptsData)}
+              onChange={handleScriptChange}
+            />
             <VariantSelect
               value={variant}
               options={scriptsData[script]["variants"]}
@@ -170,6 +272,13 @@ const TransliteratePage = () => {
               icon={<FaInfo />}
               ml={5}
               onClick={onOpen}
+            />
+            <IconButton
+              colorScheme="primary"
+              size="sm"
+              icon={<MdLightbulb />}
+              ml={5}
+              onClick={handleWikiButtonClick}
             />
           </HStack>
           <CheatSheetDrawer
@@ -197,12 +306,13 @@ const TransliteratePage = () => {
               }
               onSwitchClicked={handleSwap}
             />
-            <Card height={{ base: "300px", md: "200px" }} width="100%">
+            <Card height={{ base: "450px", md: "350px" }} width="100%">
               <Stack
                 height="100%"
                 direction={{ base: "column", md: "row" }}
                 divider={
                   <Divider
+                    borderWidth="2px"
                     orientation={{ base: "horizontal", md: "vertical" }}
                     height={{ base: "1px", md: "auto" }}
                   />
@@ -219,10 +329,11 @@ const TransliteratePage = () => {
                   onChange={handleInputTextChange}
                   script={script}
                   variant={variant}
+                  isLatinInput={isLatinInput}
                   standardLatin={isLatinInput ? standardLatin : null}
                 />
                 <TransliterateInput
-                  placeholder="Transliteration"
+                  placeholder="Transliteration result"
                   isRightToLeft={
                     isLatinInput ? scriptsData[script]["rightToLeft"] : false
                   }
@@ -231,10 +342,23 @@ const TransliteratePage = () => {
                   isReadOnly
                   script={script}
                   variant={variant}
+                  isLatinInput={isLatinInput}
                   standardLatin={isLatinInput ? null : standardLatin}
                 />
               </Stack>
             </Card>
+            <Text>​</Text>
+            {script === "Jawi" && variant === "Malay" ? (
+              <HStack>
+                <FaExclamationTriangle size={13} />
+                <Text color="gray.400" fontSize="xs">
+                  This feature uses experimental AI technology and may produce
+                  inaccurate results.
+                </Text>
+              </HStack>
+            ) : (
+              ""
+            )}
           </VStack>
         </VStack>
       </AppLayout>
