@@ -1,8 +1,8 @@
  // api.js
 let apiEndpoint;
 
-if (process.env.NEXT_PUBLIC_ML_API_HOST) {
-  apiEndpoint = process.env.NEXT_PUBLIC_ML_API_HOST ;
+if (process.env.LOCAL_JAWI_API_HOST) {
+  apiEndpoint = process.env.LOCAL_JAWI_API_HOST ;
 } else {
   apiEndpoint = '' 
 }
