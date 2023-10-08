@@ -25,6 +25,7 @@ import jawi from "src/componentPage/WikiPage/Scripts/jawi.md";
 import kayahli from "src/componentPage/WikiPage/Scripts/kayah li.md";
 import lao from "src/componentPage/WikiPage/Scripts/lao.md";
 import lontara from "src/componentPage/WikiPage/Scripts/lontara.md";
+import rejang from "src/componentPage/WikiPage/Scripts/rejang.md";
 import makasar from "src/componentPage/WikiPage/Scripts/makasar.md";
 import monburmese from "src/componentPage/WikiPage/Scripts/mon-burmese.md";
 import pegon from "src/componentPage/WikiPage/Scripts/pegon.md";
