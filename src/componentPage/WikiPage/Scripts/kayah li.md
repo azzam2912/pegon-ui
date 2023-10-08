@@ -79,4 +79,5 @@ Here is an example of Kayah-Li script and its Latin counterpart ([Source](https:
 ꤊꤢ꤬ꤛꤢ꤭ ꤘꤣ ꤢ꤬ ꤞꤢꤧꤐꤟꤢꤦ ꤗꤟꤢꤜꤢ꤬ꤊꤥ꤭ ꤒꤟꤢꤧ꤬ꤡꤢꤪꤒꤟꤢꤧ꤬ꤒꤟꤢꤩ꤬ ꤒꤢ꤬ꤟꤢꤩ꤬ꤔꤌꤣ꤬, ꤢ꤬ ꤔꤟꤤꤙꤢꤧ꤬ ꤒꤟꤢꤧ꤬ꤏꤢꤪ꤭ꤚꤤ꤬, ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤟꤢꤩꤚꤢꤪ ꤢ꤬ ꤊꤟꤢꤦ ꤔꤟꤤꤙꤢꤧ꤬ꤘꤢꤦ꤬ ꤜꤟꤢꤪ꤭꤮ ꤒꤟꤢꤧ꤬ꤡꤢꤪꤒꤟꤢꤧ꤬ꤒꤟꤢꤩ꤬ ꤘꤣ ꤢ꤬ ꤞꤢꤧꤐꤟꤢꤦ ꤔꤌꤣ꤬ꤒꤢ꤬ꤟꤢꤩ꤬ ꤕꤢ꤭꤯
 
 kàyā dơ à tʰezư̤ ma̤làkô̄ tè̤cotè̤tề̤ tàề̤ngờ, à ni̤bè tè̤sʰōrì, mề̤tê̄ê̤ro à kư̤ ni̤bèdừ lō̤꤮ tè̤cotè̤tề̤ dơ à tʰezư̤ ngờtàề̤ pā꤯
+
 (Blessed are they which do hunger and thirst after righteousness: for they shall be filled.)
