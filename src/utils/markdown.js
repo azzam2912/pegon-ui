@@ -26,6 +26,9 @@ export const customDefaults = {
   strong: ({ children }) => {
     return <Text as="b">{children}</Text>;
   },
+  code: ({ children }) => {
+    return <Text as="kbd">{children}</Text>;
+  },
 
   h1: headingDefault(1),
   h2: headingDefault(2),
