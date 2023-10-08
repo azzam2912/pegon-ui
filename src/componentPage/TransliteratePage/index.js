@@ -213,9 +213,17 @@ const TransliteratePage = () => {
     setOutputText(result.outputText);
     setStandardLatin(result.standardLatin);
   };
+  const getTimeout = (script, variant) => {
+    if (script === "Jawi" && variant === "Malay") {
+      return 1000;
+    } else {
+      return 0;
+    }
+  };
 
   useEffect(() => {
-    asyncTransliterate();
+    const timer = setTimeout(asyncTransliterate(), getTimeout(script, variant));
+    return () => clearTimeout(timer);
   }, [inputText]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
