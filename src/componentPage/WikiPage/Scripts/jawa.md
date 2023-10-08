@@ -14,7 +14,7 @@ Javanese script is an **abugida** that constructs syllables by affixing vowel si
 ## Writing System
 The Javanese writing system consists of ***Aksara Wyanjana*** (independent consonants), ***Aksara Rekan*** (foreign sound consonants), ***Pasangan*** (medial consonants), ***Sandhangan Panyigeging Wanda*** (final consonants), ***Sandhangan Swara*** (dependent vowels), and ***Aksara Swara*** (independent vowels).
 
-### Aksara Wyanjana :
+### Aksara Wyanjana
 
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
@@ -45,7 +45,7 @@ The Javanese writing system consists of ***Aksara Wyanjana*** (independent conso
 | W     | ꦮ              | /w/       |
 | S     | ꦯ              | /s/       |
 
-### Aksara Rekan :
+### Aksara Rekan
 
 | Latin |Javanese | Arabic Equivalent | IPA |
 | ------- |------- | --- |--- |
@@ -59,7 +59,7 @@ The Javanese writing system consists of ***Aksara Wyanjana*** (independent conso
 | gh        |ꦒ꦳      | غ | /ɣ/ |
 | '        |ꦔ꦳      | ع | /ʕ/ |
 
-### Pasangan :
+### Pasangan
 
 |           |          | ha/a |  na  |   ca  |  ra  |  ka  |  da  |  ta  |  sa  |  wa  |  la  |  pa  |  dha |  ja  |  ya  |  nya |  ma  |  ga  |  ba  |  tha |  nga |
 |-----------|----------|:----:|:----:|:-----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
@@ -72,7 +72,7 @@ The Javanese writing system consists of ***Aksara Wyanjana*** (independent conso
 
 The inherent vowels of the consonants can be suppressed by using Virama (also known as the vowel killer). In the Javanese script however, the virama is not normally used in the mid of a word or a sentence. Another form called "pasangan" is used for closed syllables instead. Thus, every basic letter has its "pasangan" to nullify the inherent vowel it carried. 
 
-### Sandhangan Panyigeging Wanda :
+### Sandhangan Panyigeging Wanda
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
 | -m     | ꦀ              | /-m/       |
@@ -81,9 +81,9 @@ The inherent vowels of the consonants can be suppressed by using Virama (also kn
 | -h     | ꦃ              | /-h/       |
 | - (virama)     | ꧀              | /ɛ/       |
 
-### Sandhangan Swara :
+### Sandhangan Swara
 There are two types of Swara, short and long.
-Short :
+#### Short
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
 | A     | -              | /a/       |
@@ -93,7 +93,7 @@ Short :
 | O     |  ꦺꦴ            | /o/       |
 | E     |  ꦼ            | /ə/       |
 
-Long : 
+#### Long
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
 | ā     |  ꦴ              | /a:/       |
@@ -102,11 +102,11 @@ Long :
 | ai     |  ꦻ              | /ai/       |
 | au     |  ꦻꦴ            | /aw/       |
 
-### Aksara Swara :
+### Aksara Swara
 
 There are also short and long vowels for aksara swara.
 
-Short : 
+#### Short
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
 | A     | ꦄ              | /a/       |
@@ -117,7 +117,7 @@ Short :
 | É     | ꦌ              | /e/       |
 | O     | ꦎ              | /o/       |
 
-Long :
+#### Long
 | Latin | Javanese  | IPA       |
 | ----- | --------------- | --------- |
 | Ā     | ꦄꦴ              | /a:/       |
@@ -130,10 +130,10 @@ Long :
 
 ## Examples
 
-Here is an example of Javanese script and its Latin counterpart :
+Here is an example of Javanese script and its Latin counterpart
 
 ꦏꦸꦭꦱꦒꦺꦠ꧀ꦧꦱꦗꦮ
 
-Kula sagÉt basa jawa
+Kula sagét basa jawa
 
-(i speak javanese)
+(I speak javanese)

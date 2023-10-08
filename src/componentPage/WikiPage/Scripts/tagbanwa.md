@@ -19,7 +19,7 @@ The Tagbanwa writing system consists of **independent consonants**, **independen
 * Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ᝡᝣ.
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᝪᝲ.
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin    | Tagbanwa | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -39,7 +39,7 @@ The Tagbanwa writing system consists of **independent consonants**, **independen
 
 
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Tagbanwa | IPA |
 | ------- | ------- | ------- | --- |
@@ -47,7 +47,7 @@ The Tagbanwa writing system consists of **independent consonants**, **independen
 | i       | `i`      | ᝡ      | /i/|
 | u        | `u`       | ᝢ      | /u/ |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Tagbanwa | IPA  |
 | ------- | ------- | ------- | ---- |

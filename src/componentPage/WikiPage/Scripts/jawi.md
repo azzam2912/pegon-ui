@@ -53,7 +53,7 @@ Beside the original Arabic letters, Jawi also adds some extra letters to accomod
 
 Some of the Latin characters have more than one corresponding Jawi character. However this wouldn't be a problem for our Jawi transliterator, since it employs AI to understand which Jawi character should be used in a word or context.
 
-### Vowels :
+### Vowels
 Writing vowels in Jawi can be complicated since it doesn't have [harakat](https://en.wikipedia.org/wiki/Arabic_diacritics#harakat) to denote vocal voices and the common rules have a lot of exceptions. However, this table below is a general overview on how to write vowels in Jawi.
 
 |                                                  IPA                                                   |           | First letter of a root morpheme  |          | Middle of a root morpheme, in an open syllable  |              | Middle of a root morpheme, in a closed syllable  |                     | Last letter of a root morpheme  |                              |

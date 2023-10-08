@@ -20,7 +20,7 @@ The Sundanese writing system consists of **consonants**, **independent vowels**,
 * Final consonants are consonants that are usually written at the end of a syllable.
 
 
-### Consonants :
+### Consonants
 
 | Standard Latin | Reversible Latin    | Sundanese | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -55,7 +55,7 @@ There are also some consonants that are used to write loan words
 | kha | `kha`      | ᮮ      | /xa/|
 | sya | `sya`      | ᮯ      | /ʃa/|
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Sundanese | IPA |
 | ------- | ------- | ------- | --- |
@@ -67,7 +67,7 @@ There are also some consonants that are used to write loan words
 | ae        | `ae`       |ᮆ      | /ɛ/ |
 | eu        | `eu`       |ᮉ      | /ɤ/ |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Sundanese | IPA |
 | ------- | ------- | ------- | --- |
@@ -78,14 +78,14 @@ There are also some consonants that are used to write loan words
 | ae        | `ae`       | ᮦ      | /ɛ/ |
 | eu        | `eu`       | ᮩ      | /ɤ/ |
 
-### Medials :
+### Medials
 | Standard Latin | Reversible Latin | Sundanese | IPA |
 | ------- | ------- | ------- | --- |
 | -y-       | `y`       | ᮡ      | /j/ |
 | -r-        | `r`       | ᮢ      | /r/ |
 | -l-       | `l`      | ᮣ      | /l/|
 
-### Final Consonants :
+### Final Consonants
 | Standard Latin | Reversible Latin | Sundanese | IPA |
 | ------- | ------- | ------- | --- |
 | -ng       | `ng`       | ᮀ      | /ŋ/ |
@@ -94,7 +94,7 @@ There are also some consonants that are used to write loan words
 
 ## Examples
 
-Here is an example of Sundanese script and its Latin counterpart ([Source](https://en.wikipedia.org/wiki/Sundanese_script#Samples)) :
+Here is an example of Sundanese script and its Latin counterpart ([Source](https://en.wikipedia.org/wiki/Sundanese_script#Samples)):
 
 ᮞᮊᮥᮙ᮪ᮔ ᮏᮜ᮪ᮙ ᮌᮥᮘᮢᮌ᮪ ᮊ ᮃᮜᮙ᮪ ᮓᮥᮑ ᮒᮦᮂ ᮞᮤᮕᮒ᮪ᮔ ᮙᮨᮁᮓᮤᮊ ᮏᮩᮀ ᮘᮧᮌ ᮙᮁᮒᮘᮒ᮪ ᮊᮒᮥᮒ᮪ ᮠᮊ᮪-ᮠᮊ᮪ ᮃᮔᮥ ᮞᮛᮥᮃ. ᮙᮛᮔᮦᮂᮔ ᮓᮤᮘᮦᮛᮦ ᮃᮊᮜ᮪ ᮏᮩᮀ ᮠᮒᮦ ᮔᮥᮛᮔᮤ, ᮎᮙ᮪ᮕᮥᮁ-ᮌᮅᮜ᮪ ᮏᮩᮀ ᮞᮞᮙᮔ ᮃᮚ ᮓᮤᮔ ᮞᮥᮙᮍᮨᮒ᮪ ᮓᮥᮓᮥᮜᮥᮛᮔ᮪
 (Sakumna jalma gubrag ka alam dunya taeh sipatna merdika jeung boga martabat katut hak-hak anu sarua. Maranaehna dibaerae akal jeung hatae nurani, campur-gaul jeung sasamana aya dina sumanget duduluran)

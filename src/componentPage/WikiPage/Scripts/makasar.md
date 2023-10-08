@@ -14,8 +14,8 @@ Makasar is an **abugida** that constructs syllables by affixing vowel signs to i
 The Makasar writing system consists of **consonants**, **vowels**, and **angka**
 
 * There is not virama (vowel killer) in Makasar. So usually when a syllable ended in a consonant, the consonant would not be written. An example is how baba, baba', ba'ba, ba'ba', bamba, and bambang would be writen as 𑻤𑻤 (baba)
-* In Makasar, if a syllable is to be reduplicated, there will be a reduplication mark called angka (𑻲)
-### Consonants :
+* In Makasar, if two syllables begin with the same consonant, there will be a reduplication mark called angka (𑻲), which replaces the second consonant. For example, "duda" without the ankga would be spelled "𑻧𑻴𑻧" without the _angka_, and with it it would be spelled "𑻧𑻴𑻲".
+### Consonants
 
 | Standard Latin | Reversible Latin    | Makasar | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -39,7 +39,7 @@ The Makasar writing system consists of **consonants**, **vowels**, and **angka**
 | a | `a`      | 𑻱      | /a/|
 
 
-### Vowels :
+### Vowels
 
 | Standard Latin | Reversible Latin | Makasar | IPA |
 | ------- | ------- | ------- | --- |
@@ -48,8 +48,10 @@ The Makasar writing system consists of **consonants**, **vowels**, and **angka**
 | e       | `e`      |" 𑻵"      | /ə/|
 | o        | `o`       |"𑻶"      | /o/ |
 
+* Duplicate syllables with the same consonant and vowel where it is not the /a/ sound can have the vowel written on the same consonant twice; for example "dudu" may be written "𑻧𑻴𑻴".
+
 ## Examples
 
-Here are some examples of Makasar script and its Latin counterpart :
+Here are some examples of Makasar script and its Latin counterpart
 
-* 𑻨𑻠𑻭𑻵𑻱𑻳𑻣𑻵𑻣𑻵𑻤𑻮𑻧𑻦𑻶𑻠  : nakanréi pépé' balla' datoka (fire devouring a temple)
+* 𑻨𑻠𑻭𑻵𑻱𑻳𑻣𑻵𑻣𑻵𑻤𑻮𑻧𑻦𑻶𑻠: nakanréi pépé' balla' datoka (fire devouring a temple)

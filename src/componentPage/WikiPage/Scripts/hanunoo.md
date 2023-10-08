@@ -20,7 +20,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᜪᜲ.
 * Virama "᜴" is used as a vowel killer in a syllable.
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin    | Hanunoo | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -42,7 +42,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Hanunoo | IPA |
 | ------- | ------- | ------- | --- |
@@ -50,7 +50,7 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 | i       | `i`      | ᜡ      | /i/|
 | u        | `u`       | ᜢ      | /u/ |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Hanunoo | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -62,5 +62,5 @@ The Hanunoo writing system consists of **independent consonants**, **independent
 
 Here are some examples of Hanunoo script and its Latin counterpart :
 
-* ᜣᜥ᜴  ᜫᜨᜳᜣ᜴  : kang manuk
-* ᜰᜲ ᜪᜲᜮᜯᜨ᜴ : si bilawan
+* ᜣᜥ᜴  ᜫᜨᜳᜣ᜴ : kang manuk
+* ᜰᜲ ᜪᜲᜮᜯᜨ᜴: si bilawan

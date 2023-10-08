@@ -19,7 +19,7 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 * The sign *asat* (်), also called the vowel killer, is used to remove vowels from syllables. For example when put on က it would kill the "a" sound making the sound just a regular k. For example, the (hypothetical) word ဗက (read "baka") when the virama is added becomes ဗက် ("bak").
 * Medials are consonants that stand in the middle of a syllable. Usually it is used when forming word that has 2 consonants prior to a vowel. For example, the r in tri is a medial.
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin    | Burmese | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -60,7 +60,7 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 
 "အ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Burmese | IPA |
 | ------- | ------- | ------- | --- |
@@ -72,7 +72,7 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 | o       | `o`       | ဩ      | /o/ |
 | o'       | `o'`      | ဪ      | /oʊ/|
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Reversible Latin | Standard Latin | Burmese | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -87,7 +87,7 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 | o'      | `o^`      | ော်   | /oʊ/ |
 | ui      | `ui`      | ို    | /ui/ |
 
-### Medial Consonants :
+### Medial Consonants
 
 | Standard Latin | Reversible Latin | Burmese | IPA |
 | ------- | ------- | ------- | --- |
@@ -96,7 +96,7 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 | r       | `r`       | ြ      | /r/ |
 | h       | `h`       | ှ      | /h/ |
 
-### Tones :
+### Tones
 
 | Standard Latin | Reversible Latin | Burmese | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -105,9 +105,9 @@ The Mon-Burmese writing system consists of **independent consonants**, **indepen
 
 ## Extension for Mon Script
 
-There are some additional characters that can be found only within the Mon script. These are :
+There are some additional characters that can be found only within the Mon script. These are
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin | Mon | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -116,19 +116,19 @@ There are some additional characters that can be found only within the Mon scrip
 | nga        | `n_ga`        | ၚ      | /ŋa/  |
 | jha        | `j_ha`        | ၛ      | /d͡ʒʱa/|
 
-### Independent Vowels :
+### Independent Vowels
 | Standard Latin | Reversible Latin | Mon  | IPA  |
 | ------- | ------- | ---- | ---- |
 | e     | `e`     | ဨ   | /e/  |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Mon  | IPA  |
 | ------- | ------- | ---- | ---- |
 | ī    | `ii`    | ဳ   | /iː/ |
 | o    | `o`     | ဴ   | /u/  |
 
-### Medial Consonants :
+### Medial Consonants
 
 | Standard Latin | Reversible Latin | Mon  | IPA  |
 | ------- | ------- | ---- | ---- |
@@ -138,21 +138,21 @@ There are some additional characters that can be found only within the Mon scrip
 
 ## Extension for Sgaw-Karen Script
 
-There are some additional characters that can be found only within the Sgaw-Karen script. These are :
+There are some additional characters that can be found only within the Sgaw-Karen script. These are
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
 | ------- | ------- | ---------- | ---- |
 | sha   |  `s_ha`   | ၡ         | /ʃa/ |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
 | ------- | ------- | ---------- | ---- |
 | ɨ    | `eu`    | ၢ         | /əu/ |
 
-### Medial Consonants :
+### Medial Consonants
 
 | Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
 | ------- | ------- | ---------- | ---- |
@@ -161,7 +161,7 @@ There are some additional characters that can be found only within the Sgaw-Kare
 | l     | `l`     | ျ         | /l/     |
 | w     | `w`     | ွ         | /w/     |
 
-### Tones :
+### Tones
 
 | Standard Latin | Reversible Latin | Sgaw-Karen | IPA  |
 | ------- | ------- | ---------- | ---- |
@@ -173,10 +173,10 @@ There are some additional characters that can be found only within the Sgaw-Kare
 
 ## Examples
 
-Here are some examples of Burmese script and its Latin counterpart :
+Here are some examples of Burmese script and its Latin counterpart:
 
-* မြန်မာအက္ခရာ : myanma akkhaya
-* မင်းကိုချစ်တယ် : mainnkohkyittaal
-* ငါကယောက်ျားပါ။ : ngar k youtyarr par
-* ခနုံထုပ် : khanon htok
-* ရွှေရင်အေ : shwe yin aye
+* မြန်မာအက္ခရာ: myanma akkhaya
+* မင်းကိုချစ်တယ်: mainnkohkyittaal
+* ငါကယောက်ျားပါ။: ngar k youtyarr par
+* ခနုံထုပ်: khanon htok
+* ရွှေရင်အေ: shwe yin aye

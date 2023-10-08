@@ -1,7 +1,7 @@
 
 # Batak Scripts
 
-The [Batak](https://en.wikipedia.org/wiki/Batak_script) script is a collection of scripts used in five Batak Languages of the Sumatera Island, Indonesia. There are five varieties of Batak Scripts : [Karo](https://en.wikipedia.org/wiki/Batak_Karo_language), [Pakpak](https://en.wikipedia.org/wiki/Pakpak_language), [Simalungun](https://en.wikipedia.org/wiki/Batak_Simalungun_language), [Toba](https://en.wikipedia.org/wiki/Toba_Batak_language), and [Mandailing](https://en.wikipedia.org/wiki/Mandailing_language).
+The [Batak](https://en.wikipedia.org/wiki/Batak_script) script is a collection of scripts used in five Batak Languages of the Sumatera Island, Indonesia. There are five varieties of Batak Scripts: [Karo](https://en.wikipedia.org/wiki/Batak_Karo_language), [Pakpak](https://en.wikipedia.org/wiki/Pakpak_language), [Simalungun](https://en.wikipedia.org/wiki/Batak_Simalungun_language), [Toba](https://en.wikipedia.org/wiki/Toba_Batak_language), and [Mandailing](https://en.wikipedia.org/wiki/Mandailing_language).
 
 
 ## Relation to Other Scripts
@@ -21,9 +21,9 @@ The Batak writing system consists of **independent consonants**, **independent v
 * The anusvara ( ᯰ) is used only when the consonant syllable nga (ᯝ) is met with the virama. This would result in the anusvara being written instead of ᯝ ᯲.  For example, "*amang*" (father) is written as ᯀᯔᯰ instead of ᯀᯔᯝ᯲.
 * The final h (ᯱ) is used only in Karo, Simalungun, and Pakpak scripts.
 
-## Toba Batak :
+## Toba Batak
 
-### Independent Consonants :
+### Independent Consonants
 | Standard Latin | Reversible Latin    | Toba Batak | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | 'a  | `a` |   ᯀ      | /a/ |
@@ -47,7 +47,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 "ᯀ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Toba Batak | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -55,7 +55,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 | u                  | u                          | ᯥ                     | /u/   |
 
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Toba Batak | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -70,7 +70,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 ## Mandailing Script
 
 
-### Independent Consonants :
+### Independent Consonants
 | Standard Latin | Reversible Latin    | Mandailing | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | 'a  | `a` |   ᯀ      | /a/ |
@@ -95,7 +95,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 "ᯀ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Mandailing | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -103,7 +103,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 | u                  | u                          | ᯥ                     | /u/   |
 
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Mandailing | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -115,7 +115,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 ## Simalungun Script
 
 
-### Independent Consonants :
+### Independent Consonants
 | Standard Latin | Reversible Latin    | Simalungun | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | 'a  | `a` |   ᯁ      | /a/ |
@@ -141,7 +141,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 "ᯁ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Simalungun | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -149,7 +149,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 | u                  | u                          | ᯥ                     | /u/   |
 
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Simalungun | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -163,7 +163,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 
 
-### Independent Consonants :
+### Independent Consonants
 | Standard Latin | Reversible Latin    | Karo | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | 'a  | `a` |   ᯀ      | /a/ |
@@ -187,7 +187,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 "ᯀ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Karo | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -195,7 +195,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 | u                  | u                          | ᯥ                     | /u/   |
 
 
-### Dependent Vowels :
+### Dependent Vowels
 
 
 | Standard Latin | Reversible Latin | Karo | IPA |
@@ -211,7 +211,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 
 
-### Independent Consonants :
+### Independent Consonants
 | Standard Latin | Reversible Latin    | Pakpak | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
 | 'a  | `a` |   ᯀ      | /a/ |
@@ -235,7 +235,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 
 "ᯀ" serves as a placeholder for dependent vowels without independent forms. We can include their dependent counterparts in this table instead.
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Pakpak | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -243,7 +243,7 @@ The Batak writing system consists of **independent consonants**, **independent v
 | u                  | u                          | ᯥ                     | /u/   |
 
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Pakpak | IPA |
 | --------------- | ----------------- | ----------- | --- |
@@ -255,10 +255,10 @@ The Batak writing system consists of **independent consonants**, **independent v
  
 ## Examples
 
-Here are some examples of Batak script and its Latin counterpart :
+Here are some examples of Batak script and the corresponding Latin counterpart:
 
-* ᯀᯘᯪ ᯒᯬᯂᯔ᯲ ᯀᯞᯩ ᯑᯬᯝᯉ᯲ : asi roham ale dongan
-* ᯂᯮᯀᯞ᯲ᯞᯰ ᯔ ᯑᯩᯰᯂᯩ : huallang ma dengke
-* ᯀᯑ ᯎᯬᯀᯒ᯲ ᯉ ᯥᯔᯮᯞᯪ ᯘᯪᯀᯉ᯲ ᯉᯘ ᯎᯬᯀᯒ᯲ ᯤ : sada goar na umuli sian nasa goar i
-* ᯒᯬ ᯑᯬ ᯀᯂᯮ ᯘᯪᯀᯉ᯲ ᯞᯮᯀᯖ᯲ ᯉ ᯑᯀᯬ ᯤ : ro do ahu sian luat na dao i
-* ᯖᯅᯬ ᯑᯬ ᯑᯩᯰᯂᯩ ᯉ ᯉᯪᯥᯒ : tabo do dengke na niura
+* ᯀᯘᯪ ᯒᯬᯂᯔ᯲ ᯀᯞᯩ ᯑᯬᯝᯉ᯲: asi roham ale dongan
+* ᯂᯮᯀᯞ᯲ᯞᯰ ᯔ ᯑᯩᯰᯂᯩ: huallang ma dengke
+* ᯀᯑ ᯎᯬᯀᯒ᯲ ᯉ ᯥᯔᯮᯞᯪ ᯘᯪᯀᯉ᯲ ᯉᯘ ᯎᯬᯀᯒ᯲ ᯤ: sada goar na umuli sian nasa goar i
+* ᯒᯬ ᯑᯬ ᯀᯂᯮ ᯘᯪᯀᯉ᯲ ᯞᯮᯀᯖ᯲ ᯉ ᯑᯀᯬ ᯤ: ro do ahu sian luat na dao i
+* ᯖᯅᯬ ᯑᯬ ᯑᯩᯰᯂᯩ ᯉ ᯉᯪᯥᯒ: tabo do dengke na niura

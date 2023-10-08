@@ -22,7 +22,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ᜊᜒ.
 * Virama ( ᜕) is used as a vowel killer in a syllable.
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin    | Baybayin | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -44,7 +44,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 
 
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Baybayin | IPA |
 | ------- | ------- | ------- | --- |
@@ -52,7 +52,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 | i       | `i`      | ᜁ      | /i/|
 | u        | `u`       | ᜂ      | /u/ |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Baybayin | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -61,7 +61,7 @@ The Baybayin writing system consists of **independent consonants**, **independen
 
 ## Examples
 
-Here are some examples of Batak script and its Latin counterpart :
+Here are some examples of Batak script and its Latin counterpart
 
 * ᜋᜑᜎ᜔ ᜃᜒᜆ (mahal kita): I love you
 * ᜃᜓᜋᜃᜁᜈ᜔ ᜐᜒᜌ ᜅ᜔ ᜋᜅ᜔ᜄ ᜐ ᜃᜈ᜔ᜌᜅ᜔ ᜊᜑᜌ᜔ (kumakain siya ng mangga sa kanyang bahay): she eats a mango in his house

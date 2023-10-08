@@ -21,7 +21,7 @@ The Cham writing system consists of **independent consonants**, **medial consona
 * Independent vowels are vowels that can stand by itself. It is used when writing a syllable that consists of only one vowel and no consonant. For example, "*ika*" would be written as ꨁꨆ.
 * Dependent vowels are vowels that cannot stand on its own. Usually it is attached to a consonant in order to function. For example, bi would be written as ꨝꨪ.
 
-### Independent Consonants :
+### Independent Consonants
 
 | Standard Latin | Reversible Latin    | Cham | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -65,7 +65,7 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 | nâ | `n^a`     | ꨗ      | /nɨŋ/|
 | mâ | `m^a`      | ꨟ      | /mɨŋ/|
 
-### Medial Consonants :
+### Medial Consonants
 
 | Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
@@ -74,8 +74,8 @@ There are several consonants that if met with ɨ, be followed by a nasalisation:
 | l        | `l`       | ◌ꨵ      | /l/ |
 | w        | `w`       | ◌ꨶ      | /w/ |
 
-### Final Consonants :
- Consonant letters :
+### Final Consonants
+ Consonant letters
 | Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
 | k       | `k`       | ꩀ      | /k/ |
@@ -97,7 +97,7 @@ Consonant diacritics
 | m       | `m`      | ◌ꩌ      | /m/|
 | h        | `h`       | ◌ꩍ      | /h/ |
 
-### Independent Vowels :
+### Independent Vowels
 
 | Standard Latin | Reversible Latin | Cham | IPA |
 | ------- | ------- | ------- | --- |
@@ -108,7 +108,7 @@ Consonant diacritics
 | o        | `u`       | ꨅ      | /o/ |
 | ai        | `a_i`       | ꨄ      | /ai/ |
 
-### Dependent Vowels :
+### Dependent Vowels
 
 | Standard Latin | Reversible Latin | Cham | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -133,10 +133,10 @@ Consonant diacritics
 
 ## Examples
 
-Here are some examples of Cham script and its Latin counterpart :
+Here are some examples of Cham script and its Latin counterpart:
 
-* ꨕꨨꨵꩀ ꨀꨓꨯꩃ ꨐꨭ  : dahlak atong nyu (i beat him)
-* ꨔꩃ ꨚꨴꨯꨱꩃ : thang praong (a big house)
-* ꨂꨣꩃ ꨚꨴꨯꨱꩃ ꨧꩇ : urang praong sap (a very noisy person)
-* ꨨꨮꨭ ꨗꨯꨱ ꨨꨓꨯꨱ : hau nao hatao (where are you going)
-* ꨤꨪꨟ ꨝꨯꩍ ꨍꨲꩀ : limâ boh châk (five mountains)
+* ꨕꨨꨵꩀ ꨀꨓꨯꩃ ꨐꨭ: dahlak atong nyu (i beat him)
+* ꨔꩃ ꨚꨴꨯꨱꩃ: thang praong (a big house)
+* ꨂꨣꩃ ꨚꨴꨯꨱꩃ ꨧꩇ: urang praong sap (a very noisy person)
+* ꨨꨮꨭ ꨗꨯꨱ ꨨꨓꨯꨱ: hau nao hatao (where are you going)
+* ꨤꨪꨟ ꨝꨯꩍ ꨍꨲꩀ: limâ boh châk (five mountains)

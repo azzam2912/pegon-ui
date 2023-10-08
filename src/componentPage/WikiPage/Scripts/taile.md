@@ -17,7 +17,7 @@ The Tai-Le writing system consists of **consonants**, **final consonants**, **vo
 * Final Consonants are consonants that may end without being followed by another vowel. For example, ᥥᥛ would be read as /em/ instead of /ema/
 
 
-### Consonants :
+### Consonants
 
 | Standard Latin | Reversible Latin    | Tai-Le | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -41,7 +41,7 @@ The Tai-Le writing system consists of **consonants**, **final consonants**, **vo
 | tsha | `t_s_ha`      | ᥡ      | /t͡sʰa/|
 | na | `na`      | ᥢ      | /n/|
 
-### Final Consonants :
+### Final Consonants
 
 | Standard Latin | Reversible Latin    | Tai-Le | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -53,7 +53,7 @@ The Tai-Le writing system consists of **consonants**, **final consonants**, **vo
 | -k | `-k`      | ᥕ      | /-k/|
 
 
-### Vowels :
+### Vowels
 
 | Standard Latin | Reversible Latin | Tai-Le | IPA |
 | ------- | ------- | ------- | --- |
@@ -71,12 +71,12 @@ The Tai-Le writing system consists of **consonants**, **final consonants**, **vo
 
 Special vowels are basically vowels that are a mix of two vowels to create a new sound. It's also known as special syllables in this case. 
 
-* When all vowels except ᥤ[i], ᥦ[ɛ], and ᥬ[aɯ] is met with ᥭ[ai], the vowels will be followed by an -i instead of an -ai. Example : ᥩ[o] + ᥭ[ai] = ᥩᥭ[oi]
+* When all vowels except ᥤ[i], ᥦ[ɛ], and ᥬ[aɯ] is met with ᥭ[ai], the vowels will be followed by an -i instead of an -ai. Example: ᥩ[o] + ᥭ[ai] = ᥩᥭ[oi]
 * When ᥣ[a] meets ᥭ[ai], however, it becomes ᥣᥭ[a:i]
-* When all vowels except ᥧ[u], ᥨ[ɔ], and ᥬ[aɯ] is met with the consonant ᥝ[w], the vowels will be followed by an -u instead of a -w. Example : ᥥ[e] + ᥝ[w] = ᥥᥝ[au]
+* When all vowels except ᥧ[u], ᥨ[ɔ], and ᥬ[aɯ] is met with the consonant ᥝ[w], the vowels will be followed by an -u instead of a -w. Example: ᥥ[e] + ᥝ[w] = ᥥᥝ[au]
 * When ᥣ[a] meets ᥝ[w], however, it becomes ᥣᥝ[a:u]
 
-### Tones :
+### Tones
 
 | Standard Latin | Reversible Latin | Tai Le | IPA  |
 | ------- | ------- | ------- | ---- |
@@ -91,6 +91,6 @@ By default, unmarked syllables would follow tone 1.
 
 ## Examples
 
-Here are some examples of Tai-Le script and its Latin counterpart :
+Here are some examples of Tai-Le script and its Latin counterpart:
 
-* ᥖᥭᥰ ᥘᥫᥴ  : tai le (the tai le script)
+* ᥖᥭᥰ ᥘᥫᥴ: tai le (the tai le script)

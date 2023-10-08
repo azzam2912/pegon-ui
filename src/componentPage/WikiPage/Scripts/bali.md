@@ -13,7 +13,7 @@ Balinese script is an **abugida** that constructs syllables by affixing vowel si
 ## Writing System
 The Balinese writing system consists of ***Aksara Wianjana*** (independent consonants), ***Gantungan  and  Gempelan*** (medial consonants), ***Aksara Suara*** (independent vowels), ***Pangangge tengenan*** (final consonants), ***Pangangge aksara*** (semi vowels), and ***Pangangge Suara*** (independent vowels).
 
-### Aksara Wianjana :
+### Aksara Wianjana
 
 |  Warga (Place of articulation)  |         Pancawalimukha          |                               |                                 |                                 |                       | Ardhasuara ᬅᬭ᭄ᬥᬲ᭄ᬯᬭ (Semivowels) | Ūṣma ᬊᬱ᭄ᬫ (Fricatives) | Wisarga ᬯᬶᬲᬭ᭄ᬕ (Glottal) |
 |:-------------------------------:|:-------------------------------:|:-----------------------------:|:-------------------------------:|:-------------------------------:|:---------------------:|:--------------------------------:|:----------------------:|:-----------------------:|
@@ -25,7 +25,7 @@ The Balinese writing system consists of ***Aksara Wianjana*** (independent conso
 |      Dantya ᬤᬦ᭄ᬢ᭄ᬬ (Dental)     |          ᬢ [t̪a] ta Ta         |      ᬣ [t̪ʰa] tha Ta tawa     |      ᬤ [d̪a] da Da lindung     |       ᬥ [d̪ʱa] dha Da madu      | ᬦ [n̪a] na Na kojong |          ᬮ [l̪a] la La          |  ᬲ [sa] sa Sa danti |                         |
 | Oṣṭhya ᬑᬱ᭄ᬞ᭄ᬬ (Labial/Bilabial) | ᬧ [pa] pa Pa                  | ᬨ [pʰa] pha Pa kapal         | ᬩ [ba] ba Ba                  |   ᬪ [bʱa] bha Ba kembang | ᬫ [ma] ma Ma        | ᬯ [wa] wa Wa                   |                        |                         |
 
-### Gantungan  and  Gempelan : 
+### Gantungan  and  Gempelan: 
 
 | Warga (Place of articulation) |          Pancawalimukha         |                               |                                 |                               |                       | Ardhasuara ᬅᬭ᭄ᬥᬲ᭄ᬯᬭ (Semivowels) | Ūṣma ᬊᬱ᭄ᬫ (Fricatives) | Wisarga ᬯᬶᬲᬭ᭄ᬕ (Glottal) |
 |:-----------------------------:|:-------------------------------:|:-----------------------------:|:-------------------------------:|:-----------------------------:|:---------------------:|:--------------------------------:|:----------------------:|:-----------------------:|
@@ -37,9 +37,9 @@ The Balinese writing system consists of ***Aksara Wianjana*** (independent conso
 |     Dantya ᬤᬦ᭄ᬢ᭄ᬬ (Dental)    |             #◌᭄ᬢ Ta             |          #◌᭄ᬣ Ta tawa         |         #◌᭄ᬤ Da lindung         |          #◌᭄ᬥ Da madu         |     #◌᭄ᬦ Na kojong    |              #◌᭄ᬮ La             |      #◌᭄ᬲ Sa danti     |                         |
 | Oṣṭhya ᬑᬱ᭄ᬞ᭄ᬬ (Labial)        | #◌᭄ᬧ Pa                         | #◌᭄ᬨ Pa kapal                 | #◌᭄ᬩ Ba                         | #◌᭄ᬪ Ba kembang               | #◌᭄ᬫ Ma               | #◌᭄ᬯ Wa                          |                        |                         |
 
-### Aksara Suara :
+### Aksara Suara
 There are two types of Suara, short and long.
-Short :
+Short
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | A     | ᬅ              | /a/       |
@@ -50,7 +50,7 @@ Short :
 | É     | ᬏ              | /e/       |
 | O     | ᬑ              | /o/       |
 
-Long :
+Long
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | Ā     | ᬆ              | /a:/       |
@@ -61,7 +61,7 @@ Long :
 | Ai     | ᬐ            | /ai/       |
 | Au     | ᬒ            | /ɔ/       |
 
-### Pangangge tengenan :
+### Pangangge tengenan
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | -ng     | ᬂ              | /-ŋ/       |
@@ -69,7 +69,7 @@ Long :
 | -h     | ᬄ              | /-h/       |
 | - (virama)     | ᭄              | /ɛ/       |
 
-### Pangangge aksara :
+### Pangangge aksara
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | ra     | ◌᭄ᬭ              | /ra/       |
@@ -78,9 +78,9 @@ Long :
 | ia     | ◌᭄ᬬ              | /ja/       |
 
 
-### Pangangge Suara :
+### Pangangge Suara
 There are two types of Suara, short and long.
-Short :
+Short
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | ə     |  ᭂ              | /ə/       |
@@ -89,7 +89,7 @@ Short :
 | É     |  ᬾ              | /e/ or /ɛ/       |
 | O     | ◌ᭀ            | /o/ or /ɔ/       |
 
-Long : 
+Long: 
 | Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | ā     |  ᬵ              | /a:/       |
@@ -101,7 +101,7 @@ Long :
 
 ## Examples
 
-Here is an example of Balinese script and its Latin counterpart :
+Here is an example of Balinese script and its Latin counterpart:
 
 ᬱᬫᬶ​ᬫᬦᬸᬲᬦᬾ​ᬓᬸᬮᬯᬃᬕ
 

@@ -15,9 +15,9 @@ Lontara is an **abugida** that constructs syllables by affixing vowel signs to i
 ## Writing System
 The Lontara writing system consists of **consonants**, **vowels**
 
-* There is not virama (vowel killer) in Lontara. So usually when a syllable ended in a consonant, the consonant would not be written. An example is how sara (sadness), sara' (to rule), and sarang (nest) would all be written as ᨔᨑ (sara)
+* There is no virama (vowel killer) in Lontara. So usually when a syllable ended in a consonant, the consonant would not be written. An example is how sara (sadness), sara' (to rule), and sarang (nest) would all be written as ᨔᨑ (sara)
 * 
-### Consonants :
+### Consonants
 
 | Standard Latin | Reversible Latin    | Lontara | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -46,7 +46,7 @@ The Lontara writing system consists of **consonants**, **vowels**
 | ha | `ha`      | ᨖ      | /ha/|
 
 
-### Vowels :
+### Vowels
 
 | Standard Latin | Reversible Latin | Lontara | IPA |
 | ------- | ------- | ------- | --- |
@@ -60,6 +60,4 @@ The Lontara writing system consists of **consonants**, **vowels**
 
 ## Examples
 
-Here are some examples of Lontara script and its Latin counterpart :
-
-* ᨊᨀᨑᨙᨕᨗᨄᨙᨄᨙᨅᨒᨉᨈᨚᨀ  : nakanréi pépé' balla' datoka (fire devouring a temple)
+* ᨊᨀᨑᨙᨕᨗᨄᨙᨄᨙᨅᨒᨉᨈᨚᨀ: nakanréi pépé' balla' datoka (fire devouring a temple)
