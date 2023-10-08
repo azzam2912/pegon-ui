@@ -10,6 +10,8 @@ The Lao script being descended from the Fakkham script makes it very distantly c
 
 Lao is an **abugida** that constructs syllables by affixing vowel signs to its independent consonants, differing from alphabetic scripts like Latin and Greek that treat vowels as distinct units. What this means is that there are no letters representing consonants or vowels on their own--each letter represents a syllable unit. 
 
+**Note about the transliterator**: Because syllable boundaries in Lao is ambiguous, to use the transliterator, every syllable must be separated by a space.
+
 
 ## Writing System
 The Lao writing system consists of **consonants**, **vowels**, **Special Vowels**, and **Glottal Stop**
@@ -19,70 +21,106 @@ The Lao writing system consists of **consonants**, **vowels**, **Special Vowels*
 * There are some special vowels in Lao that are usually used alongside their old alternatives.
 * The glottal stop sign "ະ" is used to indicate a glottal stop.
 
-### Consonants :
+### Consonants
 
-| Letter |          Name          |                                      | Initial position |          |      |      | Final position |          |    |      |   Unicode  | Tone Class |
-|:------:|:----------------------:|:------------------------------------:|:----------------:|:--------:|:----:|:----:|:--------------:|:--------:|:--:|:----:|:----------:|:----------:|
-|        |                        |                                      |        IPA       | BGN/PCGN |  LC  | RTGS |       IPA      | BGN/PCGN | LC | RTGS |            |            |
-| ກ      | ໄກ່                     | kāi, chicken                         | /k/              | k        |      |      | /k/            | k        |    |      | KO         | Middle     |
-| ຂ      | ໄຂ່                     | kʰāi, egg                            | /kʰ/             | kh       |      |      | –              | –        |    |      | KHO SUNG   | High       |
-| ຄ      | ຄວາຍ                   | kʷʰáːj, water buffalo                | /kʰ/             | kh       |      |      | –              | –        |    |      | KHO TAM    | Low        |
-| ງ      | ງົວ or ງູ                | ŋúa, ox or ŋúː, snake                | /ŋ/              | ng       |      |      | /ŋ/            | ng       |    |      | NGO        | Low        |
-| ຈ      | ຈອກ or ຈົວ              | tɕɔ̏ːk, glass or tɕua Buddhist novice | /tɕ/             | ch       |      |      | –              | –        |    |      | CO         | Middle     |
-| ສ      | ເສືອ                    | sɯ̌a, tiger                           | /s/              | s        |      |      | –              | –        |    |      | SO SUNG    | High       |
-| ຊ      | ຊ້າງ                    | sâːŋ, elephant                       | /s/              | x        | s    |      | –              | –        |    |      | SO TAM     | Low        |
-| ຍ      | ຍຸງ                     | ɲúŋ, mosquito                        | /ɲ/              | gn       | ny   | y    | /j/            | j        |    |      | NYO        | Low        |
-| ດ      | ເດັກ                    | dék, child                           | /d/              | d        |      |      | /t/            | t        |    |      | DO         | Middle     |
-| ຕ      | ຕາ                     | tàː, eye                             | /t/              | t        |      |      | –              | –        |    |      | TO         | Middle     |
-| ຖ      | ຖົງ                     | tʰǒŋ, stocking, bag                  | /tʰ/             | th       |      |      | –              | –        |    |      | THO SUNG   | High       |
-| ທ      | ທຸງ                     | tʰúŋ, flag                           | /tʰ/             | th       |      |      | –              | –        |    |      | THO TAM    | Low        |
-| ນ      | ນົກ                     | nōk, bird                            | /n/              | n        |      |      | /n/            | ne       | n  |      | NO         | Low        |
-| ບ      | ແບ້                     | bɛ̑ː, goat                            | /b/              | b        |      |      | /p/            | p        |    |      | BO         | Middle     |
-| ປ      | ປາ                     | paː, fish                            | /p/              | p        |      |      | –              | –        |    |      | PO         | Middle     |
-| ຜ      | ເຜິ້ງ                    | pʰɤ̏ŋ, bee                            | /pʰ/             | ph       |      |      | –              | –        |    |      | PHO SUNG   | High       |
-| ຝ      | ຝົນ                     | fǒn, rain                            | /f/              | f        |      |      | –              | –        |    |      | FO TAM[a]  | High       |
-| ພ      | ພູ                      | pʰúː, mountain                       | /pʰ/             | ph       |      |      | –              | –        |    |      | PHO TAM    | Low        |
-| ຟ      | ໄຟ                     | fáj, fire                            | /f/              | f        |      |      | –              | –        |    |      | FO SUNG[a] | Low        |
-| ມ      | ແມວ                    | mɛ́ːw, cat                            | /m/              | m        |      |      | /m/            | m        |    |      | MO         | Low        |
-| ຢ      | ຢາ                     | jaː, medicine                        | /j/              | y        |      |      | –              | –        |    |      | YO         | Middle     |
-| ຣ      | ຣົຖ (ລົດ) or ຣະຄັງ (ລະຄັງ) | rōt (lōt), car or rā.kʰáŋ, bell      | /r/, /l/         | r        |      |      | /n/            | ne       | n  |      | LO LING[b] | Low        |
-| ລ      | ລີງ                     | líːŋ, monkey                         | /l/              | l        |      |      | –              | –        |    |      | LO LOOT[b] | Low        |
-| ວ      | ວີ                      | wíː, fan                             | /w/              | v        | v, w |      | w              | v        | w  |      | WO         | Low        |
-| ຫ      | ຫ່ານ                    | hāːn, goose                          | /h/              | h        |      |      | –              | –        |    |      | HO SUNG    | High       |
-| ອ      | ໂອ or ອື່ງ               | ʔòː, bowl or ɯ̄ːŋ frog                | /ʔ/              | –        |      |      | –              | –        |    |      | O          | Middle     |
-| ຮ      | ເຮືອນ or ເຮືອ            | hɯ́an house, or hɯ́a, boat             | /h/              | h        |      |      | –              | –        |    |      | HO TAM     | Low        |
+| Letter |          Name          |                                    | Reversible Latin |        IPA       |                | Tone Class |
+|:------:|:----------------------:|:----------------------------------:|:----------------:|:----------------:|:--------------:|:----------:|
+|        |                        |                                     |                  | Initial position | Final Position |            |
+| ກ      | ໄກ່                     | kāi, chicken                         | `k`             | /k/              | /k/            | Middle     |
+| ຂ      | ໄຂ່                     | kʰāi, egg                            | `k_h/`           | /kʰ/             | –              | High       |
+| ຄ      | ຄວາຍ                   | kʷʰáːj, water buffalo                | `k_h\`          | /kʰ/             | –              | Low        |
+| ງ      | ງົວ or ງູ                | ŋúa, ox or ŋúː, snake                | `n_g`           | /ŋ/              | /ŋ/            | Low        |
+| ຈ      | ຈອກ or ຈົວ              | tɕɔ̏ːk, glass or tɕua Buddhist novice | `c`             | /tɕ/             | –              | Middle     |
+| ສ      | ເສືອ                    | sɯ̌a, tiger                           | `s/`             | /s/               | –              | High       |
+| ຊ      | ຊ້າງ                    | sâːŋ, elephant                       | `s\`             | /s/              | –               | Low        |
+| ຍ      | ຍຸງ                     | ɲúŋ, mosquito                        | `n_y\`             | /ɲ/              | /j/            | Low        |
+| ດ      | ເດັກ                    | dék, child                           | `d`             | /d/              | /t/            | Middle     |
+| ຕ      | ຕາ                     | tàː, eye                             | `t`             | /t/              | –              | Middle     |
+| ຖ      | ຖົງ                     | tʰǒŋ, stocking, bag                  | `t_h/`           | /tʰ/             | –              | High       |
+| ທ      | ທຸງ                     | tʰúŋ, flag                           | `t_h\`           | /tʰ/             | –              | Low        |
+| ນ      | ນົກ                     | nōk, bird                            | `n\`             | /n/              | /n/            | Low        |
+| ບ      | ແບ້                     | bɛ̑ː, goat                            | `b`             | /b/              | /p/            | Middle     |
+| ປ      | ປາ                     | paː, fish                            | `p`             | /p/              | –             | Middle     |
+| ຜ      | ເຜິ້ງ                    | pʰɤ̏ŋ, bee                            | `p_h/`          | /pʰ/              | –             | High       |
+| ຝ      | ຝົນ                     | fǒn, rain                            | `f/`            | /f/              | –             | High       |
+| ພ      | ພູ                      | pʰúː, mountain                      | `p_h\`           | /pʰ/             | –              | Low        |
+| ຟ      | ໄຟ                     | fáj, fire                            | `f\`             | /f/             | –              | Low        |
+| ມ      | ແມວ                    | mɛ́ːw, cat                            | `m\`             | /m/             | /m/            | Low        |
+| ຢ      | ຢາ                     | jaː, medicine                        | `y`             | /j/             | –             | Middle     |
+| ຣ      | ຣົຖ (ລົດ) or ຣະຄັງ (ລະຄັງ) | rōt (lōt), car or rā.kʰáŋ, bell      | `r\`             | /r/, /l/        | /n/           | Low        |
+| ລ      | ລີງ                     | líːŋ, monkey                         | `l\`             | /l/             | –             | Low        |
+| ວ      | ວີ                      | wíː, fan                             | `w\`             | /w/             | w             | Low        |
+| ຫ      | ຫ່ານ                    | hāːn, goose                          | `h/`             | /h/              | –            | High       |
+| ອ      | ໂອ or ອື່ງ               | ʔòː, bowl or ɯ̄ːŋ frog                | `'`              | /ʔ/              | –             | Middle     |
+| ຮ      | ເຮືອນ or ເຮືອ            | hɯ́an house, or hɯ́a, boat             | `h\`              | /h/              | –             | Low        |
 
-### Vowels :
+Additionally, a ຫ (ho) before some low-class consonants can make it a high-class consonant:
+| Low Consonant | Reversible Latin |  With ຫ  |
+|:-------------:|:----------------:|:--------:|
+| ນ             | `n/`             | ໜ       | 
+| ມ             | `m/`             | ໝ       |
+| ງ             | `n_g/`          | ຫງ       | 
+| ຍ             | `n_y/`          | ຫຍ       | 
+| ຼ             | `l/`            | ຫຼ       | 
+| ວ             |  `w/`           | ຫວ       | 
 
-| Short vowels |        |           |          |    |      |         |   | Long vowels |        |      |          |    |      |         |
-|:------------:|:------:|:---------:|:--------:|:--:|:----:|:-------:|:-:|:-----------:|:------:|:----:|:--------:|:--:|:----:|:-------:|
-|    Letter    |        |    IPA    | BGN/PCGN | LC | RTGS | Unicode |   |    Letter   |        |  IPA | BGN/PCGN | LC | RTGS | Unicode |
-|     Final    | Medial |           |          |    |      |         |   |    Final    | Medial |      |          |    |      |         |
-| ◌ະ           | ◌ັ◌     | /aʔ/, /a/ | a        |    |      | a       |   | ◌າ          |        | /aː/ | a        | ā  | a    | aa      |
-| ◌ິ            |        | /i/       | i        |    |      | i       |   | ◌ີ           |        | /iː/ | i        | ī  | i    | ii      |
-| ◌ຶ            |        | /ɯ/       | u        | ư  | ue   | y       |   | ◌ື           |        | /ɯː/ | u        | ư̄  | ue   | yy      |
-| ◌ຸ            |        | /u/       | ou       | u  | u    | u       |   | ◌ູ           |        | /uː/ | ou       | ū  | u    | uu      |
-| ເ◌ະ          | ເ◌ັ◌    | /eʔ/, /e/ | é        | e  | e    |         |   | ເ◌          |        | /eː/ | é        | ē  | e    | e       |
-| ແ◌ະ          | ແ◌ັ◌    | /ɛʔ/, /ɛ/ | è        | æ  | ae   |         |   | ແ◌          |        | /ɛː/ | è        | ǣ  | ae   | ei      |
-| ໂ◌ະ          | ◌ົ◌     | /oʔ/, /o/ | ô        | o  | o    |         |   | ໂ◌          |        | /oː/ | ô        | ō  | o    | o       |
-| ເ◌າະ         | ◌ັອ◌    | /ɔʔ/, /ɔ/ | o        | ǫ  | o    |         |   | ◌ໍ           | ◌ອ◌    | /ɔː/ | o        | ǭ  | o    |         |
-| ເ◌ິ           |        | /ɤʔ/      | eu       | œ  | oe   |         |   | ເ◌ີ          |        | /ɤː/ | eu       | œ̄  | oe   |         |
-| ເ◌ັຍ          | ◌ັຽ◌    | /iaʔ/     | ia       |    |      |         |   | ເ◌ຍ         | ◌ຽ◌    | /ia/ | ia       | īa | ia   |         |
-| ເ◌ຶອ          |        | /ɯaʔ/     | ua       | ưa | uea  |         |   | ເ◌ືອ         |        | /ɯa/ | ua       | ư̄a | uea  |         |
-| ◌ົວະ          | ◌ັວ◌    | /uaʔ/     | oua      | ua | ua   |         |   | ◌ົວ          | ◌ວ◌    | /ua/ | oua      | ūa | ua   |         |
+### Vowels
 
-### Special Vowels :
+| Short vowels |        |           | Reversible Latin |   | Long vowels |        |      | Reversible Latin |
+|:------------:|:------:|:---------:|:----------------:|:-:|:-----------:|:------:|:----:|:----------------:|
+|    Letter    |        |    IPA    |                  |   |    Letter   |        |  IPA |                  |
+|     Final    | Medial |           |                  |   |    Final    | Medial |      |                  |
+| ◌ະ           | ◌ັ◌     | /aʔ/, /a/ | `a`              |   | ◌າ          |        | /aː/ | `aa`             |
+| ◌ິ            |        | /i/       | `i`              |   | ◌ີ           |        | /iː/ | `ii`             |
+| ◌ຶ            |        | /ɯ/       | `ue`             |   | ◌ື           |        | /ɯː/ | `uue`            |
+| ◌ຸ            |        | /u/       | `u`              |   | ◌ູ           |        | /uː/ | `uu`             |
+| ເ◌ະ          | ເ◌ັ◌     | /eʔ/, /e/ | `e`              |   | ເ◌          |        | /eː/ | `ee`             |
+| ແ◌ະ          | ແ◌ັ◌    | /ɛʔ/, /ɛ/ | `ae`             |   | ແ◌          |        | /ɛː/ | `aae`            |
+| ໂ◌ະ          | ◌ົ◌     | /oʔ/, /o/ | `^o`             |   | ໂ◌          |        | /oː/ | `^oo`            |
+| ເ◌າະ         | ◌ັອ◌    | /ɔʔ/, /ɔ/ | `o`              |   | ◌ໍ           | ◌ອ◌    | /ɔː/ | `oo`             |
+| ເ◌ິ           |        | /ɤʔ/      | `oe`             |   | ເ◌ີ          |        | /ɤː/ | `ooe`             |
+| ເ◌ັຍ          | ◌ັຽ◌    | /iaʔ/     | `ia`             |   | ເ◌ຍ         | ◌ຽ◌    | /ia/ | `iaa`             |
+| ເ◌ຶອ          |        | /ɯaʔ/     | `uea`            |   | ເ◌ືອ         |        | /ɯa/ | `ueaa`             |
+| ◌ົວະ          | ◌ັວ◌    | /uaʔ/    | `ua`             |   | ◌ົວ          | ◌ວ◌    | /ua/ | `uaa`             |
 
-|  Letter |  IPA | BGN/PCGN | LC | RTGS |  Unicode | Old Alternative |
-|:-------:|:----:|:--------:|:--:|:----:|:--------:|:---------------:|
-| ໄ◌, ໃ◌* | /aj/ | ai       |    |      | ai or ay | ◌ັຍ              |
-| ເ◌ົາ     | /aw/ | ao       |    |      |          |                 |
-| ◌ໍາ      | /am/ | am       |    |      |          | ◌ັມ              |
+### Special Vowels
+
+|  Letter |  IPA | Reversible Latin |
+|:-------:|:----:|:----------------:|
+| ໄ◌      | /aj/  | `ai`            |
+| ໃ◌      | /aj/  | `aii`           |
+| ເ◌ົາ     | /aw/  | `ao`            |
+| ◌ໍາ      | /am/ | `am`             |
+
+### Tones :
+
+There are four tone marks in Lao. Combined with the consonant class and vowels, they produce the six different tones available in the standard dialect of Lao.
+The four tone marks can be written right after the **initial consonant**, in the transliterator as follows:
+
+| Symbol |  Name  |              | Syllable composition                             | Initial consonant class  || |    
+|:------:|:------:|:------------:|:------------------------------------------------:|:-------:|:-------:|:-------:|
+|        |  Lao   |     RTGS     |                  Vowel and final                 |   Low   |   Mid   |   High  |
+|        | (ບໍ່​ມີ)   | (none)       | live long vowel or vowel plus sonorant           | high    | rising  | rising  |
+|        | (ບໍ່​ມີ)   | (none)       | dead short vowel at end or plus plosive          | mid     | high    | high    |
+|        | (ບໍ່​ມີ)   | (none)       | dead long vowel plus plosive                     | high falling | low falling | low falling |
+|  ่      | ໄມ້‌ເອກ   | mai ek       | any                                              | mid     | mid     | mid     |
+|  ้      | ໄມ້‌ໂທ   | mai tha      | any                                               | high falling    | high falling | low falling |
+|  ๊      | ໄມ້‌ຕຣີ   | mai tri      | any                                              | high    | high    | high    |
+|  ๋      | ໄມ້‌ຈັຕ‌ວາ | mai chattawa | any                                              | rising  | rising  | rising  |
+
+| Symbol |  Name  |              | Reversible Latin |
+|:------:|:------:|:------------:|:----------------:|
+|  ่      | ໄມ້‌ເອກ  | mai ek       | `1`              |
+|  ้      | ໄມ້‌ໂທ   | mai tho      | `2`              |
+|  ๊      | ໄມ້‌ຕຣີ   | mai tri      | `3`              |
+|  ๋      | ໄມ້‌ຈັຕ‌ວາ | mai chattawa | `4`              |
+
+For example, writing `m\1ai` in the transliterator will produce "ໄມ່".
 
 
 ## Examples
 
-Here are some examples of Thai script and its Latin counterpart :
+Here are some examples of Thai script and its Latin counterpart
 
-* ຈອກ  : chōa (Buddhist Novice)
-* ເດັກ : dék (a child)
+* ຈອກ: chōa (Buddhist Novice)
+* ເດັກ: dék (a child)
