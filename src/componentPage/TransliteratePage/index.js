@@ -203,8 +203,7 @@ const TransliteratePage = () => {
     setTransliterateHook(() => selectTransliterator(script, variant));
   }, [script, variant]);
 
-
-  const asyncTransliterate = async() =>{ 
+  const asyncTransliterate = async () => {
     let result = await transliterateHook(
       inputText,
       setInputText,
@@ -213,7 +212,7 @@ const TransliteratePage = () => {
     );
     setOutputText(result.outputText);
     setStandardLatin(result.standardLatin);
-  }
+  };
 
   useEffect(() => {
     asyncTransliterate();
@@ -222,98 +221,9 @@ const TransliteratePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleWikiButtonClick = () => {
-    // Use the router to navigate to the desired page
-    let paramScript, paramVariant;
-    switch (script) {
-      case "Pegon":
-        paramScript = "Pegon";
-        paramVariant = "";
-        break;
-      case "Jawi":
-        paramScript = "Jawi";
-        paramVariant = "";
-        break;
-      case "Cham":
-        paramScript = "Cham";
-        paramVariant = "";
-        break;
-      case "Mon-Burmese":
-        paramScript = "Mon-Burmese";
-        paramVariant = "";
-        switch (variant) {
-          case "Kayah Li":
-            paramVariant = "Kayah Li";
-            break;
-        }
-        break;
-      case "Baybayin":
-        paramScript = "Baybayin";
-        paramVariant = "";
-        switch (variant) {
-          case "Buhid":
-            paramVariant = "Buhid";
-            break;
-          case "Hanuno'o":
-            paramVariant = "Hanuno'o";
-            break;
-          case "Tagbanwa":
-            paramVariant = "Tagbanwa";
-            break;
-        }
-        break;
-      case "Batak":
-        paramScript = "Batak";
-        paramVariant = "";
-        break;
-      case "Lontara":
-        paramScript = "Lontara";
-        paramVariant = "";
-        switch (variant) {
-          case "Bugis":
-            paramVariant = "Bugis";
-            break;
-          case "Makassar":
-            paramVariant = "Makassar";
-            break;
-        }
-        break;
-      case "Rejang":
-        paramScript = "Rejang";
-        paramVariant = "";
-        break;
-      case "Sukhothai":
-        paramScript = "Sukhothai";
-        paramVariant = "";
-        switch (variant) {
-          case "Thai":
-            paramVariant = "Thai";
-            break;
-          case "Lao":
-            paramVariant = "Lao";
-            break;
-        }
-        break;
-      case "Hanacaraka":
-        paramScript = "Hanacaraka";
-        paramVariant = "";
-        switch (variant) {
-          case "Jawa":
-            paramVariant = "Jawa";
-            break;
-          case "Sunda":
-            paramVariant = "Sunda";
-            break;
-          case "Bali":
-            paramVariant = "Bali";
-            break;
-          case "Sasak":
-            paramVariant = "Sasak";
-            break;
-        }
-    }
-    router.push("/app/wiki?script=" + paramScript + "&variant=" + paramVariant);
+    router.push("/app/wiki?script=" + script + "&variant=" + variant);
   };
-  
+
   return (
     <>
       <Head>
@@ -430,14 +340,17 @@ const TransliteratePage = () => {
               </Stack>
             </Card>
             <Text>​</Text>
-            {(script === "Jawi" && variant === "Malay") ?   
+            {script === "Jawi" && variant === "Malay" ? (
               <HStack>
-                <FaExclamationTriangle size={13}/>
+                <FaExclamationTriangle size={13} />
                 <Text color="gray.400" fontSize="xs">
-                  This feature uses experimental AI technology and may produce inaccurate results.
+                  This feature uses experimental AI technology and may produce
+                  inaccurate results.
                 </Text>
-              </HStack> : "" 
-            }
+              </HStack>
+            ) : (
+              ""
+            )}
           </VStack>
         </VStack>
       </AppLayout>
