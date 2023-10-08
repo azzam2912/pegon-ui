@@ -14,7 +14,7 @@ Unlike Myanmar however, Kayah-Li is not an **abugida**. It is an alphabet. While
 The Kayah-Li writing system consists of **consonants**, **vowels**, and **tone marks**
 
 
-### Consonants :
+### Consonants
 
 | Standard Latin | Reversible Latin    | Kayah-Li | Phonetic Reading (IPA) |
 | ------- | ------- | ------- | --- |
@@ -44,7 +44,7 @@ The Kayah-Li writing system consists of **consonants**, **vowels**, and **tone m
 | ca | `c`      | ꤡ   | /tɕ/|
 
 
-### Vowels :
+### Vowels
 
 | Standard Latin | Reversible Latin | Kayah-Li | IPA |
 | ------- | ------- | ------- | --- |
@@ -59,7 +59,7 @@ The Kayah-Li writing system consists of **consonants**, **vowels**, and **tone m
 | ee        | `e_e`       | ꤢꤩ      | /e/ |
 
 
-### Tone Marks :
+### Tone Marks
 
 | Standard Latin | Reversible Latin | Kayah-Li |
 | ------- | ------- | ------- |
