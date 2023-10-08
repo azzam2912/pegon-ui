@@ -296,7 +296,7 @@ const IMEScheme: Rule[] = prepareRules(
     //tripleConsonantsA,
     //dualConsonantsA,
     //monoConsonantsA,
-    toLatinSyllables
+    toLatinSyllables,
     tripleConsonants,
     dualConsonants,
     monoConsonants,
