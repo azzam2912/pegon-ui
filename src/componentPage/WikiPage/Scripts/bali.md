@@ -16,7 +16,7 @@ The Balinese writing system consists of ***Aksara Wianjana*** (independent conso
 
 ### Aksara Wianjana
 
-| Latin | Javanese  | IPA       |
+| Latin | Balinese  | IPA       |
 | ----- | --------------- | --------- |
 | k     | ᬓ              | /k/       |
 | K    | ᬔ              | /kʰ/      |
