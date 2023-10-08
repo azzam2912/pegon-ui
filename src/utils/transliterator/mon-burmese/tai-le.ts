@@ -246,7 +246,7 @@ const ToLatinScheme: Rule[] = prepareRules(
     //asInverse(tripleConsonantsA),
     //asInverse(dualConsonantsA),
    // asInverse(monoConsonantsA),
-    asInverse(toLatinSyllables)
+    asInverse(toLatinSyllables),
     asInverse(tripleConsonants),
     asInverse(dualConsonants),
     asInverse(monoConsonants),
