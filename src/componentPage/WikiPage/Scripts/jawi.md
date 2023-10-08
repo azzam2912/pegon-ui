@@ -25,7 +25,7 @@ Here are the original Arabic letters present in Jawi:
 | sy       | ش       | /ʃ/            |
 | sh       | ص       | /sˤ/           |
 | dh       | ض       | /dˤ/           |
-| th       | ط       | /tˤ/           |
+| ts/th       | ط       | /tˤ/           |
 | z/zh       | ظ       | /ðˤ/           |
 | '       | ع       | /ʕ/            |
 | gh       | غ       | /ɣ/            |
