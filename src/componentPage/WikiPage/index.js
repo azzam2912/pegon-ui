@@ -2,17 +2,12 @@ import Head from "next/head";
 import AppLayout from "../Page/AppLayout";
 import React from "react";
 
-import { 
-  Box, 
-  Text,    
-  ListItem,
-  OrderedList,
-  UnorderedList, 
-} from "@chakra-ui/react";
+import { Box, Text, HStack } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { scriptsData } from "src/utils/objects";
+import { customDefaults } from "src/utils/markdown";
 import { ScriptTypeSelect } from "src/componentPage/TransliteratePage/Fragments/ScriptTypeSelect";
 import { VariantSelect } from "src/componentPage/TransliteratePage/Fragments/VariantSelect";
 import remarkGfm from "remark-gfm";
@@ -39,21 +34,22 @@ import taile from "src/componentPage/WikiPage/Scripts/taile.md"; // needs to be 
 import taiviet from "src/componentPage/WikiPage/Scripts/taiviet.md"; // needs to be added
 import thai from "src/componentPage/WikiPage/Scripts/thai.md";
 
-// import { readFile } from 'fs';
-
 const WikiPage = () => {
   const router = useRouter();
-  // const [searchParams, setSearchParams] = useSearchParams();
   const [mdContent, setMdContent] = useState("");
   const [script, setScript] = useState(
     router.query && router.query.script ? router.query.script : "Pegon",
   );
   const [variant, setVariant] = useState(
-    router.query && router.query.variant ? router.query.variant : "",
+    router.query && router.query.variant
+      ? router.query.variant
+      : scriptsData[script].variants.length > 0
+      ? scriptsData[script].variants[0]
+      : "",
   );
 
+  console.debug(router.query);
   const fileStrMD = (script, variant) => {
-    let temp;
     switch (script) {
       case "Pegon":
         return pegon;
@@ -62,14 +58,12 @@ const WikiPage = () => {
       case "Cham":
         return cham;
       case "Mon-Burmese":
-        temp = monburmese;
         switch (variant) {
           case "Kayah Li":
             return kayahli;
         }
-        break;
+        return monburmese;
       case "Baybayin":
-        temp = baybayin;
         switch (variant) {
           case "Buhid":
             return buhid;
@@ -78,24 +72,27 @@ const WikiPage = () => {
           case "Tagbanwa":
             return tagbanwa;
         }
-        break;
+        return baybayin;
       case "Batak":
         return batak;
       case "Lontara":
-        temp = lontara;
         switch (variant) {
           case "Makassar":
             return makasar;
+          case "Bugis":
+            return lontara;
         }
         break;
       case "Rejang":
-        return "Noto Sans Rejang";
+        return rejang;
       case "Sukhothai":
         switch (variant) {
           case "Thai":
             return thai;
           case "Lao":
             return lao;
+          case "Tai Viet":
+            return taiviet;
         }
         break;
       case "Hanacaraka":
@@ -107,15 +104,15 @@ const WikiPage = () => {
           case "Bali":
             return bali;
           case "Sasak":
-            return "Noto Sans Balinese";
+            return bali;
         }
     }
-    return temp;
-  }
+  };
 
   const handleScriptChange = (event) => {
     const newScript = event.target.innerText;
     setScript(newScript);
+    setVariant(scriptsData[newScript]["variants"][0]);
   };
 
   const handleVariantChange = (event) => {
@@ -126,7 +123,7 @@ const WikiPage = () => {
   useEffect(() => {
     const fileStr = fileStrMD(script, variant);
     setMdContent(fileStr);
-  }, [script, variant])
+  }, [script, variant]);
 
   useEffect(() => {
     // Get the query parameter from the router
@@ -141,7 +138,6 @@ const WikiPage = () => {
       setVariant(query.variant);
     }
   }, [router]);
-
   return (
     <>
       <Head>
@@ -162,43 +158,27 @@ const WikiPage = () => {
           ml="auto" // Move to the right (adjust as needed)
           width="98%" // Adjust the width as needed
         >
-          <ScriptTypeSelect
-            value={script}
-            options={Object.keys(scriptsData)}
-            onChange={handleScriptChange}
-          />
-          <VariantSelect
+          <HStack>
+            <ScriptTypeSelect
+              value={script}
+              options={Object.keys(scriptsData)}
+              onChange={handleScriptChange}
+            />
+            <VariantSelect
               value={variant}
               options={scriptsData[script]["variants"]}
               onChange={handleVariantChange}
-          />
+            />
+          </HStack>
           <Text fontSize="xl">
             {" "}
             {/* You can customize the font size */}
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              components={ChakraUIRenderer({
-                ul: ({ children }) => {
-                  return <UnorderedList as="ul">
-                    {children}
-                  </UnorderedList>
-                },
-                li: ({ children }) => {
-                  return <ListItem as="li">
-                    {children}
-                  </ListItem>
-                },
-                ol: ({ children }) => {
-                  return <OrderedList as="ol">
-                    {children}
-                  </OrderedList>
-                },
-              })
-            }
+              components={ChakraUIRenderer(customDefaults)}
               skipHtml
               children={mdContent}
-            >
-            </ReactMarkdown>
+            ></ReactMarkdown>
           </Text>
         </Box>
       </AppLayout>
