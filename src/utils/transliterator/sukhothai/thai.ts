@@ -82,6 +82,7 @@ const enum Thai {
   RoRueaL = "ร",
 
   LoLingL = "ล",
+  LoChulaL = "ฬ",
 
   WoWaenL = "ว",
 
@@ -206,6 +207,7 @@ const Consonants: PlainRule[] = [
   ["l/", Thai.HoHipH + Thai.LoLingL],
   ["l\\", Thai.LoLingL],
 
+  ["l_n\\", Thai.LoChulaL],
   ["w/", Thai.HoHipH + Thai.WoWaenL],
   ["w\\", Thai.WoWaenL],
 
@@ -244,7 +246,7 @@ const OpenSyllableVowelsTemplate: PlainRule[] = (
     // diphthongs
     ["iaa", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}`],
     ["ia", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}${Thai.NomNang}`],
-    ["ueaa", `${Thai._e}CT${Thai._uee}${Thai.OAng}`],
+    ["uuea", `${Thai._e}CT${Thai._uee}${Thai.OAng}`],
     ["uea", `${Thai._e}CT${Thai._uee}${Thai.OAng}${Thai.NomNang}`],
     ["uaa", `CT${Thai.MaiHanAkat}${Thai.WoWaenL}`],
     ["ua", `CT${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.NomNang}`],
@@ -263,7 +265,7 @@ const OpenSyllableVowelsTemplate: PlainRule[] = (
     ["ooy", `${Thai._o}CT${Thai.YoYakL}`],
     ["ooey", `${Thai._e}CT${Thai.YoYakL}`],
     ["uaay", `CT${Thai.MaiHanAkat}${Thai.WoWaenL}${Thai.YoYakL}`],
-    ["ueaai", `${Thai._e}CT${Thai._uee}${Thai.OAng}${Thai.YoYakL}`],
+    ["uueay", `${Thai._e}CT${Thai._uee}${Thai.OAng}${Thai.YoYakL}`],
     // phonetic diphthongs, short
     ["io", `CT${Thai._i}${Thai.WoWaenL}`],
     ["eo", `${Thai._e}CT${Thai.MaiHanAkat}${Thai.WoWaenL}`],
@@ -312,7 +314,7 @@ const ClosedSyllableVowelsTemplate: PlainRule[] = (
   [
     // diphthongs
     ["iaa", `${Thai._e}CT${Thai._ii}${Thai.YoYakL}X`],
-    ["ueaa", `${Thai._e}CT${Thai._uee}${Thai.OAng}X`],
+    ["uuea", `${Thai._e}CT${Thai._uee}${Thai.OAng}X`],
     ["uaa", `CT${Thai.WoWaenL}X`],
 
     // base vowels, long
@@ -559,7 +561,7 @@ const StandardLatinVowels: PlainRule[] = (
     // diphthongs
     ["iaa", "īa"],
     ["ia", "ia"],
-    ["ueaa", "ư̄a"],
+    ["uuea", "ư̄a"],
     ["uea", "ưa"],
     ["uaa", "ūa"],
     ["ua", "ua"],
@@ -579,7 +581,7 @@ const StandardLatinVowels: PlainRule[] = (
     ["ooy", "ōi"],
     ["ooey", "œ̄i"],
     ["uaay", "ūai"],
-    ["ueaai", "ư̄ai"],
+    ["uueay", "ư̄ai"],
     // phonetic diphthongs, short
     ["io", "io"],
     ["eo", "eo"],
@@ -658,6 +660,7 @@ const StandardLatinFinalConsonants: PlainRule[] = [
 
   ["r\\", "n"],
   ["l\\", "n"],
+  ["l_n\\", "n"],
 
   ["w\\", "w"],
 
@@ -860,6 +863,7 @@ const StandardLatinConsonants: Rule[] = [
 
   ["r\\", "r"],
   ["l\\", "l"],
+  ["l_n\\", "l"],
 
   ["w\\", "w"],
 
