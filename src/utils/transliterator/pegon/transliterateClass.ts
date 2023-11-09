@@ -101,9 +101,7 @@ const enum Pegon {
     Sukun2 = "\u06E1",
     Tatwil = "\u0640",
     // Tambahan consonant Arab
-    Hamza = "\u0621",
-    //Tambahan
-    Pepet = "\u08e4",
+    Hamza = "\u0621"
 }
 
 const punctuationRules: PlainRule[] = [
@@ -118,10 +116,6 @@ const sukunRules: PlainRule[] = [
     [" 1^.", Pegon.Sukun2]
 ]
 
-const pepetRules: PlainRule[] = [
-    [" 1^e", Pegon.Pepet],
-]
-
 const monographVowelRules: PlainRule[] = [
     [" 1a", Pegon.Alif],
     // asumsi semua e tanpa diakritik taling
@@ -132,7 +126,7 @@ const monographVowelRules: PlainRule[] = [
     //second options of rules 4, 5, 6
     ['1W', Pegon.Waw],
     ['1A', Pegon.Alif],
-    ['1Y', Pegon.Ya],
+    ['1Y', Pegon.Ya]
 ]
 
 const digraphVowelRules: PlainRule[] = [
@@ -266,8 +260,8 @@ const doubleMonographVowelRulesSunda: PlainRule[] = [
         Pegon.Waw +
         Pegon.Sukun],
 ]
-// TODO
-var doubleMonographVowelRules: PlainRule[] = [];
+
+var doubleMonographVowelRules: PlainRule[] = doubleMonographVowelRulesSunda;
 
 const initiateDoubleMonographVowelRules = (lang: string) => {
     if(lang === "Sunda"){
@@ -494,7 +488,7 @@ const specialPrepositionRules: PlainRule[] = [
 const prefixWithSpaceRules: PlainRule[] =
     prefixRules.map(([key, val]) => [key, val.concat(" ")])
 
-const specialRaWithMaddaAboveRules: PlainRule[] = [
+const specialRaWithPepetRules: PlainRule[] = [
     [" 16r^e", Pegon.Ra + Pegon.Fatha + Pegon.Ya]
 ]
 
@@ -798,7 +792,7 @@ const numbers : PlainRule[] = [
 const latinToPegonScheme: Rule[] =
     prepareRules(chainRule(
         specialPrepositionAsSingleWordsRule,
-        specialRaWithMaddaAboveRules,
+        specialRaWithPepetRules,
         closedSyllableWithSoundARules,
         prefixWithBeginningVowelAsWordBeginningRules,
         
@@ -821,13 +815,12 @@ const latinToPegonScheme: Rule[] =
         marbutahRules,
         punctuationRules,
         sukunRules,
-        pepetRules,
         numbers))
 
 const latinToPegonSchemeForMoreThanTwoSyllables: Rule[] =
     prepareRules(chainRule(
         specialPrepositionAsSingleWordsRule,
-        specialRaWithMaddaAboveRules,
+        specialRaWithPepetRules,
         closedSyllableWithSoundARules,
         prefixWithBeginningVowelAsWordBeginningRules,
         
@@ -852,7 +845,6 @@ const latinToPegonSchemeForMoreThanTwoSyllables: Rule[] =
         deadConsonantRules,
         marbutahRules,
         sukunRules,
-        pepetRules,
         punctuationRules,
         numbers))
 
@@ -969,8 +961,8 @@ const inverseMarbutahRules: PlainRule[] =
 const inverseOpenConsonantRules: PlainRule[] =
     asInverse(consonantRules)
 
-const inverseSpecialRaWithMaddaAboveRules: PlainRule[] =
-    asInverse(specialRaWithMaddaAboveRules)
+const inverseSpecialRaWithPepetRules: PlainRule[] =
+    asInverse(specialRaWithPepetRules)
 
 const inverseConsonantRules: PlainRule[] =
     chainRule(
@@ -1021,13 +1013,10 @@ const inverseAWithFatha: PlainRule[] =
 const inverseSukun: PlainRule[] =
     asInverse(sukunRules)
 
-const inversePepet: PlainRule[] =
-    asInverse(pepetRules)
-
 const initiatePegonToLatinScheme = (): Rule[] => {
     return prepareRules(chainRule<Rule>(
         inverseSpecialPrepositionAsSingleWordsRules,
-        inverseSpecialRaWithMaddaAboveRules,
+        inverseSpecialRaWithPepetRules,
         inversePrefixWithBeginningVowelsAsWordBeginningRules,
         inversePrefixWithSpaceAsWordBeginningRules,
         inverseDoubleMonographVowelAsBeginningSyllableRules,
@@ -1038,7 +1027,6 @@ const initiatePegonToLatinScheme = (): Rule[] => {
         inversePunctuationRules,
         inverseAWithFatha,
         inverseSukun,
-        inversePepet,
         asInverse(numbers)))
 }
 
