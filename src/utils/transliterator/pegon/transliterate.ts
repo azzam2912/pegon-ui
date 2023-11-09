@@ -137,11 +137,12 @@ const monographVowelRules: PlainRule[] = [
 
 const digraphVowelRules: PlainRule[] = [
     [" 2^e", Pegon.MaddaAbove],
-    [" 2`a", Pegon.YaWithHamzaAbove + Pegon.Alif]
+    [" 2`a", Pegon.YaWithHamzaAbove + Pegon.Alif],
+    [" 2`U", Pegon.WawHamzaAbove + Pegon.Damma]
 ]
 
 const monographVowelHarakatAtFirstAbjadRules: PlainRule[] = [
-    [" 3a", Pegon.Alif],
+    [" 3A", Pegon.Alif],
     [" 3e", Pegon.Ya + Pegon.Fatha + Pegon.Sukun],
     [" 3o", Pegon.Waw + Pegon.Fatha + Pegon.Sukun],
     [" 3i", Pegon.Ya + Pegon.Kasra + Pegon.Sukun],
@@ -159,6 +160,11 @@ const singleEndingVowelRules: PlainRule[] = [
 
 const singleVowelAsWordEndingRules: RegexRule[] =
     asWordEnding(singleEndingVowelRules);
+
+const rule1314: PlainRule[] = [
+    [" 5uW", Pegon.Damma + Pegon.Waw],
+    [" 5iY", Pegon.Kasra + Pegon.Ya],
+]
 
 const beginningDigraphVowelRules: PlainRule[] = [
     [" 5^e", Pegon.Alif + Pegon.MaddaAbove],
@@ -437,6 +443,20 @@ const deadMonographConsonantRules: PlainRule[] =
     monographConsonantRules
 
 const deadConsonantRules: PlainRule[] = consonantRules
+
+// TODO
+const ruleProductDoubleMonographConsonant = (
+    leftRules: PlainRule[],
+    rightRules: PlainRule[],
+  ): PlainRule[] =>
+    leftRules.flatMap<PlainRule>(([leftKey, leftVal]) =>
+      rightRules.map<PlainRule>(([rightKey, rightVal]) => [
+        leftKey.concat('a'.concat(rightKey)),
+        leftVal.concat(rightVal),
+      ]),
+    );
+const doubleMonographConsonantRules: PlainRule[] = 
+    ruleProductDoubleMonographConsonant(consonantRules, consonantRules)
 
 const singleVowelSyllableRules: PlainRule[] =
     chainRule(
@@ -797,6 +817,7 @@ const numbers : PlainRule[] = [
 
 const latinToPegonScheme: Rule[] =
     prepareRules(chainRule(
+        rule1314,
         specialPrepositionAsSingleWordsRule,
         specialRaWithMaddaAboveRules,
         closedSyllableWithSoundARules,
@@ -826,6 +847,7 @@ const latinToPegonScheme: Rule[] =
 
 const latinToPegonSchemeForMoreThanTwoSyllables: Rule[] =
     prepareRules(chainRule(
+        rule1314,
         specialPrepositionAsSingleWordsRule,
         specialRaWithMaddaAboveRules,
         closedSyllableWithSoundARules,
@@ -987,6 +1009,12 @@ const inverseVowelRules: Rule[] =
         inverseSingleVowelRules,
         inverseBeginningIForDeadConsonantRules)
 
+const inverseRule1314: PlainRule[] =
+    asInverse(rule1314)
+
+const inverseDoubleMonographConsonantRules: PlainRule[] =
+    asInverse(doubleMonographConsonantRules)
+
 const inversePunctuationRules: PlainRule[] =
     asInverse(punctuationRules)
 
@@ -1026,6 +1054,7 @@ const inversePepet: PlainRule[] =
 
 const initiatePegonToLatinScheme = (): Rule[] => {
     return prepareRules(chainRule<Rule>(
+        inverseRule1314,
         inverseSpecialPrepositionAsSingleWordsRules,
         inverseSpecialRaWithMaddaAboveRules,
         inversePrefixWithBeginningVowelsAsWordBeginningRules,
@@ -1039,6 +1068,7 @@ const initiatePegonToLatinScheme = (): Rule[] => {
         inverseAWithFatha,
         inverseSukun,
         inversePepet,
+        inverseDoubleMonographConsonantRules,
         asInverse(numbers)))
 }
 
