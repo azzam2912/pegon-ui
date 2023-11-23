@@ -185,8 +185,9 @@ const beginningSingleVowelRules: PlainRule[] =
         beginningMonographVowelRules)
 
 const beginningIForDeadConsonantRules: PlainRule[] = [
+    [" 00i", Pegon.AlifWithHamzaBelow + Pegon.Kasra],
+    [" 000i", Pegon.Kasra+Pegon.AlifWithHamzaBelow],
     [" 0i", Pegon.AlifWithHamzaBelow],
-    [" 0i", Pegon.AlifWithHamzaBelow + Pegon.Kasra]
 ]
 
 const beginningIForOpenConsonantRules: PlainRule[] = [
