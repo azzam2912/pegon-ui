@@ -30,7 +30,6 @@ const enum Pegon {
     // Tambahan untuk huruf Arab
     AlefWasla = "\u0671",
     WawHamzaAbove= "\u0624",
-    AlefMaksura = "\u0649",
 
     // Harakat
     Fatha = "\u064E",
