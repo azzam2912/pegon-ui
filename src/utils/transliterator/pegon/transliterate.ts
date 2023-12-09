@@ -130,9 +130,9 @@ const monographVowelRules: PlainRule[] = [
 	["i", Pegon.Ya],
 	["u", Pegon.Waw],
     //second options of rules 4, 5, 6
-    ['1W', Pegon.Waw],
-    ['1A', Pegon.Alif],
-    ['1Y', Pegon.Ya],
+    ['W', Pegon.Waw],
+    ['A', Pegon.Alif],
+    ['Y', Pegon.Ya],
 ]
 
 const digraphVowelRules: PlainRule[] = [
