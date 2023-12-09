@@ -26,7 +26,7 @@ export const transliterateFromView = (stringToTransliterate: string, isLatinToPe
         let middleSideStandardString = isLatinToPegon ?
                         transliterateLatinArabToStandardLatin(insideBracket) :
                         transliterateLatinArabToStandardLatin(middleSideString);
-        let rightSideString = isLatinToPegon ? stemLatinToPegon(rightSideBracket, lang) : transliteratePegonToLatin(rightSideBracket);
+        let rightSideString = isLatinToPegon ? stemLatinToPegon(rightSideBracket, lang) : transliteratePegonToLatin(rightSideBracket, lang);
         let rightSideStandardString = isLatinToPegon ?
                        transliterateReversibleLatinToStandardLatin(rightSideBracket) :
                        transliterateReversibleLatinToStandardLatin(rightSideString);
@@ -40,7 +40,7 @@ export const transliterateFromView = (stringToTransliterate: string, isLatinToPe
             transliterateResult.standardLatin = transliterateReversibleLatinToStandardLatin(stringToTransliterate);
             return transliterateResult;
         } else {
-            transliterateResult.translitrateResult = transliteratePegonToLatin(stringToTransliterate);
+            transliterateResult.translitrateResult = transliteratePegonToLatin(stringToTransliterate, lang);
             transliterateResult.standardLatin = transliterateReversibleLatinToStandardLatin(transliterateResult.translitrateResult);
             return transliterateResult;
         }
