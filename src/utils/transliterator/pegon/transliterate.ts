@@ -730,9 +730,9 @@ const transliterateJawaPrefixes =
 
 const transliterateJawaSuffixesVowel = (suffix: string, baseWord: string): string => {
     const jawaSuffixesRulesAlt: PlainRule[] = [
-        ["7na", Pegon.Nun + Pegon.Alif],
-        ["7ke", Pegon.Kaf + Pegon.Fatha + Pegon.Ya],
-        ["7n", Pegon.Nun],
+        ["na", Pegon.Nun + Pegon.Alif],
+        ["ke", Pegon.Kaf + Pegon.Fatha + Pegon.Ya],
+        ["n", Pegon.Nun],
     ]
 
     const jawaSuffixesVowelRules: Rule[] =
