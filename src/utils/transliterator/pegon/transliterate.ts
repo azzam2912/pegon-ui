@@ -164,6 +164,7 @@ const singleVowelAsWordEndingRules: RegexRule[] =
 const rule1314: PlainRule[] = [
     [" 5uW", Pegon.Damma + Pegon.Waw],
     [" 5iY", Pegon.Kasra + Pegon.Ya],
+    [" 5i^Y", Pegon.Kasra + Pegon.Maksura]
 ]
 
 const beginningDigraphVowelRules: PlainRule[] = [
